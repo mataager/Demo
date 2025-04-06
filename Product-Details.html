@@ -1,5 +1,14 @@
 <head>
     <meta charset="UTF-8">
+    <style data-styles="">
+        ion-icon {
+            visibility: hidden
+        }
+
+        .hydrated {
+            visibility: inherit
+        }
+    </style>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="store-title"></title>
@@ -140,10 +149,10 @@
             <div class="flex center" id="productDetailsSection">
                 <div class="flex center width-90">
                     <div class="flex">
-                        <div id="product-div" class="flex center animate-on-scroll-auto">
+                        <div id="product-div" class="flex center">
 
 
-                            <div class="content-photo-container">
+                            <div class="content-photo-container animate-on-scroll-auto">
                                 <button id="previous-button" class="previous-button none-op">
                                     <i class="bi bi-arrow-left-short arrow"></i>
                                 </button>
@@ -159,7 +168,6 @@
                                     <i class="bi bi-arrow-right-short arrow"></i>
                                 </button>
                             </div>
-                            <div class="image-dots-container"></div>
 
 
                             <script>
@@ -233,15 +241,15 @@
 
                             </script>
 
-                            <div class="details-info p-20">
-                                <h5 id="BrandName" class="mb-10 m-5 pl-0 ml-10 brandName"></h5>
+                            <div class="details-info p-20 animate-on-scroll-auto">
+                                <h5 id="BrandName" class="mb-10 m-5 pl-0 ml-10"></h5>
                                 <h2 id="productTitle" class="m-5 ml-auto mb-10 ml-10"></h2>
                                 <h5 id="hints" class="m-5 ml-auto mb-10 ml-10 hints"></h5>
                                 <p id="preprice" class="m-5 mb-10"></p>
                                 <p id="productPrice" class="m-5 mb-10"></p>
 
                                 <div class="size m-5 mb-10">
-                                    <label class="m-5 flex pb-7 hidden" for="product-Size">
+                                    <label class="m-5 flex pb-7" for="product-Size">
                                         Size:<p id="product-Size"> </p>
                                     </label>
                                     <div class="rolling-container rolling-animation" id="size-hint-text">
@@ -253,6 +261,11 @@
                                 </div>
 
                                 <div class="color-selector m-5 mb-10">
+                                    <label class="m-5 flex align-items pb-7" for="product-color">Color:<p
+                                            id="product-color">
+                                        <div id="hint" class="hint-text"></div>
+                                        </p>
+                                    </label>
                                     <div id="color-hint-text"
                                         style="display: none; font-size: 16px; color: #333; margin-top: 10px;">
                                     </div>
@@ -261,13 +274,12 @@
 
                                     <div class="color-options m-5 flex-wrap width-80 mb-10">
                                     </div>
-                                    <label class="m-5 flex align-items pb-7 mb-10" for="product-color">
-                                        <p id="product-color">
-                                        <div id="hint" class="hint-text"></div>
-                                        </p>
-                                    </label>
                                     <h5 id="stockContainer" class="mb-10 m-5 flex pl-0 hidden">
                                         <p id="stockMessage"></p>
+                                    </h5>
+                                    <h5 class="mb-10 m-5 flex pl-0 pointer gap-5">SKU:<p class="productSKU"
+                                            id="productID" onclick="copyToClipboard()">
+                                        </p>
                                     </h5>
                                 </div>
                                 <div class="m-5 mb-10 flex">
@@ -279,7 +291,7 @@
                                 <div class="m-5 mb-10 flex">
                                     <button id="addToCartButton" class="Add-to-Cart">Add
                                         To Cart
-                                        <i class=""></i>
+                                        <i class="bi bi-bag-plus"></i>
                                     </button>
                                     <div id="addtofavouritediv" class="flex">
 
@@ -287,17 +299,11 @@
                                 </div>
 
                                 <div class="m-5 mb-10">
-                                    <button id="showdetails" class="Add-to-Cart details-sec-btn">Show Details
+                                    <button id="showdetails" class="Add-to-Cart">Show Details
                                         <i class="bi bi-arrow-down-short"></i>
                                     </button>
                                 </div>
-                                <div id="details-section" class="">
-                                    <div class="flex align-items mb-5">
-                                        <h5 class="mb-10 m-5 flex pl-0 pointer gap-5">SKU:<p class="productSKU"
-                                                id="productID" onclick="copyToClipboard()">
-                                            </p>
-                                        </h5>
-                                    </div>
+                                <div id="details-section" class="m-5 mb-10 hidden">
                                     <div class="flex align-items mb-5">
                                         <h5 class="m-5 flex">Category :</h5>
                                         <p class="" id="category"></p>
@@ -426,7 +432,7 @@
 
         </section>
         <div id="modal-fav" class="modal">
-            <div id="modal-fav-content" class="modal-content">
+            <div id="modal-fav-content" class="fav-modal-content">
 
             </div>
         </div>
@@ -585,6 +591,7 @@
     });
 
 </script>
+
 <script>
     // Function to extract query parameters from URL
     function getParameterByName(name, url) {
@@ -660,15 +667,13 @@
         initializeProductSelections();
     });
 </script>
+
 <script>
 
     function fetchProducts(key) {
         fetch(`${url}/Stores/${uid}/Products/${key}.json`)
             .then((response) => {
                 if (!response.ok) {
-                    if (response.status === 404) {
-                        throw new Error("Product not found");
-                    }
                     throw new Error("Network response was not ok");
                 }
                 return response.json();
@@ -864,23 +869,6 @@
             })
             .catch((error) => {
                 console.error("Error fetching product details:", error);
-                if (error.message !== "Product not found") {
-                    // Optional: Show a different error message for other types of errors
-                    const productArea = document.getElementById("product-area");
-                    productArea.innerHTML = `<div id="product-not-found-container" class="product-not-found-container">
-      <div id="product-not-found-icon" class="product-not-found-icon">
-        <i class="bi bi-exclamation-octagon"></i>
-      </div>
-      <h3 id="product-not-found-title" class="product-not-found-title">
-        Product Not Available
-      </h3>
-      <p id="product-not-found-message" class="product-not-found-message">
-        We're sorry, this product has been removed or is currently out of stock.
-        Please check back later or browse similar products.
-      </p>
-    </div>
-                `;
-                }
             });
     }
 
@@ -989,9 +977,6 @@
     }
 
     fetchProducts(key);
-
-    //fetchProducts(key)
-
     function SizeRef() {
         const colorOptions = document.getElementById('product-color');
         if (colorOptions) {
@@ -1057,6 +1042,7 @@
                         }
                     }
                 });
+                adjustImageGridLayout();
 
 
 
@@ -1092,6 +1078,7 @@
             });
     }
 </script>
+
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -1161,6 +1148,7 @@
             });
 
             // Set the border of the clicked color to 5px solid #c1c1c1
+            selectedElement.style.border = '2px solid #c1c1c1';
             selectedElement.style.borderBottom = '5px solid #c1c1c1';
 
             // Show or hide the color hint text
@@ -1191,24 +1179,59 @@
     const showDetailsButton = document.getElementById('showdetails');
     const detailsSection = document.getElementById('details-section');
 
-    // Initialize as hidden
-    detailsSection.classList.remove('show');
-
+    // Add a click event listener to the button
     showDetailsButton.addEventListener('click', function () {
-        // Toggle the show class
-        detailsSection.classList.toggle('show');
-
-        // Update button text and icon
-        if (detailsSection.classList.contains('show')) {
+        // Toggle the 'hidden' class on the details section
+        if (detailsSection.classList.contains('hidden')) {
+            detailsSection.classList.remove('hidden');
             showDetailsButton.innerHTML = 'Hide Details <i class="bi bi-arrow-up-short"></i>';
         } else {
+            detailsSection.classList.add('hidden');
             showDetailsButton.innerHTML = 'Show Details <i class="bi bi-arrow-down-short"></i>';
         }
     });
 
 
+    function adjustImageGridLayout() {
+        const photoContainer = document.querySelector('.content-photo-container');
+        if (!photoContainer) return;
+
+        // Count actual img elements (excluding buttons)
+        const images = photoContainer.querySelectorAll('img:not(.ignore)');
+        const imageCount = images.length;
+
+        // Apply style if only one image exists
+        if (imageCount === 1) {
+            photoContainer.style.setProperty('grid-template-columns', 'repeat(1, 1fr)', 'important');
+
+            // Optionally hide navigation buttons if needed
+            const prevButton = photoContainer.querySelector('.previous-button');
+            const nextButton = photoContainer.querySelector('.next-button');
+            if (prevButton) prevButton.classList.add("hidden");
+            if (nextButton) nextButton.classList.add("hidden");
+        } else {
+            // Reset to default if multiple images
+            photoContainer.style.removeProperty('grid-template-columns');
+
+            // Show navigation buttons if they exist
+            const prevButton = photoContainer.querySelector('.previous-button');
+            const nextButton = photoContainer.querySelector('.next-button');
+            if (prevButton) prevButton.style.display = '';
+            if (nextButton) nextButton.style.display = '';
+        }
+    }
+
+    // Usage example - call this after loading/updating images
+
+
 
 </script>
+
+
+
+
+
+<script src="./assets/js/store-contact.js"></script>
 <script src="./assets/js/update-cart-amont.js"></script>
 <script src="./assets/js/route.js"></script>
 <script src="./assets/js/all.js"></script>
