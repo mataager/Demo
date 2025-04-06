@@ -283,21 +283,6 @@ function updatePaginationButtons() {
     currentPage * itemsPerPage >= totalProducts;
 }
 
-// Function to set up hover effect
-function setupHoverEffect(productCard) {
-  const swipe1 = productCard.querySelector("#swipe1");
-  const swipe2 = productCard.querySelector("#swipe2");
-
-  productCard.addEventListener("mouseenter", () => {
-    swipe1.style.display = "none";
-    swipe2.style.display = "block";
-  });
-  productCard.addEventListener("mouseleave", () => {
-    swipe1.style.display = "block";
-    swipe2.style.display = "none";
-  });
-}
-
 document.getElementById("prevPageBtn").addEventListener("click", () => {
   if (currentPage > 1) {
     currentPage--;

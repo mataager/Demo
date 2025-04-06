@@ -7,13 +7,14 @@ const storePhoneNum = "+20 122 838 3723";
 const storePhoneNum2 = "";
 const storeEmail = "GGG@gmail.com";
 // const storeGender = ["Men", "Women", "Kids"];
-const storeGender = [];
+const storeGender = ["Men"];
 const productnavbar = ["yes"];
 const brandsnavbar = ["yes"];
 const storeType = "clothing"; // clothing or footwear
 const freeshipping = "2000";
 //images url
-const pannerurl = "https://i.imgur.com/L7MvhAq.jpeg";
+const pannerurl =
+  "https://mir-s3-cdn-cf.behance.net/project_modules/fs/312fe489737167.5dfe68289b366.gif";
 //
 const mentopurl = "https://i.imgur.com/PXTzdcm.png";
 const menbottomurl = "https://i.imgur.com/iB1CoDD.png";

@@ -16,6 +16,7 @@
     <script src="./assets/js/search-product.js"></script>
     <script src="./assets/js/image-error.js"></script>
     <script src="./assets/js/getdate.js"></script>
+    <script src="./assets/js/animation.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -139,7 +140,7 @@
             <div class="flex center" id="productDetailsSection">
                 <div class="flex center width-90">
                     <div class="flex">
-                        <div id="product-div" class="flex center">
+                        <div id="product-div" class="flex center animate-on-scroll-auto">
 
 
                             <div class="content-photo-container">
@@ -406,7 +407,7 @@
         </section>
 
         <section>
-            <div class="related-products-section" id="related-products-section">
+            <div class="related-products-section animate-on-scroll" id="related-products-section">
                 <h2 class="flex align-items m-x-20 related-section-title">
                     <span class="text">Related Products</span>
                     <span class="related-line"></span>
@@ -435,123 +436,7 @@
 
 
     </div>
-    <footer class="footer hidden">
-        <div class="footer-top section">
-            <div class="container">
 
-                <div class="footer-brand">
-
-                    <a href="#" class="logo">
-                        <img src="./assets/images/iicon.svg" width="160" height="50" alt="">
-                    </a>
-
-                    <ul class="social-list hidden">
-
-                        <li>
-                            <a href="#" class="social-link">
-                                <ion-icon name="logo-facebook" role="img" class="md hydrated"
-                                    aria-label="logo facebook"></ion-icon>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="social-link">
-                                <ion-icon name="logo-twitter" role="img" class="md hydrated"
-                                    aria-label="logo twitter"></ion-icon>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="social-link">
-                                <ion-icon name="logo-pinterest" role="img" class="md hydrated"
-                                    aria-label="logo pinterest"></ion-icon>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="social-link">
-                                <ion-icon name="logo-linkedin" role="img" class="md hydrated"
-                                    aria-label="logo linkedin"></ion-icon>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="footer-end flex space-around">
-
-                    <ul class="footer-list">
-
-                        <li>
-                            <p class="footer-list-title">Contact Us</p>
-                        </li>
-
-                        <li>
-                            <a href="tel:" id="store-call" class="footer-link">
-                                <ion-icon name="call" role="img" class="md hydrated" aria-label="call"></ion-icon>
-                                <span id="store-number" class="footer-link-text"></span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="mailto:" id="store-email-link" class="footer-link">
-                                <ion-icon name="mail" role="img" class="md hydrated" aria-label="mail"></ion-icon>
-                                <span id="store-email" class="footer-link-text"></span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="footer-link" id="report-bug-btn">
-                                <ion-icon name="bug"></ion-icon>
-                                <span class="footer-link-text">Report a problem or a bug</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-
-
-                    <div class="footer-list">
-
-                        <p class="footer-list-title">Newsletter</p>
-
-                        <p class="newsletter-text">
-                            Send us your email to keeping up with our latest updates..
-                        </p>
-
-                        <form action="" class="newsletter-form">
-                            <input type="email" name="email" required="" placeholder="Email Address"
-                                class="newsletter-input">
-
-                            <button type="submit" class="btn2 btn-primary">Subscribe</button>
-                        </form>
-
-                    </div>
-                    <ul class="footer-list">
-                        <p class="footer-list-title">Matager</p>
-                        <li>
-                            <a href="https://matager.online/PrivacyPolicy.html" class="footer-link">
-                                <span class="footer-link-text">privacy policy</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://matager.online/Termsofservice.html" class="footer-link">
-                                <span class="footer-link-text">Terms of service</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                </div>
-
-            </div>
-        </div>
-        <div class="flex center">
-            <a href="https://matager.online" target="_blank">
-                <img src="./assets/images/powerd by matager black.svg" width="100px">
-            </a>
-        </div>
-    </footer>
 
 </main>
 <a href="#top" class="go-top-btn" data-go-top="">
@@ -1324,11 +1209,9 @@
 
 
 </script>
-<script src="./assets/js/store-contact.js"></script>
 <script src="./assets/js/update-cart-amont.js"></script>
 <script src="./assets/js/route.js"></script>
 <script src="./assets/js/all.js"></script>
-<script src="./assets/js/report.js"></script>
 <script src="./assets/js/rendering-megamenu.js"></script>
 <script src="./assets/js/rendering-search.js"></script>
 <script src="./assets/js/addfavouriteproduct.js"></script>
