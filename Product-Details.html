@@ -303,7 +303,7 @@
                                         <i class="bi bi-arrow-down-short"></i>
                                     </button>
                                 </div>
-                                <div id="details-section" class="m-5 mb-10 hidden">
+                                <div id="details-section" class="m-5 mb-10 detailscollapsible hidden">
                                     <div class="flex align-items mb-5">
                                         <h5 class="m-5 flex">Category :</h5>
                                         <p class="" id="category"></p>
@@ -431,8 +431,8 @@
             </div>
 
         </section>
-        <div id="modal-fav" class="modal">
-            <div id="modal-fav-content" class="fav-modal-content">
+        <div class="modal">
+            <div class="modal-content">
 
             </div>
         </div>
@@ -1175,21 +1175,25 @@
         window.ColorRef = ColorRef;
         checkSizeSelection();
     });
-    // Get references to the button and details section
     const showDetailsButton = document.getElementById('showdetails');
     const detailsSection = document.getElementById('details-section');
 
-    // Add a click event listener to the button
     showDetailsButton.addEventListener('click', function () {
-        // Toggle the 'hidden' class on the details section
-        if (detailsSection.classList.contains('hidden')) {
+        const isHidden = detailsSection.classList.contains('hidden');
+
+        if (isHidden) {
             detailsSection.classList.remove('hidden');
+            // Allow CSS transition to trigger
+            setTimeout(() => detailsSection.classList.add('open'), 10);
             showDetailsButton.innerHTML = 'Hide Details <i class="bi bi-arrow-up-short"></i>';
         } else {
-            detailsSection.classList.add('hidden');
+            detailsSection.classList.remove('open');
             showDetailsButton.innerHTML = 'Show Details <i class="bi bi-arrow-down-short"></i>';
+            // Wait for animation to finish before hiding completely
+            setTimeout(() => detailsSection.classList.add('hidden'), 500);
         }
     });
+
 
 
     function adjustImageGridLayout() {
@@ -1231,7 +1235,6 @@
 
 
 
-<script src="./assets/js/store-contact.js"></script>
 <script src="./assets/js/update-cart-amont.js"></script>
 <script src="./assets/js/route.js"></script>
 <script src="./assets/js/all.js"></script>
