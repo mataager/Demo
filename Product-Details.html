@@ -34,8 +34,6 @@
         /* Thumbnail container */
         .thumbnails-container {
             padding-top: 10px;
-            bottom: -75px;
-            position: absolute;
             grid-area: thumbs;
             display: flex;
             gap: 10px;
@@ -1546,14 +1544,7 @@
             thumbnailsContainer.appendChild(thumbnail);
         });
 
-        // Update navigation buttons
-        const prevButton = container.querySelector('.previous-button');
-        const nextButton = container.querySelector('.next-button');
 
-        if (prevButton && nextButton) {
-            prevButton.classList.toggle('none-op', visibleImages.length <= 1);
-            nextButton.classList.toggle('none-op', visibleImages.length <= 1);
-        }
     }
 
     // Function to show preloader
