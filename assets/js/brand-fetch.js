@@ -117,9 +117,7 @@ function renderProducts() {
 
     const saleAmount = product["sale-amount"] || 0;
     const originalPrice = parseFloat(product["Product-Price"]);
-    const salePrice = saleAmount
-      ? (originalPrice - (originalPrice * saleAmount) / 100).toFixed(2)
-      : originalPrice;
+    const salePrice = calculateSalePrice(originalPrice, saleAmount);
     // Check if the product is a best seller
     const bestSellerHTML = product["bestseller"]
       ? `<div class="best-seller" id="best-seller">bestseller<i class="bi bi-lightning-charge"></i></div>`

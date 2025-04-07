@@ -249,7 +249,7 @@
                                 <p id="productPrice" class="m-5 mb-10"></p>
 
                                 <div class="size m-5 mb-10">
-                                    <label class="m-5 flex pb-7" for="product-Size">
+                                    <label class="m-5 flex pb-7 hidden" for="product-Size">
                                         Size:<p id="product-Size"> </p>
                                     </label>
                                     <div class="rolling-container rolling-animation" id="size-hint-text">
@@ -261,26 +261,21 @@
                                 </div>
 
                                 <div class="color-selector m-5 mb-10">
-                                    <label class="m-5 flex align-items pb-7" for="product-color">Color:<p
+
+                                    <div id="color-hint-text"
+                                        style="display: none; font-size: 16px; color: #333; margin-top: 10px;">
+                                    </div>
+                                    <div class="color-options m-5 flex-wrap width-80 mb-10">
+                                    </div>
+                                    <label class="m-5 flex align-items pb-7 hidden" for="product-color">Color:<p
                                             id="product-color">
                                         <div id="hint" class="hint-text"></div>
                                         </p>
                                     </label>
-                                    <div id="color-hint-text"
-                                        style="display: none; font-size: 16px; color: #333; margin-top: 10px;">
-                                    </div>
-
-
-
-                                    <div class="color-options m-5 flex-wrap width-80 mb-10">
-                                    </div>
                                     <h5 id="stockContainer" class="mb-10 m-5 flex pl-0 hidden">
                                         <p id="stockMessage"></p>
                                     </h5>
-                                    <h5 class="mb-10 m-5 flex pl-0 pointer gap-5">SKU:<p class="productSKU"
-                                            id="productID" onclick="copyToClipboard()">
-                                        </p>
-                                    </h5>
+
                                 </div>
                                 <div class="m-5 mb-10 flex">
                                     <div id="BuyNowButton" class="Buyitnow">Buy Now
@@ -305,9 +300,17 @@
                                 </div>
                                 <div id="details-section" class="m-5 mb-10 detailscollapsible hidden">
                                     <div class="flex align-items mb-5">
+                                        <h5 class="m-5 flex gap-5">SKU:
+                                        </h5>
+                                        <p class="pointer" id="productID" onclick="copyToClipboard()">
+                                        </p>
+                                    </div>
+                                    <div class="flex align-items mb-5">
                                         <h5 class="m-5 flex">Category :</h5>
                                         <p class="" id="category"></p>
                                     </div>
+
+
                                     <div class="flex align-items mb-5">
                                         <h5 class="m-5 flex">piece :</h5>
                                         <p class="" id="piece"></p>
@@ -673,14 +676,18 @@
     function fetchProducts(key) {
         fetch(`${url}/Stores/${uid}/Products/${key}.json`)
             .then((response) => {
+
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
                 return response.json();
+
             })
             .then((productDetails) => {
+                console.log(productDetails);
+
                 // Check and set default image source if necessary
-                setDefaultImageSource(productDetails);
+                // setDefaultImageSource(productDetails);
 
                 // Elements to populate
                 const productTitleElement = document.getElementById('productTitle');
@@ -733,6 +740,7 @@
                         imageElement.src = imageUrl; // Set image source if URL exists
                     } else {
                         imageElement.remove(); // Remove the <img> element if URL is empty
+                        // element.classList.add("hidden");
                     }
                 });
 
@@ -909,9 +917,7 @@
 
                     const productPrice = parseFloat(product["Product-Price"]);
                     const saleAmount = parseFloat(product["sale-amount"]);
-                    const finalPrice = saleAmount > 0
-                        ? productPrice - (productPrice * (saleAmount / 100))
-                        : productPrice;
+                    const finalPrice = calculateSalePrice(productPrice, saleAmount);
 
                     // Extract and handle colors
                     let colorOptionsHtml = "";
@@ -971,11 +977,6 @@
             });
     }
 
-
-    function calculateSalePrice(originalPrice, saleAmount) {
-        return originalPrice - (originalPrice * (saleAmount / 100));
-    }
-
     fetchProducts(key);
     function SizeRef() {
         const colorOptions = document.getElementById('product-color');
@@ -986,18 +987,10 @@
     // Function to show preloader
     function showPreloader() {
         document.getElementById('preloader').classList.remove('hidden');
-
-
     }
-
-    // Function to hide preloader
     function hidePreloader() {
         document.getElementById('preloader').classList.add('hidden');
-
-
     }
-
-    // Fetch product details after 2 seconds
     setTimeout(() => {
 
         hidePreloader(); // Hide preloader after 2 seconds
@@ -1008,6 +1001,7 @@
     // on click on color options 
 
     function updateProductImages(colorName) {
+        showImagePreloader(); // Show loader at start
         const size = document.getElementById('product-Size').innerText;
         const productID = document.getElementById('productID').innerText;
         const url = `${storeurl}/Stores/${uid}/Products/${productID}/sizes/${size}/${colorName}.json`;
@@ -1036,9 +1030,11 @@
                     if (element) {
                         if (images[index]) {
                             element.src = images[index];
+                            element.classList.remove('hidden');
 
                         } else {
-                            element.remove();
+                            // element.remove();
+                            element.classList.add('hidden');
                         }
                     }
                 });
@@ -1049,6 +1045,7 @@
             })
             .catch((error) => {
                 console.error("Error fetching product images:", error);
+                hideImagePreloader(); // Ensure preloader is hidden even on error
             });
     }
 
@@ -1196,38 +1193,122 @@
 
 
 
-    function adjustImageGridLayout() {
+    // function adjustImageGridLayout() {
+    //     const photoContainer = document.querySelector('.content-photo-container');
+    //     if (!photoContainer) return;
+
+    //     // Count actual img elements (excluding buttons)
+    //     const images = photoContainer.querySelectorAll('img:not(.ignore)');
+    //     const imageCount = images.length;
+
+    //     // Apply style if only one image exists
+    //     if (imageCount === 1) {
+    //         photoContainer.style.setProperty('grid-template-columns', 'repeat(1, 1fr)', 'important');
+
+    //         // Optionally hide navigation buttons if needed
+    //         const prevButton = photoContainer.querySelector('.previous-button');
+    //         const nextButton = photoContainer.querySelector('.next-button');
+    //         if (prevButton) prevButton.classList.add("hidden");
+    //         if (nextButton) nextButton.classList.add("hidden");
+    //     } else {
+    //         // Reset to default if multiple images
+    //         photoContainer.style.removeProperty('grid-template-columns');
+
+    //         // Show navigation buttons if they exist
+    //         const prevButton = photoContainer.querySelector('.previous-button');
+    //         const nextButton = photoContainer.querySelector('.next-button');
+    //         if (prevButton) prevButton.style.display = '';
+    //         if (nextButton) nextButton.style.display = '';
+    //     }
+    // }
+
+    // Usage example - call this after loading/updating images
+    //
+
+
+    //
+    // function adjustImageGridLayout() {
+    //     const photoContainer = document.querySelector('.content-photo-container');
+    //     if (!photoContainer) return;
+
+    //     // Count visible img elements (excluding buttons and hidden images)
+    //     const images = photoContainer.querySelectorAll('img:not(.ignore):not(.hidden)');
+    //     const visibleImageCount = images.length;
+
+    //     // Apply style if only one visible image exists
+    //     if (visibleImageCount === 1) {
+    //         photoContainer.style.setProperty('grid-template-columns', 'repeat(1, 1fr)', 'important');
+
+    //         // Optionally hide navigation buttons if needed
+    //         const prevButton = photoContainer.querySelector('.previous-button');
+    //         const nextButton = photoContainer.querySelector('.next-button');
+    //         if (prevButton) prevButton.classList.add("hidden");
+    //         if (nextButton) nextButton.classList.add("hidden");
+    //     } else {
+    //         // Reset to default if multiple visible images
+    //         photoContainer.style.removeProperty('grid-template-columns');
+
+    //         // Show navigation buttons if they exist
+    //         const prevButton = photoContainer.querySelector('.previous-button');
+    //         const nextButton = photoContainer.querySelector('.next-button');
+    //         if (prevButton) prevButton.classList.remove("hidden");
+    //         if (nextButton) nextButton.classList.remove("hidden");
+    //     }
+    // }
+
+    function showImagePreloader() {
         const photoContainer = document.querySelector('.content-photo-container');
         if (!photoContainer) return;
 
-        // Count actual img elements (excluding buttons)
-        const images = photoContainer.querySelectorAll('img:not(.ignore)');
-        const imageCount = images.length;
-
-        // Apply style if only one image exists
-        if (imageCount === 1) {
-            photoContainer.style.setProperty('grid-template-columns', 'repeat(1, 1fr)', 'important');
-
-            // Optionally hide navigation buttons if needed
-            const prevButton = photoContainer.querySelector('.previous-button');
-            const nextButton = photoContainer.querySelector('.next-button');
-            if (prevButton) prevButton.classList.add("hidden");
-            if (nextButton) nextButton.classList.add("hidden");
+        // Create or show preloader
+        let preloader = photoContainer.querySelector('#preloader-overlay');
+        if (!preloader) {
+            preloader = document.createElement('div');
+            preloader.id = 'preloader-overlay';
+            preloader.className = 'content-photo-container-preloader-overlay';
+            preloader.innerHTML = '<div class="content-photo-container-spinner"></div>';
+            photoContainer.appendChild(preloader);
         } else {
-            // Reset to default if multiple images
-            photoContainer.style.removeProperty('grid-template-columns');
-
-            // Show navigation buttons if they exist
-            const prevButton = photoContainer.querySelector('.previous-button');
-            const nextButton = photoContainer.querySelector('.next-button');
-            if (prevButton) prevButton.style.display = '';
-            if (nextButton) nextButton.style.display = '';
+            preloader.classList.remove('hidden');
         }
     }
 
-    // Usage example - call this after loading/updating images
+    function hideImagePreloader() {
+        const preloader = document.querySelector('#preloader-overlay');
+        if (preloader) {
+            // Add fade-out class
+            preloader.classList.add('hidden');
 
+            // Remove element after fade completes
+            setTimeout(() => {
+                preloader.remove();
+            }, 300); // Match this with your CSS transition time
+        }
+    }
 
+    // Modified adjustImageGridLayout with preloader handling
+    function adjustImageGridLayout() {
+        showImagePreloader(); // Show loader before making changes
+
+        const photoContainer = document.querySelector('.content-photo-container');
+        if (!photoContainer) return;
+
+        // Count visible images
+        const images = photoContainer.querySelectorAll('img:not(.ignore):not(.hidden)');
+        const visibleImageCount = images.length;
+
+        // Apply layout changes
+        if (visibleImageCount === 1) {
+            photoContainer.style.setProperty('grid-template-columns', 'repeat(1, 1fr)', 'important');
+            // Hide navigation buttons...
+        } else {
+            photoContainer.style.removeProperty('grid-template-columns');
+            // Show navigation buttons...
+        }
+
+        // Hide preloader after a slight delay to ensure images are loaded
+        setTimeout(hideImagePreloader, 600);
+    }
 
 </script>
 

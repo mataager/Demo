@@ -136,3 +136,8 @@ function addAnimation() {
 }
 
 //
+
+function calculateSalePrice(originalPrice, saleAmount) {
+  const discountedPrice = originalPrice - originalPrice * (saleAmount / 100);
+  return Math.round(discountedPrice); // Rounds to the nearest integer (e.g., 3197.6 → 3198)
+}

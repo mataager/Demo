@@ -1918,6 +1918,10 @@ a.footer-link:is(:hover, :focus) {
   font-size: small !important;
 }
 
+.font2rem {
+  font-size: 2rem !important;
+}
+
 .font-medium {
   font-size: medium !important;
 }
@@ -2085,6 +2089,10 @@ a.footer-link:is(:hover, :focus) {
 
 .mb-25 {
   margin-bottom: 25px;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
 }
 
 .mb-7 {
@@ -2456,6 +2464,30 @@ select {
 
 .content-photo-container {
   display: contents;
+}
+
+.content-photo-container-preloader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+.content-photo-container-spinner {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #000000;
+  animation: spin 1s ease-in-out infinite;
 }
 
 .align-items {
@@ -3379,6 +3411,20 @@ a {
   align-items: center;
 }
 
+.No-available-items {
+  padding: 30px;
+  font-size: 2.25rem;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  text-transform: capitalize;
+}
+
+.no-product-message-container .icon {
+  font-size: 50px;
+  color: #fb0c0cc7;
+}
 
 
 /* Container for the sale text */
@@ -5020,7 +5066,7 @@ th {
 .bar7t83 {
   border-radius: 5px;
   margin-bottom: 40px;
-  background: #e9e9e9;
+  background: linear-gradient(45deg, #b3b3b388 30%, #39394173 100%);
   padding: 30px;
 }
 
@@ -5550,7 +5596,7 @@ th {
   transition: color 0.5s ease, opacity 0.5s ease;
 }
 
-.productSKU.copied {
+.copied {
   color: green;
   opacity: 0.8;
 }
@@ -5785,7 +5831,7 @@ th {
   overflow: scroll;
   padding: 10px;
   display: flex;
-  gap: 20px;
+  gap: 30px;
   padding-bottom: 10px;
 
 }
@@ -5804,6 +5850,7 @@ th {
   transform: translateY(0px);
   flex-shrink: 0;
 }
+
 
 .explorecollectionbtndiv {
   position: absolute;
@@ -5824,6 +5871,11 @@ th {
   transition: 0.4s;
   position: relative;
   overflow: hidden;
+}
+
+.explorecollectionbtn:hover {
+  background: white;
+  color: black;
 }
 
 .explorecollectionbtnspan {
@@ -5864,6 +5916,8 @@ th {
   opacity: 0;
   pointer-events: none;
 }
+
+
 
 .modal {
   position: fixed;
@@ -6063,6 +6117,13 @@ body.modal-open #mainpagearea {
   width: 100px !important;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem -0.25rem var(--clr-primary-900);
+}
+
+.tag-list2 li {
+  height: 50px !important;
+  width: 100px !important;
+  border-radius: 0.5rem;
+
 }
 
 .brand-logo img {

@@ -45,18 +45,6 @@ function fetchAndRenderProducts() {
           const saleAmount = product["sale-amount"];
           const originalPrice = product["Product-Price"];
 
-          function calculateSalePrice(originalPrice, saleAmount) {
-            // Ensure originalPrice and saleAmount are integers
-            const intOriginalPrice = Math.floor(originalPrice);
-            const intSaleAmount = Math.floor(saleAmount);
-
-            // Calculate sale price
-            const salePrice = intOriginalPrice * (1 - intSaleAmount / 100);
-
-            // Return the integer part of the sale price
-            return Math.floor(salePrice);
-          }
-
           const salePrice = calculateSalePrice(originalPrice, saleAmount);
           // Check if the product is a best seller
           const bestSellerHTML = product["bestseller"]
@@ -161,17 +149,6 @@ function fetchAndRenderProducts() {
           const saleAmount = product["sale-amount"];
           const originalPrice = product["Product-Price"];
 
-          function calculateSalePrice(originalPrice, saleAmount) {
-            // Ensure originalPrice and saleAmount are integers
-            const intOriginalPrice = Math.floor(originalPrice);
-            const intSaleAmount = Math.floor(saleAmount);
-
-            // Calculate sale price
-            const salePrice = intOriginalPrice * (1 - intSaleAmount / 100);
-
-            // Return the integer part of the sale price
-            return Math.floor(salePrice);
-          }
           // Check if the product is a best seller
           const bestSellerHTML = product["bestseller"]
             ? `<div class="best-seller" id="best-seller">bestseller<i class="bi bi-lightning-charge"></i></div>`
@@ -250,10 +227,14 @@ function fetchAndRenderProducts() {
       } else {
         const productOverview = document.getElementById("mainpage");
         document.getElementById("preloader").style.display = "none";
-        productOverview.innerHTML = `<div class="no-product-message-container">
-        <img src="https://i.imgur.com/xonwgsq_d.webp?maxwidth=760&fidelity=grand" width=300>
-        
-    </div>`;
+        productOverview.innerHTML = `
+    <div class="no-product-message-container">
+    <i class="bi bi-exclamation-octagon icon"></i>
+        <div class="No-available-items">
+            <p>No products available at this time</p>
+        </div>
+    </div>
+`;
       }
     })
     .catch((error) => {
@@ -274,9 +255,6 @@ function getColorValue(product, color) {
 }
 
 // Helper function to calculate sale price
-function calculateSalePrice(originalPrice, saleAmount) {
-  return (originalPrice * (1 - saleAmount / 100)).toFixed(2);
-}
 
 // Function to render sale items (limited to first 20)
 function renderSaleItems(products, saleContainer) {

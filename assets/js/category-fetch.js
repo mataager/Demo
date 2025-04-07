@@ -153,18 +153,6 @@ function renderProducts() {
     const saleAmount = product["sale-amount"];
     const originalPrice = product["Product-Price"];
 
-    function calculateSalePrice(originalPrice, saleAmount) {
-      // Ensure originalPrice and saleAmount are integers
-      const intOriginalPrice = Math.floor(originalPrice);
-      const intSaleAmount = Math.floor(saleAmount);
-
-      // Calculate sale price
-      const salePrice = intOriginalPrice * (1 - intSaleAmount / 100);
-
-      // Return the integer part of the sale price
-      return Math.floor(salePrice);
-    }
-
     const salePrice = calculateSalePrice(originalPrice, saleAmount);
 
     // Check if the product is a best seller

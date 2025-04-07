@@ -83,17 +83,16 @@ function renderProducts() {
     const saleAmount = product["sale-amount"];
     const originalPrice = product["Product-Price"];
 
-    function calculateSalePrice(originalPrice, saleAmount) {
-      // Ensure originalPrice and saleAmount are integers
-      const intOriginalPrice = Math.floor(originalPrice);
-      const intSaleAmount = Math.floor(saleAmount);
+    //   // Ensure originalPrice and saleAmount are integers
+    //   const intOriginalPrice = Math.floor(originalPrice);
+    //   const intSaleAmount = Math.floor(saleAmount);
 
-      // Calculate sale price
-      const salePrice = intOriginalPrice * (1 - intSaleAmount / 100);
+    //   // Calculate sale price
+    //   const salePrice = intOriginalPrice * (1 - intSaleAmount / 100);
 
-      // Return the integer part of the sale price
-      return Math.floor(salePrice);
-    }
+    //   // Return the integer part of the sale price
+    //   return Math.floor(salePrice);
+    // }
 
     // Check and set default image source if necessary
     setDefaultImageSource(product);
