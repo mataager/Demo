@@ -65,32 +65,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Navigation buttons */
-        .previous-button,
-        .next-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            z-index: 20;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .previous-button {
-            left: 15px;
-        }
-
-        .next-button {
-            right: 15px;
-        }
 
         .thumbnails-container::-webkit-scrollbar {
             width: 2px;
@@ -255,10 +229,6 @@
 
 
                             <div class="content-photo-container animate-on-scroll-auto">
-                                <button id="previous-button" class="previous-button none-op" style="display: none;">
-                                    <i class="bi bi-arrow-left-short arrow"></i>
-                                </button>
-
                                 <img id="productImage" class="product-image active" style="display: none;" src=""
                                     alt="Product Image">
                                 <img id="productImage2" class="product-image" src="" style="display: none;"
@@ -271,86 +241,12 @@
                                     alt="Product Image">
                                 <img id="productImage6" class="product-image" src="" style="display: none;"
                                     alt="Product Image">
-
-                                <button id="next-button" class="next-button none-op" style="display: none;">
-                                    <i class="bi bi-arrow-right-short arrow"></i>
-                                </button>
                             </div>
 
 
-                            <script>
-                                // const images = document.querySelectorAll('.product-image');
-                                // let currentIndex = 0;
-
-                                // function showImage(index) {
-                                //     images[currentIndex].classList.remove('active');
-                                //     images[index].classList.add('active');
-                                //     currentIndex = index;
-                                // }
-
-                                // document.getElementById('previous-button').addEventListener('click', () => {
-                                //     const previousIndex = (currentIndex - 1 + images.length) % images.length;
-                                //     showImage(previousIndex);
-                                // });
-
-                                // document.getElementById('next-button').addEventListener('click', () => {
-                                //     const nextIndex = (currentIndex + 1) % images.length;
-                                //     showImage(nextIndex);
-                                // });
-
-                                // // Show the first image initially
-                                // showImage(0);
-                                const images = document.querySelectorAll('.product-image');
-                                const previousButton = document.getElementById('previous-button');
-                                const nextButton = document.getElementById('next-button');
-
-                                function getCurrentImage() {
-                                    return document.querySelector('.product-image.active');
-                                }
-
-                                function showImage(image) {
-                                    const currentImage = getCurrentImage();
-                                    if (currentImage) currentImage.classList.remove('active');
-                                    image.classList.add('active');
-                                }
-
-                                nextButton.addEventListener('click', () => {
-                                    let currentImage = getCurrentImage();
-                                    let nextImage = currentImage.nextElementSibling;
-
-                                    while (nextImage && !nextImage.classList.contains('product-image')) {
-                                        nextImage = nextImage.nextElementSibling;
-                                    }
-
-                                    if (!nextImage) {
-                                        nextImage = images[0]; // Loop back to the first image
-                                    }
-
-                                    showImage(nextImage);
-                                });
-
-                                previousButton.addEventListener('click', () => {
-                                    let currentImage = getCurrentImage();
-                                    let prevImage = currentImage.previousElementSibling;
-
-                                    while (prevImage && !prevImage.classList.contains('product-image')) {
-                                        prevImage = prevImage.previousElementSibling;
-                                    }
-
-                                    if (!prevImage) {
-                                        prevImage = images[images.length - 1]; // Loop back to the last image
-                                    }
-
-                                    showImage(prevImage);
-                                });
-
-                                // Show the first image initially
-                                showImage(images[0]);
-
-                            </script>
 
                             <div class="details-info p-20 animate-on-scroll-auto">
-                                <h5 id="BrandName" class="mb-10 m-5 pl-0 ml-10"></h5>
+                                <p id="BrandName" class="mb-10 m-5 pl-0 ml-10 BrandName-p"></p>
                                 <h2 id="productTitle" class="m-5 ml-auto mb-10 ml-10"></h2>
                                 <h5 id="hints" class="m-5 ml-auto mb-10 ml-10 hints"></h5>
                                 <p id="preprice" class="m-5 mb-10"></p>
@@ -368,6 +264,13 @@
                                     </div>
                                 </div>
 
+                                <div class="size m-5 mb-10">
+                                    <p class="m-5 flex pb-7 size-chart-p pointer" id="sizechart"
+                                        onclick="openSizeChart()" size-chart-url="" for="product-chart">
+                                        Size Chart
+                                    </p>
+                                </div>
+
                                 <div class="color-selector m-5 mb-10">
 
                                     <div id="color-hint-text"
@@ -381,7 +284,7 @@
                                         </p>
                                     </label>
                                     <h5 id="stockContainer" class="mb-10 m-5 flex pl-0 hidden">
-                                        <p id="stockMessage"></p>
+                                        <p class="stockMessage-p" id="stockMessage"></p>
                                     </h5>
 
                                 </div>
@@ -792,7 +695,7 @@
 
             })
             .then((productDetails) => {
-                console.log(productDetails);
+                console.log(productDetails['size-chart-url']);
 
                 // Check and set default image source if necessary
                 // setDefaultImageSource(productDetails);
@@ -801,12 +704,6 @@
                 const productTitleElement = document.getElementById('productTitle');
                 const hints = document.getElementById('hints');
                 const productID = document.getElementById('productID');
-                // const productImageElement = document.getElementById('productImage');
-                // const productImage2Element = document.getElementById('productImage2');
-                // const productImage3Element = document.getElementById('productImage3');
-                // const productImage4Element = document.getElementById('productImage4');
-                // const productImage5Element = document.getElementById('productImage5');
-                // const productImage6Element = document.getElementById('productImage6');
                 const prePriceElement = document.getElementById('preprice');
                 const productPriceElement = document.getElementById('productPrice');
                 const BrandNameElement = document.getElementById('BrandName');
@@ -814,6 +711,7 @@
                 const categoryElement = document.getElementById('category');
                 const pieceElement = document.getElementById('piece');
                 const detailsElement = document.getElementById('product-details');
+                const sizeChartElement = document.getElementById('sizechart');
 
                 // Populate brand name and title
                 BrandNameElement.innerText = productDetails["Brand-Name"];
@@ -822,6 +720,13 @@
                     "onclick",
                     `brand('${productDetails["Brand-Name"]}')`
                 );
+
+                if (productDetails['size-chart-url']) {
+                    sizeChartElement.setAttribute('size-chart-url', productDetails['size-chart-url']);
+                    sizeChartElement.style.display = 'flex'; // Ensure it's visible
+                } else {
+                    sizeChartElement.remove();
+                }
 
                 // Add to favourite button
                 const addToFavouriteDiv = document.getElementById("addtofavouritediv");
@@ -834,23 +739,6 @@
                 // Populate product title and ID
                 productTitleElement.innerText = productDetails["product-title"];
                 productID.innerText = key;
-
-                // // Array of image keys and corresponding elements
-                // const imageKeys = ["product-photo", "product-photo2", "product-photo3", "product-photo4", "product-photo5", "product-photo6"];
-                // const imageElements = [productImageElement, productImage2Element, productImage3Element, productImage4Element, productImage5Element, productImage6Element];
-
-                // // Loop through image keys and elements
-                // imageKeys.forEach((key, index) => {
-                //     const imageUrl = productDetails[key];
-                //     const imageElement = imageElements[index];
-
-                //     if (imageUrl) {
-                //         imageElement.src = imageUrl; // Set image source if URL exists
-                //     } else {
-                //         imageElement.remove(); // Remove the <img> element if URL is empty
-                //         // element.classList.add("hidden");
-                //     }
-                // });
 
                 // Calculate and display prices
                 const saleAmount = productDetails["sale-amount"];
@@ -1087,16 +975,13 @@
     }
 
     fetchProducts(key);
+
     function SizeRef() {
         const colorOptions = document.getElementById('product-color');
         if (colorOptions) {
             colorOptions.innerHTML = '';
         }
     }
-
-
-
-    // on click on color options 
 
     function updateProductImages(colorName) {
         showImagePreloader(); // Show loader at start
@@ -1112,35 +997,8 @@
                 return response.json();
             })
             .then((data) => {
-                // Check and set default image source if necessary
-                // setDefaultImageSource_PD(data, "img1", "img2", "img3", "img4", "img5", "img6");
-
-                // const productImageElement = document.getElementById('productImage');
-                // const productImage2Element = document.getElementById('productImage2');
-                // const productImage3Element = document.getElementById('productImage3');
-                // const productImage4Element = document.getElementById('productImage4');
-                // const productImage5Element = document.getElementById('productImage5');
-                // const productImage6Element = document.getElementById('productImage6');
-                // const images = [data.img1, data.img2, data.img3, data.img4, data.img5, data.img6];
-                // const imageElements = [productImageElement, productImage2Element, productImage3Element, productImage4Element, productImage5Element, productImage6Element];
-
-                // imageElements.forEach((element, index) => {
-                //     if (element) {
-                //         if (images[index]) {
-                //             element.src = images[index];
-                //             element.classList.remove('hidden');
-
-                //         } else {
-                //             // element.remove();
-                //             element.classList.add('hidden');
-                //         }
-                //     }
-                // });
                 adjustImageGridLayout();
                 initializeImageGallery();
-
-
-
             })
             .catch((error) => {
                 console.error("Error fetching product images:", error);
@@ -1173,9 +1031,7 @@
                 console.error("Failed to copy:", err);
             });
     }
-</script>
 
-<script>
 
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -1344,98 +1200,6 @@
         setTimeout(hideImagePreloader, 600);
     }
 
-
-
-    //v1
-    // function initializeImageGallery() {
-    //     const container = document.querySelector('.content-photo-container');
-    //     if (!container) return;
-
-    //     // Create main image container if it doesn't exist
-    //     let mainImageContainer = container.querySelector('.main-image-container');
-    //     if (!mainImageContainer) {
-    //         mainImageContainer = document.createElement('div');
-    //         mainImageContainer.className = 'main-image-container';
-    //         container.prepend(mainImageContainer);
-    //     }
-
-    //     const images = container.querySelectorAll('.product-image');
-    //     if (images.length === 0) return;
-
-    //     // Create thumbnails container
-    //     let thumbnailsContainer = container.querySelector('.thumbnails-container');
-    //     if (!thumbnailsContainer) {
-    //         thumbnailsContainer = document.createElement('div');
-    //         thumbnailsContainer.className = 'thumbnails-container';
-    //         container.appendChild(thumbnailsContainer);
-    //     } else {
-    //         thumbnailsContainer.innerHTML = '';
-    //     }
-
-    //     // Create main image element
-    //     const mainImage = document.createElement('img');
-    //     mainImage.className = 'main-image';
-    //     mainImage.src = images[0].src;
-    //     mainImage.alt = images[0].alt;
-    //     mainImageContainer.innerHTML = '';
-    //     mainImageContainer.appendChild(mainImage);
-
-    //     // Create thumbnails
-    //     images.forEach((img, index) => {
-    //         if (img.src) {
-    //             const thumbnail = document.createElement('img');
-    //             thumbnail.className = 'thumbnail' + (index === 0 ? ' active' : '');
-    //             thumbnail.src = img.src;
-    //             thumbnail.alt = img.alt;
-
-    //             thumbnail.addEventListener('click', function () {
-    //                 // Update main image
-    //                 mainImage.src = this.src;
-    //                 mainImage.alt = this.alt;
-
-    //                 // Update active thumbnail
-    //                 container.querySelectorAll('.thumbnail').forEach(thumb => {
-    //                     thumb.classList.remove('active');
-    //                 });
-    //                 this.classList.add('active');
-    //             });
-
-    //             thumbnailsContainer.appendChild(thumbnail);
-    //         }
-    //     });
-
-    //     // Navigation buttons
-    //     const prevButton = container.querySelector('.previous-button');
-    //     const nextButton = container.querySelector('.next-button');
-
-    //     if (prevButton && nextButton) {
-    //         prevButton.addEventListener('click', () => navigateImages(-1));
-    //         nextButton.addEventListener('click', () => navigateImages(1));
-
-    //         // Show buttons only if multiple images
-    //         if (images.length > 1) {
-    //             prevButton.classList.remove('none-op');
-    //             nextButton.classList.remove('none-op');
-    //         }
-    //     }
-    // }
-
-    // function navigateImages(direction) {
-    //     const container = document.querySelector('.content-photo-container');
-    //     const thumbnails = Array.from(container.querySelectorAll('.thumbnail'));
-    //     const currentIndex = thumbnails.findIndex(thumb => thumb.classList.contains('active'));
-
-    //     let newIndex = currentIndex + direction;
-    //     if (newIndex < 0) newIndex = thumbnails.length - 1;
-    //     if (newIndex >= thumbnails.length) newIndex = 0;
-
-    //     // Simulate click on the new thumbnail
-    //     thumbnails[newIndex].click();
-    // }
-
-
-    //v2
-
     function updateProductImages(colorName) {
         showImagePreloader();
         const size = document.getElementById('product-Size').innerText;
@@ -1554,6 +1318,80 @@
 
     }
 
+    function openSizeChart() {
+        // Get the size chart element and its URL
+        const sizeChartElement = document.getElementById('sizechart');
+        const sizeChartUrl = sizeChartElement.getAttribute('size-chart-url');
+
+        // Create preloader overlay if it doesn't exist
+        let preloader = document.getElementById("preloader-overlay");
+        if (!preloader) {
+            preloader = document.createElement("div");
+            preloader.id = "preloader-overlay";
+            preloader.className = "preloader-overlay";
+            preloader.innerHTML = '<div class="spinner"></div>';
+            document.body.appendChild(preloader);
+        }
+
+        preloader.classList.remove("hidden");
+        document.body.classList.add("modal-open");
+
+        // Start timer for minimum 1 second
+        const minLoadTime = 1000;
+        const startTime = Date.now();
+
+        // Simulate loading (we don't actually need to fetch anything)
+        setTimeout(() => {
+            // Fade out preloader
+            preloader.classList.add("hidden");
+
+            // Prepare modal
+            const modal = document.querySelector(".modal");
+            const modalContent = document.querySelector(".modal-content");
+
+            // Set modal position and styles
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+
+            // Render size chart content
+            modalContent.innerHTML = `
+      <div class="flex justify-content-space-between width-available modal-header">
+        <div class="flex center flex-end" onclick="closeModal()">
+          <button style="margin: 0px; border-radius: 0px 8px 0px 8px; background: initial !important; color:#333;" 
+                  type="button" class="Add-to-Cart" closeModal() id="closeButton">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+      <div class="m-5" style="overflow: auto; max-height: 70vh;">
+        <img src="${sizeChartUrl}" alt="Size Chart" style="width: 100%; height: auto; display: block;">
+      </div>
+    `;
+
+            // Animate modal in from right
+            setTimeout(() => {
+                modal.classList.add("show");
+            }, 10);
+
+            // Close handler
+            modal.addEventListener("click", function (event) {
+                if (!modalContent.contains(event.target)) {
+                    closeModal();
+                }
+            });
+        }, minLoadTime);
+    }
+    function closeModal() {
+        const modal = document.querySelector(".modal");
+        modal.classList.remove("show");
+
+        setTimeout(() => {
+            document.body.style.overflow = "auto";
+            document.body.classList.remove("modal-open");
+        }, 400); // Match transition duration
+    }
+
+
     // Function to show preloader
     function showPreloader() {
         document.getElementById('preloader').classList.remove('hidden');
@@ -1566,6 +1404,11 @@
         hidePreloader(); // Hide preloader after 2 seconds
         // Fetch product details
     }, 1000);
+
+</script>
+
+<script>
+
 </script>
 
 

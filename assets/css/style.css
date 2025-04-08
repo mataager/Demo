@@ -2419,6 +2419,36 @@ select {
   color: black;
 }
 
+.size-chart-p,
+.stockMessage-p,
+.BrandName-p {
+  width: fit-content;
+  font-weight: 600;
+  font-size: small;
+  color: #333;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.size-chart-p::after,
+.BrandName-p::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25px;
+  height: 1px;
+  background-color: #19191a;
+  transition: width 0.3s ease;
+}
+
+.size-chart-p:hover::after,
+.BrandName-p:hover::after {
+  width: 100%;
+}
+
 /* Style for the size table */
 .size-tabs {
   display: flex;
@@ -3840,7 +3870,7 @@ a {
 .detailscollapsible {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease, padding 0.5s ease;
+  transition: max-height 0.8s ease;
 
 }
 
