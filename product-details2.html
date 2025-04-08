@@ -8,108 +8,6 @@
         .hydrated {
             visibility: inherit
         }
-
-        /* Main container styles */
-        .content-photo-container {
-            width: 50%;
-            position: relative;
-            display: grid;
-            grid-template-areas:
-                "main"
-                "thumbs";
-            gap: 15px;
-            padding-bottom: 20px;
-        }
-
-        /* Main image styles */
-        .main-image {
-            width: 100%;
-            height: auto;
-            /* object-fit: contain; */
-            grid-area: main;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Thumbnail container */
-        .thumbnails-container {
-            padding-top: 10px;
-            grid-area: thumbs;
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            z-index: 100;
-
-        }
-
-        /* Thumbnail styles */
-        .thumbnail {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .thumbnail:hover {
-            cursor: pointer;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .thumbnail.active {
-            border: 1px solid #666;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Navigation buttons */
-        .previous-button,
-        .next-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            z-index: 20;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .previous-button {
-            left: 15px;
-        }
-
-        .next-button {
-            right: 15px;
-        }
-
-        .thumbnails-container::-webkit-scrollbar {
-            width: 2px;
-            /* Adjust this value to make scrollbar thinner or thicker */
-            height: 2px;
-            /* For horizontal scrollbars */
-        }
-
-        /* Mobile touch scrolling */
-        @media (max-width: 768px) {
-            .content-photo-container {
-                width: 100%;
-                padding-bottom: 10px;
-            }
-
-            .thumbnails-container {
-                -webkit-overflow-scrolling: touch;
-            }
-        }
     </style>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -255,24 +153,18 @@
 
 
                             <div class="content-photo-container animate-on-scroll-auto">
-                                <button id="previous-button" class="previous-button none-op" style="display: none;">
+                                <button id="previous-button" class="previous-button none-op">
                                     <i class="bi bi-arrow-left-short arrow"></i>
                                 </button>
 
-                                <img id="productImage" class="product-image active" style="display: none;" src=""
-                                    alt="Product Image">
-                                <img id="productImage2" class="product-image" src="" style="display: none;"
-                                    alt="Product Image">
-                                <img id="productImage3" class="product-image" src="" style="display: none;"
-                                    alt="Product Image">
-                                <img id="productImage4" class="product-image" src="" style="display: none;"
-                                    alt="Product Image">
-                                <img id="productImage5" class="product-image" src="" style="display: none;"
-                                    alt="Product Image">
-                                <img id="productImage6" class="product-image" src="" style="display: none;"
-                                    alt="Product Image">
+                                <img id="productImage" class="product-image active" src="" alt="Product Image">
+                                <img id="productImage2" class="product-image" src="" alt="Product Image">
+                                <img id="productImage3" class="product-image" src="" alt="Product Image">
+                                <img id="productImage4" class="product-image" src="" alt="Product Image">
+                                <img id="productImage5" class="product-image" src="" alt="Product Image">
+                                <img id="productImage6" class="product-image" src="" alt="Product Image">
 
-                                <button id="next-button" class="next-button none-op" style="display: none;">
+                                <button id="next-button" class="next-button none-op">
                                     <i class="bi bi-arrow-right-short arrow"></i>
                                 </button>
                             </div>
@@ -784,29 +676,25 @@
     function fetchProducts(key) {
         fetch(`${url}/Stores/${uid}/Products/${key}.json`)
             .then((response) => {
-
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
                 return response.json();
-
             })
             .then((productDetails) => {
-                console.log(productDetails);
-
                 // Check and set default image source if necessary
-                // setDefaultImageSource(productDetails);
+                setDefaultImageSource(productDetails);
 
                 // Elements to populate
                 const productTitleElement = document.getElementById('productTitle');
                 const hints = document.getElementById('hints');
                 const productID = document.getElementById('productID');
-                // const productImageElement = document.getElementById('productImage');
-                // const productImage2Element = document.getElementById('productImage2');
-                // const productImage3Element = document.getElementById('productImage3');
-                // const productImage4Element = document.getElementById('productImage4');
-                // const productImage5Element = document.getElementById('productImage5');
-                // const productImage6Element = document.getElementById('productImage6');
+                const productImageElement = document.getElementById('productImage');
+                const productImage2Element = document.getElementById('productImage2');
+                const productImage3Element = document.getElementById('productImage3');
+                const productImage4Element = document.getElementById('productImage4');
+                const productImage5Element = document.getElementById('productImage5');
+                const productImage6Element = document.getElementById('productImage6');
                 const prePriceElement = document.getElementById('preprice');
                 const productPriceElement = document.getElementById('productPrice');
                 const BrandNameElement = document.getElementById('BrandName');
@@ -829,28 +717,28 @@
                 <button id="addtofavourite" class="Add-to-Cart" onclick="addfavouriteproduct('${key}')">
                     <i class="bi bi-heart" style="font-size: small;"></i>
                 </button>
-             `;
+            `;
 
                 // Populate product title and ID
                 productTitleElement.innerText = productDetails["product-title"];
                 productID.innerText = key;
 
-                // // Array of image keys and corresponding elements
-                // const imageKeys = ["product-photo", "product-photo2", "product-photo3", "product-photo4", "product-photo5", "product-photo6"];
-                // const imageElements = [productImageElement, productImage2Element, productImage3Element, productImage4Element, productImage5Element, productImage6Element];
+                // Array of image keys and corresponding elements
+                const imageKeys = ["product-photo", "product-photo2", "product-photo3", "product-photo4", "product-photo5", "product-photo6"];
+                const imageElements = [productImageElement, productImage2Element, productImage3Element, productImage4Element, productImage5Element, productImage6Element];
 
-                // // Loop through image keys and elements
-                // imageKeys.forEach((key, index) => {
-                //     const imageUrl = productDetails[key];
-                //     const imageElement = imageElements[index];
+                // Loop through image keys and elements
+                imageKeys.forEach((key, index) => {
+                    const imageUrl = productDetails[key];
+                    const imageElement = imageElements[index];
 
-                //     if (imageUrl) {
-                //         imageElement.src = imageUrl; // Set image source if URL exists
-                //     } else {
-                //         imageElement.remove(); // Remove the <img> element if URL is empty
-                //         // element.classList.add("hidden");
-                //     }
-                // });
+                    if (imageUrl) {
+                        imageElement.src = imageUrl; // Set image source if URL exists
+                    } else {
+                        imageElement.remove(); // Remove the <img> element if URL is empty
+                        // element.classList.add("hidden");
+                    }
+                });
 
                 // Calculate and display prices
                 const saleAmount = productDetails["sale-amount"];
@@ -982,7 +870,6 @@
 
                 checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
                 initializeProductSelections();
-                initializeImageGallery();
             })
             .catch((error) => {
                 console.error("Error fetching product details:", error);
@@ -1093,13 +980,31 @@
             colorOptions.innerHTML = '';
         }
     }
+    // Function to show preloader
+    function showPreloader() {
+        document.getElementById('preloader').classList.remove('hidden');
 
+
+    }
+
+    // Function to hide preloader
+    function hidePreloader() {
+        document.getElementById('preloader').classList.add('hidden');
+
+
+    }
+
+    // Fetch product details after 2 seconds
+    setTimeout(() => {
+
+        hidePreloader(); // Hide preloader after 2 seconds
+        // Fetch product details
+    }, 1000);
 
 
     // on click on color options 
 
     function updateProductImages(colorName) {
-        showImagePreloader(); // Show loader at start
         const size = document.getElementById('product-Size').innerText;
         const productID = document.getElementById('productID').innerText;
         const url = `${storeurl}/Stores/${uid}/Products/${productID}/sizes/${size}/${colorName}.json`;
@@ -1115,36 +1020,33 @@
                 // Check and set default image source if necessary
                 // setDefaultImageSource_PD(data, "img1", "img2", "img3", "img4", "img5", "img6");
 
-                // const productImageElement = document.getElementById('productImage');
-                // const productImage2Element = document.getElementById('productImage2');
-                // const productImage3Element = document.getElementById('productImage3');
-                // const productImage4Element = document.getElementById('productImage4');
-                // const productImage5Element = document.getElementById('productImage5');
-                // const productImage6Element = document.getElementById('productImage6');
-                // const images = [data.img1, data.img2, data.img3, data.img4, data.img5, data.img6];
-                // const imageElements = [productImageElement, productImage2Element, productImage3Element, productImage4Element, productImage5Element, productImage6Element];
+                const productImageElement = document.getElementById('productImage');
+                const productImage2Element = document.getElementById('productImage2');
+                const productImage3Element = document.getElementById('productImage3');
+                const productImage4Element = document.getElementById('productImage4');
+                const productImage5Element = document.getElementById('productImage5');
+                const productImage6Element = document.getElementById('productImage6');
+                const images = [data.img1, data.img2, data.img3, data.img4, data.img5, data.img6];
+                const imageElements = [productImageElement, productImage2Element, productImage3Element, productImage4Element, productImage5Element, productImage6Element];
 
-                // imageElements.forEach((element, index) => {
-                //     if (element) {
-                //         if (images[index]) {
-                //             element.src = images[index];
-                //             element.classList.remove('hidden');
+                imageElements.forEach((element, index) => {
+                    if (element) {
+                        if (images[index]) {
+                            element.src = images[index];
 
-                //         } else {
-                //             // element.remove();
-                //             element.classList.add('hidden');
-                //         }
-                //     }
-                // });
+                        } else {
+                            element.remove();
+                            // element.classList.add("hidden");
+                        }
+                    }
+                });
                 adjustImageGridLayout();
-                initializeImageGallery();
 
 
 
             })
             .catch((error) => {
                 console.error("Error fetching product images:", error);
-                hideImagePreloader(); // Ensure preloader is hidden even on error
             });
     }
 
@@ -1290,282 +1192,41 @@
         }
     });
 
-    function showImagePreloader() {
-        const photoContainer = document.querySelector('.content-photo-container');
-        if (!photoContainer) return;
 
-        // Create or show preloader
-        let preloader = photoContainer.querySelector('#preloader-overlay');
-        if (!preloader) {
-            preloader = document.createElement('div');
-            preloader.id = 'preloader-overlay';
-            preloader.className = 'content-photo-container-preloader-overlay';
-            preloader.innerHTML = '<div class="content-photo-container-spinner"></div>';
-            photoContainer.appendChild(preloader);
-        } else {
-            preloader.classList.remove('hidden');
-        }
-    }
 
-    function hideImagePreloader() {
-        const preloader = document.querySelector('#preloader-overlay');
-        if (preloader) {
-            // Add fade-out class
-            preloader.classList.add('hidden');
-
-            // Remove element after fade completes
-            setTimeout(() => {
-                preloader.remove();
-            }, 300); // Match this with your CSS transition time
-        }
-    }
-
-    // Modified adjustImageGridLayout with preloader handling
     function adjustImageGridLayout() {
-        showImagePreloader(); // Show loader before making changes
-
         const photoContainer = document.querySelector('.content-photo-container');
         if (!photoContainer) return;
 
-        // Count visible images
-        const images = photoContainer.querySelectorAll('img:not(.ignore):not(.hidden)');
-        const visibleImageCount = images.length;
+        // Count actual img elements (excluding buttons)
+        const images = photoContainer.querySelectorAll('img:not(.ignore)');
+        const imageCount = images.length;
 
-        // Apply layout changes
-        if (visibleImageCount === 1) {
+        // Apply style if only one image exists
+        if (imageCount === 1) {
             photoContainer.style.setProperty('grid-template-columns', 'repeat(1, 1fr)', 'important');
-            // Hide navigation buttons...
+
+            // Optionally hide navigation buttons if needed
+            const prevButton = photoContainer.querySelector('.previous-button');
+            const nextButton = photoContainer.querySelector('.next-button');
+            if (prevButton) prevButton.classList.add("hidden");
+            if (nextButton) nextButton.classList.add("hidden");
         } else {
+            // Reset to default if multiple images
             photoContainer.style.removeProperty('grid-template-columns');
-            // Show navigation buttons...
+
+            // Show navigation buttons if they exist
+            const prevButton = photoContainer.querySelector('.previous-button');
+            const nextButton = photoContainer.querySelector('.next-button');
+            if (prevButton) prevButton.style.display = '';
+            if (nextButton) nextButton.style.display = '';
         }
-
-        // Hide preloader after a slight delay to ensure images are loaded
-        setTimeout(hideImagePreloader, 600);
     }
 
+    // Usage example - call this after loading/updating images
 
 
-    //v1
-    // function initializeImageGallery() {
-    //     const container = document.querySelector('.content-photo-container');
-    //     if (!container) return;
 
-    //     // Create main image container if it doesn't exist
-    //     let mainImageContainer = container.querySelector('.main-image-container');
-    //     if (!mainImageContainer) {
-    //         mainImageContainer = document.createElement('div');
-    //         mainImageContainer.className = 'main-image-container';
-    //         container.prepend(mainImageContainer);
-    //     }
-
-    //     const images = container.querySelectorAll('.product-image');
-    //     if (images.length === 0) return;
-
-    //     // Create thumbnails container
-    //     let thumbnailsContainer = container.querySelector('.thumbnails-container');
-    //     if (!thumbnailsContainer) {
-    //         thumbnailsContainer = document.createElement('div');
-    //         thumbnailsContainer.className = 'thumbnails-container';
-    //         container.appendChild(thumbnailsContainer);
-    //     } else {
-    //         thumbnailsContainer.innerHTML = '';
-    //     }
-
-    //     // Create main image element
-    //     const mainImage = document.createElement('img');
-    //     mainImage.className = 'main-image';
-    //     mainImage.src = images[0].src;
-    //     mainImage.alt = images[0].alt;
-    //     mainImageContainer.innerHTML = '';
-    //     mainImageContainer.appendChild(mainImage);
-
-    //     // Create thumbnails
-    //     images.forEach((img, index) => {
-    //         if (img.src) {
-    //             const thumbnail = document.createElement('img');
-    //             thumbnail.className = 'thumbnail' + (index === 0 ? ' active' : '');
-    //             thumbnail.src = img.src;
-    //             thumbnail.alt = img.alt;
-
-    //             thumbnail.addEventListener('click', function () {
-    //                 // Update main image
-    //                 mainImage.src = this.src;
-    //                 mainImage.alt = this.alt;
-
-    //                 // Update active thumbnail
-    //                 container.querySelectorAll('.thumbnail').forEach(thumb => {
-    //                     thumb.classList.remove('active');
-    //                 });
-    //                 this.classList.add('active');
-    //             });
-
-    //             thumbnailsContainer.appendChild(thumbnail);
-    //         }
-    //     });
-
-    //     // Navigation buttons
-    //     const prevButton = container.querySelector('.previous-button');
-    //     const nextButton = container.querySelector('.next-button');
-
-    //     if (prevButton && nextButton) {
-    //         prevButton.addEventListener('click', () => navigateImages(-1));
-    //         nextButton.addEventListener('click', () => navigateImages(1));
-
-    //         // Show buttons only if multiple images
-    //         if (images.length > 1) {
-    //             prevButton.classList.remove('none-op');
-    //             nextButton.classList.remove('none-op');
-    //         }
-    //     }
-    // }
-
-    // function navigateImages(direction) {
-    //     const container = document.querySelector('.content-photo-container');
-    //     const thumbnails = Array.from(container.querySelectorAll('.thumbnail'));
-    //     const currentIndex = thumbnails.findIndex(thumb => thumb.classList.contains('active'));
-
-    //     let newIndex = currentIndex + direction;
-    //     if (newIndex < 0) newIndex = thumbnails.length - 1;
-    //     if (newIndex >= thumbnails.length) newIndex = 0;
-
-    //     // Simulate click on the new thumbnail
-    //     thumbnails[newIndex].click();
-    // }
-
-
-    //v2
-
-    function updateProductImages(colorName) {
-        showImagePreloader();
-        const size = document.getElementById('product-Size').innerText;
-        const productID = document.getElementById('productID').innerText;
-        const url = `${storeurl}/Stores/${uid}/Products/${productID}/sizes/${size}/${colorName}.json`;
-
-        fetch(url)
-            .then((response) => {
-                if (!response.ok) throw new Error("Network response was not ok");
-                return response.json();
-            })
-            .then((data) => {
-                // Get all available images from the API response
-                const availableImages = [
-                    data.img1,
-                    data.img2,
-                    data.img3,
-                    data.img4,
-                    data.img5,
-                    data.img6
-                ].filter(img => img); // Filter out empty/null images
-
-                // Update main product images
-                const imageElements = [
-                    document.getElementById('productImage'),
-                    document.getElementById('productImage2'),
-                    document.getElementById('productImage3'),
-                    document.getElementById('productImage4'),
-                    document.getElementById('productImage5'),
-                    document.getElementById('productImage6')
-                ];
-
-                // First hide all images
-                imageElements.forEach(el => {
-                    if (el) el.classList.add('hidden');
-                });
-
-                // Then show only available images
-                availableImages.forEach((imgSrc, index) => {
-                    if (imageElements[index]) {
-                        imageElements[index].src = imgSrc;
-                        imageElements[index].classList.remove('hidden');
-                    }
-                });
-
-                // Reinitialize gallery with the new images
-                initializeImageGallery();
-                adjustImageGridLayout();
-            })
-            .catch((error) => {
-                console.error("Error fetching product images:", error);
-            })
-            .finally(() => {
-                hideImagePreloader();
-            });
-    }
-
-    // Modified initializeImageGallery to work with dynamic images
-    function initializeImageGallery() {
-        const container = document.querySelector('.content-photo-container');
-        if (!container) return;
-
-        // Get only visible images (not hidden)
-        const visibleImages = Array.from(container.querySelectorAll('.product-image:not(.hidden)'));
-        if (visibleImages.length === 0) return;
-
-        // Get or create gallery containers
-        let mainImageContainer = container.querySelector('.main-image-container');
-        let thumbnailsContainer = container.querySelector('.thumbnails-container');
-
-        if (!mainImageContainer) {
-            mainImageContainer = document.createElement('div');
-            mainImageContainer.className = 'main-image-container';
-            container.insertBefore(mainImageContainer, container.firstChild);
-        }
-
-        if (!thumbnailsContainer) {
-            thumbnailsContainer = document.createElement('div');
-            thumbnailsContainer.className = 'thumbnails-container';
-            container.appendChild(thumbnailsContainer);
-        }
-
-        // Clear existing content
-        mainImageContainer.innerHTML = '';
-        thumbnailsContainer.innerHTML = '';
-
-        // Create main image (use first available image)
-        const mainImage = document.createElement('img');
-        mainImage.className = 'main-image';
-        mainImage.src = visibleImages[0].src;
-        mainImage.alt = visibleImages[0].alt;
-        mainImageContainer.appendChild(mainImage);
-
-        // Create thumbnails for all available images
-        visibleImages.forEach((img, index) => {
-            const thumbnail = document.createElement('img');
-            thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
-            thumbnail.src = img.src;
-            thumbnail.alt = img.alt;
-
-            thumbnail.addEventListener('click', function () {
-                // Update main image
-                mainImage.src = this.src;
-                mainImage.alt = this.alt;
-
-                // Update active thumbnail
-                container.querySelectorAll('.thumbnail').forEach(thumb => {
-                    thumb.classList.remove('active');
-                });
-                this.classList.add('active');
-            });
-
-            thumbnailsContainer.appendChild(thumbnail);
-        });
-
-
-    }
-
-    // Function to show preloader
-    function showPreloader() {
-        document.getElementById('preloader').classList.remove('hidden');
-    }
-    function hidePreloader() {
-        document.getElementById('preloader').classList.add('hidden');
-    }
-    setTimeout(() => {
-
-        hidePreloader(); // Hide preloader after 2 seconds
-        // Fetch product details
-    }, 1000);
 </script>
 
 

@@ -295,7 +295,7 @@ function openCartModal(productId) {
           <p id="productPrice">${salePrice} EGP</p>
       </div>
           <div style="width:70%">
-            <img id="productImage" class="m-5 product-image active" src="${
+            <img id="productImage" class="m-5 product-image width-available active" src="${
               product["product-photo"]
             }" alt="Product Image">
           </div>
