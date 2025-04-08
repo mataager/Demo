@@ -5232,33 +5232,44 @@ th {
 }
 
 .best-seller {
+  border-radius: 10px 10px 10px 10px;
+  right: 5px;
   font-size: small;
   color: white;
-  bottom: 0;
+  top: 4px;
   position: absolute;
   background: black;
   padding: 5px 10px;
   display: flex;
   align-items: center;
   gap: 5px;
-  border-radius: 0px 10px 0px 0px;
 }
 
-.best-seller-hint,
-.freeshipping-hint {
+#hints-container {
+  position: relative;
+  height: 40px;
+  /* Fixed height to prevent layout shifts */
+  overflow: hidden;
+}
+
+.rotating-hints {
+  position: relative;
+  height: 100%;
+}
+
+.hint {
+  position: absolute;
   width: fit-content;
-  font-size: small;
-  color: white;
-  bottom: 0;
+  color: rgb(0, 0, 0);
   padding: 7px 10px;
   display: flex;
   align-items: center;
   gap: 5px;
-  background: #000000;
+  background: #ffffff;
   border-radius: 5px;
+  transition: all 0.5s ease;
+  font-size: small;
 }
-
-
 
 .shipping-status {
   color: #333333 !important;

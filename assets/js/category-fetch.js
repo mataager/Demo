@@ -157,7 +157,7 @@ function renderProducts() {
 
     // Check if the product is a best seller
     const bestSellerHTML = product["bestseller"]
-      ? `<div class="best-seller" id="best-seller">bestseller<i class="bi bi-lightning-charge"></i></div>`
+      ? `<div class="best-seller" id="best-seller"><i class="bi bi-lightning-charge"></i></div>`
       : "";
     //
 

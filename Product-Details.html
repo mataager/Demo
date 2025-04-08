@@ -248,7 +248,9 @@
                             <div class="details-info p-20 animate-on-scroll-auto">
                                 <p id="BrandName" class="mb-10 m-5 pl-0 ml-10 BrandName-p"></p>
                                 <h2 id="productTitle" class="m-5 ml-auto mb-10 ml-10"></h2>
-                                <h5 id="hints" class="m-5 ml-auto mb-10 ml-10 hints"></h5>
+                                <!-- <h5 id="hints" class="m-5 ml-auto mb-10 ml-10 hints"></h5> -->
+                                <div id="hints-container"></div>
+
                                 <p id="preprice" class="m-5 mb-10"></p>
                                 <p id="productPrice" class="m-5 mb-10"></p>
 
@@ -763,21 +765,81 @@
 
                 // Check if the product qualifies for free shipping
                 let freeShippingHTML = "";
-                if (salePrice >= parseInt(freeshipping, 10)) {
-                    freeShippingHTML = `<div class="freeshipping-hint hint mb-10" id="free-shipping">
-                    Free Shipping on this item<i class="bi bi-truck"></i>
-                </div>`;
+                // if (salePrice >= parseInt(freeshipping, 10)) {
+                //     freeShippingHTML = `<div class="freeshipping-hint hint mb-10" id="free-shipping">
+                //     Free Shipping on this item<i class="bi bi-truck"></i>
+                // </div>`;
+                // }
+
+                // // Check if the product is a best seller
+                // const bestSellerHTML = productDetails["bestseller"]
+                //     ? `<div class="best-seller-hint hint mb-10" id="best-seller">
+                //     Bestseller<i class="bi bi-lightning-charge"></i>
+                // </div>`
+                //     : "";
+
+                // // Combine and populate hints
+                // hints.innerHTML = `${bestSellerHTML}${freeShippingHTML}`;
+
+
+                // Generate hint elements based on conditions
+                const hintss = [];
+
+                if (productDetails["bestseller"]) {
+                    hintss.push(`
+    <div class="hint best-seller-hint">
+      <i class="bi bi-lightning-charge"></i>
+      <span>Bestseller</span>
+    </div>
+  `);
                 }
 
-                // Check if the product is a best seller
-                const bestSellerHTML = productDetails["bestseller"]
-                    ? `<div class="best-seller-hint hint mb-10" id="best-seller">
-                    Bestseller<i class="bi bi-lightning-charge"></i>
-                </div>`
-                    : "";
+                if (salePrice >= parseInt(freeshipping, 10)) {
+                    hintss.push(`
+    <div class="hint free-shipping">
+      <i class="bi bi-truck"></i>
+      <span>Free Shipping on this item</span>
+    </div>
+  `);
+                }
 
-                // Combine and populate hints
-                hints.innerHTML = `${bestSellerHTML}${freeShippingHTML}`;
+                // Only proceed if we have hints to show
+                if (hintss.length > 0) {
+                    const hintsContainer = document.querySelector("#hints-container");
+
+                    // Create rotating container
+                    hintsContainer.innerHTML = `
+    <div class="rotating-hints">
+      ${hintss.join('')}
+    </div>
+  `;
+
+                    // Start the rotation
+                    startHintRotation(hintsContainer.querySelector('.rotating-hints'));
+                }
+
+                function startHintRotation(container) {
+                    const hintss = container.querySelectorAll('.hint');
+                    let currentIndex = 0;
+
+                    // Initially show first hint
+                    hintss[currentIndex].style.opacity = '1';
+                    hintss[currentIndex].style.transform = 'translateY(0)';
+
+                    // Set up rotation interval
+                    setInterval(() => {
+                        // Fade out current hint
+                        hintss[currentIndex].style.opacity = '0';
+                        hintss[currentIndex].style.transform = 'translateY(10px)';
+
+                        // Move to next hint (with wrap-around)
+                        currentIndex = (currentIndex + 1) % hintss.length;
+
+                        // Fade in next hint
+                        hintss[currentIndex].style.opacity = '1';
+                        hintss[currentIndex].style.transform = 'translateY(0)';
+                    }, 2000); // Rotate every 2 seconds
+                }
 
                 // Get related products
                 const category = productDetails["category"];
