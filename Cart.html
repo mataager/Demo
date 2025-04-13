@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="store-title"></title>
-    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="./favicon.png" type="image/svg+xml">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -18,6 +18,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="./assets/js/inithializer.js"></script>
     <script src="./assets/js/check-auth-user.js"></script>
     <script src="./assets/js/static.js"></script>
     <script src="./assets/js/search-product.js"></script>
@@ -175,33 +179,33 @@
                                     </div>
 
                                 </div>
-                                <div class="flex center paymentandtotal">
-                                    <div class="flex center flex-direction-column payment-cart-div mt-20">
-                                        <div class="payment-section">
-                                            <h5>Payment Type</h5>
-                                            <div class="payment-options-container">
-                                                <div class="payment-options">
-                                                    <div class="payment-option selected" id="cod">
-                                                        <img src="./assets/icons/COD.jpg" alt="Cash on Delivery">
-                                                    </div>
-                                                    <div class="payment-option" id="card">
-                                                        <img src="./assets/icons/VISA.svg" alt="Card Payment">
-                                                    </div>
-                                                    <div class="payment-option" id="fawry">
-                                                        <img src="./assets/icons/Fawry.svg" alt="Fawry">
-                                                    </div>
+                                <!-- <div class="flex center paymentandtotal"> -->
+                                <div class="flex center flex-direction-column payment-cart-div mt-20">
+                                    <div class="payment-section">
+                                        <h5>Payment Type</h5>
+                                        <div class="payment-options-container">
+                                            <div class="payment-options">
+                                                <div class="payment-option selected" id="cod">
+                                                    <img src="./assets/icons/COD.jpg" alt="Cash on Delivery">
+                                                </div>
+                                                <div class="payment-option" id="card">
+                                                    <img src="./assets/icons/VISA.svg" alt="Card Payment">
+                                                </div>
+                                                <div class="payment-option" id="fawry">
+                                                    <img src="./assets/icons/Fawry.svg" alt="Fawry">
                                                 </div>
                                             </div>
-                                            <div class="pagination-dots">
-                                                <span class="dot active" data-index="0"></span>
-                                                <span class="dot" data-index="1"></span>
-                                                <span class="dot" data-index="2"></span>
-                                            </div>
                                         </div>
-
+                                        <div class="pagination-dots">
+                                            <span class="dot active" data-index="0"></span>
+                                            <span class="dot" data-index="1"></span>
+                                            <span class="dot" data-index="2"></span>
+                                        </div>
                                     </div>
 
-                                    <div class="flex center total-cart-div mt-20">
+                                </div>
+
+                                <!-- <div class="flex center total-cart-div mt-20">
                                         <h5 class="pb-30">Summary</h5>
                                         <div class="flex center align-items font-small mb-10">
                                             <h5>Cart Total :</h5><span id="cart-total" class="ml-3"></span>
@@ -214,6 +218,35 @@
                                             <h5>Total Price :</h5><span id="total-price" class="ml-3"></span>
                                         </div>
                                         <h5 class="hidden" id="total-cart-amount"></h5>
+                                    </div> -->
+                                <!-- </div> -->
+
+                                <div class="flex center total-cart-div mt-20">
+                                    <div class="promo-code-section pb-30">
+                                        <h5 class="mb-10">Promo Code</h5>
+                                        <div class="flex center align-items">
+                                            <input type="text" id="promo-code" class="promo-code-input"
+                                                placeholder="Enter promo code">
+                                            <button id="apply-promo" class="apply-promo-btn ml-10">Apply</button>
+                                        </div>
+                                        <div id="promo-message" class="promo-message mt-10"></div>
+                                    </div>
+                                    <div class="flex center Cart-summary-section mt-20">
+                                        <h5 class="mb-10">Summary</h5>
+                                        <div class="flex center align-items font-small mb-10">
+                                            <h5>Cart Total :</h5><span id="cart-total" class="ml-3"></span>
+                                        </div>
+                                        <div class="flex center align-items font-small mb-10">
+                                            <h5>Shipping Fees :</h5><span id="shipping-fees-total" class="ml-3"></span>
+                                            <h5 id="shipping-fees" class="ml-3 hidden"></h5>
+                                        </div>
+                                        <div class="flex center align-items font-small mb-10">
+                                            <h5>Discount :</h5><span id="discount-amount" class="ml-3">$0.00</span>
+                                        </div>
+                                        <div class="flex center align-items font-small mb-10">
+                                            <h5>Total Price :</h5><span id="total-price" class="ml-3"></span>
+                                        </div>
+                                        <h5 class="hidden" id="total-cart-amount"></h5>
                                     </div>
                                 </div>
 
@@ -221,8 +254,7 @@
                             </div>
                         </div>
                         <div class="flex center m-30"><button id="Submit" class="Add-to-Cart"
-                                onclick="submitOrder()">Submit
-                                Order
+                                onclick="submitOrder()">proceed to checkout
                                 <i class="bi bi-check2-all"></i>
                             </button></div>
 
@@ -626,9 +658,7 @@
                 // Initialize with the first payment option
                 updatePaymentOption(currentIndex);
             </script>
-            <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
             <script src="./assets/js/submit-order.js"></script>
 
 

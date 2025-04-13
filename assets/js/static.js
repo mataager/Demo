@@ -12,6 +12,9 @@ const productnavbar = ["yes"];
 const brandsnavbar = ["yes"];
 const storeType = "clothing"; // clothing or footwear
 const freeshipping = "2000";
+
+// guest checkout
+const GuestEmail = "hancockstoreguest@gmail.com";
 //images url
 const pannerurl =
   "https://mir-s3-cdn-cf.behance.net/project_modules/fs/312fe489737167.5dfe68289b366.gif";

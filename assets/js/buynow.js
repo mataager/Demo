@@ -219,12 +219,10 @@ function showUserForm() {
 
     try {
       // Sign in the guest user programmatically
-      const email = "hancockstoreguest@gmail.com";
-      const password = "hancockstoreguest@gmail.com"; // Replace with the actual password
 
       const userCredential = await firebase
         .auth()
-        .signInWithEmailAndPassword(email, password);
+        .signInWithEmailAndPassword(GuestEmail, GuestEmail);
 
       // Get the ID token
       const idToken = await userCredential.user.getIdToken();
@@ -305,7 +303,7 @@ function createTextArea(id, placeholder) {
   textarea.style.maxWidth = "375px";
   textarea.style.width = "-webkit-fill-available";
   textarea.style.background = "none";
-  textarea.style.color = "#333";
+  textarea.style.color = "inherit";
   textarea.style.fontFamily = "inherit";
   textarea.style.fontSize = "medium";
   textarea.style.padding = "10px";

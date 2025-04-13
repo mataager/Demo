@@ -754,31 +754,56 @@ body {
 }
 
 .navbar-link {
-  color: black;
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
   padding-block: 10px;
+  position: relative;
+  transition: all 0.3s ease;
+  width: fit-content;
 }
 
+.navbar-link::after,
+.nav-action-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #19191a;
+  transition: width 0.3s ease;
+  /* Only animate the width */
+}
+
+.navbar-link:is(:hover, :focus)::after {
+  width: 100%;
+  /* Animate the width from 0 to 100% */
+}
+
+/* Optional: Keep the padding consistent */
 .navbar-link:is(:hover, :focus) {
-  border-bottom: 2px solid #000000;
-  padding-block: 8px;
+  padding-block: 10px;
+  /* Remove the padding change to prevent layout shift */
 }
-
-/* .nav-action-list>li:first-child {
-  display: none;
-} */
 
 .nav-action-btn {
-  color: var(--rich-black-fogra-29);
   display: flex;
   align-items: center;
   gap: 10px;
-  width: 100%;
-  padding-block: px;
-  transition: var(--transition-1);
+  font-size: small;
+  text-transform: uppercase;
+  color: #19191a;
+  padding-block: 10px;
+  position: relative;
+  transition: all 0.3s ease;
+  width: fit-content;
 }
 
-.nav-action-btn:is(:hover, :focus) {
-  color: #000;
+
+.nav-action-btn:is(:hover, :focus)::after {
+  width: 25px;
 }
 
 .nav-action-btn ion-icon {
@@ -1581,8 +1606,8 @@ a.footer-link:is(:hover, :focus) {
 
   .nav-action-badge {
     position: absolute;
-    top: 5px;
-    right: -12px;
+    top: 13px;
+    right: -11px;
   }
 
   /**
@@ -2387,6 +2412,10 @@ select {
 .Buyitnow,
 .placeorderbtn {
   /* border: 2px solid; */
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-block: 10px;
   margin: 2px;
   padding: 7px;
   color: rgb(255 255 255);
@@ -2968,14 +2997,18 @@ select {
 } */
 
 .add-to-fav-btn {
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-block: 10px;
   width: fit-content;
   margin: 2px;
-  padding: 7px;
   color: rgb(255 255 255);
   background: #000;
   font-size: small;
   border-radius: 5px;
-
+  padding: 10px;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .fav-image-preview {
@@ -3432,7 +3465,7 @@ a {
 
 /* // */
 
-.no-product-message-container {
+/* .no-product-message-container {
   padding: 76px;
   text-align: center;
   display: flex;
@@ -3450,10 +3483,7 @@ a {
   text-transform: capitalize;
 }
 
-.no-product-message-container .icon {
-  font-size: 50px;
-  color: #fb0c0cc7;
-}
+
 
 
 /* Container for the sale text */
@@ -3676,6 +3706,7 @@ a {
   font-weight: 600;
   font-size: smaller;
   border-radius: 5px;
+
 }
 
 .filter-btn:hover,
@@ -6215,3 +6246,115 @@ body.modal-open #mainpagearea {
 
 /* //
  */
+.spec-font {
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
+  padding-block: 10px;
+  /* position: relative; */
+  /* transition: all 0.3s ease; */
+  width: fit-content;
+}
+
+/* // */
+.no-products-content {
+  text-align: center;
+  padding: 30px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.no-products-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.no-products-text {
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-block: 10px;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.no-products-subtext {
+  font-size: 14px;
+  color: #777;
+  letter-spacing: 0.5px;
+}
+
+.no-products-content i {
+  font-size: 50px;
+  color: #f70000ab;
+}
+
+.return-to-home-a {
+  margin-top: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-block: 10px;
+  font-size: 14px;
+  color: #777;
+  letter-spacing: 0.5px;
+  transition: var(--transition-1);
+}
+
+.return-to-home-a:hover {
+  color: #333;
+}
+
+/* // */
+
+.promo-code-input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.apply-promo-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.apply-promo-btn:hover {
+  background-color: #0069d9;
+}
+
+.promo-message {
+  font-size: 12px;
+  color: #28a745;
+  /* Green for success messages */
+}
+
+.promo-message.error {
+  color: #dc3545;
+  /* Red for error messages */
+}
+
+.Cart-summary-section {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Cart-summary-section,
+.promo-code-section {
+  width: -webkit-fill-available;
+}
+
+.promo-code-section-div {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}

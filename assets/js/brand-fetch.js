@@ -66,14 +66,35 @@ function renderProducts() {
   productList.innerHTML = ""; // Clear existing products from the list
 
   if (totalProducts === 0) {
-    // If no products found, display a message
-    const sortby = document.querySelector(".sort-by");
+    const Brand = getCategoryOrBrandFromUrl(); // Get category or brand from URL
+
+    // Create message container
     const noProductsMessage = document.createElement("div");
     noProductsMessage.classList.add("no-product-message-container");
-    noProductsMessage.innerHTML = `<img src="https://i.imgur.com/xonwgsq_d.webp?maxwidth=760&fidelity=grand" width=300>`;
+
+    // Create elegant message with styling
+    noProductsMessage.innerHTML = `
+        <div class="no-products-content">
+           <i class="bi bi-exclamation-diamond-fill"></i>
+            <p class="no-products-text">No ${Brand} items available in this store</p>
+            <p class="no-products-subtext">Please check back later or browse other brands</p>
+        </div>
+    `;
+
+    // Apply styles
+    noProductsMessage.style.cssText = `
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 300px;
+        width: 100%;
+    `;
+
+    // Add to DOM
+    productList.innerHTML = ""; // Clear existing content
     productList.style.display = "block";
-    sortby.style.display = "none";
     productList.appendChild(noProductsMessage);
+
     return;
   }
 

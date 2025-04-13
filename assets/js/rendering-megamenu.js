@@ -300,10 +300,6 @@ const brandsData = [
     logo: "https://cdn.worldvectorlogo.com/logos/onitsuka-tiger-1.svg",
   },
   {
-    name: "McQueen",
-    logo: "https://1000marche.net/wp-content/uploads/2021/09/McQ-Alexander-McQueen-Logo.png",
-  },
-  {
     name: "UGG",
     logo: "https://cdn.worldvectorlogo.com/logos/ugg-australia.svg",
   },

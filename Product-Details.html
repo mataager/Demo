@@ -97,15 +97,17 @@
         rel="stylesheet">
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="./assets/js/inithializer.js"></script>
     <script src="./assets/js/static.js"></script>
     <script src="./assets/js/search-product.js"></script>
     <script src="./assets/js/image-error.js"></script>
     <script src="./assets/js/getdate.js"></script>
     <script src="./assets/js/animation.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 
 </head>
 
@@ -301,13 +303,13 @@
                                         To Cart
                                         <i class="bi bi-bag-plus"></i>
                                     </button>
-                                    <div id="addtofavouritediv" class="flex">
+                                </div>
+                                <div id="addtofavouritediv" class="m-5 mb-10 flex">
 
-                                    </div>
                                 </div>
 
                                 <div class="m-5 mb-10">
-                                    <button id="showdetails" class="Add-to-Cart">Show Details
+                                    <button id="showdetails" class="Add-to-Cart">Show Product Details
                                         <i class="bi bi-arrow-down-short"></i>
                                     </button>
                                 </div>
@@ -697,11 +699,6 @@
 
             })
             .then((productDetails) => {
-                console.log(productDetails['size-chart-url']);
-
-                // Check and set default image source if necessary
-                // setDefaultImageSource(productDetails);
-
                 // Elements to populate
                 const productTitleElement = document.getElementById('productTitle');
                 const hints = document.getElementById('hints');
@@ -734,7 +731,7 @@
                 const addToFavouriteDiv = document.getElementById("addtofavouritediv");
                 addToFavouriteDiv.innerHTML = `
                 <button id="addtofavourite" class="Add-to-Cart" onclick="addfavouriteproduct('${key}')">
-                    <i class="bi bi-heart" style="font-size: small;"></i>
+                    Add To favourite <i class="bi bi-heart" style="font-size: small;"></i>
                 </button>
              `;
 
@@ -765,24 +762,6 @@
 
                 // Check if the product qualifies for free shipping
                 let freeShippingHTML = "";
-                // if (salePrice >= parseInt(freeshipping, 10)) {
-                //     freeShippingHTML = `<div class="freeshipping-hint hint mb-10" id="free-shipping">
-                //     Free Shipping on this item<i class="bi bi-truck"></i>
-                // </div>`;
-                // }
-
-                // // Check if the product is a best seller
-                // const bestSellerHTML = productDetails["bestseller"]
-                //     ? `<div class="best-seller-hint hint mb-10" id="best-seller">
-                //     Bestseller<i class="bi bi-lightning-charge"></i>
-                // </div>`
-                //     : "";
-
-                // // Combine and populate hints
-                // hints.innerHTML = `${bestSellerHTML}${freeShippingHTML}`;
-
-
-                // Generate hint elements based on conditions
                 const hintss = [];
 
                 if (productDetails["bestseller"]) {
@@ -936,6 +915,7 @@
             })
             .catch((error) => {
                 console.error("Error fetching product details:", error);
+                showProductNotFoundMessage();
             });
     }
 
@@ -1199,10 +1179,10 @@
             detailsSection.classList.remove('hidden');
             // Allow CSS transition to trigger
             setTimeout(() => detailsSection.classList.add('open'), 10);
-            showDetailsButton.innerHTML = 'Hide Details <i class="bi bi-arrow-up-short"></i>';
+            showDetailsButton.innerHTML = 'Hide Product Details <i class="bi bi-arrow-up-short"></i>';
         } else {
             detailsSection.classList.remove('open');
-            showDetailsButton.innerHTML = 'Show Details <i class="bi bi-arrow-down-short"></i>';
+            showDetailsButton.innerHTML = 'Show Product Details <i class="bi bi-arrow-down-short"></i>';
             // Wait for animation to finish before hiding completely
             setTimeout(() => detailsSection.classList.add('hidden'), 500);
         }
@@ -1453,6 +1433,55 @@
         }, 400); // Match transition duration
     }
 
+
+    function showProductNotFoundMessage() {
+        const productArea = document.getElementById('product-area');
+        productArea.innerHTML = `
+        <div class="no-product-message-container" style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            width: 100%;
+            border-radius: 8px;
+            margin: 2rem 0;
+        ">
+            <div class="no-products-content">
+                <i class="bi bi-exclamation-octagon-fill" style="
+                      margin-block: 10px;
+                "></i>
+                <p class="no-products-text" style="
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    padding: 10px 0;
+                    color: #333;
+                    font-weight: 500;
+                    margin-bottom: 10px;
+                ">
+                    PRODUCT NOT FOUND
+                </p>
+                <p class="no-products-subtext" style="
+                    margin-block: 10px;
+                    font-size: 14px;
+                    color: #777;
+                    letter-spacing: 0.5px;
+                ">
+                    The item you're looking for doesn't exist or may have been removed
+                </p>
+                <div class="flex center">
+              <a class="return-to-home-a" onclick="window.location.href='./index.html'">
+                Return To Home
+            </a>
+                </div>
+            </div>
+        </div>
+    `;
+
+        // Hide other related elements if needed
+        const relatedProducts = document.querySelector('.related-products');
+        if (relatedProducts) relatedProducts.style.display = 'none';
+    }
 
     // Function to show preloader
     function showPreloader() {
