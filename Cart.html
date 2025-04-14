@@ -158,29 +158,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="address-sec">
-                                        <div>
-                                            <div class="mt-20">
-                                                <h5 class="flex center mb-10">Address</h5>
 
-                                                <div class="address-area" style="height: auto;">
-
-                                                    <div class="preloader2" id="preloader2">
-                                                        <div class="loader2"></div>
-                                                    </div>
-                                                    <div class="address-area" id="address-area"></div>
-
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-                                    </div>
 
                                 </div>
                                 <!-- <div class="flex center paymentandtotal"> -->
-                                <div class="flex center flex-direction-column payment-cart-div mt-20">
+                                <!-- <div class="flex center flex-direction-column payment-cart-div mt-20">
                                     <div class="payment-section">
                                         <h5>Payment Type</h5>
                                         <div class="payment-options-container">
@@ -203,7 +185,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div> -->
 
                                 <!-- <div class="flex center total-cart-div mt-20">
                                         <h5 class="pb-30">Summary</h5>
@@ -220,11 +202,40 @@
                                         <h5 class="hidden" id="total-cart-amount"></h5>
                                     </div> -->
                                 <!-- </div> -->
+                                <div class="address-sec">
+                                    <div>
+                                        <div class="mt-20 address-area">
+                                            <p class="flex flex-start mb-10 cart-area-divs-titels">Address</p>
+                                            <div class="address-area-scroller" style="height: auto;">
 
+
+                                                <div class="preloader2" id="preloader2">
+                                                    <div class="loader2"></div>
+                                                </div>
+                                                <div class="address-area-div" id="address-area"></div>
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
                                 <div class="flex center total-cart-div mt-20">
                                     <div class="promo-code-section pb-30">
-                                        <h5 class="mb-10">Promo Code</h5>
-                                        <div class="flex center align-items">
+                                        <p class="flex flex-start mb-10 cart-area-divs-titels">Payment Options</p>
+                                        <div class="flex center align-items payment-options-sec-div mt-30">
+                                            <button id="" class="apply-promo-btn ml-10">Cash on Delivery</button>
+                                            <button id="" class="apply-promo-btn ml-10">Pay By Visa Card</button>
+                                            <button id="" class="apply-promo-btn ml-10">Pay By mobile wallet</button>
+                                            <button id="" class="apply-promo-btn ml-10">Pay By Value</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex center total-cart-div mt-20">
+                                    <div class="promo-code-section pb-30">
+                                        <p class="mb-10 cart-area-divs-titels">Promo Code</p>
+                                        <div class="flex center align-items promo-code-section-div p-30">
                                             <input type="text" id="promo-code" class="promo-code-input"
                                                 placeholder="Enter promo code">
                                             <button id="apply-promo" class="apply-promo-btn ml-10">Apply</button>
@@ -232,19 +243,19 @@
                                         <div id="promo-message" class="promo-message mt-10"></div>
                                     </div>
                                     <div class="flex center Cart-summary-section mt-20">
-                                        <h5 class="mb-10">Summary</h5>
+                                        <p class="mb-10 cart-area-divs-titels">Cart Summary</p>
                                         <div class="flex center align-items font-small mb-10">
-                                            <h5>Cart Total :</h5><span id="cart-total" class="ml-3"></span>
+                                            <h5>Cart Total </h5><span id="cart-total" class="ml-3"></span>
                                         </div>
                                         <div class="flex center align-items font-small mb-10">
-                                            <h5>Shipping Fees :</h5><span id="shipping-fees-total" class="ml-3"></span>
+                                            <h5>Shipping Fees </h5><span id="shipping-fees-total" class="ml-3"></span>
                                             <h5 id="shipping-fees" class="ml-3 hidden"></h5>
                                         </div>
                                         <div class="flex center align-items font-small mb-10">
-                                            <h5>Discount :</h5><span id="discount-amount" class="ml-3">$0.00</span>
+                                            <h5>Discount </h5><span id="discount-amount" class="ml-3">$0.00</span>
                                         </div>
                                         <div class="flex center align-items font-small mb-10">
-                                            <h5>Total Price :</h5><span id="total-price" class="ml-3"></span>
+                                            <h5>Total Price </h5><span id="total-price" class="ml-3"></span>
                                         </div>
                                         <h5 class="hidden" id="total-cart-amount"></h5>
                                     </div>
@@ -542,7 +553,7 @@
                     }
                 });
             </script>
-            <script>
+            <!-- <script>
                 // Get elements
                 const paymentOptions = document.querySelectorAll(".payment-option");
                 const dots = document.querySelectorAll(".pagination-dots .dot");
@@ -657,7 +668,7 @@
 
                 // Initialize with the first payment option
                 updatePaymentOption(currentIndex);
-            </script>
+            </script> -->
 
             <script src="./assets/js/submit-order.js"></script>
 

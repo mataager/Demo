@@ -2179,6 +2179,10 @@ a.footer-link:is(:hover, :focus) {
   padding: 20px !important;
 }
 
+.p-30 {
+  padding: 20px !important;
+}
+
 .py-50 {
   padding-top: 50px !important;
   padding-bottom: 50px !important;
@@ -4927,11 +4931,30 @@ th {
   background-color: #f9f9f9;
   border-radius: 20px;
   position: relative;
-  overflow: auto;
-  max-height: 300px;
-  min-height: 100px;
+  /* overflow: auto; */
+
   margin: 10px 10px 10px 10px;
   min-width: 128px;
+}
+
+.address-area-scroller {
+  max-height: 300px;
+  min-height: 100px;
+  position: relative;
+  overflow: auto;
+}
+
+.cart-area-divs-titels {
+  padding: 20px 20px 0px 20px;
+  font-size: 25;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
+}
+
+.address-area-div {
+  padding: 10px;
+  overflow: visible;
 }
 
 .no-address-message {
@@ -4968,7 +4991,7 @@ th {
 
 
 .address-card:hover {
-  transform: scale(1.04);
+  transform: scale(1.01);
 }
 
 /* payment */
@@ -5491,7 +5514,6 @@ th {
   border-radius: 20px;
   box-shadow: 0 14px 10px rgba(0, 0, 0, 0.1);
   background: #f9f9f9;
-  padding: 50px;
   margin: 20px 10px 20px 10px;
   align-items: center;
   flex-direction: column;
@@ -6320,16 +6342,21 @@ body.modal-open #mainpagearea {
 
 .apply-promo-btn {
   padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  color: #838383;
+  border: 1px solid #dddddd;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  /* Added border-color to transition */
+  background-color: transparent;
+  /* Ensures consistency */
 }
 
 .apply-promo-btn:hover {
-  background-color: #0069d9;
+  color: #000000ad;
+  border-color: #000000ad;
+  /* Smooth transition for border */
 }
 
 .promo-message {
@@ -6356,5 +6383,10 @@ body.modal-open #mainpagearea {
 .promo-code-section-div {
   flex-wrap: wrap;
   justify-content: flex-end;
+  gap: 10px;
+}
+
+.payment-options-sec-div {
+  flex-wrap: wrap;
   gap: 10px;
 }

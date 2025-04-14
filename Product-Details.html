@@ -864,7 +864,9 @@
 
                         for (const color in colors) {
                             const colorOption = document.createElement('div');
+                            const colorOptionwrapper = document.createElement('div');
                             colorOption.classList.add('color-option');
+                            colorOptionwrapper.classList.add('colorOptionwrapper')
 
                             colorOption.style.backgroundColor = colors[color]["color-value"];
                             colorOption.setAttribute('data-color-name', color);
@@ -902,7 +904,11 @@
                                 }
                             });
 
-                            colorOptions.appendChild(colorOption);
+                           // Append colorOption to the wrapper first
+                            colorOptionwrapper.appendChild(colorOption);
+
+                            // Then append the wrapper to colorOptions
+                            colorOptions.appendChild(colorOptionwrapper);
                         }
 
                         checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
