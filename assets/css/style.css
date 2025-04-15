@@ -1815,10 +1815,6 @@ a.footer-link:is(:hover, :focus) {
     font-size: x-large !important;
   }
 
-  .Product-record {
-    display: block !important;
-  }
-
   #cart-items p,
   h5 {
     padding: 3px;
@@ -1911,6 +1907,12 @@ a.footer-link:is(:hover, :focus) {
 
   .inlines-button {
     display: flex !important;
+  }
+}
+
+@media (max-width: 490px) {
+  .Product-record {
+    display: block !important;
   }
 }
 
@@ -2125,6 +2127,10 @@ a.footer-link:is(:hover, :focus) {
 
 .mr-5 {
   margin-right: 5px;
+}
+
+.mr-20 {
+  margin-right: 20px;
 }
 
 .mt-10 {
@@ -2606,7 +2612,7 @@ select {
 }
 
 #cart-items li:hover {
-  transform: scale(1.02);
+  transform: scale(1.005);
   cursor: pointer;
 }
 
@@ -2625,7 +2631,7 @@ select {
 }
 
 .cart-bg {
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
   border-radius: 10px;
 }
 
@@ -4942,10 +4948,26 @@ th {
 }
 
 .address-area-scroller {
-  max-height: 300px;
-  min-height: 100px;
-  position: relative;
-  overflow: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease;
+  opacity: 0;
+}
+
+.address-area-scroller.show {
+  max-height: 500px;
+  /* Adjust based on your content height */
+  opacity: 1;
+  transition: max-height 0.3s ease-in, opacity 0.3s ease 0.1s;
+}
+
+.address-toggle-icon {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.address-toggle-icon.rotated {
+  transform: rotate(90deg);
 }
 
 .cart-area-divs-titels {
@@ -4959,6 +4981,13 @@ th {
 .address-area-div {
   padding: 10px;
   overflow: visible;
+}
+
+.address-area-i {
+  padding: 3;
+  background: #fff;
+  color: #000000;
+  border-radius: 50%;
 }
 
 .no-address-message {
@@ -5405,6 +5434,10 @@ th {
   min-width: 105px;
 }
 
+.cartItems-sec {
+  min-width: 105px;
+}
+
 
 
 
@@ -5604,9 +5637,7 @@ th {
     margin: 10px 3px !important;
   }
 
-  .empty-cart {
-    width: 120 !important;
-  }
+
 }
 
 .preloader2 {
@@ -5655,7 +5686,6 @@ th {
 }
 
 .empty-cart {
-  width: 350px;
   display: flex;
   text-align: center;
   padding: 5px;
@@ -6357,7 +6387,8 @@ body.modal-open #mainpagearea {
   /* Ensures consistency */
 }
 
-.apply-promo-btn:hover {
+.apply-promo-btn:hover,
+.paymentmeth-btn:hover {
   color: #000000ad;
   border-color: #000000ad;
   /* Smooth transition for border */
@@ -6373,6 +6404,22 @@ body.modal-open #mainpagearea {
   color: #dc3545;
   /* Red for error messages */
 }
+
+.paymentmeth-btn {
+  padding: 8px 16px;
+  color: #838383;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  /* Added border-color to transition */
+  background-color: transparent;
+  /* Ensures consistency */
+  width: 170px;
+}
+
+
 
 .Cart-summary-section {
   flex-direction: column;
@@ -6393,4 +6440,34 @@ body.modal-open #mainpagearea {
 .payment-options-sec-div {
   flex-wrap: wrap;
   gap: 10px;
+  padding: 10px;
+}
+
+.mycarttitle {
+  font-size: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
+  padding-block: 10px;
+  /* position: relative; */
+  /* transition: all 0.3s ease; */
+  width: fit-content;
+}
+
+.cart-continueshopping-btn {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  height: 30px;
+  padding: 5px 16px;
+  color: #19191a;
+  border: 1px solid #19191a;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 10px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  background-color: transparent;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
 }
