@@ -20,6 +20,7 @@
 // // Call the function when the page loads
 // document.addEventListener("DOMContentLoaded", checkUserAuthentication);
 
+// check auth in cart
 function checkUserAuthentication() {
   firebase.auth().onAuthStateChanged((user) => {
     if (!user) {
@@ -40,6 +41,7 @@ function checkUserAuthentication() {
           // You might want to set a flag in localStorage/sessionStorage
           sessionStorage.setItem("isGuest", "true");
           // Or proceed with guest checkout logic
+          removeaddressarea();
         }
       });
     } else {
@@ -48,6 +50,9 @@ function checkUserAuthentication() {
     }
   });
 }
-
+function removeaddressarea() {
+  const addressarea = document.getElementById("address-sec");
+  addressarea.remove();
+}
 // Call the function when the page loads
 document.addEventListener("DOMContentLoaded", checkUserAuthentication);
