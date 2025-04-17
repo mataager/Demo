@@ -285,8 +285,7 @@ async function addfavouriteproduct(key) {
           <i class="bi bi-box-arrow-in-down-right"></i>
         </button>
         <button type="button" class="Add-to-Cart" 
-                style="color: black;background: none;border-radius: 0px 8px 0px 8px;margin: 0;" 
-                id="closeModal">
+                style="color: black;background: none;border-radius: 0px 8px 0px 8px;margin: 0;"onclick="closeModal()">
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
@@ -352,12 +351,6 @@ async function addfavouriteproduct(key) {
 
     // Trigger initial setup
     sizeSelect.dispatchEvent(new Event("change"));
-
-    // Close modal handlers
-    modalContent.querySelector("#closeModal").onclick = () => {;
-      modal.classList.remove("show");
-      document.body.style.overflow = "auto";
-    };
 
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
