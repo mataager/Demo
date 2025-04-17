@@ -247,6 +247,37 @@ async function submitOrder() {
   }
 }
 
+//submit order in cart as guest
+async function guestSubmitorder() {
+  // Show initial form to collect guest information
+  const { value: formValues } = await Swal.fire({
+    title: "Guest Checkout",
+    html:
+      '<input id="swal-name" class="swal2-input" placeholder="Full Name" required>' +
+      '<input id="swal-phone1" class="swal2-input" placeholder="Phone Number (required)" type="tel" required>' +
+      '<input id="swal-phone2" class="swal2-input" placeholder="Alternative Phone (optional)" type="tel">' +
+      '<textarea id="swal-address" class="swal2-textarea" placeholder="Full Address" required></textarea>',
+    focusConfirm: false,
+    showCancelButton: true,
+    confirmButtonText: "Order Now",
+    cancelButtonText: "Cancel",
+    preConfirm: () => {
+      return {
+        name: document.getElementById("swal-name").value,
+        phone1: document.getElementById("swal-phone1").value,
+        phone2: document.getElementById("swal-phone2").value,
+        address: document.getElementById("swal-address").value,
+      };
+    },
+    validationMessage: "Please fill all required fields",
+  });
+
+  if (!formValues) return; // User clicked cancel
+
+  // Show preloader
+  document.getElementById("preloader").classList.remove("hidden");
+}
+
 async function getPersonalInfo(Customeruid, idToken) {
   try {
     // Fetch personal info from Firebase

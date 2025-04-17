@@ -325,22 +325,20 @@
 
                                 </div>
                                 <div class="flex center total-cart-div mt-20">
-                                    <div class="flex center Cart-summary-section mt-20">
+                                    <div class="flex center Cart-summary-section">
                                         <p class="mb-10 cart-area-divs-titels">Cart Summary</p>
                                         <div class="flex flex-start flex-direction-column align-items-flex-start p-30">
                                             <div class="flex center align-items font-small mb-10">
-                                                <h5>Cart Total </h5><span id="cart-total" class="ml-3"></span>
+                                                <h5>Cart Total :</h5><span id="cart-total" class="ml-3"></span>
                                             </div>
                                             <div class="flex center align-items font-small mb-10">
-                                                <h5>Shipping Fees </h5><span id="shipping-fees-total"
+                                                <h5>Shipping Fees :</h5><span id="shipping-fees-total"
                                                     class="ml-3"></span>
                                                 <h5 id="shipping-fees" class="ml-3 hidden"></h5>
                                             </div>
+
                                             <div class="flex center align-items font-small mb-10">
-                                                <h5>Discount </h5><span id="discount-amount" class="ml-3">$0.00</span>
-                                            </div>
-                                            <div class="flex center align-items font-small mb-10">
-                                                <h5>Total Price </h5><span id="total-price" class="ml-3"></span>
+                                                <h5>Total Price :</h5><span id="total-price" class="ml-3"></span>
                                             </div>
                                             <h5 class="hidden" id="total-cart-amount"></h5>
                                         </div>
@@ -350,10 +348,11 @@
 
                             </div>
                         </div>
-                        <div class="flex center m-30"><button id="Submit" class="Add-to-Cart"
+                        <div class="flex center m-30" id="checkoutByAccount"><button id="Submit" class="Add-to-Cart"
                                 onclick="submitOrder()">proceed to checkout
                                 <i class="bi bi-check2-all"></i>
                             </button></div>
+                        <div class="flex center m-30 hidden" id="checkoutWithoutAccount"></div>
 
 
                     </div>
@@ -638,6 +637,10 @@
                         cartArea.classList.add("flex", "center", "align-items");
                     }
                 });
+
+
+
+
             </script>
             <!-- <script>
                 // Get elements
@@ -759,6 +762,7 @@
             <script src="./assets/js/submit-order.js"></script>
 
 
+
         </section>
 
     </div>
@@ -780,6 +784,9 @@
 
 <a href="#top" class="go-top-btn" data-go-top="">
     <ion-icon name="arrow-up-outline" role="img" class="md hydrated" aria-label="arrow up outline"></ion-icon>
+</a>
+<a href="" class="scrolltocheckout">
+    Scroll To Check Out<i class="bi bi-arrow-down"></i>
 </a>
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -805,6 +812,17 @@
         hidePreloader(); // Hide preloader after 2 seconds
         // Fetch product details
     }, 1000);
+    document.querySelector('.scrolltocheckout').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Scroll to whichever checkout div exists first
+        const checkoutDiv = document.getElementById('checkoutByAccount') ||
+            document.getElementById('checkoutWithoutAccount');
+
+        if (checkoutDiv) {
+            checkoutDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
 </script>
 <script src="./assets/js/update-cart-amont.js"></script>
 <script src="./assets/js/route.js"></script>

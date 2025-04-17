@@ -97,6 +97,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+//
+// scroll to checout btn//
+
 //handle page title
 document.getElementById("store-title").innerHTML = storename;
 

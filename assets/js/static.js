@@ -12,6 +12,7 @@ const productnavbar = ["yes"];
 const brandsnavbar = ["yes"];
 const storeType = "clothing"; // clothing or footwear
 const freeshipping = "2000";
+// const vanishedstock = [yes];
 
 // guest checkout
 const GuestEmail = "hancockstoreguest@gmail.com";

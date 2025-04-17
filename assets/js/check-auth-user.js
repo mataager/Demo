@@ -42,6 +42,7 @@ function checkUserAuthentication() {
           sessionStorage.setItem("isGuest", "true");
           // Or proceed with guest checkout logic
           removeaddressarea();
+          prepareguestbtn();
         }
       });
     } else {
@@ -53,6 +54,27 @@ function checkUserAuthentication() {
 function removeaddressarea() {
   const addressarea = document.getElementById("address-sec");
   addressarea.remove();
+}
+function prepareguestbtn() {
+  const removedbtn = document.getElementById("checkoutByAccount");
+  const addedbtn = document.getElementById("checkoutWithoutAccount");
+  addedbtn.classList.remove("hidden");
+
+  if (removedbtn) removedbtn.remove();
+
+  if (addedbtn) {
+    addedbtn.innerHTML = `
+      <button id="guestSubmitorderbtn" class="Add-to-Cart">
+        Order Now As Guest
+        <i class="bi bi-check2-all"></i>
+      </button>
+    `;
+
+    // Add event listener properly
+    document
+      .getElementById("guestSubmitorderbtn")
+      .addEventListener("click", guestSubmitorder);
+  }
 }
 // Call the function when the page loads
 document.addEventListener("DOMContentLoaded", checkUserAuthentication);

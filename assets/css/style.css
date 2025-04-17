@@ -1267,7 +1267,7 @@ a.footer-link:is(:hover, :focus) {
 
 .go-top-btn {
   position: fixed;
-  bottom: 40px;
+  bottom: 65px;
   right: 20px;
   background: black;
   color: var(--white);
@@ -1295,6 +1295,31 @@ a.footer-link:is(:hover, :focus) {
 
 .go-top-btn ion-icon {
   font-size: small;
+}
+
+.scrolltocheckout {
+  opacity: 1;
+  visibility: visible;
+  position: fixed;
+  right: 20px;
+  background: black;
+  color: var(--white);
+  padding: 10px;
+  border: 2px solid var(--white);
+  transition: var(--transition-1);
+  z-index: 2;
+  font-size: x-small;
+  border-radius: 5px;
+  bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.scrolltocheckout:is(:hover, :focus) {
+  border-color: solid var(--black);
+  background: rgb(255, 255, 255);
+  color: #000;
 }
 
 /*-----------------------------------*\
@@ -1511,7 +1536,7 @@ a.footer-link:is(:hover, :focus) {
   .go-top-btn {
     padding: 10px;
     border-width: 2px;
-    bottom: 40px;
+    /* bottom: 40px; */
     right: 30px;
   }
 }
@@ -2600,10 +2625,8 @@ select {
 
 /* cart */
 #cart-items li {
-  background: #fbfbfbc9;
   border-radius: 20px;
   margin: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2611,10 +2634,16 @@ select {
   transition: height 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-#cart-items li:hover {
+#cart-items {
+  height: auto;
+  overflow-y: scroll;
+  max-height: 300px;
+}
+
+/* #cart-items li:hover {
   transform: scale(1.005);
   cursor: pointer;
-}
+} */
 
 #cart-items p {
   padding-left: 20px;
@@ -5642,6 +5671,8 @@ th {
 
 }
 
+@media (max-width: 630px) {}
+
 .preloader2 {
   display: flex;
   justify-content: center;
@@ -6506,4 +6537,5 @@ body.modal-open #mainpagearea {
   letter-spacing: 1px;
   font-size: 10px;
   margin-top: 10px;
+  padding-inline: 50px;
 }
