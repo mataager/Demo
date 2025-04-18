@@ -6588,12 +6588,20 @@ body.modal-open::after {
     align-items: center;
 }
 .Gotoaccountbtn{
+    font-size: x-small;
     color: white;
     background: black;
-    padding: 10px 20px;
-    border: none;
+    padding: 6px 20px;
+    border: 1px solid transparent;
     border-radius: 4px;
     cursor: pointer;
+    transition: var(--transition-1);
+}
+.Gotoaccountbtn:hover,
+#cancelGuestOrder:hover{
+  background:white;
+  border:1px solid black;
+  Color:black;
 }
 .continueasguest{
    color: black;
@@ -6601,4 +6609,58 @@ body.modal-open::after {
     padding: 15px 60px;
     border-radius: 4px;
     cursor: pointer;
+    transition: var(--transition-1);
+}
+.continueasguest:hover{
+  border:1px solid #838383; 
+  Color: #838383;
+}
+#guestCheckoutForm{
+  width: -webkit-fill-available;
+}
+.guestmodalarea input{
+    color: #333;
+    font: inherit;
+    max-width: 375px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 10px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 5px;
+}
+.guestmodalarea textarea{
+      max-width: 375px;
+    width: -webkit-fill-available;
+    background: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: medium;
+    padding: 10px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 5px;
+    resize: vertical;
+    min-height: 100px;
+}
+#cancelGuestOrder{
+    font-size: x-small;
+    color: white;
+    background: black;
+    padding: 6px 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-1);
+}
+.suborderasguest{
+  background: black;
+    color: white;
+    border: 1px solid black;
+    padding: 10px 45px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-1);
+}
+.suborderasguest:hover{
+   background: white;
+    color: black;
 }

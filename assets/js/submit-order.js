@@ -85,6 +85,10 @@ async function submitOrder() {
           closeModal();
         }
       });
+      function closeModal() {
+        modal.classList.remove("show");
+        body.classList.remove("modal-open");
+      }
     } else {
       // Show the preloader
       document.getElementById("preloader").classList.remove("hidden");
@@ -260,33 +264,82 @@ async function submitOrder() {
 
 //submit order in cart as guest
 async function guestSubmitorder() {
-  // Show initial form to collect guest information
-  const { value: formValues } = await Swal.fire({
-    title: "Guest Checkout",
-    html:
-      '<input id="swal-name" class="swal2-input" placeholder="Full Name" required>' +
-      '<input id="swal-phone1" class="swal2-input" placeholder="Phone Number (required)" type="tel" required>' +
-      '<input id="swal-phone2" class="swal2-input" placeholder="Alternative Phone (optional)" type="tel">' +
-      '<textarea id="swal-address" class="swal2-textarea" placeholder="Full Address" required></textarea>',
-    focusConfirm: false,
-    showCancelButton: true,
-    confirmButtonText: "Order Now",
-    cancelButtonText: "Cancel",
-    preConfirm: () => {
-      return {
-        name: document.getElementById("swal-name").value,
-        phone1: document.getElementById("swal-phone1").value,
-        phone2: document.getElementById("swal-phone2").value,
-        address: document.getElementById("swal-address").value,
-      };
-    },
-    validationMessage: "Please fill all required fields",
+  const modal = document.querySelector(".modal");
+  const modalContent = document.querySelector(".modal-content");
+  const body = document.body;
+
+  // Set the modal content for guest checkout form
+  modalContent.innerHTML = `
+    <div class="guestmodalarea">
+      <h2>Guest Checkout</h2>
+      <form class="mt-10" id="guestCheckoutForm">
+        <div class="form-group">
+          <input type="text" id="guest-name" class="form-input" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="guest-phone1" class="form-input" placeholder="Phone Number (required)" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="guest-phone2" class="form-input" placeholder="Alternative Phone (optional)">
+        </div>
+        <div class="form-group">
+          <textarea id="guest-address" class="form-textarea" placeholder="Full Address" required></textarea>
+        </div>
+        <div class="modal-buttons">
+          <button type="button" id="cancelGuestOrder" class="modal-btn cancel-btn">Cancel</button>
+          <button type="submit" id="submitGuestOrder" class="modal-btn suborderasguest">Order Now</button>
+        </div>
+      </form>
+    </div>
+  `;
+
+  // Show the modal and disable background interactions
+  body.classList.add("modal-open");
+  modal.classList.add("show");
+
+  // Handle form submission
+  document
+    .getElementById("guestCheckoutForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("guest-name").value;
+      const phone1 = document.getElementById("guest-phone1").value;
+      const phone2 = document.getElementById("guest-phone2").value;
+      const address = document.getElementById("guest-address").value;
+
+      if (!name || !phone1 || !address) {
+        alert("Please fill all required fields");
+        return;
+      }
+
+      // Show preloader
+      document.getElementById("preloader").classList.remove("hidden");
+
+      // Close modal
+      closeModal();
+
+      // Here you would continue with your order processing logic
+      // using the collected guest information (name, phone1, phone2, address)
+      // ...
+    });
+
+  // Handle cancel button
+  document.getElementById("cancelGuestOrder").addEventListener("click", () => {
+    closeModal();
   });
 
-  if (!formValues) return; // User clicked cancel
+  // Close modal when clicking outside content
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
 
-  // Show preloader
-  document.getElementById("preloader").classList.remove("hidden");
+  function closeModal() {
+    modal.classList.remove("show");
+    body.classList.remove("modal-open");
+  }
 }
 
 async function getPersonalInfo(Customeruid, idToken) {

@@ -11,7 +11,7 @@ const storeGender = ["Men"];
 const productnavbar = ["yes"];
 const brandsnavbar = ["yes"];
 const storeType = "clothing"; // clothing or footwear
-const freeshipping = "2000";
+const freeshipping = "9000";
 // const vanishedstock = [yes];
 
 // guest checkout
