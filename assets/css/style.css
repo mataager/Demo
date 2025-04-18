@@ -6583,7 +6583,7 @@ body.modal-open::after {
 .guestmodalarea .modal-buttons{
     gap: 10px;
     display: flex;
-    margin-top: 40px;
+    margin-top: 20px;
     flex-direction: column;
     align-items: center;
 }
@@ -6594,12 +6594,11 @@ body.modal-open::after {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
 }
 .continueasguest{
+   color: black;
     border: 1px solid black;
     padding: 15px 60px;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
 }

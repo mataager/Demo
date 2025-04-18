@@ -145,3 +145,31 @@ function calculateSalePrice(originalPrice, saleAmount) {
   const discountedPrice = originalPrice - originalPrice * (saleAmount / 100);
   return Math.round(discountedPrice); // Rounds to the nearest integer (e.g., 3197.6 → 3198)
 }
+
+//using them in cart checkout page
+function removeaddressarea() {
+  const addressarea = document.getElementById("address-sec");
+  addressarea.remove();
+}
+function prepareguestbtn() {
+  const removedbtn = document.getElementById("checkoutByAccount");
+  const addedbtn = document.getElementById("checkoutWithoutAccount");
+  addedbtn.classList.remove("hidden");
+
+  if (removedbtn) removedbtn.remove();
+
+  if (addedbtn) {
+    addedbtn.innerHTML = `
+      <button id="guestSubmitorderbtn" class="Add-to-Cart">
+        Order Now As Guest
+        <i class="bi bi-check2-all"></i>
+      </button>
+    `;
+
+    // Add event listener properly
+    document
+      .getElementById("guestSubmitorderbtn")
+      .addEventListener("click", guestSubmitorder);
+  }
+}
+//

@@ -41,9 +41,13 @@ function checkUserAuthentication() {
       modalContent.innerHTML = `
       <div class="guestmodalarea">
         <h2>Sign in for better experience</h2>
-        <p>You can sign in to save your details or continue as guest.</p>
+        <p>You can sign in to save your details,track your order,add items to favourite etc.</p>
         <div class="modal-buttons">
           <button id="goToAccount" class="modal-btn Gotoaccountbtn">Go to Account</button>
+        </div>
+        <h2 class="mt-40">OR</h2>
+        <p>Continue as guest for quick and easy checkout</p>
+        <div class="modal-buttons">
           <button id="continueGuest" class="modal-btn continueasguest">Continue as Guest</button>
         </div>
       </div>
@@ -84,30 +88,6 @@ function checkUserAuthentication() {
     }
   });
 }
-function removeaddressarea() {
-  const addressarea = document.getElementById("address-sec");
-  addressarea.remove();
-}
-function prepareguestbtn() {
-  const removedbtn = document.getElementById("checkoutByAccount");
-  const addedbtn = document.getElementById("checkoutWithoutAccount");
-  addedbtn.classList.remove("hidden");
 
-  if (removedbtn) removedbtn.remove();
-
-  if (addedbtn) {
-    addedbtn.innerHTML = `
-      <button id="guestSubmitorderbtn" class="Add-to-Cart">
-        Order Now As Guest
-        <i class="bi bi-check2-all"></i>
-      </button>
-    `;
-
-    // Add event listener properly
-    document
-      .getElementById("guestSubmitorderbtn")
-      .addEventListener("click", guestSubmitorder);
-  }
-}
 // Call the function when the page loads
 document.addEventListener("DOMContentLoaded", checkUserAuthentication);

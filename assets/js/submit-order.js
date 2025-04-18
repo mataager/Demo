@@ -39,206 +39,217 @@
 //main
 
 async function submitOrder() {
-  // Show the preloader
-  document.getElementById("preloader").classList.remove("hidden");
-
   try {
     // Ensure the user is signed in and fetch their token
     const user = firebase.auth().currentUser;
+    const modal = document.querySelector(".modal");
+    const modalContent = document.querySelector(".modal-content");
+    const body = document.body;
     if (!user) {
-      document.getElementById("preloader").classList.add("hidden");
-      Swal.fire({
-        icon: "warning",
-        title: "Sign In Required",
-        text: "You must sign in to complete your order.",
-        showCancelButton: true,
-        confirmButtonText: "Go to Account",
-        cancelButtonText: "Cancel",
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "./account.html"; // Redirect to the account page
+      // Set the modal content for non-authenticated users
+      modalContent.innerHTML = `
+      <div class="guestmodalarea">
+        <h2>Sign in for better experience</h2>
+        <p>You can sign in to save your details,track your order,add items to favourite etc.</p>
+        <div class="modal-buttons">
+          <button id="goToAccount" class="modal-btn Gotoaccountbtn">Go to Account</button>
+        </div>
+        <h2 class="mt-40">OR</h2>
+        <p>Continue as guest for quick and easy checkout</p>
+        <div class="modal-buttons">
+          <button id="continueGuest" class="modal-btn continueasguest">Continue as Guest</button>
+        </div>
+      </div>
+      `;
+
+      // Show the modal and disable background interactions
+      body.classList.add("modal-open");
+      modal.classList.add("show");
+
+      // Add event listeners to the buttons
+      document.getElementById("goToAccount").addEventListener("click", () => {
+        window.location.href = "./account.html";
+        closeModal();
+      });
+
+      document.getElementById("continueGuest").addEventListener("click", () => {
+        sessionStorage.setItem("isGuest", "true");
+        removeaddressarea();
+        prepareguestbtn();
+        closeModal();
+      });
+
+      // Close modal when clicking outside content (optional)
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal();
         }
       });
-      return;
-    }
-
-    const idToken = await user.getIdToken();
-    const Customeruid = user.uid; // Fetch the UID of the logged-in user
-    // Get the cart from local storage
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    if (!cart || cart.length === 0) {
-      document.getElementById("preloader").classList.add("hidden");
-      Swal.fire({
-        icon: "warning",
-        title: "Your cart is empty",
-        text: "Please add items to your cart before placing an order.",
-      });
-      return;
-    }
-
-    const cartTotalElement = document.getElementById("cart-total");
-    let cartTotal = 0;
-
-    if (cartTotalElement) {
-      const cartTotalText = cartTotalElement.innerText.match(/\d+/)
-        ? cartTotalElement.innerText.match(/\d+/)[0]
-        : "0";
-      cartTotal = parseInt(cartTotalText, 10);
-    }
-
-    const unavailableItems = [];
-    const updatedCart = [];
-
-    for (const item of cart) {
-      // Fetch the product data from Firebase
-      const productResponse = await fetch(
-        `${url}/Stores/${uid}/Products/${item.id}.json?auth=${idToken}`
-      );
-      const productData = await productResponse.json();
-
-      if (!productData) {
-        unavailableItems.push({
-          title: item.title,
-          photourl: item.photourl,
-          reason: "Product no longer exists in the store.",
+    } else {
+      // Show the preloader
+      document.getElementById("preloader").classList.remove("hidden");
+      const idToken = await user.getIdToken();
+      const Customeruid = user.uid; // Fetch the UID of the logged-in user
+      // Get the cart from local storage
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (!cart || cart.length === 0) {
+        document.getElementById("preloader").classList.add("hidden");
+        Swal.fire({
+          icon: "warning",
+          title: "Your cart is empty",
+          text: "Please add items to your cart before placing an order.",
         });
-        continue;
+        return;
       }
 
-      const stockQty =
-        productData.sizes[item.productSize]?.[item.productColor]?.qty || 0;
+      const cartTotalElement = document.getElementById("cart-total");
+      let cartTotal = 0;
 
-      if (stockQty < item.quantity) {
-        unavailableItems.push({
-          title: item.title,
-          photourl: item.photourl,
-          reason: `Requested quantity (${item.quantity}) exceeds available stock (${stockQty}).`,
-        });
-        continue;
+      if (cartTotalElement) {
+        const cartTotalText = cartTotalElement.innerText.match(/\d+/)
+          ? cartTotalElement.innerText.match(/\d+/)[0]
+          : "0";
+        cartTotal = parseInt(cartTotalText, 10);
       }
 
-      // Update the stock in Firebase
-      const newStockQty = stockQty - item.quantity;
+      const unavailableItems = [];
+      const updatedCart = [];
 
-      if (newStockQty > 0) {
-        await fetch(
-          `${url}/Stores/${uid}/Products/${item.id}/sizes/${item.productSize}/${item.productColor}.json?auth=${idToken}`,
-          {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ qty: newStockQty }),
-          }
+      for (const item of cart) {
+        // Fetch the product data from Firebase
+        const productResponse = await fetch(
+          `${url}/Stores/${uid}/Products/${item.id}.json?auth=${idToken}`
         );
-      } else {
-        // Delete the size/color if stock is depleted
-        await fetch(
-          `${url}/Stores/${uid}/Products/${item.id}.json?auth=${idToken}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const productData = await productResponse.json();
+
+        if (!productData) {
+          unavailableItems.push({
+            title: item.title,
+            photourl: item.photourl,
+            reason: "Product no longer exists in the store.",
+          });
+          continue;
+        }
+
+        const stockQty =
+          productData.sizes[item.productSize]?.[item.productColor]?.qty || 0;
+
+        if (stockQty < item.quantity) {
+          unavailableItems.push({
+            title: item.title,
+            photourl: item.photourl,
+            reason: `Requested quantity (${item.quantity}) exceeds available stock (${stockQty}).`,
+          });
+          continue;
+        }
+
+        // Update the stock in Firebase
+        const newStockQty = stockQty - item.quantity;
+
+        if (newStockQty > 0) {
+          await fetch(
+            `${url}/Stores/${uid}/Products/${item.id}/sizes/${item.productSize}/${item.productColor}.json?auth=${idToken}`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ qty: newStockQty }),
+            }
+          );
+        } else {
+          // Delete the size/color if stock is depleted
+          await fetch(
+            `${url}/Stores/${uid}/Products/${item.id}.json?auth=${idToken}`,
+            {
+              method: "DELETE",
+            }
+          );
+        }
+
+        updatedCart.push(item);
       }
 
-      updatedCart.push(item);
-    }
+      if (unavailableItems.length > 0) {
+        document.getElementById("preloader").classList.add("hidden");
 
-    if (unavailableItems.length > 0) {
-      document.getElementById("preloader").classList.add("hidden");
-
-      const unavailableList = unavailableItems
-        .map(
-          (item) =>
-            `<li>
+        const unavailableList = unavailableItems
+          .map(
+            (item) =>
+              `<li>
               <img src="${item.photourl}" alt="${item.title}" style="width: 50px; height: 50px; margin-right: 10px;">
               <strong>${item.title}</strong> - ${item.reason}
             </li>`
-        )
-        .join("");
+          )
+          .join("");
+
+        Swal.fire({
+          icon: "warning",
+          title: "Some items are unavailable",
+          html: `<ul>${unavailableList}</ul>`,
+        }).then(() => {
+          location.reload();
+        });
+
+        return;
+      }
+
+      // Get personal information and shipping fees
+      const personalInfo = await getPersonalInfo(Customeruid, idToken);
+      const shippingFees =
+        parseFloat(localStorage.getItem("shippingFees")) || 0;
+      const payment = localStorage.getItem("Payment") || "N/A";
+
+      // Construct a preliminary order object
+      const preliminaryOrder = {
+        cart: updatedCart,
+        personal_info: personalInfo,
+        shippingFees,
+        payment,
+      };
+
+      // Add order to customer history and get the order UID
+      const orderUID = await addOrderToCustomerHistory(
+        Customeruid,
+        idToken,
+        preliminaryOrder
+      );
+
+      // Construct the final order object
+      const order = {
+        ...preliminaryOrder, // Spread the preliminary order properties
+        Customeruid: Customeruid,
+        orderUID: orderUID, // Add the order UID
+        Date: formattedDate,
+      };
+
+      // Submit the order to Firebase
+      const orderResponse = await fetch(
+        `${url}/Stores/${uid}/orders.json?auth=${idToken}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(order),
+        }
+      );
+
+      if (!orderResponse.ok) {
+        throw new Error("Failed to submit order");
+      }
+
+      // Clear the cart
+      localStorage.removeItem("cart");
+      document.getElementById("preloader").classList.add("hidden");
 
       Swal.fire({
-        icon: "warning",
-        title: "Some items are unavailable",
-        html: `<ul>${unavailableList}</ul>`,
+        icon: "success",
+        title: "Order submitted successfully!",
+        showConfirmButton: false,
+        timer: 2000,
       }).then(() => {
-        location.reload();
+        window.location.href = "./index.html";
       });
-
-      return;
     }
-
-    // Get personal information and shipping fees
-    const personalInfo = await getPersonalInfo(Customeruid, idToken);
-    const shippingFees = parseFloat(localStorage.getItem("shippingFees")) || 0;
-    const payment = localStorage.getItem("Payment") || "N/A";
-
-    // // await addOrderToCustomerHistory(Customeruid, idToken, order);
-    // const orderUID = await addOrderToCustomerHistory(
-    //   Customeruid,
-    //   idToken,
-    //   order
-    // );
-
-    // // Construct the order
-    // const order = {
-    //   cart: updatedCart,
-    //   personal_info: personalInfo,
-    //   Customeruid: Customeruid,
-    //   orderUID: orderUID,
-    //   shippingFees,
-    // };
-    // Construct a preliminary order object
-    const preliminaryOrder = {
-      cart: updatedCart,
-      personal_info: personalInfo,
-      shippingFees,
-      payment,
-    };
-
-    // Add order to customer history and get the order UID
-    const orderUID = await addOrderToCustomerHistory(
-      Customeruid,
-      idToken,
-      preliminaryOrder
-    );
-
-    // Construct the final order object
-    const order = {
-      ...preliminaryOrder, // Spread the preliminary order properties
-      Customeruid: Customeruid,
-      orderUID: orderUID, // Add the order UID
-      Date: formattedDate,
-    };
-
-    // Submit the order to Firebase
-    const orderResponse = await fetch(
-      `${url}/Stores/${uid}/orders.json?auth=${idToken}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
-      }
-    );
-
-    if (!orderResponse.ok) {
-      throw new Error("Failed to submit order");
-    }
-
-    // Clear the cart
-    localStorage.removeItem("cart");
-    document.getElementById("preloader").classList.add("hidden");
-
-    Swal.fire({
-      icon: "success",
-      title: "Order submitted successfully!",
-      showConfirmButton: false,
-      timer: 2000,
-    }).then(() => {
-      window.location.href = "./index.html";
-    });
   } catch (error) {
     console.error("Error during order submission:", error);
-    document.getElementById("preloader").classList.add("hidden");
     Swal.fire({
       icon: "error",
       title: "Error",
