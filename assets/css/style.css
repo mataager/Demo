@@ -5365,8 +5365,7 @@ th {
 
 #hints-container {
   position: relative;
-  height: 40px;
-  /* Fixed height to prevent layout shifts */
+  max-height: 40px;
   overflow: hidden;
 }
 
@@ -6073,8 +6072,6 @@ th {
   pointer-events: none;
 }
 
-
-
 .modal {
   position: fixed;
   top: 0;
@@ -6641,11 +6638,30 @@ body.modal-open::after {
     resize: vertical;
     min-height: 100px;
 }
+.form-input, #guest-government {
+    color: #333;
+    font: inherit;
+    max-width: 375px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 10px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 5px;
+    width: -webkit-fill-available;
+    cursor: pointer;
+}
+
+.form-input:focus, #guest-government:focus {
+  border-color:rgb(48, 51, 48);
+  outline: none;
+}
 #cancelGuestOrder{
+    padding: 5;
+    right: 5px;
+    top: 5px;
+    position: absolute;
     font-size: x-small;
-    color: white;
-    background: black;
-    padding: 6px 20px;
+    color: #000;
     border: 1px solid transparent;
     border-radius: 4px;
     cursor: pointer;
@@ -6664,3 +6680,4 @@ body.modal-open::after {
    background: white;
     color: black;
 }
+/* // */

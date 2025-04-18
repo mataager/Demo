@@ -11,6 +11,7 @@ async function handleBuyNowClick() {
   showUserForm();
 }
 
+//v1
 // Function to show the user form
 function showUserForm() {
   // Smoothly scroll to the top of the page
@@ -126,6 +127,11 @@ function showUserForm() {
     "secondPhone",
     "Enter a second phone number (optional)"
   );
+  const Gityandgovernment = createInput(
+    "text",
+    "Gityandgovernment",
+    "City/Government : Giza/Dokki"
+  );
 
   // Add a textarea for the address
   const addressTextArea = createTextArea("address", "Enter your address");
@@ -146,6 +152,7 @@ function showUserForm() {
   form.appendChild(nameInput);
   form.appendChild(phoneInput);
   form.appendChild(secondPhoneInput);
+  form.appendChild(Gityandgovernment);
   form.appendChild(addressTextArea);
   form.appendChild(orderNotesTextArea);
   form.appendChild(closeButton);
@@ -156,7 +163,12 @@ function showUserForm() {
     event.preventDefault(); // Prevent form submission
 
     // Check if required fields are filled
-    if (!nameInput.value || !phoneInput.value || !addressTextArea.value) {
+    if (
+      !nameInput.value ||
+      !phoneInput.value ||
+      !addressTextArea.value ||
+      !Gityandgovernment.value
+    ) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -179,6 +191,7 @@ function showUserForm() {
       phone: phoneInput.value,
       secondPhone: secondPhoneInput.value || "N/A",
       address: addressTextArea.value,
+      city: Gityandgovernment.value,
       orderNotes: orderNotesTextArea.value || "N/A",
     };
 

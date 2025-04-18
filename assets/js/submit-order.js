@@ -271,6 +271,9 @@ async function guestSubmitorder() {
   // Set the modal content for guest checkout form
   modalContent.innerHTML = `
     <div class="guestmodalarea">
+    <button type="button"  id="cancelGuestOrder">
+              <i class="bi bi-x-lg"></i>
+          </button>
       <h2>Guest Checkout</h2>
       <form class="mt-10" id="guestCheckoutForm">
         <div class="form-group">
@@ -283,10 +286,12 @@ async function guestSubmitorder() {
           <input type="tel" id="guest-phone2" class="form-input" placeholder="Alternative Phone (optional)">
         </div>
         <div class="form-group">
+          <input type="text" id="Gityandgovernment" class="form-input" placeholder="City/Government : Giza/Dokki">
+        </div>
+        <div class="form-group">
           <textarea id="guest-address" class="form-textarea" placeholder="Full Address" required></textarea>
         </div>
         <div class="modal-buttons">
-          <button type="button" id="cancelGuestOrder" class="modal-btn cancel-btn">Cancel</button>
           <button type="submit" id="submitGuestOrder" class="modal-btn suborderasguest">Order Now</button>
         </div>
       </form>
