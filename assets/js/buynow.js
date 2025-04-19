@@ -159,6 +159,138 @@ function showUserForm() {
   form.appendChild(submitButton);
 
   // Handle form submission
+  // form.onsubmit = async function (event) {
+  //   event.preventDefault(); // Prevent form submission
+
+  //   // Check if required fields are filled
+  //   if (
+  //     !nameInput.value ||
+  //     !phoneInput.value ||
+  //     !addressTextArea.value ||
+  //     !Gityandgovernment.value
+  //   ) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: "Please fill out all required fields: Name, Phone, and Address.",
+  //       toast: true,
+  //       position: "top-end",
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //     });
+  //     return;
+  //   }
+
+  //   // Show preloader in the button
+  //   submitButton.innerHTML = `<div class="preloader" id="preloader"> <div class="loader"></div></div>`;
+  //   submitButton.disabled = true;
+
+  //   // Get form data
+  //   const formData = {
+  //     name: nameInput.value,
+  //     phone: phoneInput.value,
+  //     secondPhone: secondPhoneInput.value || "N/A",
+  //     address: addressTextArea.value,
+  //     city: Gityandgovernment.value,
+  //     orderNotes: orderNotesTextArea.value || "N/A",
+  //   };
+
+  //   // Get product details
+  //   const brandName = document.getElementById("BrandName").innerText;
+  //   const productTitle = document.getElementById("productTitle").innerText;
+  //   const productPrice = document.getElementById("productPrice").innerText;
+  //   const productSize = document.getElementById("product-Size").innerText;
+  //   const productColor = document.getElementById("product-color").innerText;
+  //   const productID = document.getElementById("productID").innerText;
+  //   const productImage = document.getElementById("productImage").src;
+
+  //   // Prepare order data
+  //   const order = {
+  //     Customeruid: "Guest User", // Replace with actual customer UID
+  //     Date: new Date().toISOString(),
+  //     cart: [
+  //       {
+  //         brand: brandName,
+  //         id: productID,
+  //         photourl: productImage,
+  //         price: productPrice,
+  //         productColor: productColor,
+  //         productSize: productSize,
+  //         quantity: 1,
+  //         title: productTitle,
+  //       },
+  //     ],
+  //     payment: "N/A",
+  //     personal_info: {
+  //       address: formData.address,
+  //       name: formData.name,
+  //       email: "Guest",
+  //       phone: formData.phone,
+  //       phone2: formData.secondPhone,
+  //     },
+  //     shippingFees: maxshipping, // Set shipping fees to 85
+  //   };
+
+  //   try {
+  //     // Sign in the guest user programmatically
+
+  //     const userCredential = await firebase
+  //       .auth()
+  //       .signInWithEmailAndPassword(GuestEmail, GuestEmail);
+
+  //     // Get the ID token
+  //     const idToken = await userCredential.user.getIdToken();
+
+  //     // Push order data to the server
+  //     const orderResponse = await fetch(
+  //       `${url}/Stores/${uid}/orders.json?auth=${idToken}`,
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify(order),
+  //       }
+  //     );
+
+  //     if (!orderResponse.ok) {
+  //       throw new Error("Failed to place the order.");
+  //     }
+
+  //     // Show success message
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Order Placed!",
+  //       text: "Your order has been placed successfully.",
+  //       toast: true,
+  //       position: "top-end",
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //     });
+
+  //     // Remove the form from the DOM
+  //     form.remove();
+
+  //     // Log out the guest user
+  //     await firebase.auth().signOut();
+  //     console.log("Guest user logged out successfully.");
+  //   } catch (error) {
+  //     console.error("Error:", error);
+
+  //     // Show error message
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "An error occurred while placing the order. Please try again.",
+  //       toast: true,
+  //       position: "top-end",
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //     });
+  //   } finally {
+  //     // Reset the button text and enable it
+  //     submitButton.innerHTML = "Place order";
+  //     submitButton.disabled = false;
+  //   }
+  // };
   form.onsubmit = async function (event) {
     event.preventDefault(); // Prevent form submission
 
@@ -204,41 +336,94 @@ function showUserForm() {
     const productID = document.getElementById("productID").innerText;
     const productImage = document.getElementById("productImage").src;
 
-    // Prepare order data
-    const order = {
-      Customeruid: "Guest User", // Replace with actual customer UID
-      Date: new Date().toISOString(),
-      cart: [
-        {
-          brand: brandName,
-          id: productID,
-          photourl: productImage,
-          price: productPrice,
-          productColor: productColor,
-          productSize: productSize,
-          quantity: 1,
-          title: productTitle,
-        },
-      ],
-      payment: "N/A",
-      personal_info: {
-        address: formData.address,
-        name: formData.name,
-        phone: formData.phone,
-        phone2: formData.secondPhone,
-      },
-      shippingFees: 85, // Set shipping fees to 85
-    };
-
     try {
       // Sign in the guest user programmatically
-
       const userCredential = await firebase
         .auth()
         .signInWithEmailAndPassword(GuestEmail, GuestEmail);
-
-      // Get the ID token
       const idToken = await userCredential.user.getIdToken();
+
+      // Check product availability and stock
+      const productResponse = await fetch(
+        `${url}/Stores/${uid}/Products/${productID}.json?auth=${idToken}`
+      );
+      const productData = await productResponse.json();
+
+      if (!productData) {
+        throw new Error("Product no longer available");
+      }
+
+      // Check stock quantity
+      const stockQty =
+        productData.sizes?.[productSize]?.[productColor]?.qty || 0;
+      const requestedQty = 1; // Since this is single product order
+
+      if (stockQty < requestedQty) {
+        Swal.fire({
+          icon: "warning",
+          title: "Product Unavailable",
+          html: `
+            <div style="text-align: center;">
+              <img src="${productImage}" alt="${productTitle}" style="width: 100px; height: 100px; margin-bottom: 15px;">
+              <p><strong>${productTitle}</strong></p>
+              <p>Requested quantity (${requestedQty}) exceeds available stock (${stockQty}).</p>
+            </div>
+          `,
+          confirmButtonText: "OK",
+        });
+        return;
+      }
+
+      // Update stock in Firebase
+      const newStockQty = stockQty - requestedQty;
+      if (newStockQty > 0) {
+        await fetch(
+          `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ qty: newStockQty }),
+          }
+        );
+      } else {
+        // Delete the size/color if stock is depleted
+        await fetch(
+          `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
+          {
+            method: "DELETE",
+          }
+        );
+      }
+
+      // Prepare order data
+      const order = {
+        Customeruid: "Guest User",
+        Date: new Date().toISOString(),
+        cart: [
+          {
+            brand: brandName,
+            id: productID,
+            photourl: productImage,
+            price: productPrice,
+            productColor: productColor,
+            productSize: productSize,
+            quantity: requestedQty,
+            title: productTitle,
+          },
+        ],
+        payment: "N/A",
+        personal_info: {
+          address: formData.address,
+          name: formData.name,
+          email: "Guest",
+          phone: formData.phone,
+          phone2: formData.secondPhone,
+          city: formData.city,
+          notes: formData.orderNotes,
+        },
+        shippingFees: parseInt(maxshipping, 10),
+        isGuest: true,
+      };
 
       // Push order data to the server
       const orderResponse = await fetch(
@@ -258,27 +443,33 @@ function showUserForm() {
       Swal.fire({
         icon: "success",
         title: "Order Placed!",
-        text: "Your order has been placed successfully.",
-        toast: true,
-        position: "top-end",
+        html: `
+          <div style="text-align: center;">
+            <img src="${productImage}" alt="${productTitle}" style="width: 100px; height: 100px; margin-bottom: 15px;">
+            <p><strong>${productTitle}</strong></p>
+            <p>Your order has been placed successfully.</p>
+          </div>
+        `,
         showConfirmButton: false,
         timer: 3000,
       });
 
       // Remove the form from the DOM
       form.remove();
-
-      // Log out the guest user
-      await firebase.auth().signOut();
-      console.log("Guest user logged out successfully.");
     } catch (error) {
       console.error("Error:", error);
 
-      // Show error message
+      let errorMessage =
+        "An error occurred while placing the order. Please try again.";
+      if (error.message === "Product no longer available") {
+        errorMessage =
+          "This product is no longer available. Please refresh the page.";
+      }
+
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "An error occurred while placing the order. Please try again.",
+        text: errorMessage,
         toast: true,
         position: "top-end",
         showConfirmButton: false,
@@ -288,6 +479,13 @@ function showUserForm() {
       // Reset the button text and enable it
       submitButton.innerHTML = "Place order";
       submitButton.disabled = false;
+
+      // Log out the guest user
+      try {
+        await firebase.auth().signOut();
+      } catch (error) {
+        console.error("Error signing out guest user:", error);
+      }
     }
   };
 

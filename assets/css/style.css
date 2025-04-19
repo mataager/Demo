@@ -6536,6 +6536,7 @@ body.modal-open #mainpagearea {
   margin-top: 10px;
   padding-inline: 50px;
 }
+
 /* // */
 /* Body styles when modal is open */
 body.modal-open {
@@ -6555,129 +6556,175 @@ body.modal-open::after {
   background-color: rgba(0, 0, 0, 0.01);
   z-index: 999;
 }
-.guestmodalarea{
+
+.guestmodalarea {
   height: -webkit-fill-available;
-    width: -webkit-fill-available;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.guestmodalarea h2{
-  font-weight: 200;
-    font-size: 25px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #19191a;
-}
-.guestmodalarea p{
-      font-weight: 700;
-    font-size: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #19191a;
-    margin-top: 10px;
-}
-.guestmodalarea .modal-buttons{
-    gap: 10px;
-    display: flex;
-    margin-top: 20px;
-    flex-direction: column;
-    align-items: center;
-}
-.Gotoaccountbtn{
-    font-size: x-small;
-    color: white;
-    background: black;
-    padding: 6px 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition-1);
-}
-.Gotoaccountbtn:hover,
-#cancelGuestOrder:hover{
-  background:white;
-  border:1px solid black;
-  Color:black;
-}
-.continueasguest{
-   color: black;
-    border: 1px solid black;
-    padding: 15px 60px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition-1);
-}
-.continueasguest:hover{
-  border:1px solid #838383; 
-  Color: #838383;
-}
-#guestCheckoutForm{
   width: -webkit-fill-available;
-}
-.guestmodalarea input{
-    color: #333;
-    font: inherit;
-    max-width: 375px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    padding: 10px;
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 5px;
-}
-.guestmodalarea textarea{
-      max-width: 375px;
-    width: -webkit-fill-available;
-    background: none;
-    color: inherit;
-    font-family: inherit;
-    font-size: medium;
-    padding: 10px;
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 5px;
-    resize: vertical;
-    min-height: 100px;
-}
-.form-input, #guest-government {
-    color: #333;
-    font: inherit;
-    max-width: 375px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    padding: 10px;
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 5px;
-    width: -webkit-fill-available;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.form-input:focus, #guest-government:focus {
-  border-color:rgb(48, 51, 48);
+.guestmodalarea h2 {
+  font-weight: 200;
+  font-size: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
+}
+
+.guestmodalarea p {
+  font-weight: 700;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
+  margin-top: 10px;
+}
+
+.guestmodalarea .modal-buttons {
+  gap: 10px;
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Gotoaccountbtn {
+  font-size: x-small;
+  color: white;
+  background: black;
+  padding: 6px 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-1);
+}
+
+.Gotoaccountbtn:hover,
+#cancelGuestOrder:hover {
+  background: white;
+  border: 1px solid black;
+  Color: black;
+}
+
+.continueasguest {
+  color: black;
+  border: 1px solid black;
+  padding: 15px 60px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-1);
+}
+
+.continueasguest:hover {
+  border: 1px solid #838383;
+  Color: #838383;
+}
+
+#guestCheckoutForm {
+  width: -webkit-fill-available;
+}
+
+.guestmodalarea input {
+  color: #333;
+  font: inherit;
+  max-width: 375px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 10px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 5px;
+}
+
+.guestmodalarea textarea {
+  max-width: 375px;
+  width: -webkit-fill-available;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: medium;
+  padding: 10px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-input,
+#guest-government {
+  color: #333;
+  font: inherit;
+  max-width: 375px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 10px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 5px;
+  width: -webkit-fill-available;
+}
+
+.form-input:focus,
+#guest-government:focus {
+  border-color: rgb(48, 51, 48);
   outline: none;
 }
-#cancelGuestOrder{
-    padding: 5;
-    right: 5px;
-    top: 5px;
-    position: absolute;
-    font-size: x-small;
-    color: #000;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition-1);
+
+#cancelGuestOrder {
+  padding: 5;
+  right: 5px;
+  top: 5px;
+  position: absolute;
+  font-size: x-small;
+  color: #000;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-1);
 }
-.suborderasguest{
+
+.suborderasguest {
   background: black;
-    color: white;
-    border: 1px solid black;
-    padding: 10px 45px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition-1);
+  color: white;
+  border: 1px solid black;
+  padding: 10px 45px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-1);
 }
-.suborderasguest:hover{
-   background: white;
-    color: black;
+
+.suborderasguest:hover {
+  background: white;
+  color: black;
 }
+
 /* // */
+.signinupbtn04392 {
+  font-size: x-small;
+  color: #ffffff;
+  padding: 8px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-1);
+  background: black;
+  margin-top: 10px;
+}
+
+.signinupinbutarea04392 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: -webkit-fill-available;
+}
+
+.form-container {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding-bottom: 30px;
+}
+
+.form-container.active {
+  display: block;
+  opacity: 1;
+}

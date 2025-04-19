@@ -12,10 +12,13 @@ const productnavbar = ["yes"];
 const brandsnavbar = ["yes"];
 const storeType = "clothing"; // clothing or footwear
 const freeshipping = "9000";
+const minshipping = 65;
+const maxshipping = 90;
+const specialshipping = 75;
 // const vanishedstock = [yes];
 
 // guest checkout
-const GuestEmail = "hancockstoreguest@gmail.com";
+const GuestEmail = "exampleguest999@gmail.com";
 //images url
 const pannerurl =
   "https://mir-s3-cdn-cf.behance.net/project_modules/fs/312fe489737167.5dfe68289b366.gif";
