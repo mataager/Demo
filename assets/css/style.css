@@ -6558,11 +6558,19 @@ body.modal-open::after {
 }
 
 .guestmodalarea {
-  height: -webkit-fill-available;
+  /* height: -webkit-fill-available; */
   width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.guestmodalareabottom-p {
+  width: -webkit-fill-available;
+  bottom: 0;
+  position: absolute;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .guestmodalarea h2 {
@@ -6699,8 +6707,7 @@ body.modal-open::after {
 }
 
 /* // */
-.signinupbtn04392,
-.back-btn {
+.signinupbtn04392 {
   font-size: x-small;
   color: #ffffff;
   padding: 8px 30px;
@@ -6711,12 +6718,25 @@ body.modal-open::after {
   margin-top: 10px;
 }
 
-.signinupinbutarea04392,
-.back-btn {
+.signinupinbutarea04392 {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
+
+.back-btn {
+  font-size: x-small;
+  color: #000000;
+  padding: 8px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-1);
+  background: rgb(255, 255, 255);
+  margin-top: 10px;
+  border: 0.5px solid black;
+  width: 20px;
 }
 
 .form-container {
@@ -6745,15 +6765,18 @@ body.modal-open::after {
 }
 
 .progress-step {
-  padding: 5px 10px;
+  padding: 5px 5px 5px 5px;
   border-radius: 20px;
   background-color: #f0f0f0;
   color: #777;
-  font-size: 14px;
+  font-size: 8px;
   position: relative;
   flex: 1;
   text-align: center;
   margin: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .progress-step.active {
@@ -6766,6 +6789,10 @@ body.modal-open::after {
   background-color: #f0f0f0;
   border-radius: 3px;
   margin: 0 10px;
+}
+
+#strength-text {
+  font-size: x-small;
 }
 
 .progress-fill {
@@ -6816,4 +6843,24 @@ body.modal-open::after {
 .signup-step.active {
   display: block;
   animation: fadeIn 0.3s ease;
+}
+
+.error-hint {
+  max-height: 0;
+  overflow: hidden;
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 0;
+}
+
+.error-hint.show {
+  max-height: 50px;
+  opacity: 1;
+}
+
+.form-container {
+  transition: height 0.3s ease-out;
+  overflow: hidden;
 }
