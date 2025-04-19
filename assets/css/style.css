@@ -6699,7 +6699,8 @@ body.modal-open::after {
 }
 
 /* // */
-.signinupbtn04392 {
+.signinupbtn04392,
+.back-btn {
   font-size: x-small;
   color: #ffffff;
   padding: 8px 30px;
@@ -6710,7 +6711,8 @@ body.modal-open::after {
   margin-top: 10px;
 }
 
-.signinupinbutarea04392 {
+.signinupinbutarea04392,
+.back-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6727,4 +6729,91 @@ body.modal-open::after {
 .form-container.active {
   display: block;
   opacity: 1;
+}
+
+/* /progressbar for signup/ */
+/* Progress Bar Styles */
+.progress-container {
+  margin-bottom: 30px;
+}
+
+.progress-bar {
+  width: -webkit-fill-available;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.progress-step {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  color: #777;
+  font-size: 14px;
+  position: relative;
+  flex: 1;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.progress-step.active {
+  background-color: #333;
+  color: white;
+}
+
+.progress-line {
+  height: 6px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  margin: 0 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background-color: #333;
+  width: 33.33%;
+  transition: width 0.3s ease;
+}
+
+/* Password Strength Meter */
+.password-strength {
+  margin: 15px 0;
+}
+
+.strength-meter {
+  height: 5px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  width: 200px;
+}
+
+.strength-fill {
+  height: 100%;
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Form Navigation */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.strength-text {
+  font-size: smaller;
+}
+
+/* Step Transitions */
+.signup-step {
+  display: none;
+}
+
+.signup-step.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
 }
