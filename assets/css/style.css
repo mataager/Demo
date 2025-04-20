@@ -6565,13 +6565,7 @@ body.modal-open::after {
   align-items: center;
 }
 
-.guestmodalareabottom-p {
-  width: -webkit-fill-available;
-  bottom: 0;
-  position: absolute;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
+
 
 .guestmodalarea h2 {
   font-weight: 200;
