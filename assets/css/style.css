@@ -6558,7 +6558,7 @@ body.modal-open::after {
 }
 
 .guestmodalarea {
-  /* height: -webkit-fill-available; */
+  height: fit-content;
   width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
