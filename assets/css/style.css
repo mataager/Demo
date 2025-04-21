@@ -6858,3 +6858,6 @@ body.modal-open::after {
   transition: height 0.3s ease-out;
   overflow: hidden;
 }
+#signin-form,#signup-form{
+  height: fit-content;
+}
