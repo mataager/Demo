@@ -352,47 +352,48 @@ function showUserForm() {
       if (!productData) {
         throw new Error("Product no longer available");
       }
-
-      // Check stock quantity
-      const stockQty =
-        productData.sizes?.[productSize]?.[productColor]?.qty || 0;
       const requestedQty = 1; // Since this is single product order
+      if (vanishedstock) {
+        // Check stock quantity
+        const stockQty =
+          productData.sizes?.[productSize]?.[productColor]?.qty || 0;
 
-      if (stockQty < requestedQty) {
-        Swal.fire({
-          icon: "warning",
-          title: "Product Unavailable",
-          html: `
+        if (stockQty < requestedQty) {
+          Swal.fire({
+            icon: "warning",
+            title: "Product Unavailable",
+            html: `
             <div style="text-align: center;">
               <img src="${productImage}" alt="${productTitle}" style="width: 100px; height: 100px; margin-bottom: 15px;">
               <p><strong>${productTitle}</strong></p>
               <p>Requested quantity (${requestedQty}) exceeds available stock (${stockQty}).</p>
             </div>
           `,
-          confirmButtonText: "OK",
-        });
-        return;
-      }
+            confirmButtonText: "OK",
+          });
+          return;
+        }
 
-      // Update stock in Firebase
-      const newStockQty = stockQty - requestedQty;
-      if (newStockQty > 0) {
-        await fetch(
-          `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
-          {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ qty: newStockQty }),
-          }
-        );
-      } else {
-        // Delete the size/color if stock is depleted
-        await fetch(
-          `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
-          {
-            method: "DELETE",
-          }
-        );
+        // Update stock in Firebase
+        const newStockQty = stockQty - requestedQty;
+        if (newStockQty > 0) {
+          await fetch(
+            `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ qty: newStockQty }),
+            }
+          );
+        } else {
+          // Delete the size/color if stock is depleted
+          await fetch(
+            `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
+            {
+              method: "DELETE",
+            }
+          );
+        }
       }
 
       // Prepare order data

@@ -356,6 +356,7 @@ async function addfavouriteproduct(key) {
       if (e.target === modal) {
         modal.style.display = "none";
         document.body.style.overflow = "auto";
+        document.body.classList.remove("modal-open");
       }
     });
 
@@ -408,6 +409,7 @@ async function addfavouriteproduct(key) {
         });
         modal.style.display = "none";
         document.body.style.overflow = "auto";
+        document.body.classList.remove("modal-open");
       } catch (error) {
         Swal.fire({
           icon: "error",

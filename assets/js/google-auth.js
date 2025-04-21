@@ -76,18 +76,71 @@ document.getElementById("google-signin-btn").addEventListener("click", () => {
     });
 });
 
-// Sign out
-document.getElementById("signout-btn").addEventListener("click", () => {
-  auth.signOut().then(() => {
-    console.log("User signed out");
-    Swal.fire({
-      title: "Logged out!",
-      text: "You have been signed out.",
-      icon: "success",
-    }).then(() => {
-      location.reload(); // Reload the page after clicking OK
-    });
-    updateUI(null); // Hide signout button and user info
+// Sign out func
+document.getElementById("signout-btn").addEventListener("click", (event) => {
+  event.preventDefault();
+
+  // Show confirmation as toast
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You will be signed out",
+    icon: "question",
+    toast: true,
+    position: "top-end",
+    showCancelButton: true,
+    showConfirmButton: true,
+    confirmButtonText: "Yes",
+    cancelButtonText: "No",
+    timer: 5000, // Auto-dismiss after 5 seconds
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      auth
+        .signOut()
+        .then(() => {
+          console.log("User signed out");
+          updateUI(null);
+
+          // Show success toast
+          Swal.fire({
+            title: "Logged out!",
+            text: "You have been signed out successfully",
+            icon: "success",
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          }).then(() => {
+            location.reload();
+          });
+
+          // Auto-reload after 2 seconds
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+        })
+        .catch((error) => {
+          console.error("Sign out error:", error);
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to sign out",
+            icon: "error",
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        });
+    }
   });
 });
 

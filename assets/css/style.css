@@ -6882,5 +6882,33 @@ body.modal-open::after {
 
 #signup-success,
 #signup-error {
+  gap: 10px;
+  text-align: center;
+  margin-block: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
+}
+
+#signup-success p,
+#signup-error p {
+  font-weight: 700;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
+}
+
+.guest-modal-close-btn-7a3b {
+  top: 0;
+  right: 0;
+  position: absolute;
+}
+
+.guest-modal-close-btn-7a3b button {
+  margin: 0px;
+  border-radius: 0px 8px 0px 8px;
+  background: initial !important;
+  color: #333;
 }

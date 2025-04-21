@@ -885,6 +885,11 @@ function emailPasswordSignIn() {
   // Set the modal content with both forms (initially hidden)
   modalContent.innerHTML = `
     <div class="guestmodalarea">
+    <div class="flex center flex-end guest-modal-close-btn-7a3b" onclick="closeModal()">
+    <button type="button" class="Add-to-Cart" id="perv4Button">
+        <i class="bi bi-x-lg"></i>
+    </button>
+    </div>
       <!-- Sign In Form -->
       <div id="signin-form" class="form-container active">
         <h2>Sign in for better experience</h2>
@@ -967,7 +972,10 @@ function emailPasswordSignIn() {
               <button id="signup-btn" class="modal-btn signinupbtn04392">Complete Sign Up</button>
             </div>
             <div id="signup-preloader" class="preloader" style="display: none;"> <div class="loader"></div></div>
-            <div id="signup-success" style="display: none; text-align: center;">
+             <p class="">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
+          </div>
+        </div>
+        <div id="signup-success" style="display: none; text-align: center;">
               <i class="bi bi-check-circle-fill success-icon"></i>
               <p>Account created successfully!</p>
               <button id="close-modal-btn" class="modal-btn signinupbtn04392">Close</button>
@@ -976,9 +984,6 @@ function emailPasswordSignIn() {
               <i class="bi bi-x-circle-fill error-icon"></i>
               <p id="signup-error-message">Error creating account</p>
               <button id="try-again-btn" class="modal-btn signinupbtn04392">Try Again</button>
-            </div>
-             <p class="">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
-          </div>
         </div>
       </div>
     </div>
@@ -1402,6 +1407,191 @@ function emailPasswordSignIn() {
       });
   }
 
+  // function handleSignUp() {
+  //   // Validate step 3
+  //   const governorate = document.getElementById("governorate").value;
+  //   const city = document.getElementById("city").value.trim();
+  //   const area = document.getElementById("area").value.trim();
+  //   const houseNumber = document.getElementById("house-number").value.trim();
+  //   const fullAddress = document.getElementById("address").value.trim();
+
+  //   // Clear previous errors
+  //   document.getElementById("step3-error").textContent = "";
+  //   document
+  //     .querySelectorAll(
+  //       "#signup-step3 input, #signup-step3 select, #signup-step3 textarea"
+  //     )
+  //     .forEach((el) => {
+  //       el.classList.remove("input-error");
+  //     });
+
+  //   let isValid = true;
+  //   let errorMessage = "";
+
+  //   if (!governorate) {
+  //     errorMessage = "Governorate is required";
+  //     document.getElementById("governorate").classList.add("input-error");
+  //     isValid = false;
+  //   }
+
+  //   if (!city) {
+  //     errorMessage = errorMessage ? errorMessage + "\n" : "";
+  //     errorMessage += "City is required";
+  //     document.getElementById("city").classList.add("input-error");
+  //     isValid = false;
+  //   }
+
+  //   if (!area) {
+  //     errorMessage = errorMessage ? errorMessage + "\n" : "";
+  //     errorMessage += "Area is required";
+  //     document.getElementById("area").classList.add("input-error");
+  //     isValid = false;
+  //   }
+
+  //   if (!houseNumber) {
+  //     errorMessage = errorMessage ? errorMessage + "\n" : "";
+  //     errorMessage += "House number is required";
+  //     document.getElementById("house-number").classList.add("input-error");
+  //     isValid = false;
+  //   }
+
+  //   if (!fullAddress) {
+  //     errorMessage = errorMessage ? errorMessage + "\n" : "";
+  //     errorMessage += "Full address is required";
+  //     document.getElementById("address").classList.add("input-error");
+  //     isValid = false;
+  //   }
+
+  //   if (!isValid) {
+  //     document.getElementById("step3-error").textContent = errorMessage;
+  //     return;
+  //   }
+
+  //   // Get values from all steps
+  //   const email = document.getElementById("new-email").value;
+  //   const firstName = document.getElementById("first-name-log").value;
+  //   const lastName = document.getElementById("last-name-log").value;
+  //   const password = document.getElementById("new-password").value;
+  //   const phone = document.getElementById("phone").value;
+  //   const phone2 = document.getElementById("phone2").value;
+
+  //   // Show preloader
+  //   showSignUpPreloader(true);
+
+  //   // Disable all form buttons during submission
+  //   const submitButton = document.querySelector(
+  //     "#signup-step3 button[type='submit']"
+  //   );
+  //   submitButton.disabled = true;
+
+  //   auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+
+  //       return user
+  //         .updateProfile({
+  //           displayName: "Customer",
+  //           photoURL: null,
+  //         })
+  //         .then(() => user.reload())
+  //         .then(() => user.getIdToken())
+  //         .then((idToken) => ({ user, idToken }));
+  //     })
+  //     .then(({ user, idToken }) => {
+  //       const uid = user.uid;
+
+  //       const userData = {
+  //         personalInfo: {
+  //           email: user.email,
+  //           firstName,
+  //           lastName,
+  //           phone: phone,
+  //           phone2: phone2 || null,
+  //           photoURL: null,
+  //         },
+  //         orders: [],
+  //         favorites: [],
+  //       };
+
+  //       const addressData = {
+  //         governorate,
+  //         city,
+  //         area,
+  //         houseNumber,
+  //         fullAddress,
+  //       };
+
+  //       return Promise.all([
+  //         fetch(
+  //           `https://matager-f1f00-default-rtdb.firebaseio.com/users/${uid}/personalInfo.json?auth=${idToken}`,
+  //           {
+  //             method: "POST",
+  //             headers: { "Content-Type": "application/json" },
+  //             body: JSON.stringify(userData.personalInfo),
+  //           }
+  //         ),
+  //         fetch(
+  //           `https://matager-f1f00-default-rtdb.firebaseio.com/users/${uid}/address.json?auth=${idToken}`,
+  //           {
+  //             method: "POST",
+  //             headers: { "Content-Type": "application/json" },
+  //             body: JSON.stringify(addressData),
+  //           }
+  //         ),
+  //       ]).then(() => user);
+  //     })
+  //     .then((user) => {
+  //       // Hide the email signin button
+  //       document.getElementById("email-signin-btn").style.display = "none";
+
+  //       // Show success state
+  //       showSignUpSuccess();
+
+  //       // Wait for the success message to be shown (you might need to adjust timing)
+  //       return new Promise((resolve) => {
+  //         setTimeout(() => {
+  //           showSignUpPreloader(false);
+  //           resolve();
+  //         }, 2000); // 2 seconds delay for user to see the success message
+  //       });
+  //     })
+  //     .then(() => {
+  //       // Close the modal after showing success
+  //       const modal = document.getElementById("signup-modal"); // Adjust ID as needed
+  //       if (modal) {
+  //         // Use whatever method you use to close modals (could be bootstrap modal or custom)
+  //         $(modal).modal("hide"); // If using Bootstrap
+  //         // OR your custom hide function
+  //         // hideModal(modal);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       showSignUpPreloader(false);
+  //       submitButton.disabled = false;
+
+  //       let userFriendlyMessage = "An error occurred. Please try again.";
+
+  //       if (error.code === "auth/email-already-in-use") {
+  //         userFriendlyMessage =
+  //           "This email is already in use. Please use a different email.";
+  //         showSignUpError(userFriendlyMessage);
+  //         goToStep(1);
+  //       } else if (error.code === "auth/weak-password") {
+  //         userFriendlyMessage =
+  //           "Password is too weak. Please choose a stronger password.";
+  //         showSignUpError(userFriendlyMessage);
+  //         goToStep(2);
+  //       } else if (error.code === "auth/invalid-email") {
+  //         userFriendlyMessage = "Please enter a valid email address.";
+  //         showSignUpError(userFriendlyMessage);
+  //         goToStep(1);
+  //       } else {
+  //         showSignUpError(userFriendlyMessage);
+  //       }
+  //     });
+  // }
+
   function handleSignUp() {
     // Validate step 3
     const governorate = document.getElementById("governorate").value;
@@ -1416,9 +1606,7 @@ function emailPasswordSignIn() {
       .querySelectorAll(
         "#signup-step3 input, #signup-step3 select, #signup-step3 textarea"
       )
-      .forEach((el) => {
-        el.classList.remove("input-error");
-      });
+      .forEach((el) => el.classList.remove("input-error"));
 
     let isValid = true;
     let errorMessage = "";
@@ -1470,8 +1658,14 @@ function emailPasswordSignIn() {
     const phone = document.getElementById("phone").value;
     const phone2 = document.getElementById("phone2").value;
 
-    // Show preloader
+    // Show preloader and hide other sections
     showSignUpPreloader(true);
+    document.getElementById("signup-success").style.display = "none";
+    document.getElementById("signup-error").style.display = "none";
+
+    // Disable all form buttons during submission
+    const submitButton = document.getElementById("signup-btn");
+    submitButton.disabled = true;
 
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -1531,36 +1725,99 @@ function emailPasswordSignIn() {
         ]).then(() => user);
       })
       .then((user) => {
-        // Show success state
+        // Hide preloader and show success message
         showSignUpPreloader(false);
-        showSignUpSuccess();
+        document.getElementById("signup-success").style.display = "block";
+
+        // Hide the form steps and progress container
+        document.querySelectorAll(".signup-step").forEach((step) => {
+          step.style.display = "none";
+        });
+        document.querySelector(".progress-container").classList.add("hidden");
 
         // Hide the email signin button
         document.getElementById("email-signin-btn").style.display = "none";
+
+        // Set up close modal button
+        document
+          .getElementById("close-modal-btn")
+          .addEventListener("click", () => {
+            const modal = document.getElementById("signup-modal");
+            if (modal) {
+              // Use whatever method you use to close modals
+              $(modal).modal("hide"); // If using Bootstrap
+              // OR your custom hide function
+              // hideModal(modal);
+            }
+          });
       })
       .catch((error) => {
-        // Show error state
         showSignUpPreloader(false);
+        submitButton.disabled = false;
+
+        // Show error message
+        document.getElementById("signup-error").style.display = "block";
+        const errorMessageEl = document.getElementById("signup-error-message");
+
+        // Hide the progress container
+        document.querySelector(".progress-container").classList.add("hidden");
 
         let userFriendlyMessage = "An error occurred. Please try again.";
 
         if (error.code === "auth/email-already-in-use") {
           userFriendlyMessage =
             "This email is already in use. Please use a different email.";
-          showSignUpError(userFriendlyMessage);
-          goToStep(1);
         } else if (error.code === "auth/weak-password") {
           userFriendlyMessage =
             "Password is too weak. Please choose a stronger password.";
-          showSignUpError(userFriendlyMessage);
-          goToStep(2);
         } else if (error.code === "auth/invalid-email") {
           userFriendlyMessage = "Please enter a valid email address.";
-          showSignUpError(userFriendlyMessage);
-          goToStep(1);
-        } else {
-          showSignUpError(userFriendlyMessage);
         }
+
+        errorMessageEl.textContent = userFriendlyMessage;
+
+        // Set up try again button
+        document
+          .getElementById("try-again-btn")
+          .addEventListener("click", () => {
+            document.getElementById("signup-error").style.display = "none";
+            // Show the form steps and progress container again
+            document.querySelectorAll(".signup-step").forEach((step) => {
+              step.style.display = "block";
+            });
+            document
+              .querySelector(".progress-container")
+              .classList.remove("hidden");
+          });
       });
   }
+
+  // Add this event listener when your modal is initialized
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("signup-modal");
+    if (modal) {
+      modal.addEventListener("hidden.bs.modal", function () {
+        // When modal is closed, show the progress container again
+        document
+          .querySelector(".progress-container")
+          .classList.remove("hidden");
+        // Also reset any other necessary UI elements
+        document.getElementById("signup-success").style.display = "none";
+        document.getElementById("signup-error").style.display = "none";
+        document.querySelectorAll(".signup-step").forEach((step) => {
+          step.style.display = "block";
+        });
+      });
+    }
+  });
+}
+function closeModal() {
+  // Close the guest modal by removing 'show' class
+  const guestModal = document.getElementById("signinmodal");
+  if (guestModal) {
+    guestModal.classList.remove("show");
+  }
+
+  // Remove 'modal-open' class from body
+  document.body.classList.remove("modal-open");
 }
