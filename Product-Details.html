@@ -336,29 +336,24 @@
                                     </div>
 
                                 </div>
-                                <div class="m-5 mb-10">
-                                    <button id="shareProductButton" class="Share-Product">
-                                        Copy Link <i class="bi bi-link-45deg"></i>
-                                    </button>
-                                    <div id="copyMessage" style="display: none; color: green; margin-top: 10px;">Link
-                                        copied!</div>
-                                </div>
-                                <div class="m-5 mb-10">
-                                    <div class="social-share-buttons">
-                                        <a id="shareFacebook" class="circle-button facebook hidden" href="#"
-                                            target="_blank" title="Share on Facebook">
-                                            <i class="bi bi-facebook"></i>
-                                        </a>
-                                        <a id="shareWhatsApp" class="circle-button whatsapp" href="#" target="_blank"
-                                            title="Share on WhatsApp">
-                                            <i class="bi bi-whatsapp"></i>
-                                        </a>
-                                        <a id="shareInstagram" class="circle-button instagram hidden" href="#"
-                                            title="Share on Instagram">
-                                            <i class="bi bi-instagram"></i>
-                                        </a>
+                                <div class="m-5 mb-10 flex">
+                                    <div>
+                                        <button id="shareProductButton" class="Share-Product"><i
+                                                class="bi bi-link-45deg"></i>
+                                        </button>
+                                        <div id="copyMessage" style="display: none; color: green; margin-top: 10px;">
+                                            Link
+                                            copied!</div>
+                                    </div>
+                                    <div>
+                                        <button id="shareWhatsApp" title="Share on WhatsApp"
+                                            class="Share-Product whatsapp"><i class="bi bi-whatsapp"></i></i>
+                                        </button>
+
                                     </div>
                                 </div>
+
+
                                 <script>
                                     function addToCart() {
                                         const title = document.getElementById("productTitle").innerText;
@@ -475,23 +470,20 @@
         const currentPageURL = encodeURIComponent(window.location.href);
         const pageTitle = encodeURIComponent(document.title);
 
-        // Set up Facebook share link
-        document.getElementById('shareFacebook').addEventListener('click', function () {
-            const facebookURL = `https://www.facebook.com/dialog/share?app_id=61564248736614&href=${encodeURIComponent(currentPageURL)}&quote=${encodeURIComponent(pageTitle)}&display=popup`;
-            window.open(facebookURL, '_blank'); // Open the Facebook share dialog
+        // Enhanced WhatsApp share functionality
+        document.getElementById('shareWhatsApp').addEventListener('click', function () {
+            // Check if it's a mobile device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const whatsappMessage = `${pageTitle}%20${currentPageURL}`;
+
+            if (isMobile) {
+                // Use WhatsApp's direct share link for mobile
+                window.open(`whatsapp://send?text=${whatsappMessage}`, '_blank');
+            } else {
+                // Use web WhatsApp for desktop
+                window.open(`https://web.whatsapp.com/send?text=${whatsappMessage}`, '_blank');
+            }
         });
-
-        // Set up WhatsApp share link
-        const whatsappShareURL = `https://wa.me/?text=${pageTitle}%20${currentPageURL}`;
-        document.getElementById('shareWhatsApp').href = whatsappShareURL;
-
-        // Instagram share handler (placeholder)
-        document.getElementById('shareInstagram').addEventListener('click', function () {
-            const instagramMessage = `${pageTitle} ${currentPageURL}`;
-            const instagramURL = `instagram://share?text=${encodeURIComponent(instagramMessage)}`;
-            window.open(instagramURL, '_blank');
-        });
-
 
         // Copy URL to clipboard on "Share My Product" button click
         document.getElementById('shareProductButton').addEventListener('click', function () {

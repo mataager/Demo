@@ -169,7 +169,6 @@ function prepareguestbtn() {
 //
 // Configuration object for store hints
 const storeHintsConfig = {
-  freeShippingThreshold: "9000", // Static EGP amount
   currentPromos: [], // Will be populated from Firebase
   rotationInterval: 3000, // 3 seconds rotation
   apiUrl: `https://matager-f1f00-default-rtdb.firebaseio.com/Stores/${uid}/Promocodes.json`,
@@ -243,7 +242,7 @@ async function renderStoreHints() {
   // Add free shipping hint
   rotatingContainer.insertAdjacentHTML(
     "beforeend",
-    renderFreeShippingHint(storeHintsConfig.freeShippingThreshold)
+    renderFreeShippingHint(freeshipping)
   );
 
   // Add promo code hints if available
@@ -298,6 +297,3 @@ window.updateStoreHints = async function (newConfig) {
   Object.assign(storeHintsConfig, newConfig);
   await renderStoreHints();
 };
-
-// Refresh promos periodically (every 5 minutes)
-setInterval(fetchPromoCodes, 300000);

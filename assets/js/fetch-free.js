@@ -5,9 +5,11 @@ function fetchAndRenderProducts() {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+
       return response.json();
     })
     .then((data) => {
+      createSearchIndex(data);
       // Check if data is not empty
       if (data) {
         const productOverview = document.querySelector(".product-overview");
@@ -242,6 +244,27 @@ function fetchAndRenderProducts() {
     });
 }
 
+// function for store products data in local storage to help in the search
+function createSearchIndex(productsData) {
+  const searchIndex = {};
+
+  for (const productId in productsData) {
+    const product = productsData[productId];
+
+    searchIndex[productId] = {
+      id: productId,
+      title: product["product-title"] || "",
+      photo: product["product-photo"] || "",
+      category: product.category || "",
+      type: product.type || "",
+      price: product["Product-Price"] || "",
+      saleAmount: product["sale-amount"] || 0,
+    };
+  }
+
+  // Store in localStorage for fast client-side searching
+  localStorage.setItem("productSearchIndex", JSON.stringify(searchIndex));
+}
 // Helper function to get color value from the product data (your existing logic)
 function getColorValue(product, color) {
   if (product.sizes) {

@@ -3658,6 +3658,16 @@ a {
     cursor: pointer;
 }
 
+.product-suggestion-item {
+    display: flex;
+    align-items: center;
+}
+
+.suggestion-product-photo {
+    margin: 10px;
+    width: 100px;
+}
+
 .suggestion-item:hover {
     background-color: #f0f0f0;
 }

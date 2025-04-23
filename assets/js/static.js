@@ -1,11 +1,11 @@
 const url = "https://matager-f1f00-default-rtdb.firebaseio.com";
 const storeurl = "https://matager-f1f00-default-rtdb.firebaseio.com";
-const storename = "GGG";
+const storename = "StoreName";
 const uid = "GxQaBxk8tFa25RudRDnpAUyjQ0l1";
 const storeuid = "GxQaBxk8tFa25RudRDnpAUyjQ0l1";
 const storePhoneNum = "+20 122 838 3723";
 const storePhoneNum2 = "";
-const storeEmail = "GGG@gmail.com";
+const storeEmail = "StoreName@gmail.com";
 // const storeGender = ["Men", "Women", "Kids"];
 const storeGender = ["Men"];
 const productnavbar = ["yes"];
