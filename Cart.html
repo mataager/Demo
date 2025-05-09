@@ -334,12 +334,16 @@
                                 <div class="flex center total-cart-div mt-20">
                                     <div class="promo-code-section pb-30">
                                         <p class="mb-10 cart-area-divs-titels">Promo Code</p>
-                                        <div class="flex center align-items promo-code-section-div p-30">
+                                        <div class="flex center align-items promo-code-section-div">
                                             <input type="text" id="promo-code" class="promo-code-input"
                                                 placeholder="Enter promo code">
-                                            <button id="apply-promo" class="apply-promo-btn ml-10">Apply</button>
+                                            <div class="promo-code-btn-message-area">
+                                                <button id="apply-promo" class="apply-promo-btn ml-10">Apply</button>
+                                                <div id="promo-message" class="promo-message mt-10"></div>
+                                            </div>
+
                                         </div>
-                                        <div id="promo-message" class="promo-message mt-10"></div>
+
                                     </div>
 
                                 </div>
@@ -809,9 +813,12 @@
 <a href="#top" class="go-top-btn" data-go-top="">
     <ion-icon name="arrow-up-outline" role="img" class="md hydrated" aria-label="arrow up outline"></ion-icon>
 </a>
-<a href="" class="scrolltocheckout">
-    Scroll To Check Out<i class="bi bi-arrow-down"></i>
+<a class="scrolltocheckout">
+    <span>Scroll To Check Out</span>
+    <ion-icon name="arrow-down-outline" role="img" class="md hydrated godownicon" aria-label="arrow down outline"></ion-icon>
 </a>
+
+
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule="" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

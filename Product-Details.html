@@ -703,6 +703,12 @@
                 const pieceElement = document.getElementById('piece');
                 const detailsElement = document.getElementById('product-details');
                 const sizeChartElement = document.getElementById('sizechart');
+                //
+
+
+                // 3. Protection 
+
+                //
 
                 // Populate brand name and title
                 BrandNameElement.innerText = productDetails["Brand-Name"];
@@ -910,7 +916,10 @@
                 checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
                 initializeProductSelections();
                 initializeImageGallery();
-            })
+            }
+
+            )
+
             .catch((error) => {
                 console.error("Error fetching product details:", error);
                 showProductNotFoundMessage();
@@ -998,7 +1007,7 @@
                         <div class="card-content">
                         <div class="color-options m-5 mb-7 center">${colorOptionsHtml}</div>
                     <h4 class="related-product-title">${product["product-title"]}</h4>
-                    <p class="related-product-price">${finalPrice} EGP</p>
+                    <p class="related-product-price hidden">${finalPrice} EGP</p>
                     </div>
                 `;
 
@@ -1494,6 +1503,25 @@
         // Fetch product details
     }, 1000);
 
+    // Disable right-click
+    document.addEventListener('contextmenu', (e) => {
+        if (e.target.classList.contains('thumbnail')) {
+            e.preventDefault();
+            alert("Right-click is disabled to protect content.");
+        }
+    });
+
+    // Block F12/Ctrl+Shift+I (DevTools)
+    document.addEventListener('keydown', (e) => {
+        if (
+            e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+            (e.ctrlKey && e.key === 'u') // Block "View Source"
+        ) {
+            e.preventDefault();
+        }
+    });
+    // Modify your image handling to use Blob URLs
 </script>
 
 <script>

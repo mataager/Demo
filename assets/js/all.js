@@ -137,7 +137,23 @@ function addAnimation() {
 
 function calculateSalePrice(originalPrice, saleAmount) {
   const discountedPrice = originalPrice - originalPrice * (saleAmount / 100);
-  return Math.round(discountedPrice); // Rounds to the nearest integer (e.g., 3197.6 → 3198)
+
+  if (!autopricehandle) {
+    return Math.round(discountedPrice);
+  }
+
+  // Small prices (≤ 999): round UP to nearest 50
+  if (discountedPrice <= 999) {
+    return Math.ceil(discountedPrice / 50) * 50;
+  }
+
+  // Medium prices (1,000-9,999): round UP to nearest 100
+  if (discountedPrice <= 9999) {
+    return Math.ceil(discountedPrice / 100) * 100;
+  }
+
+  // Large prices (≥10,000): round UP to nearest 1000
+  return Math.ceil(discountedPrice / 1000) * 1000;
 }
 
 //using them in cart checkout page
@@ -297,3 +313,40 @@ window.updateStoreHints = async function (newConfig) {
   Object.assign(storeHintsConfig, newConfig);
   await renderStoreHints();
 };
+
+//brands scrollbar
+function createBrandItems() {
+  const brandsScroller = document.getElementById("brandsScroller");
+
+  // Create first set of brands
+  brandsData.forEach((brand) => {
+    brandsScroller.innerHTML += `
+                  <div class="brand-item" onclick="brand('${brand.name.replace(
+                    /'/g,
+                    "\\'"
+                  )}')">
+                    <img src="${brand.logo}" alt="${
+      brand.name
+    }" class="brand-logo">
+                  
+                  </div>
+                `;
+  });
+
+  // Create duplicate set for seamless looping
+  brandsData.forEach((brand) => {
+    brandsScroller.innerHTML += `
+                  <div class="brand-item" onclick="brand('${brand.name.replace(
+                    /'/g,
+                    "\\'"
+                  )}')">
+                    <img src="${brand.logo}" alt="${
+      brand.name
+    }" class="brand-logo">
+                   
+                  </div>
+                `;
+  });
+}
+window.onload = createBrandItems;
+//

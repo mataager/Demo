@@ -13,6 +13,7 @@ function fetchAndRenderProducts() {
       // Check if data is not empty
       if (data) {
         const productOverview = document.querySelector(".product-overview");
+        const Bestsellercontainer = document.querySelector(".BestSellers");
         const newArrivalsContainer = document.getElementById("NewArrivalls");
         const saleContainer = document.getElementById("Sale");
 
@@ -29,6 +30,7 @@ function fetchAndRenderProducts() {
         productOverview.innerHTML = ""; // Clear existing products from the overview
         newArrivalsContainer.innerHTML = ""; // Clear existing new arrivals
         saleContainer.innerHTML = ""; // Clear existing sale items
+        Bestsellercontainer.innerHTML = ""; // Clear existing sale items
 
         // Shuffle the product data
         const shuffledData = shuffle(Object.entries(data));
@@ -216,6 +218,7 @@ function fetchAndRenderProducts() {
 
         // Render Sale Items
         renderSaleItems(shuffledData, saleContainer);
+        renderBestSellers(shuffledData, Bestsellercontainer);
 
         // Set up event listeners for "Add to Cart" buttons (your existing logic)
         const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
@@ -334,6 +337,7 @@ function renderSaleItems(products, saleContainer) {
             </h3>
             <del class="pre-sale">${originalPrice} EGP</del>
             <p class="card-price">${salePrice} EGP</p>
+             <p class="card-price">${salePrice} EGP</p>
             <a href="#" class="card-price hidden font-small">${key}</a>
           </div>
         </div>
@@ -352,8 +356,96 @@ function renderSaleItems(products, saleContainer) {
     }
   });
 }
+//render bestsellers
+function renderBestSellers(products, bestSellersContainer) {
+  // Clear container and show loading state
+  bestSellersContainer.innerHTML = "";
+  document.getElementById("preloader").style.display = "flex";
+
+  // Filter products where bestseller is explicitly true
+  const bestSellers = products.filter(
+    ([key, product]) => product.bestseller === true
+  );
+
+  if (bestSellers.length === 0) {
+    document.getElementById("BestSellersSection").classList.add("hidden");
+    document.getElementById("preloader").style.display = "none";
+    return;
+  }
+
+  // Limit to 20 bestsellers, shuffle, then reverse the order
+  const limitedBestSellers = shuffle(bestSellers).slice(0, 20).reverse();
+
+  limitedBestSellers.forEach(([key, product]) => {
+    const bestSellerItem = document.createElement("li");
+    bestSellerItem.classList.add("product-card-overview", "animate-on-scroll");
+
+    const productCard = document.createElement("div");
+
+    const saleAmount = product["sale-amount"];
+    const originalPrice = product["Product-Price"];
+    const salePrice = calculateSalePrice(originalPrice, saleAmount);
+
+    // Check and set default image source
+    setDefaultImageSource(product);
+
+    productCard.innerHTML = `
+      <div class="product-card" tabindex="0">
+        <figure class="card-banner">
+          <img src="${
+            product["product-photo"]
+          }" width="312" height="350" alt="" class="image-contain" id="swipe1">
+          <img src="${
+            product["product-photo2"]
+          }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
+          ${saleAmount ? `<div class="card-badge">-${saleAmount}%</div>` : ""}
+          <div class="best-seller" id="best-seller"><i class="bi bi-lightning-charge"></i></div>
+          <ul class="card-action-list">
+            <li class="card-action-item">
+              <button class="card-action-btn add-to-cart-btn" aria-labelledby="card-label-1" data-product-id="${key}">
+                <ion-icon name="cart-outline" role="img" class="md hydrated" aria-label="cart outline"></ion-icon>
+              </button>
+              <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
+            </li>
+            <li class="card-action-item" onclick="productDetails('${key}')">
+              <button class="card-action-btn" aria-labelledby="card-label-3">
+                <ion-icon name="eye-outline" role="img" class="md hydrated" aria-label="eye outline"></ion-icon>
+              </button>
+              <div class="card-action-tooltip" id="card-label-3">Quick View</div>
+            </li>
+            <li class="card-action-item" onclick="addfavouriteproduct('${key}')">
+              <button class="card-action-btn" aria-labelledby="card-label-4">
+                <ion-icon name="heart-outline" role="img" class="md hydrated" aria-label="heart-outline"></ion-icon>
+              </button>
+              <div class="card-action-tooltip" id="card-label-4">Add to Favourite</div>
+            </li>
+          </ul>
+        </figure>
+        <div class="card-content mt-10">
+          <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
+            <a class="title" href="#">${product["product-title"]}</a>
+          </h3>
+          ${
+            saleAmount ? `<del class="pre-sale">${originalPrice} EGP</del>` : ""
+          }
+          <p class="card-price">${salePrice} EGP</p>
+          <a href="#" class="card-price hidden font-small">${key}</a>
+        </div>
+      </div>
+    `;
+
+    bestSellerItem.appendChild(productCard);
+    bestSellersContainer.appendChild(bestSellerItem);
+
+    // Setup hover effect
+    setupHoverEffect(productCard);
+  });
+
+  document.getElementById("preloader").style.display = "none";
+}
 
 // Fetch and render products including New Arrivals and Sale Items on page load
+
 window.addEventListener("load", fetchAndRenderProducts);
 
 // Shuffle function to randomize the order of elements in an array (your existing logic)

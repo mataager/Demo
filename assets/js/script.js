@@ -83,17 +83,6 @@ function renderProducts() {
     const saleAmount = product["sale-amount"];
     const originalPrice = product["Product-Price"];
 
-    //   // Ensure originalPrice and saleAmount are integers
-    //   const intOriginalPrice = Math.floor(originalPrice);
-    //   const intSaleAmount = Math.floor(saleAmount);
-
-    //   // Calculate sale price
-    //   const salePrice = intOriginalPrice * (1 - intSaleAmount / 100);
-
-    //   // Return the integer part of the sale price
-    //   return Math.floor(salePrice);
-    // }
-
     // Check and set default image source if necessary
     setDefaultImageSource(product);
 
@@ -210,19 +199,7 @@ function updatePaginationButtons() {
   document.getElementById("nextPageBtn").disabled =
     currentPage * itemsPerPage >= totalProducts;
 }
-function setupHoverEffect(productCard) {
-  const swipe1 = productCard.querySelector("#swipe1");
-  const swipe2 = productCard.querySelector("#swipe2");
 
-  productCard.addEventListener("mouseenter", () => {
-    swipe1.style.display = "none";
-    swipe2.style.display = "block";
-  });
-  productCard.addEventListener("mouseleave", () => {
-    swipe1.style.display = "block";
-    swipe2.style.display = "none";
-  });
-}
 document.getElementById("nextPageBtn").addEventListener("click", () => {
   const productList = document.querySelector(".product-list");
   currentPage++;
