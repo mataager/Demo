@@ -516,8 +516,6 @@ function emailPasswordSignIn() {
 
         // Show success message
         Swal.fire({
-          toast: true,
-          position: "top-end",
           icon: "success",
           title: `Signed In Successfully\nWelcome, ${userCredential.user.email}`,
           showConfirmButton: false,

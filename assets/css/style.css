@@ -7359,6 +7359,12 @@ body.modal-open::after {
   box-sizing: border-box !important;
 }
 
+@layer high-priority {
+  body.swal2-height-auto {
+    height: -webkit-fill-available !important;
+  }
+}
+
 /* Prevent body scroll when modal is open */
 body.swal2-shown {
   overflow: hidden !important;

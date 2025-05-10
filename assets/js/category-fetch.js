@@ -91,20 +91,6 @@ function renderProducts() {
   const productList = document.querySelector(".product-list");
   productList.innerHTML = ""; // Clear existing products from the list
 
-  // if (totalProducts === 0) {
-  //   // If no products found, display a message
-  //   // const sortby = document.querySelector(".sort-by");
-  //   const { category, piece } = getFilterFromUrl();
-  //   console.log(category, piece);
-  //   const noProductsMessage = document.createElement("div");
-  //   noProductsMessage.classList.add("no-product-message-container");
-  //   noProductsMessage.innerHTML = `<p>there is no ${category} ${piece} in that store</p>`;
-  //   productList.style.display = "block";
-  //   // sortby.style.display = "none";
-  //   productList.appendChild(noProductsMessage);
-  //   return;
-  // }
-
   if (totalProducts === 0) {
     const { category, piece } = getFilterFromUrl();
     console.log(category, piece);
