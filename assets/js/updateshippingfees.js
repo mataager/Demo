@@ -23,7 +23,7 @@ function highlightSelectedCard() {
 
   // Add border to the clicked card
   const clickedCard = event.currentTarget;
-  clickedCard.style.border = "2px solid #838383";
+  clickedCard.style.border = "1px solid #838383";
 }
 
 function updateShippingFees() {
@@ -134,5 +134,3 @@ function appendShippingFeeDiv(city, cartItems) {
   console.log(`Cart Total: ${cartTotal.toFixed(2)} EGP`);
   console.log(`Shipping Fee: ${shippingFees.toFixed(2)} EGP`);
 }
-
-

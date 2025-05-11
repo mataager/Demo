@@ -87,39 +87,7 @@ function showMoreShippingData() {
     }
   }
 }
-// function fetchUserAddressAndRender() {
-//   // Ensure the user is authenticated
-//   firebase.auth().onAuthStateChanged(async (user) => {
-//     if (user) {
-//       try {
-//         // Get the user's ID token for secure database access
-//         const idToken = await user.getIdToken();
 
-//         // URL to the user's data
-//         const url = `https://matager-f1f00-default-rtdb.firebaseio.com/users/${user.uid}.json?auth=${idToken}`;
-
-//         // Fetch user data
-//         const response = await fetch(url);
-//         if (!response.ok) throw new Error("Failed to fetch user data.");
-
-//         const userData = await response.json();
-
-//         // Render addresses in the provided div
-//         if (userData && userData.address) {
-//           renderAddresses(userData.address);
-//         }
-//       } catch (error) {
-//         console.error("Error fetching user address:", error);
-//         Swal.fire({
-//           icon: "error",
-//           title: "Error",
-//           text: "Could not load your address data.",
-//         });
-//       }
-//     } else {
-//     }
-//   });
-// }
 function fetchUserAddressAndRender() {
   // Ensure the user is authenticated
   firebase.auth().onAuthStateChanged(async (user) => {
@@ -174,7 +142,7 @@ function renderAddresses(addresses) {
 
     // Apply special styling to the first card
     if (index === 0) {
-      div.style.border = "2px solid rgb(131, 131, 131)";
+      div.style.border = "1px solid rgb(131, 131, 131)";
       governorate = address.governorate;
       firstAddressCity = address.city;
       firstAddress = address.fullAddress; // Store the first address
@@ -327,32 +295,36 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", fetchUserAddressAndRender);
 
 // Function to check if Free Shipping is applied
-function checkFreeShipping() {
+function updateFreeShippingWidget() {
+  const widget = document.getElementById("freeShippingWidget");
+  const progressFill = document.querySelector(".progress-fill-freeshipping");
+  const remainingAmount = document.getElementById("remainingAmount");
   const cartTotalElement = document.getElementById("cart-total");
-  const shippingFeesElement = document.getElementById("shipping-fees-total");
-  const freeShippingThreshold = parseInt(freeshipping);
+  const freeShippingThreshold = parseInt(freeshipping); // Your threshold value
 
   const cartTotalText = cartTotalElement.innerText.replace(/[^\d.]/g, "");
   const cartTotalValue = parseFloat(cartTotalText);
+  // Calculate progress
+  const progress = Math.min(
+    (cartTotalValue / freeShippingThreshold) * 100,
+    100
+  );
+  const remaining = freeShippingThreshold - cartTotalValue;
 
-  console.log(cartTotalValue, freeShippingThreshold);
+  // Update progress bar
+  progressFill.style.width = `${progress}%`;
 
   if (cartTotalValue >= freeShippingThreshold) {
-    Swal.fire({
-      title: "Yeah! You Got Free Shipping!",
-      text: `Your order of ${cartTotalValue} EGP qualifies for free shipping!`,
-      icon: "success",
-      confirmButtonText: "Awesome!",
-    });
+    // Free shipping reached
+    widget.classList.add("free-shipping-reached");
   } else {
-    console.warn(
-      "Free shipping conditions not met because:",
-      cartTotalValue >= freeShippingThreshold ? "" : "Cart value too low",
-      hasFreeShipping ? "" : "Shipping not marked as free"
-    );
+    // Free shipping not reached
+    widget.classList.remove("free-shipping-reached");
+    remainingAmount.textContent = `${remaining.toFixed(2)} EGP`;
   }
 }
-document.addEventListener("DOMContentLoaded", checkFreeShipping);
+// Call this whenever the cart updates
+document.addEventListener("DOMContentLoaded", updateFreeShippingWidget);
 
 //coupon code
 document

@@ -14,6 +14,7 @@ function emailPasswordSignIn() {
     </div>
       <!-- Sign In Form -->
       <div id="signin-form" class="form-container active">
+      <div class="width-available flex center mb-20"><img class="animate-on-scroll-auto show fle" width="50px" src="./assets/images/matager-bag.svg"></div>
         <h2>Sign in for better experience</h2>
         <div class="mt-30 mb-30 signinupinbutarea04392">
           <input type="email" id="email" class="swal2-input" placeholder="Enter your email">
@@ -27,6 +28,7 @@ function emailPasswordSignIn() {
 
       <!-- Sign Up Form -->
       <div id="signup-form" class="form-container">
+      <div class="width-available flex center mb-20"><img class="animate-on-scroll-auto show fle" width="50px" src="./assets/images/matager-bag.svg"></div>
         <div class="progress-container">
           <div class="progress-bar">
             <div class="progress-step-sign" id="step1" data-step="1">Basic Info</div>
@@ -406,7 +408,7 @@ function emailPasswordSignIn() {
     if (/[^A-Za-z0-9]/.test(password)) strength += 1;
 
     // Update UI
-    const colors = ["#ff4d4d", "#ff9999", "#66b3ff", "#4dff4d", "#00cc00"];
+    const colors = ["#000", "#000", "#000", "#000", "#000"];
     const texts = ["Very Weak", "Weak", "Moderate", "Strong", "Very Strong"];
 
     strengthFill.style.width = `${(strength / 4) * 100}%`;

@@ -163,7 +163,7 @@ function openCartModal(productId) {
       <h5 class="m-5 pointer" id="BrandName" onclick="brand('${
         product["Brand-Name"]
       }')">${product["Brand-Name"]}</h5>
-       <h2 class="m-5 pointer" onclick="productDetails('${productId}')" id="productTitle">${
+       <h2 class="m-5 pointer title" onclick="productDetails('${productId}')" id="productTitle">${
           product["product-title"]
         }</h2>
       ${
@@ -174,8 +174,8 @@ function openCartModal(productId) {
       <div class="m-5 flex align-items">
           <p id="productPrice">${salePrice} EGP</p>
       </div>
-          <div style="width:300px">
-            <img id="productImage" class="m-5 product-image width-available active" src="${
+          <div class="w-200" style="width:200px">
+            <img id="productImage" class="m-5 product-image radius-5 width-available active" src="${
               product["product-photo"]
             }" alt="Product Image">
           </div>
@@ -187,10 +187,10 @@ function openCartModal(productId) {
                 `<div class="size-radio m-5" onclick="SizeRef('${size}')"><label class="radio-input_option"><span class="size-value">${size}</span></label></div>`
             )
             .join("")}</ul>
-          <div class="size m-5"><h3 class="m-5 flex pb-7 center align-items">Color: <p id="product-color"></p></h3><div id="color-hint-text" style="display: none; font-size: 16px; color: #333; margin-top: 10px;"></div></div>
+          <div class="size m-5"><h3 class="m-5 flex pb-7 center align-items hidden">Color: <p id="product-color"></p></h3><div id="color-hint-text" style="display: none; font-size: 16px; color: #333; margin-top: 10px;"></div></div>
 
           <ul id="product-colors" class="m-5 flex flex-wrap hidden"></ul>
-          <div class="m-5 flex align-items">
+          <div class="m-5 flex align-items hidden">
            SKU:<p id="productID"> ${productId}</p>
           </div>
           <div class="m-5">
