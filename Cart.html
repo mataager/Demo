@@ -178,12 +178,21 @@
             <div id="cart-card">
                 <div class="flex center flex-direction-column flex-start m-10" id="Cart">
                     <div class="m-10 flex space-evenly align-items relative">
-                        <p class="mycarttitle relative">My Cart
-                        <p class="cartitemsamount">0</p>
+                        <div class="relative">
+                            <p class="mycarttitle relative">My Cart
+                            <p class="cartitemsamount" id="cartitemsamount">0</p>
+                        </div>
+
                         </p>
-                        <button id="" class="cart-continueshopping-btn" onclick="changeFrameSrc('./Products.html')"><i
-                                class="bi bi-arrow-left"></i> Contniue
-                            Shopping</button>
+                        <div class="flex flex-direction-column align-items-flex-end gap-5">
+                            <button id="" class="cart-continueshopping-btn"
+                                onclick="changeFrameSrc('./Products.html')"><i class="bi bi-arrow-left"></i> Contniue
+                                Shopping</button>
+                            <button class="ShippingReturnbtn" onclick="openPolicyModal()"><i
+                                    class="bi bi-info-circle"></i> Shipping & Return
+                                Policy</button>
+                        </div>
+
                     </div>
 
                     <div class="m-10 cart-bg flex-direction-column flex" id="cartarea">
@@ -420,6 +429,11 @@
                                 const cartList = document.getElementById("cart-items");
                                 const cartArea = document.getElementById("cartarea");
                                 let totalAmount = 0;
+                                function updatecartitemscount() {
+                                    let cartitemscount = cart.reduce((total, item) => total + item.quantity, 0);
+                                    document.getElementById("cartitemsamount").innerText = cartitemscount;
+                                }
+                                updatecartitemscount();
 
                                 // Function to check availability from Firebase database
                                 function checkAvailability(itemId, productSize, productColor, requestedQuantity, callback) {
@@ -538,12 +552,12 @@
                                             // Refresh total amount
                                             updateTotalAmount();
                                             updateFreeShippingWidget();
-                                            // location.reload(); // Reload to reflect changes
+                                            updatecartitemscount()
                                             preloader.classList.add("hidden");
                                             updateCartCount();
                                         }
                                     });
-
+                                    updatecartitemscount();
 
                                 }
                                 // Function to update item quantity in local storage
@@ -688,6 +702,8 @@
                                             localStorage.setItem("cart", JSON.stringify(cart));
                                             listItem.remove();
                                             updateTotalAmount();
+                                            updateFreeShippingWidget();
+                                            updatecartitemscount()
                                             checkCartState(cart)
                                         };
 

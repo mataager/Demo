@@ -299,14 +299,10 @@ body {
 
 .card-banner {
   position: relative;
-  /* height: 350px; */
-  /* overflow: hidden; */
-  width: fit-content;
   max-width: 295px !important;
   min-width: 140px !important;
   min-height: 140px !important;
   max-height: 290px !important;
-  /* border-radius: 15px; */
 }
 
 .disabled1 {
@@ -348,11 +344,10 @@ body {
   align-items: center;
   height: 100%;
   width: 100%;
-  overflow: hidden;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
   /* Ensures transform doesn't overflow */
-  /* will-change: transform; */
+
   /* Optimizes for hardware acceleration */
 }
 
@@ -365,11 +360,8 @@ body {
 
 .card-banner {
   width: 100%;
-  /* height: 350px; */
-  position: relative;
-  /* overflow: hidden; */
+
   /* Add perspective for 3D effect */
-  /* perspective: 1000px; */
 }
 
 .fit-content .card-banner {
@@ -489,6 +481,10 @@ img {
   right: 20px;
   opacity: 1;
   transform: translateX(0);
+}
+
+.relative {
+  position: relative;
 }
 
 .card-action-item {
@@ -1092,6 +1088,7 @@ img {
 .product-list,
 .product-overview,
 .BestSellers {
+  overflow: hidden;
   display: grid;
   justify-items: center;
   justify-content: center;
@@ -5906,7 +5903,7 @@ th {
   top: 0;
   left: 0;
   background-color: rgb(255, 255, 255);
-  z-index: 100;
+  /* z-index: 100; */
 }
 
 
@@ -5969,6 +5966,9 @@ th {
 }
 
 .empty-cart-text {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
   font-size: small;
 }
 
@@ -6732,18 +6732,32 @@ body.modal-open #mainpagearea {
   position: relative;
 }
 
-.cart-continueshopping-btn {
+.cart-continueshopping-btn,
+.ShippingReturnbtn {
   text-transform: uppercase;
   letter-spacing: 1px;
   height: 30px;
   padding: 5px 16px;
   color: #19191a;
-  border: 1px solid #19191a;
+  border: 1px solid #19191a00;
   border-radius: 4px;
   cursor: pointer;
   font-size: 10px;
   transition: color 0.3s ease, border-color 0.3s ease;
   background-color: transparent;
+}
+
+.cart-continueshopping-btn:hover,
+.ShippingReturnbtn:hover {
+  border-color: #19191a;
+  /* transform: translateY(-1px); */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: Add a subtle arrow animation on hover */
+.cart-continueshopping-btn:hover .bi-arrow-left {
+  transform: translateX(-3px);
+  transition: transform 0.3s ease;
 }
 
 .space-evenly {
@@ -6763,8 +6777,8 @@ body.modal-open #mainpagearea {
 }
 
 .cartitemsamount {
-  top: 0;
-  right: 300px;
+  top: 5px;
+  left: 130px;
   position: absolute;
 }
 

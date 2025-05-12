@@ -81,7 +81,7 @@ function addToCart() {
         .getElementById("continueBtn")
         .addEventListener("click", () => Swal.close());
       document.getElementById("cartBtn").addEventListener("click", () => {
-        window.location.href = "/cart";
+        window.location.href = "./Cart.html";
       });
     },
   });
@@ -191,7 +191,7 @@ function openCartModal(productId) {
 
           <ul id="product-colors" class="m-5 flex flex-wrap hidden"></ul>
           <div class="m-5 flex align-items hidden">
-           SKU:<p id="productID"> ${productId}</p>
+           SKU:<p id="productID">${productId}</p>
           </div>
           <div class="m-5">
             <button id="addToCartButton" onclick="addToCart()" class="Add-to-Cart" disabled style="opacity: 0.5;">Add to Cart <i class="bi bi-exclamation-lg"></i></button>

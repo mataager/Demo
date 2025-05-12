@@ -1,4 +1,3 @@
-
 function checkUserAuthentication() {
   firebase.auth().onAuthStateChanged((user) => {
     const modal = document.querySelector(".modal");
@@ -9,6 +8,7 @@ function checkUserAuthentication() {
       // Set the modal content for non-authenticated users
       modalContent.innerHTML = `
       <div class="guestmodalarea">
+      <div class="width-available flex center mb-20"><img class="animate-on-scroll-auto show fle" width="50px" src="./assets/images/matager-bag.svg"></div>
         <h2>Sign in for better experience</h2>
         <p>You can sign in to save your details,track your order,add items to favourite etc.</p>
         <div class="modal-buttons">
