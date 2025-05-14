@@ -92,9 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//
-// scroll to checout btn//
-
 //handle page title
 document.getElementById("store-title").innerHTML = storename;
 
@@ -132,9 +129,6 @@ function addAnimation() {
     });
   });
 }
-
-//
-
 function calculateSalePrice(originalPrice, saleAmount) {
   const discountedPrice = originalPrice - originalPrice * (saleAmount / 100);
 
@@ -155,7 +149,6 @@ function calculateSalePrice(originalPrice, saleAmount) {
   // Large prices (≥10,000): round UP to nearest 1000
   return Math.ceil(discountedPrice / 1000) * 1000;
 }
-
 //using them in cart checkout page
 function removeaddressarea() {
   const addressarea = document.getElementById("address-sec");
@@ -182,7 +175,6 @@ function prepareguestbtn() {
       .addEventListener("click", guestSubmitorder);
   }
 }
-//
 // Configuration object for store hints
 const storeHintsConfig = {
   currentPromos: [], // Will be populated from Firebase
@@ -314,41 +306,79 @@ window.updateStoreHints = async function (newConfig) {
   await renderStoreHints();
 };
 
+//rendering pixels
+function renderPixels() {
+  const url = `https://matager-f1f00-default-rtdb.firebaseio.com/Stores/${uid}/Pixels.json`;
+  if (!uid) {
+    console.error("UID is required to fetch pixels");
+    return;
+  }
+  fetch(url)
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      if (!data) {
+        return;
+      }
+
+      const head = document.head;
+
+      Object.values(data).forEach((pixel) => {
+        // Add comment with pixel name
+        head.appendChild(document.createComment(` ${pixel.pixelName} `));
+
+        // Create a temporary div to parse the HTML
+        const temp = document.createElement("div");
+        temp.innerHTML = pixel.pixelCode.trim();
+
+        // Move all child nodes to the head
+        while (temp.firstChild) {
+          head.appendChild(temp.firstChild);
+        }
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching pixels:", error);
+    });
+}
+// Call the function when the page loads
+window.addEventListener("DOMContentLoaded", renderPixels);
+
 //brands scrollbar
 function createBrandItems() {
   const brandsScroller = document.getElementById("brandsScroller");
+  if (!brandsScroller) return; // Exit if element not found
 
   // Create first set of brands
   brandsData.forEach((brand) => {
     brandsScroller.innerHTML += `
-                  <div class="brand-item" onclick="brand('${brand.name.replace(
-                    /'/g,
-                    "\\'"
-                  )}')">
-                    <img src="${brand.logo}" alt="${
-      brand.name
-    }" class="brand-logo">
-                  
-                  </div>
-                `;
+      <div class="brand-item" onclick="brand('${brand.name.replace(
+        /'/g,
+        "\\'"
+      )}')">
+        <img src="${brand.logo}" alt="${brand.name}" class="brand-logo">
+      </div>
+    `;
   });
 
   // Create duplicate set for seamless looping
   brandsData.forEach((brand) => {
     brandsScroller.innerHTML += `
-                  <div class="brand-item" onclick="brand('${brand.name.replace(
-                    /'/g,
-                    "\\'"
-                  )}')">
-                    <img src="${brand.logo}" alt="${
-      brand.name
-    }" class="brand-logo">
-                   
-                  </div>
-                `;
+      <div class="brand-item" onclick="brand('${brand.name.replace(
+        /'/g,
+        "\\'"
+      )}')">
+        <img src="${brand.logo}" alt="${brand.name}" class="brand-logo">
+      </div>
+    `;
   });
 }
+
 window.onload = createBrandItems;
+
 //
 
 function openPolicyModal() {
@@ -395,7 +425,7 @@ function openPolicyModal() {
           </div>
         </div>
         
-        <div class="policy-content" style="padding: 20px; max-height: 80vh; overflow-y: auto;">
+        <div class="policy-content" style="padding: 20px;overflow-y: auto;">
           <h2 style="margin-bottom: 20px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">Return Policy</h2>
           <ul class="policy-list">
             <li class="policy-item"><span class="policy-icon">•</span> You can only return the Order/Item within 24 hours after receiving your order.</li>
@@ -405,7 +435,7 @@ function openPolicyModal() {
           </ul>
           
           <div class="arabic-policy" style="margin-top: 30px; direction: rtl; text-align: right;">
-            <h3 style="margin-bottom: 15px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">سياسة الإرجاع</h3>
+            <h3 style="text-align: center;margin-bottom: 15px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">سياسة الإرجاع</h3>
             <ul class="policy-list" style="padding-right: 20px;">
               <li class="policy-item"><span class="policy-icon">•</span> يمكنك تقديم على إرجاع الطلب / المنتج بعد استلامه خلال 24 ساعة من الاستلام</li>
               <li class="policy-item"><span class="policy-icon">•</span> رسوم الشحن غير قابلة للاسترداد</li>
@@ -414,36 +444,36 @@ function openPolicyModal() {
           </div>
           
           <div class="faq-section" style="margin-top: 40px;">
-            <h3 style="margin-bottom: 20px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">Frequently Asked Questions</h3>
-            
-            <div class="faq-item" style="margin-bottom: 20px;">
-              <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► How to place an Order?</h4>
-              <div class="faq-answer" style="display: none; padding-left: 20px; color: #666;">
-                <p>To place an order, simply browse our products, select the items you want, and proceed to checkout.</p>
-              </div>
-            </div>
-            
-            <div class="faq-item" style="margin-bottom: 20px;">
-              <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► What are the Installment options?</h4>
-              <div class="faq-answer" style="display: none; padding-left: 20px; color: #666;">
-                <p>We offer various installment plans through select payment providers. Options will be shown at checkout.</p>
-              </div>
-            </div>
-            
-            <div class="faq-item" style="margin-bottom: 20px;">
-              <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► Can I edit or cancel my order?</h4>
-              <div class="faq-answer" style="display: none; padding-left: 20px; color: #666;">
-                <p>You can edit or cancel your order within 1 hour of placement by contacting customer service.</p>
-              </div>
-            </div>
-            
-            <div class="faq-item" style="margin-bottom: 20px;">
-              <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► What is the estimated delivery?</h4>
-              <div class="faq-answer" style="display: none; padding-left: 20px; color: #666;">
-                <p>Delivery typically takes 3-5 business days within major cities, and 5-7 days for other areas.</p>
-              </div>
-            </div>
-          </div>
+  <h3 style="margin-bottom: 20px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">Frequently Asked Questions</h3>
+  
+  <div class="faq-item" style="margin-bottom: 20px;">
+    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► How to place an Order?</h4>
+    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 20px; color: #666;">
+      <p style="margin-top: 10px;">To place an order, simply browse our products, select the items you want, and proceed to checkout.</p>
+    </div>
+  </div>
+  
+  <div class="faq-item" style="margin-bottom: 20px;">
+    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► What are the Installment options?</h4>
+    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 20px; color: #666;">
+      <p style="margin-top: 10px;">We offer various installment plans through select payment providers. Options will be shown at checkout.</p>
+    </div>
+  </div>
+  
+  <div class="faq-item" style="margin-bottom: 20px;">
+    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► Can I edit or cancel my order?</h4>
+    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 20px; color: #666;">
+      <p style="margin-top: 10px;">You can edit or cancel your order within 1 hour of placement by contacting customer service.</p>
+    </div>
+  </div>
+  
+  <div class="faq-item" style="margin-bottom: 20px;">
+    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► What is the estimated delivery?</h4>
+    <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 20px; color: #666;">
+      <p style="margin-top: 10px;">Delivery typically takes 3-5 business days within major cities, and 5-7 days for other areas.</p>
+    </div>
+  </div>
+</div>
         </div>
       `;
 
@@ -465,12 +495,26 @@ function openPolicyModal() {
 // FAQ toggle function
 function toggleFAQ(element) {
   const answer = element.nextElementSibling;
+
   if (answer.style.display === "none" || !answer.style.display) {
+    // First make it visible (but still at 0 height)
     answer.style.display = "block";
-    element.innerHTML = element.innerHTML.replace("►", "▼");
+    answer.style.maxHeight = "0";
+
+    // Trigger the transition after a small delay
+    setTimeout(() => {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+      element.innerHTML = element.innerHTML.replace("►", "▼");
+    }, 10);
   } else {
-    answer.style.display = "none";
+    // Start the collapse transition
+    answer.style.maxHeight = "0";
     element.innerHTML = element.innerHTML.replace("▼", "►");
+
+    // After transition completes, hide it completely
+    setTimeout(() => {
+      answer.style.display = "none";
+    }, 300); // Match this with your transition duration
   }
 }
 // Reuse the same closeModal function
@@ -489,4 +533,40 @@ function closeModal() {
       preloader.classList.add("hidden");
     }
   }, 300);
+}
+
+//handling th card badge and bestseller badge
+function setupBadgeAnimations() {
+  const badges = document.querySelectorAll(".card-badge");
+  badges.forEach((badge) => {
+    const saleBadge = badge.querySelector("#saleAmountbadge");
+    const bestsellerBadge = badge.querySelector("#best-seller");
+
+    if (saleBadge && bestsellerBadge) {
+      // Initial setup
+      badge.classList.remove("show-bestseller");
+      void badge.offsetHeight; // Trigger reflow
+      saleBadge.style.opacity = "1";
+      bestsellerBadge.style.opacity = "1";
+
+      // Animation loop function
+      const animateBadges = () => {
+        // Show sale badge first
+        badge.classList.remove("show-bestseller");
+
+        // After 2 seconds, show bestseller
+        setTimeout(() => {
+          badge.classList.add("show-bestseller");
+
+          // After another 2 seconds, restart animation
+          setTimeout(() => {
+            animateBadges(); // Recursive call for infinite loop
+          }, 2000);
+        }, 2000);
+      };
+
+      // Start the animation loop
+      animateBadges();
+    }
+  });
 }

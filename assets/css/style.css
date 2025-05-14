@@ -441,17 +441,60 @@ img {
   outline-offset: 2px;
 }
 
+/* Your original card-badge styles */
 .card-badge {
+  width: 90px;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: -10px;
+  left: -1px;
   background: var(--bittersweet);
   color: var(--white);
-  padding: 5px 15px;
   font-family: var(--ff-roboto);
   font-size: var(--fs-7);
   z-index: 100;
-  border-radius: 10px 0px 5px 0px;
+  border-radius: 10px 10px 10px 0px;
+  height: 22px;
+  /* Fixed height for animation */
+  overflow: hidden;
+  /* Hide overflow during animation */
+  font-size: x-small;
+}
+
+/* Inner badge containers */
+.card-badge>div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  transition: transform 0.5s ease;
+}
+
+/* Sale badge - visible by default */
+.badge-txt {
+  transform: translateY(0);
+}
+
+#saleAmountbadge {
+  transform: translateY(0);
+}
+
+/* Bestseller badge - hidden below by default */
+#best-seller {
+  transform: translateY(100%);
+  background: var(--bittersweet);
+  /* Match your badge color */
+}
+
+/* Animation state */
+.show-bestseller #saleAmountbadge {
+  transform: translateY(-100%);
+}
+
+.show-bestseller #best-seller {
+  transform: translateY(0);
 }
 
 
@@ -1052,7 +1095,23 @@ img {
 \*-----------------------------------*/
 
 .product .section-title {
+  /* font-size: small; */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #19191a;
   text-align: center;
+  font-weight: 200;
+}
+
+.itemscounter {
+  text-transform: none;
+  border-radius: 5px;
+  background: #f7f7f7;
+  font-size: small;
+  top: -13px;
+  left: -11px;
+  position: absolute;
+  padding: 5 10px;
 }
 
 .filter-list {
@@ -1063,6 +1122,8 @@ img {
   gap: 10px;
   margin-bottom: 30px;
 }
+
+
 
 .filter-btn,
 .Grid-btn {
@@ -1088,6 +1149,7 @@ img {
 .product-list,
 .product-overview,
 .BestSellers {
+  padding-top: 18px;
   overflow: hidden;
   display: grid;
   justify-items: center;
@@ -1163,6 +1225,7 @@ img {
 
 .special .section-title .text {
   min-width: max-content;
+  font-weight: 200;
 }
 
 .special .section-title .line {
@@ -1487,7 +1550,7 @@ a.footer-link:is(:hover, :focus) {
   .product-list,
   .product-overview,
   .BestSellers {
-    gap: 10px 10px;
+    gap: 20px 10px;
     grid-template-columns: 1fr 1fr;
     /* Display two products per line */
   }
@@ -3140,7 +3203,7 @@ select {
   color: rgb(255 255 255);
   background: #000;
   font-size: small;
-  border-radius: 50%;
+  border-radius: 20%;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
@@ -3952,6 +4015,8 @@ a {
 /* Filter Button */
 .filter-btn,
 .Grid-btn {
+  text-transform: uppercase;
+  letter-spacing: 1px;
   background-color: #000;
   color: #fff;
   padding: 7px 10px;
@@ -3960,7 +4025,6 @@ a {
   font-weight: 600;
   font-size: smaller;
   border-radius: 5px;
-
 }
 
 .filter-btn:hover,
@@ -3997,6 +4061,7 @@ a {
 }
 
 .close-btn {
+  border-radius: 3px;
   cursor: pointer;
   font-size: 24px;
   font-size: small;
@@ -5427,6 +5492,7 @@ th {
   border-radius: 5px;
   margin-bottom: 40px;
   padding: 30px;
+  font-size: small;
 }
 
 
@@ -5572,7 +5638,7 @@ th {
   z-index: 100;
   border-radius: 0px 10px 0px 5px;
   right: 0px;
-  font-size: small;
+  font-size: x-small;
   color: white;
   top: 0px;
   position: absolute;
@@ -5939,6 +6005,7 @@ th {
 }
 
 .empty-cart {
+  height: max-content;
   display: flex;
   text-align: center;
   padding: 5px;
@@ -7601,4 +7668,68 @@ body.swal2-shown {
 
 .free-shipping-reached .success {
   display: block;
+}
+
+/* // */
+.policy-item {
+  margin-bottom: 10px !important;
+  gap: 2px;
+  display: flex;
+  font-weight: 200;
+  justify-content: center;
+}
+
+.arabic-policy {
+  font-family: 'Noto Sans Arabic', sans-serif;
+}
+
+.policy-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brands-picker {
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.brands-picker button {
+  letter-spacing: 1px;
+  text-transform: none;
+  border-radius: 5px;
+  background: #f7f7f7;
+  font-size: small;
+  padding: 5px 10px;
+  font-weight: 200;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  /* Smooth transition for all properties */
+  cursor: pointer;
+  margin: 3px;
+  /* Added some spacing between buttons */
+}
+
+.brands-picker button:hover {
+  border-color: #333;
+  /* Dark border on hover */
+  background: #fff;
+  /* Optional: slightly lighter background on hover */
+}
+
+.brands-picker button.active {
+  border-color: #333;
+  /* Same as hover for active state */
+  background: #333;
+  /* Dark background for active state */
+  color: white;
+  /* White text for active state */
+  font-weight: 400;
+  /* Slightly bolder for active state */
+}
+
+/* Optional: Add a subtle animation for the active state */
+.brands-picker button.active {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.02);
 }

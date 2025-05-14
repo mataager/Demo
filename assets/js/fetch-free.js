@@ -52,7 +52,7 @@ function fetchAndRenderProducts() {
           const salePrice = calculateSalePrice(originalPrice, saleAmount);
           // Check if the product is a best seller
           const bestSellerHTML = product["bestseller"]
-            ? `<div class="best-seller" id="best-seller"><i class="bi bi-lightning-charge"></i></div>`
+            ? `<div class="best-seller" id="best-seller">Bestseller<i class="bi bi-lightning-charge"></i></div>`
             : "";
           //
 
@@ -64,8 +64,8 @@ function fetchAndRenderProducts() {
               <figure class="card-banner">
                 <img src="${product["product-photo"]}" width="312" height="350" alt=""class="image-contain" id="swipe1">
                 <img src="${product["product-photo2"]}" width="312" height="350" alt="" id="swipe2" class="image-contain" style="display: none;">
-                <div class="card-badge">New</div>
-                ${bestSellerHTML}
+                <div class="card-badge"><div class="badge-txt">New</div></div>
+               
                 <ul class="card-action-list">
                   <li class="card-action-item">
                     <button class="card-action-btn add-to-cart-btn" aria-labelledby="card-label-1" data-product-id="${key}">
@@ -155,7 +155,7 @@ function fetchAndRenderProducts() {
 
           // Check if the product is a best seller
           const bestSellerHTML = product["bestseller"]
-            ? `<div class="best-seller" id="best-seller"><i class="bi bi-lightning-charge"></i></div>`
+            ? `<div class="best-seller" id="best-seller">Bestseller<i class="bi bi-lightning-charge"></i></div>`
             : "";
           //
           const salePrice = calculateSalePrice(originalPrice, saleAmount);
@@ -173,10 +173,9 @@ function fetchAndRenderProducts() {
                 }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
                 ${
                   saleAmount
-                    ? `<div class="card-badge">-${saleAmount}%</div>`
+                    ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div>${bestSellerHTML}</div>`
                     : ""
                 }
-                ${bestSellerHTML}
                
                 <ul class="card-action-list">
                   <li class="card-action-item">
@@ -215,7 +214,7 @@ function fetchAndRenderProducts() {
           // Set up hover effect for the product card in the product overview
           setupHoverEffect(productCard);
         });
-
+        setupBadgeAnimations();
         // Render Sale Items
         renderSaleItems(shuffledData, saleContainer);
         renderBestSellers(shuffledData, Bestsellercontainer);
@@ -250,12 +249,22 @@ function fetchAndRenderProducts() {
 // function for store products data in local storage to help in the search
 function createSearchIndex(productsData) {
   const searchIndex = {};
+  const brandCounts = {}; // To track brand popularity
 
+  // First pass: Build search index and count brands
   for (const productId in productsData) {
     const product = productsData[productId];
+    const brand = product["Brand-Name"] || "";
 
+    // Count brands for popularity
+    if (brand) {
+      brandCounts[brand] = (brandCounts[brand] || 0) + 1;
+    }
+
+    // Build search index as before
     searchIndex[productId] = {
       id: productId,
+      brand: brand,
       title: product["product-title"] || "",
       photo: product["product-photo"] || "",
       category: product.category || "",
@@ -265,9 +274,25 @@ function createSearchIndex(productsData) {
     };
   }
 
-  // Store in localStorage for fast client-side searching
+  // Store search index
   localStorage.setItem("productSearchIndex", JSON.stringify(searchIndex));
+
+  // Process and store top 20 brands
+  const sortedBrands = Object.entries(brandCounts)
+    .sort((a, b) => b[1] - a[1]) // Sort by count descending
+    .slice(0, 20) // Take top 20
+    .map((entry) => entry[0]); // Extract just brand names
+
+  localStorage.setItem("sitepopularbrands", JSON.stringify(sortedBrands));
 }
+
+// Helper function to get the popular brands
+function getPopularBrands() {
+  return JSON.parse(localStorage.getItem("sitepopularbrands")) || [];
+}
+
+// Example usage:
+// const top20Brands = getPopularBrands();
 // Helper function to get color value from the product data (your existing logic)
 function getColorValue(product, color) {
   if (product.sizes) {
@@ -299,17 +324,24 @@ function renderSaleItems(products, saleContainer) {
 
       // Check if the product is a best seller
       const bestSellerHTML = product["bestseller"]
-        ? `<div class="best-seller" id="best-seller"><i class="bi bi-lightning-charge"></i></div>`
+        ? `<div class="best-seller" id="best-seller">Bestseller<i class="bi bi-lightning-charge"></i></div>`
         : "";
       //
 
       productCard.innerHTML = `
         <div class="product-card" tabindex="0">
           <figure class="card-banner">
-            <img src="${product["product-photo"]}" width="312" height="350" alt="" class="image-contain" id="swipe1">
-            <img src="${product["product-photo2"]}" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
-            <div class="card-badge"> -${saleAmount}%</div>
-            ${bestSellerHTML}
+            <img src="${
+              product["product-photo"]
+            }" width="312" height="350" alt="" class="image-contain" id="swipe1">
+            <img src="${
+              product["product-photo2"]
+            }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
+           ${
+             saleAmount
+               ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div></div>`
+               : ""
+           }
             <ul class="card-action-list">
               <li class="card-action-item">
                 <button class="card-action-btn add-to-cart-btn" aria-labelledby="card-label-1" data-product-id="${key}">
@@ -398,8 +430,11 @@ function renderBestSellers(products, bestSellersContainer) {
           <img src="${
             product["product-photo2"]
           }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
-          ${saleAmount ? `<div class="card-badge">-${saleAmount}%</div>` : ""}
-          <div class="best-seller" id="best-seller"><i class="bi bi-lightning-charge"></i></div>
+          ${
+            saleAmount
+              ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div></div>`
+              : ""
+          }
           <ul class="card-action-list">
             <li class="card-action-item">
               <button class="card-action-btn add-to-cart-btn" aria-labelledby="card-label-1" data-product-id="${key}">
@@ -456,8 +491,3 @@ function shuffle(array) {
   }
   return array;
 }
-
-console.log(
-  "JavaScript loaded. Found items:",
-  document.querySelectorAll(".product-card-overview")
-);

@@ -13,6 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;family=Roboto:wght@400;500;700&amp;display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -205,7 +206,7 @@
                                         </div>
                                         <div class="shipping-message">
                                             <span class="remaining">Shop ABOVE<span id="remainingAmount">0.00 EGP</span>
-                                                more for GETTING
+                                                for GETTING
                                                 shipping</span>
                                             <span class="success">You've earned free shipping! </span>
                                         </div>
@@ -372,8 +373,8 @@
                                                         <input type="text" id="promo-code" class="promo-code-input"
                                                             placeholder="Enter promo code">
                                                         <div class="promo-code-btn-message-area">
-                                                            <button id="apply-promo"
-                                                                class="apply-promo-btn ml-10">Apply</button>
+                                                            <button id="apply-promo" class="apply-promo-btn ml-10"
+                                                                onclick="applyPromoCode()">Apply</button>
                                                             <div id="promo-message" class="promo-message mt-10"></div>
                                                         </div>
 
@@ -552,7 +553,8 @@
                                             // Refresh total amount
                                             updateTotalAmount();
                                             updateFreeShippingWidget();
-                                            updatecartitemscount()
+                                            updatecartitemscount();
+                                            resetPromoCode();
                                             preloader.classList.add("hidden");
                                             updateCartCount();
                                         }
@@ -642,8 +644,100 @@
                                     };
                                 }
                                 // Populate cart items
-                                if (cart.length > 0) {
+                                // if (cart.length > 0) {
+                                //     const preloader = document.getElementById("cart-items-preloader");
+                                //     cart.forEach((item, index) => {
+                                //         const listItem = document.createElement("li");
 
+                                //         // Item details
+                                //         const itemDetailsDiv = document.createElement("div");
+                                //         itemDetailsDiv.classList.add("flex", "center", "align-items", "cart-item-sm");
+
+                                //         // Image
+                                //         const imageDiv = document.createElement("div");
+                                //         const itemImage = document.createElement("img");
+                                //         itemImage.src = item.photourl;
+                                //         itemImage.classList.add("pointer", "image-cart-sm");
+                                //         itemImage.onclick = () => productDetails(item.id);
+                                //         imageDiv.appendChild(itemImage);
+                                //         itemDetailsDiv.appendChild(imageDiv);
+
+                                //         // Text
+                                //         const textDiv = document.createElement("div");
+                                //         textDiv.classList.add("Product-record");
+                                //         textDiv.innerHTML = `
+                                //                                                         <h5 class="pointer" onclick="brand('${item.brand}')">${item.brand}</h5>
+                                //                                                         <p class="cart-font-smaller">${item.title}</p>
+                                //                                                         <p>Size: ${item.productSize}</p>
+                                //                                                         <p>Color: ${item.productColor}</p>
+                                //                                                         <p id="price-${item.id}">${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP</p>
+                                //                                                         <p id="qty-${item.id}">Qty: ${item.quantity}</p>
+                                //                                                     `;
+                                //         itemDetailsDiv.appendChild(textDiv);
+
+                                //         // Controls Div to hold Increment, Decrement, and Delete buttons
+                                //         const controlsDiv = document.createElement("div");
+                                //         controlsDiv.classList.add("manage-cart-item");
+                                //         controlsDiv.style.display = "flex";
+                                //         controlsDiv.style.gap = "10px"; // Add spacing between buttons
+                                //         controlsDiv.style.alignItems = "center"; // Align buttons vertically
+                                //         controlsDiv.style.justifyContent = "center"; // Center the buttons in the div
+
+                                //         // Increment Button
+                                //         const incrementBtn = document.createElement("i");
+                                //         incrementBtn.className = "bi-plus-circle i-cart";
+                                //         incrementBtn.style.cursor = "pointer";
+                                //         incrementBtn.onclick = () => updateQuantity(index, 1); // Increment quantity
+
+                                //         // Decrement Button
+                                //         const decrementBtn = document.createElement("i");
+                                //         decrementBtn.className = "bi-dash-circle i-cart";
+                                //         decrementBtn.style.cursor = "pointer";
+                                //         decrementBtn.onclick = () => updateQuantity(index, -1); // Decrement quantity
+
+                                //         // Delete Button
+                                //         const deleteIcon = document.createElement("i");
+                                //         deleteIcon.className = "bi-bag-dash i-cart";
+                                //         deleteIcon.style.cursor = "pointer";
+                                //         deleteIcon.onclick = () => {
+                                //             cart.splice(index, 1);
+                                //             localStorage.setItem("cart", JSON.stringify(cart));
+                                //             listItem.remove();
+                                //             updateTotalAmount();
+                                //             updateFreeShippingWidget();
+                                //             updatecartitemscount();
+                                //             preloader.classList.remove("hidden");
+                                //             checkCartState(cart);
+                                //         };
+
+                                //         // Append all buttons to controlsDiv
+                                //         controlsDiv.appendChild(decrementBtn);
+                                //         controlsDiv.appendChild(incrementBtn);
+                                //         controlsDiv.appendChild(deleteIcon);
+
+                                //         // Append controlsDiv to itemDetailsDiv
+                                //         itemDetailsDiv.appendChild(controlsDiv);
+
+                                //         // Append itemDetailsDiv to listItem
+                                //         listItem.appendChild(itemDetailsDiv);
+
+                                //         // Append listItem to cart list
+                                //         cartList.appendChild(listItem);
+
+                                //     });
+
+                                //     // Total Amount
+                                //     const totalAmountH5 = document.getElementById("total-cart-amount");
+                                //     totalAmountH5.textContent = `Cart Total : ${totalAmount} EGP`;
+
+                                //     // Initial total amount calculation
+                                //     updateTotalAmount();
+
+                                // } else {
+                                //     checkCartState(cart)
+                                // }
+                                if (cart.length > 0) {
+                                    const preloader = document.getElementById("cart-items-preloader");
                                     cart.forEach((item, index) => {
                                         const listItem = document.createElement("li");
 
@@ -664,47 +758,53 @@
                                         const textDiv = document.createElement("div");
                                         textDiv.classList.add("Product-record");
                                         textDiv.innerHTML = `
-                                                                                        <h5 class="pointer" onclick="brand('${item.brand}')">${item.brand}</h5>
-                                                                                        <p class="cart-font-smaller">${item.title}</p>
-                                                                                        <p>Size: ${item.productSize}</p>
-                                                                                        <p>Color: ${item.productColor}</p>
-                                                                                        <p id="price-${item.id}">${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP</p>
-                                                                                        <p id="qty-${item.id}">Qty: ${item.quantity}</p>
-                                                                                    `;
+            <h5 class="pointer" onclick="brand('${item.brand}')">${item.brand}</h5>
+            <p class="cart-font-smaller">${item.title}</p>
+            <p>Size: ${item.productSize}</p>
+            <p>Color: ${item.productColor}</p>
+            <p id="price-${item.id}">${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP</p>
+            <p id="qty-${item.id}">Qty: ${item.quantity}</p>
+        `;
                                         itemDetailsDiv.appendChild(textDiv);
 
-                                        // Controls Div to hold Increment, Decrement, and Delete buttons
+                                        // Controls Div
                                         const controlsDiv = document.createElement("div");
                                         controlsDiv.classList.add("manage-cart-item");
                                         controlsDiv.style.display = "flex";
-                                        controlsDiv.style.gap = "10px"; // Add spacing between buttons
-                                        controlsDiv.style.alignItems = "center"; // Align buttons vertically
-                                        controlsDiv.style.justifyContent = "center"; // Center the buttons in the div
+                                        controlsDiv.style.gap = "10px";
+                                        controlsDiv.style.alignItems = "center";
+                                        controlsDiv.style.justifyContent = "center";
 
                                         // Increment Button
                                         const incrementBtn = document.createElement("i");
                                         incrementBtn.className = "bi-plus-circle i-cart";
                                         incrementBtn.style.cursor = "pointer";
-                                        incrementBtn.onclick = () => updateQuantity(index, 1); // Increment quantity
+                                        incrementBtn.onclick = () => updateQuantity(index, 1);
 
                                         // Decrement Button
                                         const decrementBtn = document.createElement("i");
                                         decrementBtn.className = "bi-dash-circle i-cart";
                                         decrementBtn.style.cursor = "pointer";
-                                        decrementBtn.onclick = () => updateQuantity(index, -1); // Decrement quantity
+                                        decrementBtn.onclick = () => updateQuantity(index, -1);
 
                                         // Delete Button
                                         const deleteIcon = document.createElement("i");
                                         deleteIcon.className = "bi-bag-dash i-cart";
                                         deleteIcon.style.cursor = "pointer";
                                         deleteIcon.onclick = () => {
-                                            cart.splice(index, 1);
-                                            localStorage.setItem("cart", JSON.stringify(cart));
-                                            listItem.remove();
-                                            updateTotalAmount();
-                                            updateFreeShippingWidget();
-                                            updatecartitemscount()
-                                            checkCartState(cart)
+                                            preloader.classList.remove("hidden"); // Show preloader before deletion
+                                            setTimeout(() => { // Small delay to allow UI to update
+                                                cart.splice(index, 1);
+                                                localStorage.setItem("cart", JSON.stringify(cart));
+                                                listItem.remove();
+                                                updateTotalAmount();
+                                                updateFreeShippingWidget();
+                                                updatecartitemscount();
+                                                resetPromoCode();
+                                                checkCartState(cart);
+                                                // Hide preloader after operations complete
+                                                preloader.classList.add("hidden");
+                                            }, 50);
                                         };
 
                                         // Append all buttons to controlsDiv
@@ -720,7 +820,6 @@
 
                                         // Append listItem to cart list
                                         cartList.appendChild(listItem);
-
                                     });
 
                                     // Total Amount
@@ -729,8 +828,11 @@
 
                                     // Initial total amount calculation
                                     updateTotalAmount();
+
+                                    // Make sure preloader is hidden initially when items exist
+                                    preloader.classList.add("hidden");
                                 } else {
-                                    checkCartState(cart)
+                                    checkCartState(cart);
                                 }
                             });
                             function checkCartState(cart) {
@@ -743,7 +845,7 @@
                                     cartSectionAll.style.transition = 'all 0.4s ease';
                                     cartSectionAll.style.opacity = '0';
                                     cartSectionAll.style.transform = 'translateY(-20px)';
-
+                                    resetPromoCode();
                                     setTimeout(() => {
                                         cartSectionAll.classList.add("hidden");
                                         cartList.innerHTML = `

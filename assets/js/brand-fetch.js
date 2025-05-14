@@ -30,6 +30,11 @@ function fetchAndRenderProductsByCategoryOrBrand() {
           allData = data; // Store all product data
           filterProductsByCategoryOrBrand(categoryOrBrand); // Filter products by category or brand
           totalProducts = allProducts.length;
+          document.getElementById(
+            "itemscounter"
+          ).textContent = `${totalProducts} ${
+            totalProducts === 1 ? "Item" : "Items"
+          }`;
           handleProductRendering(); // Render the filtered products
         } else {
           console.log("No products found");
@@ -141,7 +146,7 @@ function renderProducts() {
     const salePrice = calculateSalePrice(originalPrice, saleAmount);
     // Check if the product is a best seller
     const bestSellerHTML = product["bestseller"]
-      ? `<div class="best-seller" id="best-seller"><i class="bi bi-lightning-charge"></i></div>`
+      ? `<div class="best-seller" id="best-seller">Bestseller<i class="bi bi-lightning-charge"></i></div>`
       : "";
     //
 
@@ -163,8 +168,11 @@ function renderProducts() {
           <img src="${
             product["product-photo2"]
           }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
-          ${saleAmount ? `<div class="card-badge">-${saleAmount}%</div>` : ""}
-          ${bestSellerHTML}
+          ${
+            saleAmount
+              ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div>${bestSellerHTML}</div>`
+              : ""
+          }
           <ul class="card-action-list">
             <li class="card-action-item">
               <button class="card-action-btn add-to-cart-btn" data-product-id="${key}" aria-labelledby="card-label-1">
@@ -206,6 +214,7 @@ function renderProducts() {
   });
 
   updatePaginationButtons();
+  setupBadgeAnimations();
   // Set up event listeners for "Add to Cart" buttons
   const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
   addToCartButtons.forEach((button) =>

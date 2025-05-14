@@ -60,3 +60,20 @@ function checkUserAuthentication() {
 
 // Call the function when the page loads
 document.addEventListener("DOMContentLoaded", checkUserAuthentication);
+
+function closeModal() {
+  const modal = document.querySelector(".modal");
+  const preloader = document.getElementById("preloader-overlay");
+
+  modal.classList.remove("show");
+
+  setTimeout(() => {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+    document.body.classList.remove("modal-open");
+
+    if (preloader) {
+      preloader.classList.add("hidden");
+    }
+  }, 300);
+}

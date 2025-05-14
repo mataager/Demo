@@ -20,6 +20,12 @@ function fetchAndRenderProducts() {
         allData = data;
         allProducts = Object.keys(data).reverse(); // Reverse the product keys to sort from end to first
         totalProducts = allProducts.length;
+        // Update the counter
+        document.getElementById(
+          "itemscounter"
+        ).textContent = `${totalProducts} ${
+          totalProducts === 1 ? "Item" : "Items"
+        }`;
         return handleProductRendering();
       } else {
         console.log("No products found");
@@ -90,7 +96,7 @@ function renderProducts() {
 
     // Check if the product is a best seller
     const bestSellerHTML = product["bestseller"]
-      ? `<div class="best-seller" id="best-seller"><i class="bi bi-lightning-charge"></i></div>`
+      ? `<div id="best-seller">Bestseller<i class="bi bi-lightning-charge"></i></div>`
       : "";
     //
 
@@ -113,8 +119,11 @@ function renderProducts() {
             product["product-photo2"]
           }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
           
-          ${saleAmount ? `<div class="card-badge">-${saleAmount}%</div>` : ""}
-          ${bestSellerHTML}
+          ${
+            saleAmount
+              ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div>${bestSellerHTML}</div>`
+              : ""
+          }
           <ul class="card-action-list">
             <li class="card-action-item">
               <button class="card-action-btn add-to-cart-btn" data-product-id="${key}" aria-labelledby="card-label-1">
@@ -158,7 +167,7 @@ function renderProducts() {
     // Set up hover effect for the newly created product card
     setupHoverEffect(productCard);
   });
-
+  setupBadgeAnimations();
   updatePaginationButtons();
 
   // Set up event listeners for "Add to Cart" buttons
