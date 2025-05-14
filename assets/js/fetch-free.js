@@ -367,9 +367,10 @@ function renderSaleItems(products, saleContainer) {
             <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
               <a class="title" href="#">${product["product-title"]}</a>
             </h3>
-            <del class="pre-sale">${originalPrice} EGP</del>
-            <p class="card-price">${salePrice} EGP</p>
-             <p class="card-price">${salePrice} EGP</p>
+            <div class="price-animation-container">
+            <del class="pre-sale-animation">${originalPrice} EGP</del>
+            <p class="card-price-animation">${salePrice} EGP</p>
+            </div>
             <a href="#" class="card-price hidden font-small">${key}</a>
           </div>
         </div>
@@ -380,6 +381,7 @@ function renderSaleItems(products, saleContainer) {
 
       // Setup hover effect for the sale product card
       setupHoverEffect(productCard);
+      setupPriceAnimations();
 
       saleItemCount++;
       document.getElementById("preloader").style.display = "none";
@@ -460,10 +462,15 @@ function renderBestSellers(products, bestSellersContainer) {
           <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
             <a class="title" href="#">${product["product-title"]}</a>
           </h3>
+           <div class="price-animation-container">
           ${
-            saleAmount ? `<del class="pre-sale">${originalPrice} EGP</del>` : ""
+            saleAmount
+              ? `<del class="pre-sale-animation">${originalPrice} EGP</del>`
+              : ""
           }
-          <p class="card-price">${salePrice} EGP</p>
+          <p class="card-price-animation">${salePrice} EGP</p>
+          </div>
+          
           <a href="#" class="card-price hidden font-small">${key}</a>
         </div>
       </div>
@@ -471,6 +478,7 @@ function renderBestSellers(products, bestSellersContainer) {
 
     bestSellerItem.appendChild(productCard);
     bestSellersContainer.appendChild(bestSellerItem);
+    setupPriceAnimations();
 
     // Setup hover effect
     setupHoverEffect(productCard);

@@ -1161,6 +1161,7 @@ img {
 .BestSellers {
   display: grid;
   gap: 50px 25px;
+  padding-bottom: 20px;
 }
 
 
@@ -7732,4 +7733,49 @@ body.swal2-shown {
 .brands-picker button.active {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(1.02);
+}
+
+/* // */
+.price-animation-container {
+  position: relative;
+  height: 1.2em;
+  /* Adjust based on your text size */
+  overflow: hidden;
+  display: flex;
+}
+
+.pre-sale-animation,
+.card-price-animation {
+  position: absolute;
+  width: 100%;
+  transition: all 0.5s ease;
+  color: #838383;
+  font-family: var(--ff-roboto);
+  font-weight: var(--fw-600);
+  margin: 5px 0;
+}
+
+.pre-sale-animation {
+  transform: translateY(0);
+  opacity: 1;
+  color: #838383;
+  font-family: var(--ff-roboto);
+  font-weight: var(--fw-600);
+  margin: 5px 0;
+}
+
+.card-price-animation {
+  transform: translateY(90%);
+  opacity: 0;
+  padding-bottom: 5px;
+}
+
+.show-sale-price .pre-sale-animation {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.show-sale-price .card-price-animation {
+  transform: translateY(0);
+  opacity: 1;
 }

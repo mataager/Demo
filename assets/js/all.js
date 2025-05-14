@@ -570,3 +570,42 @@ function setupBadgeAnimations() {
     }
   });
 }
+
+//funcion for setting up the price nad saled price animition
+function setupPriceAnimations() {
+  console.log("Setting up price animations");
+
+  const priceContainers = document.querySelectorAll(".card-content");
+
+  priceContainers.forEach((container) => {
+    const originalPrice = container.querySelector(".pre-sale-animation");
+    const salePrice = container.querySelector(".card-price-animation");
+
+    if (originalPrice && salePrice) {
+      // Initial setup
+      container.classList.remove("show-sale-price");
+      void container.offsetHeight; // Trigger reflow
+      originalPrice.style.opacity = "1";
+      salePrice.style.opacity = "1";
+
+      // Animation loop function
+      const animatePrices = () => {
+        // Show original price first
+        container.classList.remove("show-sale-price");
+
+        // After 2 seconds, show sale price
+        setTimeout(() => {
+          container.classList.add("show-sale-price");
+
+          // After another 2 seconds, restart animation
+          setTimeout(() => {
+            animatePrices(); // Recursive call for infinite loop
+          }, 2000);
+        }, 2000);
+      };
+
+      // Start the animation loop
+      animatePrices();
+    }
+  });
+}
