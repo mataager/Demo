@@ -570,11 +570,8 @@ function setupBadgeAnimations() {
     }
   });
 }
-
 //funcion for setting up the price nad saled price animition
 function setupPriceAnimations() {
-  console.log("Setting up price animations");
-
   const priceContainers = document.querySelectorAll(".card-content");
 
   priceContainers.forEach((container) => {

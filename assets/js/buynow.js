@@ -1,19 +1,14 @@
 async function handleBuyNowClick() {
-  // Get product details
-  const brandName = document.getElementById("BrandName").innerText;
-  const productTitle = document.getElementById("productTitle").innerText;
-  const productPrice = document.getElementById("productPrice").innerText;
-  const productSize = document.getElementById("product-Size").innerText;
-  const productColor = document.getElementById("product-color").innerText;
-  const productID = document.getElementById("productID").innerText;
+  const buyNowButton = document.getElementById("BuyNowButton");
+  const itemQty = parseInt(buyNowButton.getAttribute("data-qty")) || 1;
 
-  // Show the form to collect user details
-  showUserForm();
+  showUserForm(itemQty);
 }
 
 //v1
 // Function to show the user form
-function showUserForm() {
+function showUserForm(itemQty) {
+  console.log(itemQty);
   // Smoothly scroll to the top of the page
   window.scrollTo({
     top: 0,
@@ -29,14 +24,6 @@ function showUserForm() {
   const productSize = document.getElementById("product-Size").innerText;
   const productColor = document.getElementById("product-color").innerText;
   const productPrice = document.getElementById("productPrice").innerText;
-
-  // Create a container for the product summary
-  const productSummary = document.createElement("div");
-  productSummary.style.display = "flex";
-  productSummary.style.alignItems = "center";
-  productSummary.style.gap = "10px";
-  productSummary.style.marginBottom = "20px";
-  productSummary.style.flexDirection = "column"; // Stack items vertically
 
   // Create close button
   const closeButton = document.createElement("div");
@@ -57,64 +44,122 @@ function showUserForm() {
   closeButton.onmouseout = function () {
     this.style.color = "black";
   };
-
-  // Close functionality - only this part is new
   closeButton.onclick = function () {
     form.remove();
   };
+  const productSummary = document.createElement("div");
+  productSummary.classList.add("buynow-summary-container");
 
-  // Create a container for the product image with a size badge
-  const imageContainer = document.createElement("div");
-  imageContainer.style.position = "relative"; // For absolute positioning of the badge
-
-  // Add the product image
+  // Create and style the product image
   const productImageElement = document.createElement("img");
   productImageElement.src = productImage;
-  productImageElement.style.width = "100px";
-  productImageElement.style.height = "100px";
-  productImageElement.style.borderRadius = "5px";
-  productImageElement.style.objectFit = "cover";
-  productImageElement.style.margin = "20px"; // Add margin around the image
-  imageContainer.appendChild(productImageElement);
+  productImageElement.classList.add("buynow-productimage");
 
-  // Add the size badge
+  // Create container for size, color, and price
+  const detailsContainer = document.createElement("div");
+  detailsContainer.classList.add("buynow-details-container");
+
+  // Create and style the size element
   const sizeBadge = document.createElement("p");
-  sizeBadge.innerText = productSize;
-  sizeBadge.style.color = "white";
-  sizeBadge.style.backgroundColor = "black";
-  sizeBadge.style.borderRadius = "5px";
-  sizeBadge.style.padding = "5px";
-  sizeBadge.style.position = "absolute";
-  sizeBadge.style.top = "0";
-  sizeBadge.style.width = "fit-content";
-  sizeBadge.style.margin = "0";
-  sizeBadge.style.fontSize = "10px";
-  imageContainer.appendChild(sizeBadge);
+  sizeBadge.innerText = `Size: ${productSize}`;
+  sizeBadge.classList.add("buynow-sizetext");
+  detailsContainer.appendChild(sizeBadge);
 
-  // Add the product color
+  // Create and style the color element
   const colorText = document.createElement("p");
-  colorText.innerText = `${productColor}`;
-  colorText.style.margin = "0";
-  colorText.style.fontSize = "10px";
-  colorText.style.borderRadius = "5px";
-  colorText.style.padding = "5px";
-  colorText.style.background = "black";
-  colorText.style.color = "white";
-  colorText.style.position = "absolute";
-  colorText.style.bottom = "0"; // Position at the bottom of the image
-  imageContainer.appendChild(colorText);
+  colorText.innerText = `Color: ${productColor}`;
+  colorText.classList.add("buynow-colortext");
+  detailsContainer.appendChild(colorText);
 
-  // Append the image container to the product summary
-  productSummary.appendChild(imageContainer);
-
-  // Add the product price after the image, size, and color
+  // Create and style the price element
   const priceText = document.createElement("h3");
   priceText.innerText = `Price: ${productPrice}`;
-  priceText.style.margin = "0";
-  priceText.style.fontSize = "12px";
-  priceText.style.fontWeight = "thin";
-  priceText.style.color = "#333";
-  productSummary.appendChild(priceText);
+  priceText.classList.add("buynow-pricetext");
+  detailsContainer.appendChild(priceText);
+
+  // Create quantity selector
+  const quantityContainer = document.createElement("div");
+  quantityContainer.classList.add("buynow-quantity-container");
+
+  const quantityLabel = document.createElement("span");
+  quantityLabel.innerText = "Qty:";
+  quantityLabel.classList.add("buynow-quantity-label");
+
+  const minusBtn = document.createElement("button");
+  minusBtn.innerHTML = '<i class="bi bi-dash"></i>';
+  minusBtn.classList.add("buynow-quantity-btn");
+  minusBtn.type = "button";
+
+  const quantityInput = document.createElement("input");
+  quantityInput.type = "number";
+  quantityInput.value = "1";
+  quantityInput.min = "1";
+  quantityInput.classList.add("buynow-quantity-input");
+
+  const plusBtn = document.createElement("button");
+  plusBtn.innerHTML = '<i class="bi bi-plus"></i>';
+  plusBtn.classList.add("buynow-quantity-btn");
+  plusBtn.setAttribute("maxqty", itemQty);
+  plusBtn.type = "button";
+
+  // Get the max quantity from the button's attribute
+  const maxQty = parseInt(plusBtn.getAttribute("maxqty")) || 99; // Default to 99 if not set
+
+  minusBtn.addEventListener("click", () => {
+    const currentValue = parseInt(quantityInput.value);
+    if (currentValue > 1) {
+      quantityInput.value = currentValue - 1;
+    }
+  });
+
+  plusBtn.addEventListener("click", () => {
+    const currentValue = parseInt(quantityInput.value);
+    if (currentValue < maxQty) {
+      quantityInput.value = currentValue + 1;
+    } else {
+      // Optional: Show a message when hitting max quantity
+      Swal.fire({
+        icon: "info",
+        title: "Maximum Quantity Reached",
+        text: `You can order maximum ${maxQty} items`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  });
+
+  // Also validate direct input
+  quantityInput.addEventListener("change", () => {
+    let value = parseInt(quantityInput.value) || 1; // Default to 1 if invalid
+
+    // Ensure value stays between 1 and maxQty
+    if (value < 1) {
+      value = 1;
+    } else if (value > maxQty) {
+      value = maxQty;
+      Swal.fire({
+        icon: "info",
+        title: "Quantity Adjusted",
+        text: `Maximum available quantity is ${maxQty}`,
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+
+    quantityInput.value = value;
+  });
+
+  quantityContainer.appendChild(quantityLabel);
+  quantityContainer.appendChild(minusBtn);
+  quantityContainer.appendChild(quantityInput);
+  quantityContainer.appendChild(plusBtn);
+  detailsContainer.appendChild(quantityContainer);
+
+  // Append image and details container to product summary
+  productSummary.appendChild(productImageElement);
+  productSummary.appendChild(detailsContainer);
 
   // Append the product summary to the form
   form.appendChild(productSummary);
@@ -127,10 +172,11 @@ function showUserForm() {
     "secondPhone",
     "Enter a second phone number (optional)"
   );
-  const Gityandgovernment = createInput(
-    "text",
+  // Create the select element
+  const Gityandgovernment = createSelect(
     "Gityandgovernment",
-    "City/Government : Giza/Dokki"
+    "Select your Government",
+    cityOptions
   );
 
   // Add a textarea for the address
@@ -141,6 +187,116 @@ function showUserForm() {
     "orderNotes",
     "Add any additional notes or special instructions (optional)"
   );
+  orderNotesTextArea.classList.add("hidden");
+  orderNotesTextArea.style.height = "0";
+  orderNotesTextArea.style.opacity = "0";
+  orderNotesTextArea.style.overflow = "hidden";
+  orderNotesTextArea.style.transition = "all 0.3s ease";
+  orderNotesTextArea.style.marginBottom = "0";
+
+  const Addnotesbtn = document.createElement("div");
+  Addnotesbtn.classList.add("Addnotesbtn");
+  Addnotesbtn.id = "Addnotesbtn";
+  Addnotesbtn.innerHTML = 'Add Notes <i class="bi bi-journal-plus"></i>';
+
+  Addnotesbtn.addEventListener("click", function () {
+    // Toggle the notes textarea visibility with smooth animation
+    if (orderNotesTextArea.classList.contains("hidden")) {
+      // Show the notes field
+      orderNotesTextArea.classList.remove("hidden");
+      orderNotesTextArea.style.height = "0";
+      orderNotesTextArea.style.opacity = "0";
+      orderNotesTextArea.style.overflow = "hidden";
+      orderNotesTextArea.style.transition = "all 0.3s ease";
+
+      // Force reflow to enable transition
+      void orderNotesTextArea.offsetHeight;
+
+      // Animate to full height
+      orderNotesTextArea.style.height = "100px";
+      orderNotesTextArea.style.opacity = "1";
+      orderNotesTextArea.style.marginBottom = "15px";
+
+      // Change button text/icon
+      this.innerHTML = 'Hide Notes <i class="bi bi-journal-minus"></i>';
+    } else {
+      // Hide the notes field
+      // orderNotesTextArea.style.height = "0";
+      orderNotesTextArea.style.opacity = "0";
+      orderNotesTextArea.style.marginBottom = "0";
+
+      // After animation completes, add hidden class
+      setTimeout(() => {
+        orderNotesTextArea.classList.add("hidden");
+      }, 300);
+
+      // Change button text/icon
+      this.innerHTML = 'Add Notes <i class="bi bi-journal-plus"></i>';
+    }
+  });
+
+  // Create shipping fees display
+  const shippingFeesDisplay = document.createElement("div");
+  shippingFeesDisplay.style.margin = "10px 0";
+  shippingFeesDisplay.style.padding = "10px";
+  shippingFeesDisplay.style.backgroundColor = "#f5f5f5";
+  shippingFeesDisplay.style.borderRadius = "5px";
+
+  // Visible shipping message
+  const shippingText = document.createElement("p");
+  shippingText.id = "shippingText";
+  shippingText.innerText =
+    "Please select your government to calculate shipping fees";
+  shippingText.classList.add("BuyItNowForm-shipping-message");
+  shippingText.style.margin = "0";
+  shippingText.style.fontSize = "14px";
+  shippingText.style.color = "#666";
+
+  // Hidden shipping fee storage (added this element)
+  const shippingFeeValue = document.createElement("p");
+  shippingFeeValue.id = "shippingFeeValue";
+  shippingFeeValue.style.display = "none"; // Hidden but accessible
+  shippingFeeValue.dataset.fee = "0"; // Store numeric value
+
+  shippingFeesDisplay.appendChild(shippingText);
+  shippingFeesDisplay.appendChild(shippingFeeValue); // Add hidden element
+
+  // Insert shipping fees display before the submit button
+  // Function to update shipping fees display
+  function updateShippingFees() {
+    const selectedCity = Gityandgovernment.value;
+    const productPriceText = document.getElementById("productPrice").innerText;
+    const productPrice = parseFloat(productPriceText.replace(/[^0-9.]/g, ""));
+
+    if (!selectedCity) {
+      shippingText.innerText =
+        "Please select your government to calculate shipping fees";
+      shippingFeeValue.dataset.fee = "0";
+      shippingFeeValue.innerText = "";
+      return;
+    }
+
+    let shippingFee = maincities.includes(selectedCity)
+      ? minshipping
+      : maxshipping;
+
+    if (productPrice >= parseFloat(freeshipping)) {
+      shippingText.innerHTML = `<span class="BuyItNowForm-shipping-message">You've got free shipping!</span> (Order amount exceeds ${freeshipping} EGP)`;
+      shippingFee = 0;
+    } else {
+      shippingText.innerText = `Shipping fees: ${shippingFee} EGP`;
+    }
+
+    // Update both the hidden element and maxshipping variable
+    shippingFeeValue.dataset.fee = shippingFee;
+    shippingFeeValue.innerText =
+      shippingFee === 0 ? "free" : `${shippingFee} EGP`;
+    maxshipping = shippingFee;
+  }
+  // Add event listener to the city select
+  Gityandgovernment.addEventListener("change", updateShippingFees);
+  // Also update when the form loads in case there's a default selected city
+  updateShippingFees();
 
   // Add a submit button
   const submitButton = document.createElement("button");
@@ -154,143 +310,12 @@ function showUserForm() {
   form.appendChild(secondPhoneInput);
   form.appendChild(Gityandgovernment);
   form.appendChild(addressTextArea);
+  form.appendChild(Addnotesbtn);
   form.appendChild(orderNotesTextArea);
+  form.appendChild(shippingFeesDisplay);
   form.appendChild(closeButton);
   form.appendChild(submitButton);
 
-  // Handle form submission
-  // form.onsubmit = async function (event) {
-  //   event.preventDefault(); // Prevent form submission
-
-  //   // Check if required fields are filled
-  //   if (
-  //     !nameInput.value ||
-  //     !phoneInput.value ||
-  //     !addressTextArea.value ||
-  //     !Gityandgovernment.value
-  //   ) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops...",
-  //       text: "Please fill out all required fields: Name, Phone, and Address.",
-  //       toast: true,
-  //       position: "top-end",
-  //       showConfirmButton: false,
-  //       timer: 3000,
-  //     });
-  //     return;
-  //   }
-
-  //   // Show preloader in the button
-  //   submitButton.innerHTML = `<div class="preloader" id="preloader"> <div class="loader"></div></div>`;
-  //   submitButton.disabled = true;
-
-  //   // Get form data
-  //   const formData = {
-  //     name: nameInput.value,
-  //     phone: phoneInput.value,
-  //     secondPhone: secondPhoneInput.value || "N/A",
-  //     address: addressTextArea.value,
-  //     city: Gityandgovernment.value,
-  //     orderNotes: orderNotesTextArea.value || "N/A",
-  //   };
-
-  //   // Get product details
-  //   const brandName = document.getElementById("BrandName").innerText;
-  //   const productTitle = document.getElementById("productTitle").innerText;
-  //   const productPrice = document.getElementById("productPrice").innerText;
-  //   const productSize = document.getElementById("product-Size").innerText;
-  //   const productColor = document.getElementById("product-color").innerText;
-  //   const productID = document.getElementById("productID").innerText;
-  //   const productImage = document.getElementById("productImage").src;
-
-  //   // Prepare order data
-  //   const order = {
-  //     Customeruid: "Guest User", // Replace with actual customer UID
-  //     Date: new Date().toISOString(),
-  //     cart: [
-  //       {
-  //         brand: brandName,
-  //         id: productID,
-  //         photourl: productImage,
-  //         price: productPrice,
-  //         productColor: productColor,
-  //         productSize: productSize,
-  //         quantity: 1,
-  //         title: productTitle,
-  //       },
-  //     ],
-  //     payment: "N/A",
-  //     personal_info: {
-  //       address: formData.address,
-  //       name: formData.name,
-  //       email: "Guest",
-  //       phone: formData.phone,
-  //       phone2: formData.secondPhone,
-  //     },
-  //     shippingFees: maxshipping, // Set shipping fees to 85
-  //   };
-
-  //   try {
-  //     // Sign in the guest user programmatically
-
-  //     const userCredential = await firebase
-  //       .auth()
-  //       .signInWithEmailAndPassword(GuestEmail, GuestEmail);
-
-  //     // Get the ID token
-  //     const idToken = await userCredential.user.getIdToken();
-
-  //     // Push order data to the server
-  //     const orderResponse = await fetch(
-  //       `${url}/Stores/${uid}/orders.json?auth=${idToken}`,
-  //       {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify(order),
-  //       }
-  //     );
-
-  //     if (!orderResponse.ok) {
-  //       throw new Error("Failed to place the order.");
-  //     }
-
-  //     // Show success message
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Order Placed!",
-  //       text: "Your order has been placed successfully.",
-  //       toast: true,
-  //       position: "top-end",
-  //       showConfirmButton: false,
-  //       timer: 3000,
-  //     });
-
-  //     // Remove the form from the DOM
-  //     form.remove();
-
-  //     // Log out the guest user
-  //     await firebase.auth().signOut();
-  //     console.log("Guest user logged out successfully.");
-  //   } catch (error) {
-  //     console.error("Error:", error);
-
-  //     // Show error message
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Error",
-  //       text: "An error occurred while placing the order. Please try again.",
-  //       toast: true,
-  //       position: "top-end",
-  //       showConfirmButton: false,
-  //       timer: 3000,
-  //     });
-  //   } finally {
-  //     // Reset the button text and enable it
-  //     submitButton.innerHTML = "Place order";
-  //     submitButton.disabled = false;
-  //   }
-  // };
   form.onsubmit = async function (event) {
     event.preventDefault(); // Prevent form submission
 
@@ -305,8 +330,6 @@ function showUserForm() {
         icon: "error",
         title: "Oops...",
         text: "Please fill out all required fields: Name, Phone, and Address.",
-        toast: true,
-        position: "top-end",
         showConfirmButton: false,
         timer: 3000,
       });
@@ -335,6 +358,8 @@ function showUserForm() {
     const productColor = document.getElementById("product-color").innerText;
     const productID = document.getElementById("productID").innerText;
     const productImage = document.getElementById("productImage").src;
+    const shippingFeeValue =
+      document.getElementById("shippingFeeValue").dataset.fee;
 
     try {
       // Sign in the guest user programmatically
@@ -422,7 +447,7 @@ function showUserForm() {
           city: formData.city,
           notes: formData.orderNotes,
         },
-        shippingFees: parseInt(maxshipping, 10),
+        shippingFees: parseInt(shippingFeeValue),
         isGuest: true,
       };
 
@@ -445,7 +470,7 @@ function showUserForm() {
         icon: "success",
         title: "Order Placed!",
         html: `
-          <div style="text-align: center;">
+          <div style="display: flex;text-align: center;flex-direction: column;align-items: center;">
             <img src="${productImage}" alt="${productTitle}" style="width: 100px; height: 100px; margin-bottom: 15px;">
             <p><strong>${productTitle}</strong></p>
             <p>Your order has been placed successfully.</p>
@@ -505,6 +530,57 @@ function createInput(type, id, placeholder) {
   input.style.borderRadius = "5px";
   return input;
 }
+
+function createSelect(
+  id = "city-select",
+  placeholder = "Select your city/government",
+  options = []
+) {
+  const select = document.createElement("select");
+  select.id = id;
+  select.style.padding = "10px";
+  select.style.border = "1px solid #ccc";
+  select.style.borderRadius = "5px";
+  select.style.width = "100%";
+  select.style.margin = "5px 0";
+
+  // Add placeholder option
+  const placeholderOption = document.createElement("option");
+  placeholderOption.value = "";
+  placeholderOption.textContent = placeholder;
+  placeholderOption.selected = true;
+  placeholderOption.disabled = true;
+  select.appendChild(placeholderOption);
+
+  // Add all options
+  options.forEach((option) => {
+    const opt = document.createElement("option");
+    opt.value = option;
+    opt.textContent = option;
+    select.appendChild(opt);
+  });
+
+  return select;
+}
+// Define the city options
+const cityOptions = [
+  "Cairo",
+  "Giza",
+  "Alexandria",
+  "Port Said",
+  "Suez",
+  "Damietta",
+  "Fayoum",
+  "Dakahlia",
+  "Sharqia",
+  "Qalyubia",
+  "Kafr El Sheikh",
+  "Gharbia",
+  "Monufia",
+  "Beheira",
+  "Ismailia",
+  "Other",
+];
 
 // Function to create a textarea field
 function createTextArea(id, placeholder) {

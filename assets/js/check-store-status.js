@@ -2,6 +2,7 @@
  * Checks store status before loading the page.
  * @param {string} uid - The Firebase user/store ID.
  */
+
 async function checkSiteStatus(uid) {
   if (!uid) {
     blockPageAccess({
@@ -10,7 +11,7 @@ async function checkSiteStatus(uid) {
       reason: "No UID provided",
       contactNumber: null,
     });
-    return;
+    return false; // Return false when access is blocked
   }
 
   try {
@@ -24,7 +25,6 @@ async function checkSiteStatus(uid) {
 
     const data = await response.json();
 
-    // Check if data exists
     if (!data) {
       blockPageAccess({
         title: "Store Not Found",
@@ -32,14 +32,16 @@ async function checkSiteStatus(uid) {
         reason: "Store data not found in database",
         contactNumber: null,
       });
-      return;
+      return false;
     }
 
     const status = data.status?.toLowerCase();
     const endingDateStr = data["ending-date"];
     const contactNumber = data["phone-number"] || null;
 
-    // Check status
+    console.log("Raw ending date string:", endingDateStr);
+
+    // Check status first
     if (status === "pending") {
       blockPageAccess({
         title: "Store Pending Approval",
@@ -49,7 +51,7 @@ async function checkSiteStatus(uid) {
         endingDate: endingDateStr,
         contactNumber: contactNumber,
       });
-      return;
+      return false;
     }
 
     if (status === "stopped") {
@@ -61,15 +63,49 @@ async function checkSiteStatus(uid) {
         endingDate: endingDateStr,
         contactNumber: contactNumber,
       });
-      return;
+      return false;
     }
 
-    // Check expiry date
+    // Then check expiry date if status is active
     if (endingDateStr) {
-      const endingDate = new Date(endingDateStr);
+      // More reliable date parsing
+      const dateTimeParts = endingDateStr.split(", ");
+      if (dateTimeParts.length !== 2) {
+        console.error("Invalid date format - missing time part");
+        return true; // Don't block if we can't parse the date
+      }
+
+      const [datePart, timePart] = dateTimeParts;
+      const [month, day, year] = datePart.split("/").map(Number);
+      const [time, period] = timePart.split(" ");
+      const [hours, minutes, seconds] = time.split(":").map(Number);
+
+      // Convert to 24-hour format
+      let hours24 = hours;
+      if (period.toLowerCase() === "pm" && hours < 12) {
+        hours24 += 12;
+      } else if (period.toLowerCase() === "am" && hours === 12) {
+        hours24 = 0;
+      }
+
+      // Create date object (months are 0-indexed)
+      const endingDate = new Date(
+        year,
+        month - 1,
+        day,
+        hours24,
+        minutes,
+        seconds
+      );
+      const now = new Date();
+
+      console.log("Parsed ending date:", endingDate);
+      console.log("Current date:", now);
+      console.log("Is expired?", endingDate < now);
+
       if (isNaN(endingDate.getTime())) {
         console.error("Invalid ending-date format:", endingDateStr);
-      } else if (endingDate < new Date()) {
+      } else if (endingDate < now) {
         blockPageAccess({
           title: "Subscription Expired",
           message:
@@ -78,16 +114,20 @@ async function checkSiteStatus(uid) {
           endingDate: endingDateStr,
           contactNumber: contactNumber,
         });
-        return;
+        return false;
       }
     }
+
+    return true; // Return true if access should be allowed
   } catch (error) {
+    console.error("Error checking site status:", error);
     blockPageAccess({
       title: "Verification Failed",
       message: "Unable to verify store status. Please try again later.",
       reason: error.message,
       contactNumber: null,
     });
+    return false;
   }
 }
 

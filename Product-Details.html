@@ -880,7 +880,7 @@
                             colorOption.addEventListener('click', function () {
                                 productColorElement.innerText = color;
                                 checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
-
+                                const BuyNowButton = document.getElementById('BuyNowButton');
                                 // Display stock quantity
                                 if (colorOptions) {
                                     const colors = sizes[size];
@@ -888,8 +888,8 @@
                                         const qty = colors[color]["qty"];
                                         const stockContainer = document.getElementById('stockContainer');
                                         const stockMessage = document.getElementById('stockMessage');
-
                                         if (stockContainer && stockMessage) {
+                                            BuyNowButton.setAttribute('data-qty', qty);
                                             if (qty <= 5) {
                                                 stockMessage.innerText = `Only ${qty} left in stock`;
                                                 stockContainer.classList.remove('hidden');

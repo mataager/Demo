@@ -1523,9 +1523,10 @@ a.footer-link:is(:hover, :focus) {
 }
 
 .scrolltocheckout:is(:hover, :focus) .godownicon {
-  color: white !important;
+  border: 1px solid black;
+  color: rgb(0, 0, 0) !important;
   border-radius: 50%;
-  background: black;
+  background: rgb(255 255 255);
 }
 
 .godownicon {
@@ -6157,7 +6158,7 @@ th {
 }
 
 .BuyItNowForm {
-  overflow: scroll;
+  overflow-y: scroll;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -6173,13 +6174,155 @@ th {
   align-items: center;
 }
 
+/* Add these to your CSS file */
+.buynow-summary-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.buynow-details-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buynow-sizetext,
+.buynow-colortext {
+  color: black;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.buynow-pricetext {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: #333;
+}
+
+.buynow-productimage {
+  width: 140px;
+  height: 140px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin: 20px;
+}
+
+.BuyItNowForm-shipping-message {
+  text-align: center;
+  color: #333;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.buynow-quantity-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.buynow-quantity-label {
+  font-size: 12px;
+  color: #333;
+}
+
+.buynow-quantity-btn {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.buynow-quantity-btn:hover {
+  background: #e0e0e0;
+}
+
+.buynow-quantity-input {
+  width: 40px;
+  height: 25px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.Addnotesbtn {
+  font-size: 10px;
+  cursor: pointer;
+  color: #555;
+  border-radius: 5px;
+  padding: 8px 15px;
+  border: 1px solid #cccccc;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.Addnotesbtn:hover {
+  background-color: #f0f0f0;
+}
+
 .BuyItNowForm input,
 .input-report {
   color: #333;
-  font: inherit;
+  font-size: small;
   max-width: 375px;
   margin-top: 8px;
   margin-bottom: 8px;
+}
+
+#Gityandgovernment {
+  color: #333;
+  font-size: small;
+  max-width: 375px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  margin: 5px 0;
+  font-family: 'Josefin Sans';
+  outline: none;
+  /* Removes the default focus outline */
+}
+
+#Gityandgovernment:focus {
+  border: 1px solid #ccc;
+  /* Maintains the same border when focused */
+  box-shadow: none;
+  /* Removes any potential box shadow on focus */
+}
+
+#Gityandgovernment option {
+  background: #f9f9f9;
+  /* Matches the select background */
+  padding: 10px;
+  /* Optional: adds padding to options for better appearance */
+}
+
+/* For browsers that support styling the dropdown list */
+#Gityandgovernment optgroup,
+#Gityandgovernment option {
+  background: #f1f1f1;
+  color: #333;
+}
+
+/* For better appearance of disabled option */
+#Gityandgovernment option[disabled] {
+  color: #999;
 }
 
 .brandName {
@@ -7696,6 +7839,7 @@ body.swal2-shown {
 }
 
 .brands-picker button {
+  color: #333;
   letter-spacing: 1px;
   text-transform: none;
   border-radius: 5px;
@@ -7738,7 +7882,7 @@ body.swal2-shown {
 /* // */
 .price-animation-container {
   position: relative;
-  height: 1.2em;
+  height: 1.3em;
   /* Adjust based on your text size */
   overflow: hidden;
   display: flex;
@@ -7761,7 +7905,7 @@ body.swal2-shown {
   color: #838383;
   font-family: var(--ff-roboto);
   font-weight: var(--fw-600);
-  margin: 5px 0;
+  padding-bottom: 10px;
 }
 
 .card-price-animation {

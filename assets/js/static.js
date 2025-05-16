@@ -11,6 +11,8 @@ const storeGender = ["Men"];
 const productnavbar = ["yes"];
 const brandsnavbar = ["yes"];
 const storeType = "clothing"; // clothing or footwear
+//shipping config
+const maincities = ["Cairo", "Giza", "Alexandria"];
 const freeshipping = "2000";
 const minshipping = 65;
 const maxshipping = 90;
