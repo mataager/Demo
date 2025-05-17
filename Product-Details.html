@@ -355,6 +355,66 @@
 
 
                                 <script>
+                                    // function addToCart() {
+                                    //     const title = document.getElementById("productTitle").innerText;
+                                    //     const brandName = document.getElementById("BrandName").innerText;
+                                    //     const productPrice = document.getElementById("productPrice").innerText;
+                                    //     const productSize = document.getElementById("product-Size").innerText;
+                                    //     const productColor = document.getElementById("product-color").innerText;
+                                    //     const productID = document.getElementById("productID").innerText;
+                                    //     const matagerCut =
+                                    //         parseInt(
+                                    //             document.getElementById("BuyNowButton").getAttribute("matagerCut")
+                                    //         ) || 1;
+
+                                    //     // Get the reference to the img element
+                                    //     const productImage = document.getElementById('productImage');
+                                    //     const srcValue = productImage.getAttribute('src');
+
+                                    //     const newItem = {
+                                    //         id: productID,
+                                    //         brand: brandName,
+                                    //         title: title,
+                                    //         productSize: productSize,
+                                    //         productColor: productColor,
+                                    //         price: productPrice,
+                                    //         photourl: srcValue,
+                                    //         cut: matagerCut,
+                                    //         quantity: 1 // Initialize quantity
+                                    //     };
+
+                                    //     // Retrieve cart from local storage or initialize it as an empty array
+                                    //     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                                    //     // Check if an item with the same ID, size, and color already exists
+                                    //     const existingItem = cart.find(item =>
+                                    //         item.id === newItem.id &&
+                                    //         item.productSize === newItem.productSize &&
+                                    //         item.productColor === newItem.productColor
+                                    //     );
+
+                                    //     if (existingItem) {
+                                    //         // If the item exists, increase its quantity
+                                    //         existingItem.quantity += 1;
+                                    //         existingItem.cut = (existingItem.cut / (existingItem.quantity - 1)) * existingItem.quantity;
+                                    //     } else {
+                                    //         // If the item doesn't exist, add it as a new item
+                                    //         cart.push(newItem);
+                                    //     }
+
+                                    //     // Store the updated cart back to local storage
+                                    //     localStorage.setItem('cart', JSON.stringify(cart));
+
+                                    //     // Change button text and add a message using SweetAlert
+                                    //     Swal.fire({
+                                    //         icon: 'success',
+                                    //         title: 'Added to Cart',
+                                    //         showConfirmButton: false,
+                                    //         timer: 1500 // Close the alert after 1.5 seconds
+                                    //     });
+
+                                    //     updateCartCount();
+                                    // }
                                     function addToCart() {
                                         const title = document.getElementById("productTitle").innerText;
                                         const brandName = document.getElementById("BrandName").innerText;
@@ -362,6 +422,9 @@
                                         const productSize = document.getElementById("product-Size").innerText;
                                         const productColor = document.getElementById("product-color").innerText;
                                         const productID = document.getElementById("productID").innerText;
+                                        const matagerCut = parseInt(
+                                            document.getElementById("BuyNowButton").getAttribute("matagerCut")
+                                        ) || 1;
 
                                         // Get the reference to the img element
                                         const productImage = document.getElementById('productImage');
@@ -375,7 +438,8 @@
                                             productColor: productColor,
                                             price: productPrice,
                                             photourl: srcValue,
-                                            quantity: 1 // Initialize quantity
+                                            cut: matagerCut,
+                                            quantity: 1
                                         };
 
                                         // Retrieve cart from local storage or initialize it as an empty array
@@ -391,6 +455,7 @@
                                         if (existingItem) {
                                             // If the item exists, increase its quantity
                                             existingItem.quantity += 1;
+                                            existingItem.cut = (existingItem.cut / (existingItem.quantity - 1)) * existingItem.quantity;
                                         } else {
                                             // If the item doesn't exist, add it as a new item
                                             cart.push(newItem);
@@ -399,12 +464,33 @@
                                         // Store the updated cart back to local storage
                                         localStorage.setItem('cart', JSON.stringify(cart));
 
-                                        // Change button text and add a message using SweetAlert
+                                        // Create the success message with image and details
                                         Swal.fire({
+                                            title: 'Added to Cart Successfully!',
+                                            html: `
+        <div style="gap: 10px;display: flex;align-items: center;margin-bottom: 15px;flex-direction: column;">
+            <img src="${srcValue}" style="width: 200px; height: 200px; object-fit: cover; margin-right: 15px;">
+            <div style="text-align: center;">
+                <h4 style="margin: 0; font-size: 16px;">${title}</h4>
+                <p style="margin: 5px 0; color: #555;">${productSize} | ${productColor}</p>
+                <p style="margin: 0; font-weight: bold;">${productPrice}</p>
+            </div>
+        </div>
+    `,
                                             icon: 'success',
-                                            title: 'Added to Cart',
-                                            showConfirmButton: false,
-                                            timer: 1500 // Close the alert after 1.5 seconds
+                                            showCancelButton: true,
+                                            confirmButtonText: 'Go to Cart',
+                                            cancelButtonText: 'Continue Shopping',
+                                            customClass: {
+                                                confirmButton: 'gotocartmodalbtn',
+                                                cancelButton: 'continueshopmodalbtn'
+                                            },
+                                            buttonsStyling: false, // Disable SweetAlert's default styling
+                                            reverseButtons: true
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = './Cart.html';
+                                            }
                                         });
 
                                         updateCartCount();
@@ -823,6 +909,8 @@
                 const piece = productDetails["piece"];
                 const type = productDetails["type"];
                 fetchRelatedProducts(category, piece, type, key);
+
+                BuyNowButton.setAttribute('matagercut', productDetails["matager-Cut"]);
 
                 // Handling sizes and colors
                 const sizes = productDetails.sizes;

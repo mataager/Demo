@@ -38,9 +38,6 @@ async function checkSiteStatus(uid) {
     const status = data.status?.toLowerCase();
     const endingDateStr = data["ending-date"];
     const contactNumber = data["phone-number"] || null;
-
-    console.log("Raw ending date string:", endingDateStr);
-
     // Check status first
     if (status === "pending") {
       blockPageAccess({
@@ -98,11 +95,6 @@ async function checkSiteStatus(uid) {
         seconds
       );
       const now = new Date();
-
-      console.log("Parsed ending date:", endingDate);
-      console.log("Current date:", now);
-      console.log("Is expired?", endingDate < now);
-
       if (isNaN(endingDate.getTime())) {
         console.error("Invalid ending-date format:", endingDateStr);
       } else if (endingDate < now) {

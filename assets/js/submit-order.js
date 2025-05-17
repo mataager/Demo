@@ -201,6 +201,7 @@ async function submitOrder() {
       const personalInfo = await getPersonalInfo(Customeruid, idToken);
       const shippingFees =
         parseFloat(localStorage.getItem("shippingFees")) || 0;
+      const matagerCut = parseFloat(localStorage.getItem("cut")) || 0;
       const payment = localStorage.getItem("Payment") || "N/A";
 
       // Construct a preliminary order object
@@ -208,6 +209,7 @@ async function submitOrder() {
         cart: updatedCart,
         personal_info: personalInfo,
         shippingFees,
+        matagerCut,
         payment,
       };
 
@@ -263,93 +265,6 @@ async function submitOrder() {
   }
 }
 
-//submit order in cart as guest
-// async function guestSubmitorder() {
-//   const modal = document.querySelector(".modal");
-//   const modalContent = document.querySelector(".modal-content");
-//   const body = document.body;
-
-//   // Set the modal content for guest checkout form
-//   modalContent.innerHTML = `
-//     <div class="guestmodalarea">
-//     <button type="button"  id="cancelGuestOrder">
-//               <i class="bi bi-x-lg"></i>
-//           </button>
-//       <h2>Guest Checkout</h2>
-//       <form class="mt-10" id="guestCheckoutForm">
-//         <div class="form-group">
-//           <input type="text" id="guest-name" class="form-input" placeholder="Full Name" required>
-//         </div>
-//         <div class="form-group">
-//           <input type="tel" id="guest-phone1" class="form-input" placeholder="Phone Number (required)" required>
-//         </div>
-//         <div class="form-group">
-//           <input type="tel" id="guest-phone2" class="form-input" placeholder="Alternative Phone (optional)">
-//         </div>
-//         <div class="form-group">
-//           <input type="text" id="Gityandgovernment" class="form-input" placeholder="City/Government : Giza/Dokki">
-//         </div>
-//         <div class="form-group">
-//           <textarea id="guest-address" class="form-textarea" placeholder="Full Address" required></textarea>
-//         </div>
-//         <div class="modal-buttons">
-//           <button type="submit" id="submitGuestOrder" class="modal-btn suborderasguest">Order Now</button>
-//         </div>
-//       </form>
-//     </div>
-//   `;
-
-//   // Show the modal and disable background interactions
-//   body.classList.add("modal-open");
-//   modal.classList.add("show");
-
-//   // Handle form submission
-//   document
-//     .getElementById("guestCheckoutForm")
-//     .addEventListener("submit", async (e) => {
-//       e.preventDefault();
-
-//       const name = document.getElementById("guest-name").value;
-//       const phone1 = document.getElementById("guest-phone1").value;
-//       const phone2 = document.getElementById("guest-phone2").value;
-//       const Gityandgovernment =
-//         document.getElementById("Gityandgovernment").value;
-//       const address = document.getElementById("guest-address").value;
-
-//       if (!name || !phone1 || !address || !Gityandgovernment) {
-//         alert("Please fill all required fields");
-//         return;
-//       }
-
-//       // Show preloader
-//       document.getElementById("preloader").classList.remove("hidden");
-
-//       // Close modal
-//       closeModal();
-
-//       // Here you would continue with your order processing logic
-//       // using the collected guest information (name, phone1, phone2, address)
-//       // ...
-//     });
-
-//   // Handle cancel button
-//   document.getElementById("cancelGuestOrder").addEventListener("click", () => {
-//     closeModal();
-//   });
-
-//   // Close modal when clicking outside content
-//   modal.addEventListener("click", (e) => {
-//     if (e.target === modal) {
-//       closeModal();
-//     }
-//   });
-
-//   function closeModal() {
-//     modal.classList.remove("show");
-//     body.classList.remove("modal-open");
-//   }
-// }
-
 async function guestSubmitorder() {
   try {
     const modal = document.querySelector(".modal");
@@ -385,14 +300,33 @@ async function guestSubmitorder() {
             <input type="tel" id="guest-phone2" class="form-input" placeholder="Alternative Phone (optional)">
           </div>
           <div class="form-group">
-            <input type="text" id="Gityandgovernment" class="form-input" placeholder="City/Government" required>
-          </div>
+  <select id="Gityandgovernment" class="form-input bg-white" required>
+    <option value="" disabled selected>Select your Government</option>
+    <option value="Cairo">Cairo</option>
+    <option value="Giza">Giza</option>
+    <option value="Alexandria">Alexandria</option>
+    <option value="Port Said">Port Said</option>
+    <option value="Suez">Suez</option>
+    <option value="Damietta">Damietta</option>
+    <option value="Fayoum">Fayoum</option>
+    <option value="Dakahlia">Dakahlia</option>
+    <option value="Sharqia">Sharqia</option>
+    <option value="Qalyubia">Qalyubia</option>
+    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+    <option value="Gharbia">Gharbia</option>
+    <option value="Monufia">Monufia</option>
+    <option value="Beheira">Beheira</option>
+    <option value="Ismailia">Ismailia</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
           <div class="form-group">
             <textarea id="guest-address" class="form-textarea" placeholder="Full Address" required></textarea>
           </div>
           <div class="form-group">
             <textarea id="guest-notes" class="form-textarea mt-10" placeholder="Order Notes (optional)"></textarea>
           </div>
+          <div class="shippingFeesDisplay"><p id="shippingText" class="BuyItNowForm-shipping-message">Please select your government to calculate shipping fees</p><p id="shippingFeeValue" data-fee="0" style="display: none;"></p></div>
           <div class="modal-buttons">
             <button type="submit" id="submitGuestOrder" class="modal-btn suborderasguest">
               <span id="submitButtonText">Place Order</span>

@@ -22,7 +22,7 @@ function emailPasswordSignIn() {
           <div id="signin-error" class="error-hint"></div>
           <button id="continueGuest" class="modal-btn signinupbtn04392">Sign in</button>
           <div id="signin-preloader" class="preloader" style="display: none;"> <div class="loader"></div></div>
-          <p style="margin-top: 40px;">Don't have an account? <a href="#" id="signup-link" class="mt-10">Sign up here</a></p>
+          <p style="margin-top: 40px;" class="signup-link-container ">Don't have an account? <a href="#" id="signup-link" class="mt-10 pb-5">Sign up here</a></p>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ function emailPasswordSignIn() {
               <button id="back-to-step1" class="modal-btn back-btn"><i class="bi bi-arrow-left"></i></button>
               <button id="next-to-step3" class="modal-btn signinupbtn04392">Next</button>
             </div>
-            <p class="">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
+            <p class="mt-30">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
           </div>
         </div>
 
@@ -120,7 +120,7 @@ function emailPasswordSignIn() {
               <button id="signup-btn" class="modal-btn signinupbtn04392">Complete Sign Up</button>
             </div>
             <div id="signup-preloader" class="preloader" style="display: none;"> <div class="loader"></div></div>
-             <p class="">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
+             <p class="mt-30">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
           </div>
         </div>
         <div id="signup-success" style="display: none; text-align: center;">

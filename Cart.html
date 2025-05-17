@@ -181,7 +181,6 @@
                     <div class="m-10 flex space-evenly align-items relative">
                         <div class="relative">
                             <p class="mycarttitle relative">My Cart
-                            <p class="cartitemsamount" id="cartitemsamount">0</p>
                         </div>
 
                         </p>
@@ -220,8 +219,12 @@
                                             <div class="cartItems-sec">
                                                 <div>
                                                     <div class="mt-20 address-area ">
-                                                        <p class="flex flex-start mb-10 cart-area-divs-titels">Cart
-                                                            Items</p>
+                                                        <div class="relative">
+                                                            <p class="flex flex-start mb-10 cart-area-divs-titels">Cart
+                                                                Items</p>
+                                                            <p class="cartitemsamount" id="cartitemsamount">0</p>
+                                                        </div>
+
                                                         <div class="" style="height: auto;">
                                                             <div class="preloader2 hidden" id="cart-items-preloader">
                                                                 <div class="loader2"></div>
@@ -514,53 +517,122 @@
                                         });
                                     });
                                 }
-                                // Function to update quantity in the cart
+                                // // Function to update quantity in the cart
+                                // function updateQuantity(index, increment) {
+                                //     const item = cart[index];
+                                //     const requestedQuantity = item.quantity + increment;
+                                //     const preloader = document.getElementById("cart-items-preloader");
+                                //     const cartItems = document.getElementById("cart-items");
+
+                                //     // Visual feedback - dim cart items and show loader
+                                //     if (cartItems) cartItems.classList.add("updating");
+                                //     if (preloader) {
+                                //         preloader.classList.remove("hidden");
+                                //     }
+
+
+                                //     // Ensure the requested quantity is never less than 1
+                                //     if (requestedQuantity < 1) {
+                                //         preloader.classList.add("hidden");
+                                //         return; // Prevent decrement below 1
+                                //     }
+
+                                //     // Check availability based on the updated requested quantity
+                                //     checkAvailability(item.id, item.productSize, item.productColor, requestedQuantity, (isAvailable, availableQty) => {
+                                //         if (isAvailable) {
+                                //             // If the item is available and stock is sufficient, update the cart
+                                //             item.quantity = requestedQuantity; // Update quantity based on the requested quantity
+                                //             cart[index] = item;
+
+                                //             // Update local storage
+                                //             localStorage.setItem("cart", JSON.stringify(cart));
+
+                                //             // Update UI
+                                //             const quantitySpan = document.querySelector(`#qty-${item.id}`);
+                                //             const priceSpan = document.querySelector(`#price-${item.id}`);
+                                //             quantitySpan.textContent = `Qty: ${item.quantity}`;
+                                //             priceSpan.textContent = `${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP`;
+
+                                //             // Refresh total amount
+                                //             updateTotalAmount();
+                                //             updateFreeShippingWidget();
+                                //             updatecartitemscount();
+                                //             resetPromoCode();
+                                //             preloader.classList.add("hidden");
+                                //             updateCartCount();
+                                //         }
+                                //     });
+                                //     updatecartitemscount();
+
+                                // }
                                 function updateQuantity(index, increment) {
                                     const item = cart[index];
                                     const requestedQuantity = item.quantity + increment;
                                     const preloader = document.getElementById("cart-items-preloader");
                                     const cartItems = document.getElementById("cart-items");
 
-                                    // Visual feedback - dim cart items and show loader
+                                    // Visual feedback
                                     if (cartItems) cartItems.classList.add("updating");
-                                    if (preloader) {
-                                        preloader.classList.remove("hidden");
-                                    }
+                                    if (preloader) preloader.classList.remove("hidden");
 
-
-                                    // Ensure the requested quantity is never less than 1
+                                    // Minimum quantity check
                                     if (requestedQuantity < 1) {
                                         preloader.classList.add("hidden");
-                                        return; // Prevent decrement below 1
+                                        return;
                                     }
 
-                                    // Check availability based on the updated requested quantity
                                     checkAvailability(item.id, item.productSize, item.productColor, requestedQuantity, (isAvailable, availableQty) => {
                                         if (isAvailable) {
-                                            // If the item is available and stock is sufficient, update the cart
-                                            item.quantity = requestedQuantity; // Update quantity based on the requested quantity
+                                            // Store original cut per unit if not already stored
+                                            if (!item.originalCut) {
+                                                item.originalCut = item.cut / item.quantity;
+                                            }
+
+                                            // Update both quantity and cut
+                                            item.quantity = requestedQuantity;
+                                            item.cut = item.originalCut * requestedQuantity;
                                             cart[index] = item;
 
-                                            // Update local storage
+                                            // Update storage and UI
                                             localStorage.setItem("cart", JSON.stringify(cart));
 
-                                            // Update UI
                                             const quantitySpan = document.querySelector(`#qty-${item.id}`);
                                             const priceSpan = document.querySelector(`#price-${item.id}`);
-                                            quantitySpan.textContent = `Qty: ${item.quantity}`;
-                                            priceSpan.textContent = `${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP`;
+                                            const cutSpan = document.querySelector(`#cut-${item.id}`); // Assuming you have this element
 
-                                            // Refresh total amount
+                                            if (quantitySpan) quantitySpan.textContent = `Qty: ${item.quantity}`;
+                                            if (priceSpan) priceSpan.textContent = `${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP`;
+                                            if (cutSpan) cutSpan.textContent = `${item.cut.toFixed(2)} EGP`; // Format cut value
+
+                                            // Update all relevant components
                                             updateTotalAmount();
                                             updateFreeShippingWidget();
                                             updatecartitemscount();
                                             resetPromoCode();
-                                            preloader.classList.add("hidden");
                                             updateCartCount();
                                         }
+                                        preloader.classList.add("hidden");
                                     });
                                     updatecartitemscount();
+                                }
 
+                                // Helper function to update local storage
+                                function updateLocalDbItemQuantity(itemId, newQuantity) {
+                                    const updatedCart = cart.map(item => {
+                                        if (item.id === itemId) {
+                                            // Preserve original cut per unit
+                                            const originalCut = item.originalCut || (item.cut / item.quantity);
+                                            return {
+                                                ...item,
+                                                quantity: Math.min(item.quantity, newQuantity),
+                                                cut: originalCut * Math.min(item.quantity, newQuantity)
+                                            };
+                                        }
+                                        return item;
+                                    });
+
+                                    localStorage.setItem("cart", JSON.stringify(updatedCart));
+                                    cart = updatedCart; // Update in-memory cart
                                 }
                                 // Function to update item quantity in local storage
                                 function updateLocalDbItemQuantity(itemId, newQuantity) {

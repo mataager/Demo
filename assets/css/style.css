@@ -5125,6 +5125,7 @@ th {
 .swal2-input,
 .swal2-textarea,
 .select-governorate {
+  font-size: small;
   width: 100%;
   max-width: 400px;
   /* Ensures all inputs have the same width */
@@ -5903,6 +5904,7 @@ th {
 
 
 @media (max-width: 630px) {
+
   .col-sm-screen-cart {
     flex-direction: column;
   }
@@ -6184,14 +6186,15 @@ th {
 }
 
 .buynow-details-container {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .buynow-sizetext,
-.buynow-colortext {
+.buynow-colortext,
+.buynow-pricetext {
   color: black;
   border-radius: 5px;
   padding: 5px;
@@ -6217,10 +6220,18 @@ th {
 }
 
 .BuyItNowForm-shipping-message {
+  font-size: small;
   text-align: center;
   color: #333;
   font-weight: 400;
   margin-bottom: 10px;
+}
+
+.shippingFeesDisplay {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
 }
 
 .buynow-quantity-container {
@@ -6282,7 +6293,53 @@ th {
   margin-bottom: 8px;
 }
 
+/* Close Button */
+.buyitnowcloseButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+}
+
+.buyitnowcloseButton:hover {
+  color: #cccccc;
+}
+
+/* Info Button */
+.buynowinfobtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.buynowinfobtn:hover {
+  color: rgb(204, 204, 204);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 #Gityandgovernment {
+  /* height: 375px; */
   color: #333;
   font-size: small;
   max-width: 375px;
@@ -6945,6 +7002,7 @@ body.modal-open #mainpagearea {
 
 .cart-continueshopping-btn,
 .ShippingReturnbtn {
+  line-height: 15px;
   text-transform: uppercase;
   letter-spacing: 1px;
   height: 30px;
@@ -6988,8 +7046,8 @@ body.modal-open #mainpagearea {
 }
 
 .cartitemsamount {
-  top: 5px;
-  left: 130px;
+  top: 10px;
+  left: 190px;
   position: absolute;
 }
 
@@ -7046,7 +7104,7 @@ body.modal-open::after {
   text-transform: uppercase;
   letter-spacing: 1px;
   color: #19191a;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 .guestmodalarea .modal-buttons {
@@ -7093,7 +7151,13 @@ body.modal-open::after {
   width: -webkit-fill-available;
 }
 
-.guestmodalarea input {
+#strength-text {
+  margin-top: 10px;
+}
+
+.guestmodalarea input,
+select,
+textarea {
   color: #333;
   font: inherit;
   max-width: 375px;
@@ -7287,7 +7351,7 @@ body.modal-open::after {
 .form-navigation {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   gap: 10px;
 }
 
@@ -7621,7 +7685,7 @@ body.swal2-shown {
 }
 
 .swal2-icon.swal2-success {
-  margin: 10px auto 5px !important;
+  margin: 10px auto 20px !important;
 }
 
 .swal2-title {
@@ -7711,9 +7775,6 @@ body.swal2-shown {
   border-radius: 0px !important;
 }
 
-.swal-container .swal2-icon.swal2-success {
-  margin: 10px auto 5px !important;
-}
 
 .swal-container .swal2-title {
   padding: 0 1em !important;
@@ -7814,6 +7875,11 @@ body.swal2-shown {
   display: block;
 }
 
+.link-matager {
+  text-decoration-line: underline;
+  color: #333;
+}
+
 /* // */
 .policy-item {
   margin-bottom: 10px !important;
@@ -7853,13 +7919,12 @@ body.swal2-shown {
   cursor: pointer;
   margin: 3px;
   /* Added some spacing between buttons */
+
 }
 
 .brands-picker button:hover {
-  border-color: #333;
-  /* Dark border on hover */
+  box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.12);
   background: #fff;
-  /* Optional: slightly lighter background on hover */
 }
 
 .brands-picker button.active {
@@ -7868,9 +7933,6 @@ body.swal2-shown {
   background: #333;
   /* Dark background for active state */
   color: white;
-  /* White text for active state */
-  font-weight: 400;
-  /* Slightly bolder for active state */
 }
 
 /* Optional: Add a subtle animation for the active state */
@@ -7922,4 +7984,34 @@ body.swal2-shown {
 .show-sale-price .card-price-animation {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* Style for Go to Cart button */
+.gotocartmodalbtn {
+  margin: 5px;
+  background-color: rgb(0, 0, 0) !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
+}
+
+/* Style for Continue Shopping button */
+.continueshopmodalbtn {
+  margin: 5px;
+  background-color: transparent !important;
+  color: #333 !important;
+  border: 1px solid #ddd !important;
+  padding: 10px 20px !important;
+  border-radius: 5px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: all 0.3s !important;
+}
+
+.continueshopmodalbtn:hover {
+  background-color: #f8f8f8 !important;
+  border-color: #ccc !important;
 }

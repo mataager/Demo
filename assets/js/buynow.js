@@ -1,7 +1,6 @@
 async function handleBuyNowClick() {
   const buyNowButton = document.getElementById("BuyNowButton");
   const itemQty = parseInt(buyNowButton.getAttribute("data-qty")) || 1;
-
   showUserForm(itemQty);
 }
 
@@ -27,15 +26,13 @@ function showUserForm(itemQty) {
 
   // Create close button
   const closeButton = document.createElement("div");
-  closeButton.innerHTML = '<i class="bi bi-x"></i>'; // X symbol
-  closeButton.style.position = "absolute";
-  closeButton.style.top = "10px";
-  closeButton.style.right = "10px";
-  closeButton.style.background = "none";
-  closeButton.style.border = "none";
-  closeButton.style.fontSize = "20px";
-  closeButton.style.cursor = "pointer";
-  closeButton.style.padding = "5px 10px";
+  closeButton.innerHTML = '<i class="bi bi-x"></i>';
+  closeButton.className = "buyitnowcloseButton";
+
+  // Create info button
+  const infoButton = document.createElement("div");
+  infoButton.innerHTML = '<i class="bi bi-info-circle"></i>';
+  infoButton.className = "buynowinfobtn";
 
   // Add hover effect
   closeButton.onmouseover = function () {
@@ -91,10 +88,10 @@ function showUserForm(itemQty) {
   minusBtn.type = "button";
 
   const quantityInput = document.createElement("input");
-  quantityInput.type = "number";
   quantityInput.value = "1";
   quantityInput.min = "1";
   quantityInput.classList.add("buynow-quantity-input");
+  quantityInput.id = "buynow-qty";
 
   const plusBtn = document.createElement("button");
   plusBtn.innerHTML = '<i class="bi bi-plus"></i>';
@@ -235,12 +232,14 @@ function showUserForm(itemQty) {
     }
   });
 
+  // Real-time validation
+  phoneInput.addEventListener("input", function () {
+    this.value = this.value.replace(/[^0-9]/g, "");
+  });
+
   // Create shipping fees display
   const shippingFeesDisplay = document.createElement("div");
-  shippingFeesDisplay.style.margin = "10px 0";
-  shippingFeesDisplay.style.padding = "10px";
-  shippingFeesDisplay.style.backgroundColor = "#f5f5f5";
-  shippingFeesDisplay.style.borderRadius = "5px";
+  shippingFeesDisplay.classList.add("shippingFeesDisplay");
 
   // Visible shipping message
   const shippingText = document.createElement("p");
@@ -248,9 +247,6 @@ function showUserForm(itemQty) {
   shippingText.innerText =
     "Please select your government to calculate shipping fees";
   shippingText.classList.add("BuyItNowForm-shipping-message");
-  shippingText.style.margin = "0";
-  shippingText.style.fontSize = "14px";
-  shippingText.style.color = "#666";
 
   // Hidden shipping fee storage (added this element)
   const shippingFeeValue = document.createElement("p");
@@ -291,7 +287,7 @@ function showUserForm(itemQty) {
     shippingFeeValue.dataset.fee = shippingFee;
     shippingFeeValue.innerText =
       shippingFee === 0 ? "free" : `${shippingFee} EGP`;
-    maxshipping = shippingFee;
+    // maxshipping = shippingFee;
   }
   // Add event listener to the city select
   Gityandgovernment.addEventListener("change", updateShippingFees);
@@ -314,6 +310,7 @@ function showUserForm(itemQty) {
   form.appendChild(orderNotesTextArea);
   form.appendChild(shippingFeesDisplay);
   form.appendChild(closeButton);
+  form.appendChild(infoButton);
   form.appendChild(submitButton);
 
   form.onsubmit = async function (event) {
@@ -356,6 +353,12 @@ function showUserForm(itemQty) {
     const productPrice = document.getElementById("productPrice").innerText;
     const productSize = document.getElementById("product-Size").innerText;
     const productColor = document.getElementById("product-color").innerText;
+    const productqty =
+      parseInt(document.getElementById("buynow-qty")?.value) || 1;
+    const Cut =
+      parseInt(
+        document.getElementById("BuyNowButton").getAttribute("matagerCut")
+      ) || 1;
     const productID = document.getElementById("productID").innerText;
     const productImage = document.getElementById("productImage").src;
     const shippingFeeValue =
@@ -377,7 +380,7 @@ function showUserForm(itemQty) {
       if (!productData) {
         throw new Error("Product no longer available");
       }
-      const requestedQty = 1; // Since this is single product order
+      const requestedQty = productqty; // Since this is single product order
       if (vanishedstock) {
         // Check stock quantity
         const stockQty =
@@ -433,11 +436,12 @@ function showUserForm(itemQty) {
             price: productPrice,
             productColor: productColor,
             productSize: productSize,
-            quantity: requestedQty,
+            quantity: productqty,
             title: productTitle,
           },
         ],
         payment: "N/A",
+        matagerCut: Cut * productqty,
         personal_info: {
           address: formData.address,
           name: formData.name,
@@ -538,11 +542,6 @@ function createSelect(
 ) {
   const select = document.createElement("select");
   select.id = id;
-  select.style.padding = "10px";
-  select.style.border = "1px solid #ccc";
-  select.style.borderRadius = "5px";
-  select.style.width = "100%";
-  select.style.margin = "5px 0";
 
   // Add placeholder option
   const placeholderOption = document.createElement("option");
