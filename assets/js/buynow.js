@@ -458,10 +458,10 @@ function showUserForm(itemQty) {
             productSize: productSize,
             quantity: productqty,
             title: productTitle,
+            cut: Cut * productqty,
           },
         ],
         payment: "N/A",
-        matagerCut: Cut * productqty,
         personal_info: {
           address: formData.address,
           name: formData.name,

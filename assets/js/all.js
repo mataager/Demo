@@ -174,9 +174,9 @@ function removeaddressarea() {
   const addressarea = document.getElementById("address-sec");
   addressarea.remove();
 }
-function removeshippingfeeArea() {
-  const shippingfeeArea = document.getElementById("shipping-fees-total-area");
-  shippingfeeArea.remove();
+function hideshippingarea() {
+  const shippingarea = document.getElementById("shipping-fees-total-area");
+  shippingarea.classList.add("hidden");
 }
 function prepareguestbtn() {
   const removedbtn = document.getElementById("checkoutByAccount");

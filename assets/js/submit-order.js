@@ -169,7 +169,6 @@ async function submitOrder() {
         cart: updatedCart,
         personal_info: personalInfo,
         shippingFees,
-        matagerCut,
         payment,
       };
 
@@ -433,6 +432,12 @@ async function guestSubmitorder() {
             return;
           }
 
+          const shippingFeeElement = document.getElementById(
+            "shipping-fees-guest"
+          );
+          const shippingFee = shippingFeeElement
+            ? parseInt(shippingFeeElement.dataset.fee) || 0
+            : 0;
           // Get shipping fees (you might want to calculate this differently for guests)
 
           const payment = localStorage.getItem("Payment") || "N/A";
@@ -452,7 +457,7 @@ async function guestSubmitorder() {
               city: city,
               notes: notes || "N/A",
             },
-            shippingFees: parseInt(maxshipping, 10),
+            shippingFees: shippingFee,
             isGuest: true,
           };
 
@@ -676,7 +681,7 @@ function renderShippingFeesDisplay() {
         <span class="BuyItNowForm-shipping-message">You've got free shipping!</span> 
         (Order amount exceeds ${freeshipping} EGP)
       </p>
-      <p id="shipping-fees" data-fee="0" style="display: none;">free</p>
+      <p id="shipping-fees-guest" data-fee="0" style="display: none;">free</p>
     `;
   } else {
     // Default message before city is selected
@@ -684,7 +689,7 @@ function renderShippingFeesDisplay() {
       <p id="shippingText" class="BuyItNowForm-shipping-message">
         Please select your government to calculate shipping fees
       </p>
-      <p id="shipping-fees" data-fee="0" style="display: none;"></p>
+      <p id="shipping-fees-guest" data-fee="0" style="display: none;"></p>
     `;
   }
 
@@ -696,28 +701,70 @@ function renderShippingFeesDisplay() {
 
   // Add event listener if city select exists
   if (citySelect) {
-    citySelect.addEventListener("change", updateShippingFees);
+    citySelect.addEventListener("change", updateShippingFeesguestcheckout);
   }
 
   // Function to update shipping fees based on selected city
-  function updateShippingFees() {
-    const selectedCity = citySelect.value;
+  // function updateShippingFeesguestcheckout() {
+  //   const selectedCity = citySelect.value;
+  //   const shippingText = document.getElementById("shippingText");
+  //   const shippingFeeValue = document.getElementById("shipping-fees");
+
+  //   if (!selectedCity || qualifiesForFreeShipping) return;
+
+  //   let shippingFee = maincities.includes(selectedCity)
+  //     ? minshipping
+  //     : maxshipping;
+
+  //   shippingText.textContent = `Shipping fees: ${shippingFee} EGP`;
+  //   shippingFeeValue.dataset.fee = shippingFee;
+  //   shippingFeeValue.textContent = `${shippingFee} EGP`;
+  // }
+  function updateShippingFeesguestcheckout() {
+    const selectedCity = document.getElementById("Gityandgovernment").value;
     const shippingText = document.getElementById("shippingText");
-    const shippingFeeValue = document.getElementById("shipping-fees");
+    const shippingFeeValue = document.getElementById("shipping-fees-guest");
+    const cartTotal =
+      parseFloat(
+        document.getElementById("cart-total").textContent.replace(" EGP", "")
+      ) || 0;
 
-    if (!selectedCity || qualifiesForFreeShipping) return;
+    // Check for free shipping qualification
+    const qualifiesForFreeShipping = cartTotal >= parseFloat(freeshipping);
 
-    let shippingFee = maincities.includes(selectedCity)
+    if (qualifiesForFreeShipping) {
+      // Free shipping case
+      shippingText.innerHTML = `
+            <span class="BuyItNowForm-shipping-message">
+                You've got free shipping!
+            </span> (Order amount exceeds ${freeshipping} EGP)
+        `;
+      shippingFeeValue.dataset.fee = "0";
+      shippingFeeValue.textContent = "free";
+      return;
+    }
+
+    if (!selectedCity) {
+      // No city selected case
+      shippingText.textContent =
+        "Please select your government to calculate shipping fees";
+      shippingFeeValue.dataset.fee = "0";
+      shippingFeeValue.textContent = "";
+      return;
+    }
+
+    // Regular shipping case
+    const shippingFee = maincities.includes(selectedCity)
       ? minshipping
       : maxshipping;
 
     shippingText.textContent = `Shipping fees: ${shippingFee} EGP`;
-    shippingFeeValue.dataset.fee = shippingFee;
+    shippingFeeValue.dataset.fee = shippingFee.toString();
     shippingFeeValue.textContent = `${shippingFee} EGP`;
   }
 
   // Initial update if city is already selected
   if (citySelect && citySelect.value && !qualifiesForFreeShipping) {
-    updateShippingFees();
+    updateShippingFeesguestcheckout();
   }
 }

@@ -35,7 +35,7 @@ function checkUserAuthentication() {
       document.getElementById("continueGuest").addEventListener("click", () => {
         sessionStorage.setItem("isGuest", "true");
         removeaddressarea();
-        removeshippingfeeArea();
+        hideshippingarea();
         prepareguestbtn();
         closeModal();
       });
