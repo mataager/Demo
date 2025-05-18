@@ -4,7 +4,6 @@ async function handleBuyNowClick() {
   showUserForm(itemQty);
 }
 
-//v1
 // Function to show the user form
 function showUserForm(itemQty) {
   console.log(itemQty);
@@ -102,10 +101,73 @@ function showUserForm(itemQty) {
   // Get the max quantity from the button's attribute
   const maxQty = parseInt(plusBtn.getAttribute("maxqty")) || 99; // Default to 99 if not set
 
+  // minusBtn.addEventListener("click", () => {
+  //   const currentValue = parseInt(quantityInput.value);
+  //   if (currentValue > 1) {
+  //     quantityInput.value = currentValue - 1;
+  //   }
+  // });
+
+  // plusBtn.addEventListener("click", () => {
+  //   const currentValue = parseInt(quantityInput.value);
+  //   if (currentValue < maxQty) {
+  //     quantityInput.value = currentValue + 1;
+  //   } else {
+  //     // Optional: Show a message when hitting max quantity
+  //     Swal.fire({
+  //       icon: "info",
+  //       title: "Maximum Quantity Reached",
+  //       text: `You can order maximum ${maxQty} items`,
+  //       showConfirmButton: false,
+  //       timer: 2000,
+  //     });
+  //   }
+  // });
+
+  // quantityInput.addEventListener("change", () => {
+  //   let value = parseInt(quantityInput.value) || 1; // Default to 1 if invalid
+
+  //   // Ensure value stays between 1 and maxQty
+  //   if (value < 1) {
+  //     value = 1;
+  //   } else if (value > maxQty) {
+  //     value = maxQty;
+  //     Swal.fire({
+  //       icon: "info",
+  //       title: "Quantity Adjusted",
+  //       text: `Maximum available quantity is ${maxQty}`,
+  //       toast: true,
+  //       position: "top-end",
+  //       showConfirmButton: false,
+  //       timer: 2000,
+  //     });
+  //   }
+
+  //   quantityInput.value = value;
+  // });
+  function updateTotalPriceAndShipping() {
+    const quantity = parseInt(quantityInput.value) || 1;
+    const productPriceText =
+      document.getElementById("productPrice").textContent;
+    // Extract just the numeric value (removes "Price: " and " EGP")
+    const productPrice = parseFloat(productPriceText.replace(/[^\d.]/g, ""));
+    const totalPrice = productPrice * quantity;
+
+    // Update the total price display (keep the same format as original)
+    document.querySelector(
+      ".buynow-pricetext"
+    ).textContent = `Price: ${totalPrice} EGP`;
+
+    // Check if we qualify for free shipping now
+    updateShippingFees();
+  }
+
+  // Your existing event listeners with the new function calls
   minusBtn.addEventListener("click", () => {
     const currentValue = parseInt(quantityInput.value);
     if (currentValue > 1) {
       quantityInput.value = currentValue - 1;
+      updateTotalPriceAndShipping();
     }
   });
 
@@ -113,8 +175,8 @@ function showUserForm(itemQty) {
     const currentValue = parseInt(quantityInput.value);
     if (currentValue < maxQty) {
       quantityInput.value = currentValue + 1;
+      updateTotalPriceAndShipping();
     } else {
-      // Optional: Show a message when hitting max quantity
       Swal.fire({
         icon: "info",
         title: "Maximum Quantity Reached",
@@ -125,11 +187,9 @@ function showUserForm(itemQty) {
     }
   });
 
-  // Also validate direct input
   quantityInput.addEventListener("change", () => {
-    let value = parseInt(quantityInput.value) || 1; // Default to 1 if invalid
+    let value = parseInt(quantityInput.value) || 1;
 
-    // Ensure value stays between 1 and maxQty
     if (value < 1) {
       value = 1;
     } else if (value > maxQty) {
@@ -146,8 +206,8 @@ function showUserForm(itemQty) {
     }
 
     quantityInput.value = value;
+    updateTotalPriceAndShipping();
   });
-
   quantityContainer.appendChild(quantityLabel);
   quantityContainer.appendChild(minusBtn);
   quantityContainer.appendChild(quantityInput);
@@ -185,11 +245,7 @@ function showUserForm(itemQty) {
     "Add any additional notes or special instructions (optional)"
   );
   orderNotesTextArea.classList.add("hidden");
-  orderNotesTextArea.style.height = "0";
-  orderNotesTextArea.style.opacity = "0";
-  orderNotesTextArea.style.overflow = "hidden";
-  orderNotesTextArea.style.transition = "all 0.3s ease";
-  orderNotesTextArea.style.marginBottom = "0";
+  orderNotesTextArea.classList.add("orderNotesTextArea");
 
   const Addnotesbtn = document.createElement("div");
   Addnotesbtn.classList.add("Addnotesbtn");
@@ -199,35 +255,33 @@ function showUserForm(itemQty) {
   Addnotesbtn.addEventListener("click", function () {
     // Toggle the notes textarea visibility with smooth animation
     if (orderNotesTextArea.classList.contains("hidden")) {
-      // Show the notes field
+      // Show notes
       orderNotesTextArea.classList.remove("hidden");
-      orderNotesTextArea.style.height = "0";
-      orderNotesTextArea.style.opacity = "0";
-      orderNotesTextArea.style.overflow = "hidden";
-      orderNotesTextArea.style.transition = "all 0.3s ease";
 
       // Force reflow to enable transition
       void orderNotesTextArea.offsetHeight;
 
-      // Animate to full height
-      orderNotesTextArea.style.height = "100px";
-      orderNotesTextArea.style.opacity = "1";
-      orderNotesTextArea.style.marginBottom = "15px";
+      // Add show class to trigger transition
+      orderNotesTextArea.classList.add("show");
 
-      // Change button text/icon
+      // Update button
       this.innerHTML = 'Hide Notes <i class="bi bi-journal-minus"></i>';
-    } else {
-      // Hide the notes field
-      // orderNotesTextArea.style.height = "0";
-      orderNotesTextArea.style.opacity = "0";
-      orderNotesTextArea.style.marginBottom = "0";
 
-      // After animation completes, add hidden class
+      // Focus textarea
+      setTimeout(() => {
+        const textarea = orderNotesTextArea.querySelector("textarea");
+        if (textarea) textarea.focus();
+      }, 100);
+    } else {
+      // Start hiding process
+      orderNotesTextArea.classList.remove("show");
+
+      // After transition completes
       setTimeout(() => {
         orderNotesTextArea.classList.add("hidden");
       }, 300);
 
-      // Change button text/icon
+      // Update button immediately
       this.innerHTML = 'Add Notes <i class="bi bi-journal-plus"></i>';
     }
   });
@@ -259,40 +313,6 @@ function showUserForm(itemQty) {
 
   // Insert shipping fees display before the submit button
   // Function to update shipping fees display
-  function updateShippingFees() {
-    const selectedCity = Gityandgovernment.value;
-    const productPriceText = document.getElementById("productPrice").innerText;
-    const productPrice = parseFloat(productPriceText.replace(/[^0-9.]/g, ""));
-
-    if (!selectedCity) {
-      shippingText.innerText =
-        "Please select your government to calculate shipping fees";
-      shippingFeeValue.dataset.fee = "0";
-      shippingFeeValue.innerText = "";
-      return;
-    }
-
-    let shippingFee = maincities.includes(selectedCity)
-      ? minshipping
-      : maxshipping;
-
-    if (productPrice >= parseFloat(freeshipping)) {
-      shippingText.innerHTML = `<span class="BuyItNowForm-shipping-message">You've got free shipping!</span> (Order amount exceeds ${freeshipping} EGP)`;
-      shippingFee = 0;
-    } else {
-      shippingText.innerText = `Shipping fees: ${shippingFee} EGP`;
-    }
-
-    // Update both the hidden element and maxshipping variable
-    shippingFeeValue.dataset.fee = shippingFee;
-    shippingFeeValue.innerText =
-      shippingFee === 0 ? "free" : `${shippingFee} EGP`;
-    // maxshipping = shippingFee;
-  }
-  // Add event listener to the city select
-  Gityandgovernment.addEventListener("change", updateShippingFees);
-  // Also update when the form loads in case there's a default selected city
-  updateShippingFees();
 
   // Add a submit button
   const submitButton = document.createElement("button");
@@ -521,7 +541,329 @@ function showUserForm(itemQty) {
 
   // Append the form to the body
   document.body.appendChild(form);
+
+  async function updateShippingFees() {
+    const selectedCity = Gityandgovernment.value;
+    // const productPriceText = document.getElementById("productPrice").innerText;
+    const productPriceText =
+      document.querySelector(".buynow-pricetext").textContent;
+    const productPrice = parseFloat(productPriceText.replace(/[^0-9.]/g, ""));
+
+    if (!selectedCity) {
+      shippingText.innerText =
+        "Please select your government to calculate shipping fees";
+      shippingFeeValue.dataset.fee = "0";
+      shippingFeeValue.innerText = "";
+      return;
+    }
+
+    let shippingFee = maincities.includes(selectedCity)
+      ? minshipping
+      : maxshipping;
+
+    if (productPrice >= parseFloat(freeshipping)) {
+      shippingText.innerHTML = `<span class="BuyItNowForm-shipping-message">You've got free shipping!</span> (Order amount exceeds ${freeshipping} EGP)`;
+      shippingFee = 0;
+    } else {
+      shippingText.innerText = `Shipping fees: ${shippingFee} EGP`;
+    }
+
+    // Update both the hidden element and maxshipping variable
+    shippingFeeValue.dataset.fee = shippingFee;
+    shippingFeeValue.innerText =
+      shippingFee === 0 ? "free" : `${shippingFee} EGP`;
+    // maxshipping = shippingFee;
+  }
+  // Add event listener to the city select
+  Gityandgovernment.addEventListener("change", updateShippingFees);
+  // Also update when the form loads in case there's a default selected city
+  updateShippingFees();
 }
+
+// Helper functions
+function createCloseButton(form) {
+  const closeButton = document.createElement("div");
+  closeButton.innerHTML = '<i class="bi bi-x"></i>';
+  closeButton.className = "buyitnowcloseButton";
+
+  closeButton.onmouseover = () => (closeButton.style.color = "red");
+  closeButton.onmouseout = () => (closeButton.style.color = "black");
+  closeButton.onclick = () => form.remove();
+
+  form.appendChild(closeButton);
+}
+
+function createInfoButton(form) {
+  const infoButton = document.createElement("div");
+  infoButton.innerHTML = '<i class="bi bi-info-circle"></i>';
+  infoButton.className = "buynowinfobtn";
+  form.appendChild(infoButton);
+}
+
+function createProductSummary(
+  productImage,
+  productSize,
+  productColor,
+  productPrice,
+  maxQty
+) {
+  const productSummary = document.createElement("div");
+  productSummary.classList.add("buynow-summary-container");
+
+  // Product image
+  const productImageElement = document.createElement("img");
+  productImageElement.src = productImage;
+  productImageElement.classList.add("buynow-productimage");
+
+  // Details container
+  const detailsContainer = document.createElement("div");
+  detailsContainer.classList.add("buynow-details-container");
+
+  // Size
+  const sizeBadge = document.createElement("p");
+  sizeBadge.innerText = `Size: ${productSize}`;
+  sizeBadge.classList.add("buynow-sizetext");
+  detailsContainer.appendChild(sizeBadge);
+
+  // Color
+  const colorText = document.createElement("p");
+  colorText.innerText = `Color: ${productColor}`;
+  colorText.classList.add("buynow-colortext");
+  detailsContainer.appendChild(colorText);
+
+  // Price
+  const priceText = document.createElement("h3");
+  priceText.innerText = `Price: ${productPrice}`;
+  priceText.classList.add("buynow-pricetext");
+  detailsContainer.appendChild(priceText);
+
+  // Quantity selector
+  const quantityContainer = createQuantitySelector(maxQty);
+  detailsContainer.appendChild(quantityContainer);
+
+  // Append elements
+  productSummary.append(productImageElement, detailsContainer);
+  return productSummary;
+}
+
+function createQuantitySelector(maxQty) {
+  const quantityContainer = document.createElement("div");
+  quantityContainer.classList.add("buynow-quantity-container");
+
+  const quantityLabel = document.createElement("span");
+  quantityLabel.innerText = "Qty:";
+  quantityLabel.classList.add("buynow-quantity-label");
+
+  const minusBtn = document.createElement("button");
+  minusBtn.innerHTML = '<i class="bi bi-dash"></i>';
+  minusBtn.classList.add("buynow-quantity-btn");
+  minusBtn.type = "button";
+
+  const quantityInput = document.createElement("input");
+  quantityInput.value = "1";
+  quantityInput.min = "1";
+  quantityInput.classList.add("buynow-quantity-input");
+  quantityInput.id = "buynow-qty";
+
+  const plusBtn = document.createElement("button");
+  plusBtn.innerHTML = '<i class="bi bi-plus"></i>';
+  plusBtn.classList.add("buynow-quantity-btn");
+  plusBtn.setAttribute("maxqty", maxQty);
+  plusBtn.type = "button";
+
+  // Event handlers
+  minusBtn.addEventListener("click", () =>
+    adjustQuantity(-1, quantityInput, maxQty)
+  );
+  plusBtn.addEventListener("click", () =>
+    adjustQuantity(1, quantityInput, maxQty)
+  );
+  quantityInput.addEventListener("change", () =>
+    validateQuantity(quantityInput, maxQty)
+  );
+
+  quantityContainer.append(quantityLabel, minusBtn, quantityInput, plusBtn);
+  return quantityContainer;
+}
+
+function adjustQuantity(change, quantityInput, maxQty) {
+  const currentValue = parseInt(quantityInput.value) || 1;
+  const newValue = currentValue + change;
+
+  if (newValue < 1) return;
+  if (newValue > maxQty) {
+    showMaxQuantityAlert(maxQty);
+    return;
+  }
+
+  quantityInput.value = newValue;
+  updateTotalPriceAndShipping(quantityInput);
+}
+
+function validateQuantity(quantityInput, maxQty) {
+  let value = parseInt(quantityInput.value) || 1;
+
+  if (value < 1) value = 1;
+  if (value > maxQty) {
+    value = maxQty;
+    showQuantityAdjustedAlert(maxQty);
+  }
+
+  quantityInput.value = value;
+  updateTotalPriceAndShipping(quantityInput);
+}
+
+function updateTotalPriceAndShipping(quantityInput) {
+  const quantity = parseInt(quantityInput.value) || 1;
+  const priceText = document.querySelector(".buynow-pricetext").textContent;
+  const price = parseFloat(priceText.replace(/[^\d.]/g, ""));
+  const totalPrice = price * quantity;
+
+  document.querySelector(
+    ".buynow-pricetext"
+  ).textContent = `Price: ${totalPrice} EGP`;
+  updateShippingFees();
+}
+
+function showMaxQuantityAlert(maxQty) {
+  Swal.fire({
+    icon: "info",
+    title: "Maximum Quantity Reached",
+    text: `You can order maximum ${maxQty} items`,
+    showConfirmButton: false,
+    timer: 2000,
+  });
+}
+
+function showQuantityAdjustedAlert(maxQty) {
+  Swal.fire({
+    icon: "info",
+    title: "Quantity Adjusted",
+    text: `Maximum available quantity is ${maxQty}`,
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+  });
+}
+
+function createOrderNotesSection() {
+  const orderNotesTextArea = createTextArea(
+    "orderNotes",
+    "Add any additional notes or special instructions (optional)"
+  );
+  orderNotesTextArea.classList.add("hidden");
+  orderNotesTextArea.style.cssText = `
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+  `;
+
+  const Addnotesbtn = document.createElement("div");
+  Addnotesbtn.classList.add("Addnotesbtn");
+  Addnotesbtn.id = "Addnotesbtn";
+  Addnotesbtn.innerHTML = 'Add Notes <i class="bi bi-journal-plus"></i>';
+
+  Addnotesbtn.addEventListener("click", function () {
+    if (orderNotesTextArea.classList.contains("hidden")) {
+      orderNotesTextArea.classList.remove("hidden");
+      orderNotesTextArea.style.height = "100px";
+      orderNotesTextArea.style.opacity = "1";
+      orderNotesTextArea.style.marginBottom = "15px";
+      this.innerHTML = 'Hide Notes <i class="bi bi-journal-minus"></i>';
+    } else {
+      orderNotesTextArea.style.height = "0";
+      orderNotesTextArea.style.opacity = "0";
+      orderNotesTextArea.style.marginBottom = "0";
+      setTimeout(() => orderNotesTextArea.classList.add("hidden"), 300);
+      this.innerHTML = 'Add Notes <i class="bi bi-journal-plus"></i>';
+    }
+  });
+
+  return { orderNotesTextArea, Addnotesbtn };
+}
+
+async function handleFormSubmission(form, elements) {
+  const {
+    nameInput,
+    phoneInput,
+    secondPhoneInput,
+    addressTextArea,
+    Gityandgovernment,
+    orderNotesTextArea,
+    submitButton,
+  } = elements;
+
+  // Validate required fields
+  if (
+    !nameInput.value ||
+    !phoneInput.value ||
+    !addressTextArea.value ||
+    !Gityandgovernment.value
+  ) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please fill out all required fields: Name, Phone, and Address.",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+    return;
+  }
+
+  // Show loading state
+  submitButton.innerHTML = `<div class="preloader" id="preloader"><div class="loader"></div></div>`;
+  submitButton.disabled = true;
+
+  try {
+    // Process order
+    await processOrder(form, elements);
+
+    // Show success and remove form
+    showOrderSuccess();
+    form.remove();
+  } catch (error) {
+    handleOrderError(error);
+  } finally {
+    // Reset button state
+    submitButton.innerHTML = "Place order";
+    submitButton.disabled = false;
+
+    // Sign out guest user
+    try {
+      await firebase.auth().signOut();
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  }
+}
+
+async function processOrder(form, elements) {
+  // Get all necessary data
+  const formData = collectFormData(elements);
+  const productDetails = collectProductDetails();
+  const shippingFeeValue =
+    document.getElementById("shippingFeeValue").dataset.fee;
+
+  // Sign in guest user
+  const userCredential = await firebase
+    .auth()
+    .signInWithEmailAndPassword(GuestEmail, GuestEmail);
+  const idToken = await userCredential.user.getIdToken();
+
+  // Check product availability
+  await checkProductAvailability(productDetails, idToken);
+
+  // Create order object
+  const order = createOrderObject(formData, productDetails, shippingFeeValue);
+
+  // Submit order
+  await submitOrder(order, idToken);
+}
+
+// Additional helper functions would be defined here...
 
 // Function to create an input field
 function createInput(type, id, placeholder) {
@@ -561,26 +903,6 @@ function createSelect(
 
   return select;
 }
-// Define the city options
-const cityOptions = [
-  "Cairo",
-  "Giza",
-  "Alexandria",
-  "Port Said",
-  "Suez",
-  "Damietta",
-  "Fayoum",
-  "Dakahlia",
-  "Sharqia",
-  "Qalyubia",
-  "Kafr El Sheikh",
-  "Gharbia",
-  "Monufia",
-  "Beheira",
-  "Ismailia",
-  "Other",
-];
-
 // Function to create a textarea field
 function createTextArea(id, placeholder) {
   const textarea = document.createElement("textarea");

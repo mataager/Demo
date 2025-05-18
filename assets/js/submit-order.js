@@ -1,43 +1,3 @@
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDss53pHibCpqo87_1bhoUHkf8Idnj-Fig",
-//   authDomain: "matager-f1f00.firebaseapp.com",
-//   projectId: "matager-f1f00",
-//   storageBucket: "matager-f1f00.appspot.com",
-//   messagingSenderId: "922824110897",
-//   appId: "1:922824110897:web:b7978665d22e2d652e7610",
-// };
-
-// // Initialize Firebase
-// firebase.initializeApp(firebaseConfig);
-// const auth = firebase.auth();
-//
-// async function googleSignIn() {
-//   const provider = new firebase.auth.GoogleAuthProvider();
-//   try {
-//     const result = await firebase.auth().signInWithPopup(provider);
-//     Swal.fire({
-//       icon: "success",
-//       title: "Signed in successfully!",
-//       showConfirmButton: false,
-//       timer: 1500, // Close the alert after 1.5 seconds
-//     });
-//     return result.user;
-//   } catch (error) {
-//     console.error("Error signing in:", error);
-//     Swal.fire({
-//       icon: "error",
-//       title: "Sign In Failed",
-//       text: "There was a problem signing you in. Please try again!",
-//       showConfirmButton: false,
-//       timer: 1500, // Close the alert after 1.5 seconds
-//     });
-//     return null;
-//   }
-// }
-//
-
-//main
-
 async function submitOrder() {
   try {
     // Ensure the user is signed in and fetch their token
@@ -50,7 +10,7 @@ async function submitOrder() {
       modalContent.innerHTML = `
       <div class="guestmodalarea">
         <h2>Sign in for better experience</h2>
-        <p>You can sign in to save your details,track your order,add items to favourite etc.</p>
+        <p class="mt-30">You can sign in to save your details,track your order,add items to favourite etc.</p>
         <div class="modal-buttons">
           <button id="goToAccount" class="modal-btn Gotoaccountbtn">Go to Account</button>
         </div>
@@ -323,10 +283,13 @@ async function guestSubmitorder() {
           <div class="form-group">
             <textarea id="guest-address" class="form-textarea" placeholder="Full Address" required></textarea>
           </div>
-          <div class="form-group">
+          <div class="form-group flex center">
+           <div class="Addnotesbtn" id="Addnotesbtn" onclick="handleNotesToggle()">Add Notes <i class="bi bi-journal-plus"></i></div>
+           </div>
+           <div class="form-group hidden" id="orderNotes">
             <textarea id="guest-notes" class="form-textarea mt-10" placeholder="Order Notes (optional)"></textarea>
           </div>
-          <div class="shippingFeesDisplay"><p id="shippingText" class="BuyItNowForm-shipping-message">Please select your government to calculate shipping fees</p><p id="shippingFeeValue" data-fee="0" style="display: none;"></p></div>
+          <div id="shippingFeesDisplaychecout"></div>
           <div class="modal-buttons">
             <button type="submit" id="submitGuestOrder" class="modal-btn suborderasguest">
               <span id="submitButtonText">Place Order</span>
@@ -338,7 +301,7 @@ async function guestSubmitorder() {
         </form>
       </div>
     `;
-
+    renderShippingFeesDisplay();
     // Show the modal
     body.classList.add("modal-open");
     modal.classList.add("show");
@@ -649,5 +612,112 @@ async function addOrderToCustomerHistory(Customeruid, idToken, order) {
   } catch (error) {
     console.error("Error updating order history:", error);
     throw error; // Rethrow the error to handle it in the calling function
+  }
+}
+function handleNotesToggle() {
+  const Addnotesbtn = document.getElementById("Addnotesbtn");
+  const orderNotesTextArea = document.getElementById("orderNotes");
+  if (orderNotesTextArea.classList.contains("hidden")) {
+    // Show notes
+    orderNotesTextArea.classList.remove("hidden");
+
+    // Force reflow to enable transition
+    void orderNotesTextArea.offsetHeight;
+
+    // Add show class to trigger transition
+    orderNotesTextArea.classList.add("show");
+
+    // Update button
+    Addnotesbtn.innerHTML = 'Hide Notes <i class="bi bi-journal-minus"></i>';
+
+    // Focus textarea
+    setTimeout(() => {
+      const textarea = orderNotesTextArea.querySelector("textarea");
+      if (textarea) textarea.focus();
+    }, 100);
+  } else {
+    // Start hiding process
+    orderNotesTextArea.classList.remove("show");
+
+    // After transition completes
+    setTimeout(() => {
+      orderNotesTextArea.classList.add("hidden");
+    }, 300);
+
+    // Update button immediately
+    Addnotesbtn.innerHTML = 'Add Notes <i class="bi bi-journal-plus"></i>';
+  }
+}
+function renderShippingFeesDisplay() {
+  const container = document.getElementById("shippingFeesDisplaychecout");
+  const cartTotalElement = document.getElementById("cart-total");
+  const citySelect = document.getElementById("Gityandgovernment");
+
+  if (!container) {
+    console.error("Shipping fees container not found");
+    return;
+  }
+
+  // Get cart total value (remove " EGP" and convert to number)
+  let cartTotal = 0;
+  if (cartTotalElement) {
+    cartTotal =
+      parseFloat(cartTotalElement.textContent.replace(" EGP", "")) || 0;
+  }
+
+  // Check if cart qualifies for free shipping
+  const qualifiesForFreeShipping = cartTotal >= parseFloat(freeshipping);
+
+  // Create shipping display HTML
+  let shippingHtml = "";
+  if (qualifiesForFreeShipping) {
+    shippingHtml = `
+      <p id="shippingText" class="BuyItNowForm-shipping-message">
+        <span class="BuyItNowForm-shipping-message">You've got free shipping!</span> 
+        (Order amount exceeds ${freeshipping} EGP)
+      </p>
+      <p id="shipping-fees" data-fee="0" style="display: none;">free</p>
+    `;
+  } else {
+    // Default message before city is selected
+    shippingHtml = `
+      <p id="shippingText" class="BuyItNowForm-shipping-message">
+        Please select your government to calculate shipping fees
+      </p>
+      <p id="shipping-fees" data-fee="0" style="display: none;"></p>
+    `;
+  }
+
+  container.innerHTML = `
+    <div class="shippingFeesDisplay">
+      ${shippingHtml}
+    </div>
+  `;
+
+  // Add event listener if city select exists
+  if (citySelect) {
+    citySelect.addEventListener("change", updateShippingFees);
+  }
+
+  // Function to update shipping fees based on selected city
+  function updateShippingFees() {
+    const selectedCity = citySelect.value;
+    const shippingText = document.getElementById("shippingText");
+    const shippingFeeValue = document.getElementById("shipping-fees");
+
+    if (!selectedCity || qualifiesForFreeShipping) return;
+
+    let shippingFee = maincities.includes(selectedCity)
+      ? minshipping
+      : maxshipping;
+
+    shippingText.textContent = `Shipping fees: ${shippingFee} EGP`;
+    shippingFeeValue.dataset.fee = shippingFee;
+    shippingFeeValue.textContent = `${shippingFee} EGP`;
+  }
+
+  // Initial update if city is already selected
+  if (citySelect && citySelect.value && !qualifiesForFreeShipping) {
+    updateShippingFees();
   }
 }

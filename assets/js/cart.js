@@ -372,9 +372,9 @@ async function applyPromoCode() {
       const cartTotal = parseFloat(
         cartTotalElement.textContent.replace("EGP", "").trim()
       );
-      const shippingFees = parseFloat(
-        shippingFeesElement.textContent.replace("EGP", "").trim()
-      );
+      // const shippingFees = parseFloat(
+      //   shippingFeesElement.textContent.replace("EGP", "").trim()
+      // );
 
       let discountAmount;
       if (matchedPromo.promoAmount.includes("%")) {
@@ -386,15 +386,13 @@ async function applyPromoCode() {
         discountAmount = parseFloat(matchedPromo.promoAmount);
       }
 
-      const newTotal = cartTotal + shippingFees - discountAmount;
+      const newTotal = cartTotal - discountAmount;
 
       // Update UI
-      totalPriceElement.textContent = `${newTotal.toFixed(2)} EGP`;
+      totalPriceElement.textContent = `${newTotal} EGP`;
 
       // Show discount message
-      promoMessage.innerHTML = `Discount applied: -${discountAmount.toFixed(
-        2
-      )} EGP`;
+      promoMessage.innerHTML = `Discount applied: -${discountAmount} EGP`;
       promoMessage.style.color = "green";
 
       // Store discount info for potential later use
@@ -460,7 +458,7 @@ function resetPromoCode() {
   const originalTotal = cartTotal + shippingFees;
 
   // Update total display
-  totalPriceElement.textContent = `${originalTotal.toFixed(2)} EGP`;
+  totalPriceElement.textContent = `${originalTotal} EGP`;
 
   // Reset button state if needed
   applyButton.innerHTML = "Apply";

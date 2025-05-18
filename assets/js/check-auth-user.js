@@ -9,13 +9,13 @@ function checkUserAuthentication() {
       modalContent.innerHTML = `
       <div class="guestmodalarea">
       <div class="width-available flex center mb-20"><img class="animate-on-scroll-auto show fle" width="50px" src="./assets/images/matager-bag.svg"></div>
-        <h2>Sign in for better experience</h2>
-        <p>You can sign in to save your details,track your order,add items to favourite etc.</p>
+        <h2 class="lh-1-3">Sign in for better experience</h2>
+        <p class="mt-30">You can sign in to save your details,track your order,add items to favourite etc.</p>
         <div class="modal-buttons">
           <button id="goToAccount" class="modal-btn Gotoaccountbtn">Go to Account</button>
         </div>
         <h2 class="mt-40">OR</h2>
-        <p>Continue as guest for quick and easy checkout</p>
+        <p class="mt-30">Continue as guest for quick and easy checkout</p>
         <div class="modal-buttons">
           <button id="continueGuest" class="modal-btn continueasguest">Continue as Guest</button>
         </div>
@@ -35,6 +35,7 @@ function checkUserAuthentication() {
       document.getElementById("continueGuest").addEventListener("click", () => {
         sessionStorage.setItem("isGuest", "true");
         removeaddressarea();
+        removeshippingfeeArea();
         prepareguestbtn();
         closeModal();
       });

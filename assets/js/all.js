@@ -149,10 +149,34 @@ function calculateSalePrice(originalPrice, saleAmount) {
   // Large prices (≥10,000): round UP to nearest 1000
   return Math.ceil(discountedPrice / 1000) * 1000;
 }
+
+//cities
+const cityOptions = [
+  "Cairo",
+  "Giza",
+  "Alexandria",
+  "Port Said",
+  "Suez",
+  "Damietta",
+  "Fayoum",
+  "Dakahlia",
+  "Sharqia",
+  "Qalyubia",
+  "Kafr El Sheikh",
+  "Gharbia",
+  "Monufia",
+  "Beheira",
+  "Ismailia",
+  "Other",
+];
 //using them in cart checkout page
 function removeaddressarea() {
   const addressarea = document.getElementById("address-sec");
   addressarea.remove();
+}
+function removeshippingfeeArea() {
+  const shippingfeeArea = document.getElementById("shipping-fees-total-area");
+  shippingfeeArea.remove();
 }
 function prepareguestbtn() {
   const removedbtn = document.getElementById("checkoutByAccount");
