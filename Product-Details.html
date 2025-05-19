@@ -638,7 +638,6 @@
             // Set background for the selected size
             option.style.backgroundColor = "#333"; // Change to your desired color
             sizeElement.innerText = option.querySelector(".size-value").innerText;
-
             // Automatically select the first color for the chosen size
             const firstColorOption = colorOptions[0];
             if (firstColorOption) {
@@ -738,7 +737,6 @@
     function SizeRef(element) {
         const selectedSize = element.querySelector('.size-value').textContent;
         document.getElementById('product-Size').textContent = selectedSize;
-
         // Update any size hints if necessary
         const sizeHintText = document.getElementById('size-hint-text');
         if (sizeHintText) {
@@ -1113,12 +1111,12 @@
 
     fetchProducts(key);
 
-    function SizeRef() {
-        const colorOptions = document.getElementById('product-color');
-        if (colorOptions) {
-            colorOptions.innerHTML = '';
-        }
-    }
+    // function SizeRef() {
+    //     const colorOptions = document.getElementById('product-color');
+    //     if (colorOptions) {
+    //         colorOptions.innerHTML = '';
+    //     }
+    // }
 
     function updateProductImages(colorName) {
         showImagePreloader(); // Show loader at start

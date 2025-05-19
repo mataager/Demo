@@ -3,6 +3,126 @@
  * @param {string} uid - The Firebase user/store ID.
  */
 
+// async function checkSiteStatus(uid) {
+//   if (!uid) {
+//     blockPageAccess({
+//       title: "Access Denied",
+//       message: "Invalid store access. Contact the owner for assistance.",
+//       reason: "No UID provided",
+//       contactNumber: null,
+//     });
+//     return false; // Return false when access is blocked
+//   }
+
+//   try {
+//     const response = await fetch(
+//       `https://matager-f1f00-default-rtdb.firebaseio.com/Stores/${uid}/store-info.json`
+//     );
+
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch store info.");
+//     }
+
+//     const data = await response.json();
+
+//     if (!data) {
+//       blockPageAccess({
+//         title: "Store Not Found",
+//         message: "This store doesn't exist. Contact the owner for assistance.",
+//         reason: "Store data not found in database",
+//         contactNumber: null,
+//       });
+//       return false;
+//     }
+
+//     const status = data.status?.toLowerCase();
+//     const endingDateStr = data["ending-date"];
+//     const contactNumber = data["phone-number"] || null;
+//     // Check status first
+//     if (status === "pending") {
+//       blockPageAccess({
+//         title: "Store Pending Approval",
+//         message:
+//           "This store is pending approval. Contact the owner for more information.",
+//         reason: `Status: ${status}`,
+//         endingDate: endingDateStr,
+//         contactNumber: contactNumber,
+//       });
+//       return false;
+//     }
+
+//     if (status === "stopped") {
+//       blockPageAccess({
+//         title: "Store Suspended",
+//         message:
+//           "This store has been suspended. Contact the owner to resolve the issue.",
+//         reason: `Status: ${status}`,
+//         endingDate: endingDateStr,
+//         contactNumber: contactNumber,
+//       });
+//       return false;
+//     }
+
+//     // Then check expiry date if status is active
+//     if (endingDateStr) {
+//       // More reliable date parsing
+//       const dateTimeParts = endingDateStr.split(", ");
+//       if (dateTimeParts.length !== 2) {
+//         console.error("Invalid date format - missing time part");
+//         return true; // Don't block if we can't parse the date
+//       }
+
+//       const [datePart, timePart] = dateTimeParts;
+//       const [month, day, year] = datePart.split("/").map(Number);
+//       const [time, period] = timePart.split(" ");
+//       const [hours, minutes, seconds] = time.split(":").map(Number);
+
+//       // Convert to 24-hour format
+//       let hours24 = hours;
+//       if (period.toLowerCase() === "pm" && hours < 12) {
+//         hours24 += 12;
+//       } else if (period.toLowerCase() === "am" && hours === 12) {
+//         hours24 = 0;
+//       }
+
+//       // Create date object (months are 0-indexed)
+//       const endingDate = new Date(
+//         year,
+//         month - 1,
+//         day,
+//         hours24,
+//         minutes,
+//         seconds
+//       );
+//       const now = new Date();
+//       if (isNaN(endingDate.getTime())) {
+//         console.error("Invalid ending-date format:", endingDateStr);
+//       } else if (endingDate < now) {
+//         blockPageAccess({
+//           title: "Subscription Expired",
+//           message:
+//             "This store's subscription has ended. Contact the owner to renew.",
+//           reason: `Subscription ended on ${endingDateStr}`,
+//           endingDate: endingDateStr,
+//           contactNumber: contactNumber,
+//         });
+//         return false;
+//       }
+//     }
+
+//     return true; // Return true if access should be allowed
+//   } catch (error) {
+//     console.error("Error checking site status:", error);
+//     blockPageAccess({
+//       title: "Verification Failed",
+//       message: "Unable to verify store status. Please try again later.",
+//       reason: error.message,
+//       contactNumber: null,
+//     });
+//     return false;
+//   }
+// }
+
 async function checkSiteStatus(uid) {
   if (!uid) {
     blockPageAccess({
@@ -11,7 +131,7 @@ async function checkSiteStatus(uid) {
       reason: "No UID provided",
       contactNumber: null,
     });
-    return false; // Return false when access is blocked
+    return false;
   }
 
   try {
@@ -38,6 +158,7 @@ async function checkSiteStatus(uid) {
     const status = data.status?.toLowerCase();
     const endingDateStr = data["ending-date"];
     const contactNumber = data["phone-number"] || null;
+
     // Check status first
     if (status === "pending") {
       blockPageAccess({
@@ -62,10 +183,20 @@ async function checkSiteStatus(uid) {
       });
       return false;
     }
+    if (status === "commingsoon") {
+      blockPageAccess({
+        title: "Coming Soon!", // Updated title
+        message: "We're working hard to launch this store. Check back later!",
+        reason: `Status: ${status}`,
+        // endingDate: endingDateStr,
+        contactNumber: contactNumber,
+      });
+      return false;
+    }
 
     // Then check expiry date if status is active
     if (endingDateStr) {
-      // More reliable date parsing
+      // Parse the date string in format "DD/MM/YYYY, HH:MM:SS am/pm"
       const dateTimeParts = endingDateStr.split(", ");
       if (dateTimeParts.length !== 2) {
         console.error("Invalid date format - missing time part");
@@ -73,7 +204,7 @@ async function checkSiteStatus(uid) {
       }
 
       const [datePart, timePart] = dateTimeParts;
-      const [month, day, year] = datePart.split("/").map(Number);
+      const [day, month, year] = datePart.split("/").map(Number);
       const [time, period] = timePart.split(" ");
       const [hours, minutes, seconds] = time.split(":").map(Number);
 
@@ -94,10 +225,14 @@ async function checkSiteStatus(uid) {
         minutes,
         seconds
       );
+
       const now = new Date();
+
       if (isNaN(endingDate.getTime())) {
         console.error("Invalid ending-date format:", endingDateStr);
       } else if (endingDate < now) {
+        // Clear the body content first
+        document.body.innerHTML = "";
         blockPageAccess({
           title: "Subscription Expired",
           message:
@@ -122,7 +257,6 @@ async function checkSiteStatus(uid) {
     return false;
   }
 }
-
 /**
  * Blocks the page and shows an error message with contact info.
  * @param {Object} options - Error details

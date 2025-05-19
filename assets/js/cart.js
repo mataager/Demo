@@ -113,11 +113,11 @@ function fetchUserAddressAndRender() {
         }
       } catch (error) {
         console.error("Error fetching user address:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Could not load your address data.",
-        });
+        // Swal.fire({
+        //   icon: "error",
+        //   title: "Error",
+        //   text: "Could not load your address data.",
+        // });
       }
     } else {
     }
@@ -271,23 +271,39 @@ document.addEventListener("DOMContentLoaded", function () {
   if (shippingFeesElement) {
     const savedCity = localStorage.getItem("City"); // Get the city from local storage
 
-    if (savedCity) {
-      if (
-        savedCity === "Cairo" ||
-        savedCity === "Giza" ||
-        savedCity === "Alexandria"
-      ) {
-        shippingFeesElement.innerText = "65 EGP";
-        localStorage.setItem("shippingFees", "65");
-      } else {
-        shippingFeesElement.innerText = "100 EGP";
-        localStorage.setItem("shippingFees", "100");
-      }
-    } else {
-      // Default if no city is selected
-      shippingFeesElement.innerText = "100 EGP";
-      localStorage.setItem("shippingFees", "100");
-    }
+    // if (savedCity) {
+    //   if (
+    //     savedCity === "Cairo" ||
+    //     savedCity === "Giza" ||
+    //     savedCity === "Alexandria"
+    //   ) {
+    //     shippingFeesElement.innerText = "65 EGP";
+    //     localStorage.setItem("shippingFees", "65");
+    //   } else {
+    //     shippingFeesElement.innerText = "100 EGP";
+    //     localStorage.setItem("shippingFees", "100");
+    //   }
+    // } else {
+    //   // Default if no city is selected
+    //   shippingFeesElement.innerText = "100 EGP";
+    //   localStorage.setItem("shippingFees", "100");
+    // }
+    // if (savedCity) {
+    //   if (!cityOptions.includes(savedCity)) {
+    //     console.warn(`Unknown city: ${savedCity}`);
+    //   }
+
+    //   const shippingFee = mainCities.includes(savedCity)
+    //     ? minShipping
+    //     : maxShipping;
+
+    //   shippingFeesElement.innerText = `${shippingFee} EGP`;
+    //   localStorage.setItem("shippingFees", shippingFee.toString());
+    // } else {
+    //   // Default case (no city selected)
+    //   shippingFeesElement.innerText = `${maxShipping} EGP`;
+    //   localStorage.setItem("shippingFees", maxShipping.toString());
+    // }
   }
 });
 

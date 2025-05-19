@@ -14,7 +14,7 @@ const storeType = "clothing"; // clothing or footwear
 //shipping config
 const maincities = ["Cairo", "Giza", "Alexandria"];
 const freeshipping = "2000";
-const minshipping = 65;
+const minshipping = 60;
 const maxshipping = 90;
 const specialshipping = 75;
 const vanishedstock = false;

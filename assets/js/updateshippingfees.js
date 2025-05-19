@@ -53,37 +53,94 @@ function updateShippingFees() {
   }
 
   // If free shipping is not applicable, use the old logic
+  // if (shippingFeesElement) {
+  //   if (savedGovernorate) {
+  //     if (
+  //       [
+  //         "Cairo",
+  //         "Giza",
+  //         "Alexandria",
+  //         "Port Said",
+  //         "Suez",
+  //         "Damietta",
+  //         "Fayoum",
+  //         "Dakahlia",
+  //         "Sharqia",
+  //         "Qalyubia",
+  //         "Kafr El Sheikh",
+  //         "Gharbia",
+  //         "Monufia",
+  //         "Beheira",
+  //         "Ismailia",
+  //       ].includes(savedGovernorate)
+  //     ) {
+  //       shippingFeesElement.innerText = "65 EGP";
+  //       shippingFeesElementtotal.innerText = "65 EGP";
+  //       localStorage.setItem("shippingFees", "65");
+  //     } else {
+  //       shippingFeesElement.innerText = "100 EGP";
+  //       shippingFeesElementtotal.innerText = "100 EGP";
+  //       localStorage.setItem("shippingFees", "100");
+  //     }
+  //   } else {
+  //     console.log("Saved City from localStorage:", savedGovernorate);
+  //   }
+  // }
+
+  // if (shippingFeesElement) {
+  //   if (savedGovernorate) {
+  //     // Check if governorate exists in our city options
+  //     if (cityOptions.includes(savedGovernorate)) {
+  //       // Determine shipping fee based on city tier
+  //       const shippingFee = maincities.includes(savedGovernorate)
+  //         ? minshipping
+  //         : maxshipping;
+
+  //       // Update UI and storage
+  //       shippingFeesElement.innerText = `${shippingFee} EGP`;
+  //       shippingFeesElementtotal.innerText = `${shippingFee} EGP`;
+  //       localStorage.setItem("shippingFees", shippingFee.toString());
+  //     } else {
+  //       console.log("Unknown city in localStorage:", savedGovernorate);
+  //       // Optional: handle unknown cities here
+  //     }
+  //   } else {
+  //     console.log("No saved city in localStorage");
+  //   }
+  // }
+
   if (shippingFeesElement) {
-    if (savedGovernorate) {
-      if (
-        [
-          "Cairo",
-          "Giza",
-          "Alexandria",
-          "Port Said",
-          "Suez",
-          "Damietta",
-          "Fayoum",
-          "Dakahlia",
-          "Sharqia",
-          "Qalyubia",
-          "Kafr El Sheikh",
-          "Gharbia",
-          "Monufia",
-          "Beheira",
-          "Ismailia",
-        ].includes(savedGovernorate)
-      ) {
-        shippingFeesElement.innerText = "65 EGP";
-        shippingFeesElementtotal.innerText = "65 EGP";
-        localStorage.setItem("shippingFees", "65");
+    // Check if user is authenticated (replace with your actual auth check)
+    const isAuthenticated = checkUserAuth(); // Implement this function based on your auth system
+
+    if (!isAuthenticated) {
+      // Unauthenticated user - free shipping
+      shippingFeesElement.innerText = "0 EGP";
+      shippingFeesElementtotal.innerText = "0 EGP";
+      localStorage.setItem("shippingFees", "0");
+    } else if (savedGovernorate) {
+      // Authenticated user with saved city
+      if (cityOptions.includes(savedGovernorate)) {
+        const shippingFee = maincities.includes(savedGovernorate)
+          ? minshipping
+          : maxshipping;
+
+        shippingFeesElement.innerText = `${shippingFee} EGP`;
+        shippingFeesElementtotal.innerText = `${shippingFee} EGP`;
+        localStorage.setItem("shippingFees", shippingFee.toString());
       } else {
-        shippingFeesElement.innerText = "100 EGP";
-        shippingFeesElementtotal.innerText = "100 EGP";
-        localStorage.setItem("shippingFees", "100");
+        console.log("Unknown city in localStorage:", savedGovernorate);
+        // Default to max shipping for unknown cities
+        shippingFeesElement.innerText = `${maxshipping} EGP`;
+        shippingFeesElementtotal.innerText = `${maxshipping} EGP`;
+        localStorage.setItem("shippingFees", maxshipping.toString());
       }
     } else {
-      console.log("Saved City from localStorage:", savedGovernorate);
+      // Authenticated user with no saved city
+      console.log("No saved city in localStorage");
+      shippingFeesElement.innerText = `${maxshipping} EGP`;
+      shippingFeesElementtotal.innerText = `${maxshipping} EGP`;
+      localStorage.setItem("shippingFees", maxshipping.toString());
     }
   }
 }
@@ -101,36 +158,36 @@ function calculateCartTotal(cartItems) {
 }
 
 // Function to dynamically calculate & append the shipping fees div
-function appendShippingFeeDiv(city, cartItems) {
-  const freeShippingThreshold = 200; // Free shipping threshold
-  const cartTotal = calculateCartTotal(cartItems); // Calculate cart total dynamically
+// function appendShippingFeeDiv(city, cartItems) {
+//   const freeShippingThreshold = 200; // Free shipping threshold
+//   const cartTotal = calculateCartTotal(cartItems); // Calculate cart total dynamically
 
-  let shippingFees = 100; // Default shipping fee
-  if (["Cairo", "Giza", "Alexandria"].includes(city)) {
-    shippingFees = 65; // Discounted shipping fee for specific cities
-  }
+//   let shippingFees = 100; // Default shipping fee
+//   if (["Cairo", "Giza", "Alexandria"].includes(city)) {
+//     shippingFees = 65; // Discounted shipping fee for specific cities
+//   }
 
-  // Logic for free shipping based on cart amount
-  if (cartTotal >= freeShippingThreshold) {
-    shippingFees = 0; // Free shipping
-  }
+//   // Logic for free shipping based on cart amount
+//   if (cartTotal >= freeShippingThreshold) {
+//     shippingFees = 0; // Free shipping
+//   }
 
-  // Update or create shipping fees container
-  let shippingFeesContainer = document.getElementById(
-    "shipping-fees-container"
-  );
-  if (!shippingFeesContainer) {
-    shippingFeesContainer = document.createElement("div");
-    shippingFeesContainer.id = "shipping-fees-container";
-    document.body.appendChild(shippingFeesContainer);
-  }
+//   // Update or create shipping fees container
+//   let shippingFeesContainer = document.getElementById(
+//     "shipping-fees-container"
+//   );
+//   if (!shippingFeesContainer) {
+//     shippingFeesContainer = document.createElement("div");
+//     shippingFeesContainer.id = "shipping-fees-container";
+//     document.body.appendChild(shippingFeesContainer);
+//   }
 
-  // Clear and update content
-  shippingFeesContainer.innerHTML = `
-    <p>Cart Total: ${cartTotal.toFixed(2)} EGP</p>
-    <p>Shipping Fees: ${shippingFees.toFixed(2)} EGP</p>
-  `;
+//   // Clear and update content
+//   shippingFeesContainer.innerHTML = `
+//     <p>Cart Total: ${cartTotal.toFixed(2)} EGP</p>
+//     <p>Shipping Fees: ${shippingFees.toFixed(2)} EGP</p>
+//   `;
 
-  console.log(`Cart Total: ${cartTotal.toFixed(2)} EGP`);
-  console.log(`Shipping Fee: ${shippingFees.toFixed(2)} EGP`);
-}
+//   console.log(`Cart Total: ${cartTotal.toFixed(2)} EGP`);
+//   console.log(`Shipping Fee: ${shippingFees.toFixed(2)} EGP`);
+// }

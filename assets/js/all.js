@@ -151,23 +151,35 @@ function calculateSalePrice(originalPrice, saleAmount) {
 }
 
 //cities
+
 const cityOptions = [
-  "Cairo",
-  "Giza",
   "Alexandria",
-  "Port Said",
-  "Suez",
-  "Damietta",
-  "Fayoum",
-  "Dakahlia",
-  "Sharqia",
-  "Qalyubia",
-  "Kafr El Sheikh",
-  "Gharbia",
-  "Monufia",
+  "Aswan",
+  "Asyut",
   "Beheira",
+  "Beni Suef",
+  "Cairo",
+  "Dakahlia",
+  "Damietta",
+  "Faiyum",
+  "Gharbia",
+  "Giza",
   "Ismailia",
-  "Other",
+  "Kafr El Sheikh",
+  "Luxor",
+  "Matruh",
+  "Minya",
+  "Monufia",
+  "New Valley",
+  "North Sinai",
+  "Port Said",
+  "Qalyubia",
+  "Qena",
+  "Red Sea",
+  "Sharqia",
+  "Sohag",
+  "South Sinai",
+  "Suez",
 ];
 //using them in cart checkout page
 function removeaddressarea() {
@@ -596,37 +608,64 @@ function setupBadgeAnimations() {
 }
 //funcion for setting up the price nad saled price animition
 function setupPriceAnimations() {
-  const priceContainers = document.querySelectorAll(".card-content");
+  const priceContainers = document.querySelectorAll(
+    ".price-animation-container"
+  );
 
   priceContainers.forEach((container) => {
     const originalPrice = container.querySelector(".pre-sale-animation");
     const salePrice = container.querySelector(".card-price-animation");
+    let animationTimeout;
 
+    // Cleanup function to stop animations
+    const cleanup = () => {
+      if (animationTimeout) {
+        clearTimeout(animationTimeout);
+        animationTimeout = null;
+      }
+      container.classList.remove("show-sale-price");
+    };
+
+    // Case 1: Has sale price (both prices exist) - animate
     if (originalPrice && salePrice) {
       // Initial setup
+      container.classList.add("has-sale-price");
       container.classList.remove("show-sale-price");
-      void container.offsetHeight; // Trigger reflow
-      originalPrice.style.opacity = "1";
-      salePrice.style.opacity = "1";
 
-      // Animation loop function
+      // Force reflow to ensure transitions work
+      void container.offsetHeight;
+
+      // Animation function
       const animatePrices = () => {
-        // Show original price first
+        // Show original price
         container.classList.remove("show-sale-price");
 
-        // After 2 seconds, show sale price
-        setTimeout(() => {
+        animationTimeout = setTimeout(() => {
+          // Show sale price after delay
           container.classList.add("show-sale-price");
 
-          // After another 2 seconds, restart animation
-          setTimeout(() => {
-            animatePrices(); // Recursive call for infinite loop
+          animationTimeout = setTimeout(() => {
+            animatePrices(); // Loop
           }, 2000);
         }, 2000);
       };
 
-      // Start the animation loop
+      // Start animation
       animatePrices();
+
+      // Clean up when container is removed from DOM
+      const observer = new MutationObserver(() => {
+        if (!document.contains(container)) {
+          cleanup();
+          observer.disconnect();
+        }
+      });
+      observer.observe(document, { childList: true, subtree: true });
+    }
+    // Case 2: No sale price - just show regular price statically
+    else if (salePrice) {
+      container.classList.add("show-sale-price"); // Always show the single price
+      salePrice.style.opacity = "1"; // Ensure it's visible
     }
   });
 }

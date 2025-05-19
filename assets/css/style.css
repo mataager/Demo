@@ -1150,6 +1150,7 @@ img {
 .product-overview,
 .BestSellers {
   padding-top: 18px;
+  padding-bottom: 18px;
   overflow: hidden;
   display: grid;
   justify-items: center;

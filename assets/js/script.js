@@ -150,12 +150,14 @@ function renderProducts() {
           <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
             <a class="title" href="#">${product["product-title"]}</a>
           </h3>
+          <div class="price-animation-container">
           ${
             saleAmount
-              ? `<del id="preprice" class="m-5 mb-10 pre-sale">${originalPrice}</del>`
+              ? `<del class="pre-sale-animation">${originalPrice} EGP</del>`
               : ""
           }
-          <p class="card-price">${salePrice} EGP</p>
+          <p class="card-price-animation">${salePrice} EGP</p>
+          </div>
           <a href="#" class="card-price hidden font-small">${key}</a>
         </div>
         <div class="hidden" data-category="${category}" data-sizes="${sizes}">sorting helper</div>
@@ -169,6 +171,7 @@ function renderProducts() {
   });
   setupBadgeAnimations();
   updatePaginationButtons();
+  setupPriceAnimations();
 
   // Set up event listeners for "Add to Cart" buttons
   const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");

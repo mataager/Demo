@@ -3,7 +3,6 @@ async function handleBuyNowClick() {
   const itemQty = parseInt(buyNowButton.getAttribute("data-qty")) || 1;
   showUserForm(itemQty);
 }
-
 // Function to show the user form
 function showUserForm(itemQty) {
   console.log(itemQty);
@@ -100,51 +99,6 @@ function showUserForm(itemQty) {
 
   // Get the max quantity from the button's attribute
   const maxQty = parseInt(plusBtn.getAttribute("maxqty")) || 99; // Default to 99 if not set
-
-  // minusBtn.addEventListener("click", () => {
-  //   const currentValue = parseInt(quantityInput.value);
-  //   if (currentValue > 1) {
-  //     quantityInput.value = currentValue - 1;
-  //   }
-  // });
-
-  // plusBtn.addEventListener("click", () => {
-  //   const currentValue = parseInt(quantityInput.value);
-  //   if (currentValue < maxQty) {
-  //     quantityInput.value = currentValue + 1;
-  //   } else {
-  //     // Optional: Show a message when hitting max quantity
-  //     Swal.fire({
-  //       icon: "info",
-  //       title: "Maximum Quantity Reached",
-  //       text: `You can order maximum ${maxQty} items`,
-  //       showConfirmButton: false,
-  //       timer: 2000,
-  //     });
-  //   }
-  // });
-
-  // quantityInput.addEventListener("change", () => {
-  //   let value = parseInt(quantityInput.value) || 1; // Default to 1 if invalid
-
-  //   // Ensure value stays between 1 and maxQty
-  //   if (value < 1) {
-  //     value = 1;
-  //   } else if (value > maxQty) {
-  //     value = maxQty;
-  //     Swal.fire({
-  //       icon: "info",
-  //       title: "Quantity Adjusted",
-  //       text: `Maximum available quantity is ${maxQty}`,
-  //       toast: true,
-  //       position: "top-end",
-  //       showConfirmButton: false,
-  //       timer: 2000,
-  //     });
-  //   }
-
-  //   quantityInput.value = value;
-  // });
   function updateTotalPriceAndShipping() {
     const quantity = parseInt(quantityInput.value) || 1;
     const productPriceText =
@@ -862,8 +816,6 @@ async function processOrder(form, elements) {
   // Submit order
   await submitOrder(order, idToken);
 }
-
-// Additional helper functions would be defined here...
 
 // Function to create an input field
 function createInput(type, id, placeholder) {
