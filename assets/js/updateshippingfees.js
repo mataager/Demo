@@ -109,12 +109,47 @@ function updateShippingFees() {
   //   }
   // }
 
-  if (shippingFeesElement) {
-    // Check if user is authenticated (replace with your actual auth check)
-    const isAuthenticated = checkUserAuth(); // Implement this function based on your auth system
+  // if (shippingFeesElement) {
+  //   // Check if user is authenticated (replace with your actual auth check)
+  //   const isAuthenticated = checkUserAuthentication(); // Implement this function based on your auth system
 
-    if (!isAuthenticated) {
-      // Unauthenticated user - free shipping
+  //   if (!isAuthenticated) {
+  //     // Unauthenticated user - free shipping
+  //     shippingFeesElement.innerText = "0 EGP";
+  //     shippingFeesElementtotal.innerText = "0 EGP";
+  //     localStorage.setItem("shippingFees", "0");
+  //   } else if (savedGovernorate) {
+  //     // Authenticated user with saved city
+  //     if (cityOptions.includes(savedGovernorate)) {
+  //       const shippingFee = maincities.includes(savedGovernorate)
+  //         ? minshipping
+  //         : maxshipping;
+
+  //       shippingFeesElement.innerText = `${shippingFee} EGP`;
+  //       shippingFeesElementtotal.innerText = `${shippingFee} EGP`;
+  //       localStorage.setItem("shippingFees", shippingFee.toString());
+  //     } else {
+  //       console.log("Unknown city in localStorage:", savedGovernorate);
+  //       // Default to max shipping for unknown cities
+  //       shippingFeesElement.innerText = `${maxshipping} EGP`;
+  //       shippingFeesElementtotal.innerText = `${maxshipping} EGP`;
+  //       localStorage.setItem("shippingFees", maxshipping.toString());
+  //     }
+  //   } else {
+  //     // Authenticated user with no saved city
+  //     console.log("No saved city in localStorage");
+  //     shippingFeesElement.innerText = `${maxshipping} EGP`;
+  //     shippingFeesElementtotal.innerText = `${maxshipping} EGP`;
+  //     localStorage.setItem("shippingFees", maxshipping.toString());
+  //   }
+  // }
+  if (shippingFeesElement) {
+    // Use the current user from Firebase auth instead of the check function
+    const user = firebase.auth().currentUser;
+    const isGuest = sessionStorage.getItem("isGuest") === "true";
+
+    if (!user || isGuest) {
+      // Unauthenticated user or guest - free shipping
       shippingFeesElement.innerText = "0 EGP";
       shippingFeesElementtotal.innerText = "0 EGP";
       localStorage.setItem("shippingFees", "0");
@@ -156,38 +191,3 @@ function calculateCartTotal(cartItems) {
     return total + price * item.quantity;
   }, 0);
 }
-
-// Function to dynamically calculate & append the shipping fees div
-// function appendShippingFeeDiv(city, cartItems) {
-//   const freeShippingThreshold = 200; // Free shipping threshold
-//   const cartTotal = calculateCartTotal(cartItems); // Calculate cart total dynamically
-
-//   let shippingFees = 100; // Default shipping fee
-//   if (["Cairo", "Giza", "Alexandria"].includes(city)) {
-//     shippingFees = 65; // Discounted shipping fee for specific cities
-//   }
-
-//   // Logic for free shipping based on cart amount
-//   if (cartTotal >= freeShippingThreshold) {
-//     shippingFees = 0; // Free shipping
-//   }
-
-//   // Update or create shipping fees container
-//   let shippingFeesContainer = document.getElementById(
-//     "shipping-fees-container"
-//   );
-//   if (!shippingFeesContainer) {
-//     shippingFeesContainer = document.createElement("div");
-//     shippingFeesContainer.id = "shipping-fees-container";
-//     document.body.appendChild(shippingFeesContainer);
-//   }
-
-//   // Clear and update content
-//   shippingFeesContainer.innerHTML = `
-//     <p>Cart Total: ${cartTotal.toFixed(2)} EGP</p>
-//     <p>Shipping Fees: ${shippingFees.toFixed(2)} EGP</p>
-//   `;
-
-//   console.log(`Cart Total: ${cartTotal.toFixed(2)} EGP`);
-//   console.log(`Shipping Fee: ${shippingFees.toFixed(2)} EGP`);
-// }

@@ -393,18 +393,20 @@
                                                     <p class="mb-10 cart-area-divs-titels">Cart Summary</p>
                                                     <div
                                                         class="flex flex-start flex-direction-column align-items-flex-start p-30">
-                                                        <div class="flex center align-items font-small mb-10">
+                                                        <div
+                                                            class="flex center align-items font-small mb-10 cart-data-area">
                                                             <h5>Cart Total :</h5><span id="cart-total"
                                                                 class="ml-3"></span>
                                                         </div>
-                                                        <div class="flex center align-items font-small mb-10"
+                                                        <div class="flex center align-items font-small mb-10 cart-data-area"
                                                             id="shipping-fees-total-area">
                                                             <h5>Shipping Fees :</h5><span id="shipping-fees-total"
                                                                 class="ml-3"></span>
                                                             <span id="shipping-fees" class="ml-3 hidden"></span>
                                                         </div>
 
-                                                        <div class="flex center align-items font-small mb-10">
+                                                        <div
+                                                            class="flex center align-items font-small mb-10 cart-data-area">
                                                             <h5>Total Price :</h5><span id="total-price"
                                                                 class="ml-3"></span>
                                                         </div>
@@ -916,6 +918,7 @@
 
                                 if (cart.length === 0) {
                                     // Animate cart section out
+                                    cartSectionAll.style.setProperty('display', 'none', 'important');
                                     cartSectionAll.style.transform = 'translateY(0)';
                                     cartSectionAll.style.transition = 'all 0.4s ease';
                                     cartSectionAll.style.opacity = '0';

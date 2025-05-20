@@ -870,6 +870,12 @@ img {
   font-size: small;
 }
 
+.cart-data-area {
+  border-radius: 10px;
+  box-shadow: 0 5px 10px #0000001a;
+  padding: 10px;
+}
+
 .nav-action-badge {
   margin-left: auto;
   font-size: var(--fs-8);
@@ -6227,11 +6233,11 @@ th {
 }
 
 .BuyItNowForm-shipping-message {
-  font-size: small;
-  text-align: center;
-  color: #333;
-  font-weight: 400;
-  margin-bottom: 10px;
+  font-size: 10px !important;
+    text-align: center;
+    color: #333;
+    font-weight: 400;
+    margin-bottom: 10px;
 }
 
 .shippingFeesDisplay {
