@@ -227,10 +227,9 @@
             <div class="flex center" id="productDetailsSection">
                 <div class="flex center width-90">
                     <div class="flex">
-                        <div id="product-div" class="flex center">
-
-
+                        <div id="product-div" class="flex center relative">
                             <div class="content-photo-container animate-on-scroll-auto">
+                                <div class="hidden" id="outofstockmessagebanner">out of stock</div>
                                 <img id="productImage" class="product-image active" style="display: none;" src=""
                                     alt="Product Image">
                                 <img id="productImage2" class="product-image" src="" style="display: none;"
@@ -290,6 +289,9 @@
                                     <h5 id="stockContainer" class="mb-10 m-5 flex pl-0 hidden">
                                         <p class="stockMessage-p" id="stockMessage"></p>
                                     </h5>
+                                    <!-- <h5 id="outofstockContainer" class="mb-10 m-5 flex pl-0 hidden">
+                                        <p class="outOfStockMessage-p" id="outOfStockMessage"></p>
+                                    </h5> -->
 
                                 </div>
                                 <div class="m-5 mb-10 flex">
@@ -705,6 +707,36 @@
 
 </script>
 <script>
+    // function initializeProductSelections() {
+    //     // Select the first measurement
+    //     const sizeOptions = document.querySelectorAll('.size-radio');
+    //     if (sizeOptions.length > 0) {
+    //         sizeOptions[0].click(); // Trigger a click event on the first size option
+    //     }
+
+    //     // Select the first color
+    //     const colorOptions = document.querySelectorAll('.color-option');
+    //     if (colorOptions.length > 0) {
+    //         const firstColorOption = colorOptions[0];
+    //         firstColorOption.click(); // Trigger a click event on the first color option
+
+    //         // Optionally update the product color text
+    //         const productColorElement = document.getElementById('product-color');
+    //         if (productColorElement) {
+    //             const colorName = firstColorOption.getAttribute('data-color-name');
+    //             productColorElement.textContent = colorName;
+    //         }
+
+    //     }
+
+    //     // Remove "Must choose a color" message if present
+    //     const colorHintText = document.getElementById('color-hint-text');
+    //     if (colorHintText) {
+    //         colorHintText.style.display = 'none';
+    //     }
+
+    // }
+
     function initializeProductSelections() {
         // Select the first measurement
         const sizeOptions = document.querySelectorAll('.size-radio');
@@ -716,9 +748,17 @@
         const colorOptions = document.querySelectorAll('.color-option');
         if (colorOptions.length > 0) {
             const firstColorOption = colorOptions[0];
-            firstColorOption.click(); // Trigger a click event on the first color option
 
-            // Optionally update the product color text
+            // Get the quantity from data-qty attribute
+            const colorQty = firstColorOption.getAttribute('data-qty');
+
+            // Check stock status before clicking
+            checkStockStatus(colorQty);
+
+            // Trigger click event on the first color option
+            firstColorOption.click();
+
+            // Update the product color text
             const productColorElement = document.getElementById('product-color');
             if (productColorElement) {
                 const colorName = firstColorOption.getAttribute('data-color-name');
@@ -732,7 +772,6 @@
             colorHintText.style.display = 'none';
         }
     }
-
     // Function to handle size selection
     function SizeRef(element) {
         const selectedSize = element.querySelector('.size-value').textContent;
@@ -950,11 +989,13 @@
                             const colorOption = document.createElement('div');
                             const colorOptionwrapper = document.createElement('div');
                             colorOption.classList.add('color-option');
-                            colorOptionwrapper.classList.add('colorOptionwrapper')
+                            colorOptionwrapper.classList.add('colorOptionwrapper');
+                            const qty = colors[color]["qty"];
 
                             colorOption.style.backgroundColor = colors[color]["color-value"];
                             colorOption.setAttribute('data-color-name', color);
                             colorOption.setAttribute('onclick', 'ColorRef(this)');
+                            colorOption.setAttribute('color-qty', qty); // Add quantity as data attribute
                             colorOption.addEventListener('click', function (colorName) {
                                 var colorName = colorOption.getAttribute('data-color-name');
                                 showPreloader();
@@ -974,15 +1015,27 @@
                                         const qty = colors[color]["qty"];
                                         const stockContainer = document.getElementById('stockContainer');
                                         const stockMessage = document.getElementById('stockMessage');
+                                        // if (stockContainer && stockMessage) {
+                                        //     BuyNowButton.setAttribute('data-qty', qty);
+                                        //     if (qty <= 5) {
+                                        //         stockMessage.innerText = `Only ${qty} left in stock`;
+                                        //         stockContainer.classList.remove('hidden');
+                                        //     }
+                                        //     else if (qty == 0) {
+                                        //         stockMessage.innerText = `out of stock`;
+                                        //         // stockContainer.classList.remove('hidden');
+                                        //         document.getElementById("addToCartButton").style.display = "none";
+                                        //         document.getElementById("BuyNowButton").style.display = "none";
+                                        //     }
+                                        //     else {
+                                        //         stockMessage.innerText = '';
+                                        //         stockContainer.classList.add('hidden');
+                                        //     }
+                                        // }
+
                                         if (stockContainer && stockMessage) {
                                             BuyNowButton.setAttribute('data-qty', qty);
-                                            if (qty <= 5) {
-                                                stockMessage.innerText = `Only ${qty} left in stock`;
-                                                stockContainer.classList.remove('hidden');
-                                            } else {
-                                                stockMessage.innerText = '';
-                                                stockContainer.classList.add('hidden');
-                                            }
+                                            checkStockStatus(qty);
                                         }
                                     }
                                 }

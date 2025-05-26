@@ -669,3 +669,62 @@ function setupPriceAnimations() {
     }
   });
 }
+
+//
+// In product-stock.js:
+function checkStockStatus(qty) {
+  const stockMessage = document.getElementById("stockMessage");
+  const stockContainer = document.getElementById("stockContainer");
+
+  if (qty == 0) {
+    stockMessage.innerText = "Out of stock";
+    stockContainer.classList.remove("hidden");
+    showOutOfStockBadge();
+    hidePurchaseButtons();
+    disableProductOptions();
+  } else if (qty <= 5) {
+    stockMessage.innerText = `Only ${qty} left in stock`;
+    stockContainer.classList.remove("hidden");
+    removeOutOfStockBadge();
+    showPurchaseButtons();
+    enableProductOptions();
+  } else {
+    stockMessage.innerText = "";
+    stockContainer.classList.add("hidden");
+    removeOutOfStockBadge();
+    showPurchaseButtons();
+    enableProductOptions();
+  }
+}
+
+function showOutOfStockBadge() {
+  const mainImageContainer = document.getElementById("outofstockmessagebanner");
+  mainImageContainer.classList.remove("hidden");
+}
+
+function removeOutOfStockBadge() {
+  const mainImageContainer = document.getElementById("outofstockmessagebanner");
+  mainImageContainer.classList.add("hidden");
+}
+
+function hidePurchaseButtons() {
+  document.getElementById("addToCartButton").style.display = "none";
+  document.getElementById("BuyNowButton").style.display = "none";
+}
+
+function showPurchaseButtons() {
+  document.getElementById("addToCartButton").style.display = "";
+  document.getElementById("BuyNowButton").style.display = "";
+}
+
+function disableProductOptions() {
+  document.querySelectorAll(".size-radio, .color-option").forEach((option) => {
+    option.classList.add("out-of-stock-option");
+  });
+}
+
+function enableProductOptions() {
+  document.querySelectorAll(".size-radio, .color-option").forEach((option) => {
+    option.classList.remove("out-of-stock-option");
+  });
+}

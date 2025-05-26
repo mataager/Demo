@@ -2669,6 +2669,22 @@ select {
 /* .color-option2:hover {
   border: 2px solid #000000;
 } */
+#outofstockmessagebanner {
+  border-radius: 8px 8px 0px 0px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+  background: rgb(0, 0, 0);
+  padding: 20px;
+  display: flex;
+  width: -webkit-fill-available;
+  position: absolute;
+  z-index: 2;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: small;
+  letter-spacing: 1px;
+}
 
 .Add-to-Cart,
 .close-btn,
@@ -4923,9 +4939,12 @@ th {
 }
 
 .order-card .status.notaccepted,
-.status.returned {
+.status.returned,
+.status.deleted {
   background-color: #f44336;
 }
+
+
 
 .order-details {
   gap: 20px;
@@ -6234,10 +6253,10 @@ th {
 
 .BuyItNowForm-shipping-message {
   font-size: 10px !important;
-    text-align: center;
-    color: #333;
-    font-weight: 400;
-    margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+  font-weight: 400;
+  margin-bottom: 10px;
 }
 
 .shippingFeesDisplay {
@@ -8046,4 +8065,16 @@ body.swal2-shown {
 .continueshopmodalbtn:hover {
   background-color: #f8f8f8 !important;
   border-color: #ccc !important;
+}
+
+.note-row-orderhistory {
+  gap: 3px;
+  display: flex;
+}
+
+.order-notes-orderhistory {
+  font-size: x-small;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -18,6 +18,7 @@ const minshipping = 60;
 const maxshipping = 90;
 const specialshipping = 75;
 const vanishedstock = false;
+const outofstock = true;
 const flippedimages = false;
 const autopricehandle = true;
 
