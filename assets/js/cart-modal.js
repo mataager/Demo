@@ -132,7 +132,7 @@ function openCartModal(productId) {
         const originalPrice = product["Product-Price"];
 
         function calculateSalePrice(originalPrice, saleAmount) {
-          return (originalPrice * (1 - saleAmount / 100)).toFixed(2);
+          return originalPrice * (1 - saleAmount / 100);
         }
 
         let salePrice = originalPrice;
@@ -150,31 +150,37 @@ function openCartModal(productId) {
         modalContent.innerHTML = `
         <div class="flex justify-content-space-between width-available modal-header">
         <div class="flex center flex-end " onclick="productDetails('${productId}')">
-          <button style="margin: 0px ;border-radius: 8px 0px 8px 0px; background: initial !important;color:#333" type="button" class="Add-to-Cart" id="perv4Button">
+          <button type="button" class="modalbtnL" id="perv4Button">
           <i class="bi bi-box-arrow-in-down-right"></i>
           </button>
       </div>
       <div class="flex center flex-end" onclick="closeModal()">
-          <button style="margin: 0px ;border-radius: 0px 8px 0px 8px; background: initial !important;color:#333;" type="button" class="Add-to-Cart" id="perv4Button">
+          <button type="button" class="modalbtnR" id="perv4Button">
               <i class="bi bi-x-lg"></i>
           </button>
       </div>
       </div>
-      <h5 class="m-5 pointer" id="BrandName" onclick="brand('${
+      <h5 class="m-5 BrandName-p pointer" id="BrandName" onclick="brand('${
         product["Brand-Name"]
       }')">${product["Brand-Name"]}</h5>
        <h2 class="m-5 pointer title" onclick="productDetails('${productId}')" id="productTitle">${
           product["product-title"]
         }</h2>
-      ${
-        saleAmount
-          ? `<del id="preprice" class="m-5 mb-10">${originalPrice}</del>`
-          : ""
-      }
-      <div class="m-5 flex align-items">
-          <p id="productPrice">${salePrice} EGP</p>
-      </div>
-          <div class="w-200" style="width:200px">
+         <div>
+      <div class="price-animation-modal-container">
+          ${
+            saleAmount
+              ? `<del class="pre-sale-animation">${originalPrice} EGP</del>`
+              : ""
+          }
+          <p class="card-price-animation" id="productPrice">${salePrice} EGP</p>
+          </div>
+           </div>
+          
+        </div>
+     
+          <div style="width:200px">
+           <div class="hidden outofstockmessagebannermodal" id="outofstockmessagebanner">out of stock</div>
             <img id="productImage" class="m-5 product-image radius-5 width-available active" src="${
               product["product-photo"]
             }" alt="Product Image">
@@ -193,11 +199,22 @@ function openCartModal(productId) {
           <div class="m-5 flex align-items hidden">
            SKU:<p id="productID">${productId}</p>
           </div>
+           <h5 id="stockContainer" class="mb-10 m-5 flex pl-0 hidden">
+                                        <p class="stockMessage-p" id="stockMessage"></p>
+                                    </h5>
+          <div class="" id="buybuttonsarea">
+          <div class="m-5">
+              <div id="BuyNowButton" class="Buyitnow">Buy Now
+                <i class="bi bi-lightning"></i>
+              </div>
+            </div>
           <div class="m-5">
             <button id="addToCartButton" onclick="addToCart()" class="Add-to-Cart" disabled style="opacity: 0.5;">Add to Cart <i class="bi bi-exclamation-lg"></i></button>
           </div>
+           
+            </div>
         `;
-
+        setupPricemodalAnimations();
         // Animate modal in from right
         setTimeout(() => {
           modal.classList.add("show");
@@ -229,18 +246,49 @@ function closeModal() {
   }, 400); // Match transition duration
 }
 
+// function colorRef(color) {
+//   const modalContent = document.querySelector(".modal-content");
+//   const product = modalContent.productDetails;
+//   const size = document.getElementById("product-Size").innerText;
+
+//   const choosedColor = document.getElementById("product-color");
+//   choosedColor.innerText = color;
+
+//   // Update the images for the selected color
+//   if (product.sizes[size] && product.sizes[size][color]) {
+//     const colorDetails = product.sizes[size][color];
+
+//     document.getElementById("productImage").src = colorDetails.img1;
+//   }
+
+//   // Highlight the selected color
+//   const colorOptions = document.querySelectorAll(".color-option");
+//   colorOptions.forEach((option) => {
+//     option.style.borderBottom =
+//       option.dataset.colorName === color ? "5px solid #c1c1c1" : "none";
+//     // replaceInvalidImages();
+//   });
+
+//   updateAddToCartButtonState();
+// }
+
+// Call the function after the images are loaded into the DOM
 function colorRef(color) {
   const modalContent = document.querySelector(".modal-content");
   const product = modalContent.productDetails;
   const size = document.getElementById("product-Size").innerText;
-
   const choosedColor = document.getElementById("product-color");
+
+  // Get the clicked color element
+  const clickedColorOption = document.querySelector(
+    `.color-option[data-color-name="${color}"]`
+  );
+
   choosedColor.innerText = color;
 
   // Update the images for the selected color
   if (product.sizes[size] && product.sizes[size][color]) {
     const colorDetails = product.sizes[size][color];
-
     document.getElementById("productImage").src = colorDetails.img1;
   }
 
@@ -249,14 +297,16 @@ function colorRef(color) {
   colorOptions.forEach((option) => {
     option.style.borderBottom =
       option.dataset.colorName === color ? "5px solid #c1c1c1" : "none";
-    // replaceInvalidImages();
   });
+
+  // Check stock status using the data-qty attribute
+  if (clickedColorOption) {
+    const qty = clickedColorOption.getAttribute("data-qty");
+    checkStockStatus(qty);
+  }
 
   updateAddToCartButtonState();
 }
-
-// Call the function after the images are loaded into the DOM
-
 function SizeRef(size) {
   const modalContent = document.querySelector(".modal-content");
   const product = modalContent.productDetails;
@@ -279,10 +329,16 @@ function SizeRef(size) {
   const colorsForSize = product.sizes[size];
   const colorList = modalContent.querySelector("#product-colors");
   colorList.innerHTML = Object.keys(colorsForSize)
-    .map(
-      (color) =>
-        `<div class="color-option" data-color-name="${color}" style="background-color: ${colorsForSize[color]["color-value"]}" onclick="colorRef('${color}')"></div>`
-    )
+    .map((color) => {
+      const qty = colorsForSize[color]["qty"];
+      return `
+          <div class="color-option" 
+               data-color-name="${color}" 
+               data-qty="${qty}"
+               style="background-color: ${colorsForSize[color]["color-value"]}" 
+               onclick="colorRef('${color}')">
+          </div>`;
+    })
     .join("");
   colorList.classList.remove("hidden");
 

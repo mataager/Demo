@@ -669,6 +669,68 @@ function setupPriceAnimations() {
     }
   });
 }
+function setupPricemodalAnimations() {
+  const priceContainers = document.querySelectorAll(
+    ".price-animation-modal-container"
+  );
+
+  priceContainers.forEach((container) => {
+    const originalPrice = container.querySelector(".pre-sale-animation");
+    const salePrice = container.querySelector(".card-price-animation");
+    let animationTimeout;
+
+    // Cleanup function to stop animations
+    const cleanup = () => {
+      if (animationTimeout) {
+        clearTimeout(animationTimeout);
+        animationTimeout = null;
+      }
+      container.classList.remove("show-sale-price");
+    };
+
+    // Case 1: Has sale price (both prices exist) - animate
+    if (originalPrice && salePrice) {
+      // Initial setup
+      container.classList.add("has-sale-price");
+      container.classList.remove("show-sale-price");
+
+      // Force reflow to ensure transitions work
+      void container.offsetHeight;
+
+      // Animation function
+      const animatePrices = () => {
+        // Show original price
+        container.classList.remove("show-sale-price");
+
+        animationTimeout = setTimeout(() => {
+          // Show sale price after delay
+          container.classList.add("show-sale-price");
+
+          animationTimeout = setTimeout(() => {
+            animatePrices(); // Loop
+          }, 2000);
+        }, 2000);
+      };
+
+      // Start animation
+      animatePrices();
+
+      // Clean up when container is removed from DOM
+      const observer = new MutationObserver(() => {
+        if (!document.contains(container)) {
+          cleanup();
+          observer.disconnect();
+        }
+      });
+      observer.observe(document, { childList: true, subtree: true });
+    }
+    // Case 2: No sale price - just show regular price statically
+    else if (salePrice) {
+      container.classList.add("show-sale-price"); // Always show the single price
+      salePrice.style.opacity = "1"; // Ensure it's visible
+    }
+  });
+}
 
 //
 // In product-stock.js:
@@ -708,13 +770,13 @@ function removeOutOfStockBadge() {
 }
 
 function hidePurchaseButtons() {
-  document.getElementById("addToCartButton").style.display = "none";
-  document.getElementById("BuyNowButton").style.display = "none";
+  document.getElementById("buybuttonsarea").style.display = "none";
+  // document.getElementById("BuyNowButton").style.display = "none";
 }
 
 function showPurchaseButtons() {
-  document.getElementById("addToCartButton").style.display = "";
-  document.getElementById("BuyNowButton").style.display = "";
+  document.getElementById("buybuttonsarea").style.display = "";
+  // document.getElementById("BuyNowButton").style.display = "";
 }
 
 function disableProductOptions() {

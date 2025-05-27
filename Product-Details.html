@@ -229,7 +229,8 @@
                     <div class="flex">
                         <div id="product-div" class="flex center relative">
                             <div class="content-photo-container animate-on-scroll-auto">
-                                <div class="hidden" id="outofstockmessagebanner">out of stock</div>
+                                <div class="hidden outofstockmessagebanner" id="outofstockmessagebanner">out of stock
+                                </div>
                                 <img id="productImage" class="product-image active" style="display: none;" src=""
                                     alt="Product Image">
                                 <img id="productImage2" class="product-image" src="" style="display: none;"
@@ -289,23 +290,23 @@
                                     <h5 id="stockContainer" class="mb-10 m-5 flex pl-0 hidden">
                                         <p class="stockMessage-p" id="stockMessage"></p>
                                     </h5>
-                                    <!-- <h5 id="outofstockContainer" class="mb-10 m-5 flex pl-0 hidden">
-                                        <p class="outOfStockMessage-p" id="outOfStockMessage"></p>
-                                    </h5> -->
 
                                 </div>
-                                <div class="m-5 mb-10 flex">
-                                    <div id="BuyNowButton" class="Buyitnow">Buy Now
-                                        <i class="bi bi-lightning"></i>
+                                <div class="" id="buybuttonsarea">
+                                    <div class="m-5 mb-10 flex">
+                                        <div id="BuyNowButton" class="Buyitnow">Buy Now
+                                            <i class="bi bi-lightning"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="m-5 mb-10 flex">
+                                        <button id="addToCartButton" class="Add-to-Cart">Add
+                                            To Cart
+                                            <i class="bi bi-bag-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
 
-                                <div class="m-5 mb-10 flex">
-                                    <button id="addToCartButton" class="Add-to-Cart">Add
-                                        To Cart
-                                        <i class="bi bi-bag-plus"></i>
-                                    </button>
-                                </div>
                                 <div id="addtofavouritediv" class="m-5 mb-10 flex">
 
                                 </div>
@@ -1015,23 +1016,7 @@
                                         const qty = colors[color]["qty"];
                                         const stockContainer = document.getElementById('stockContainer');
                                         const stockMessage = document.getElementById('stockMessage');
-                                        // if (stockContainer && stockMessage) {
-                                        //     BuyNowButton.setAttribute('data-qty', qty);
-                                        //     if (qty <= 5) {
-                                        //         stockMessage.innerText = `Only ${qty} left in stock`;
-                                        //         stockContainer.classList.remove('hidden');
-                                        //     }
-                                        //     else if (qty == 0) {
-                                        //         stockMessage.innerText = `out of stock`;
-                                        //         // stockContainer.classList.remove('hidden');
-                                        //         document.getElementById("addToCartButton").style.display = "none";
-                                        //         document.getElementById("BuyNowButton").style.display = "none";
-                                        //     }
-                                        //     else {
-                                        //         stockMessage.innerText = '';
-                                        //         stockContainer.classList.add('hidden');
-                                        //     }
-                                        // }
+
 
                                         if (stockContainer && stockMessage) {
                                             BuyNowButton.setAttribute('data-qty', qty);

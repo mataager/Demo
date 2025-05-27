@@ -618,8 +618,18 @@ img {
 }
 
 .card-content {
+  position: relative;
   padding: 0px 15px 0;
   text-align: center;
+}
+
+.card-content .color-options {
+  position: relative;
+  top: -10px;
+}
+
+.card-content .card-title {
+  margin: 0;
 }
 
 .card-cat {
@@ -2669,20 +2679,38 @@ select {
 /* .color-option2:hover {
   border: 2px solid #000000;
 } */
-#outofstockmessagebanner {
+.outofstockmessagebanner {
   border-radius: 8px 8px 0px 0px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   color: white;
   background: rgb(0, 0, 0);
-  padding: 20px;
+  padding: 10px;
   display: flex;
   width: -webkit-fill-available;
   position: absolute;
   z-index: 2;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
+  font-weight: 100;
   font-size: small;
+  letter-spacing: 1px;
+}
+
+.outofstockmessagebannermodal {
+  margin: 5px 5px 5px 5px;
+  border-radius: 8px 8px 0px 0px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+  background: rgb(0, 0, 0);
+  padding: 5px;
+  display: flex;
+  width: 190px;
+  position: absolute;
+  z-index: 2;
+  justify-content: center;
+  align-items: center;
+  font-weight: 100;
+  font-size: x-small;
   letter-spacing: 1px;
 }
 
@@ -2690,7 +2718,7 @@ select {
 .close-btn,
 .Buyitnow,
 .placeorderbtn {
-  /* border: 2px solid; */
+  border: 1px solid;
   font-size: small;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -2731,7 +2759,7 @@ select {
 .stockMessage-p,
 .BrandName-p {
   width: fit-content;
-  font-weight: 600;
+  font-weight: 100;
   font-size: small;
   color: #333;
   letter-spacing: 1px;
@@ -3250,6 +3278,21 @@ select {
 
 
 
+.modalbtnL {
+  font-size: small;
+  background: white;
+  border-radius: 0px 0px 8px 0px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modalbtnR {
+  font-size: small;
+  background: white;
+  border-radius: 0px 0px 0px 8px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
 .modal-content {
   background: #fff;
@@ -6166,6 +6209,7 @@ th {
   /* Hide the overflowed text */
   text-overflow: ellipsis;
   /* Add ellipsis to the truncated text */
+  font-weight: 200;
 }
 
 @keyframes fadeInUp {
@@ -8001,14 +8045,23 @@ body.swal2-shown {
   display: flex;
 }
 
+.price-animation-modal-container {
+  position: static;
+  margin-block: 10px;
+  justify-content: center;
+  height: 1.3em;
+  /* Adjust based on your text size */
+  overflow: hidden;
+  display: flex;
+}
+
 .pre-sale-animation,
 .card-price-animation {
+  font-weight: 100;
   position: absolute;
   width: 100%;
   transition: all 0.5s ease;
   color: #838383;
-  font-family: var(--ff-roboto);
-  font-weight: var(--fw-600);
   margin: 5px 0;
 }
 
@@ -8017,7 +8070,7 @@ body.swal2-shown {
   opacity: 1;
   color: #838383;
   font-family: var(--ff-roboto);
-  font-weight: var(--fw-600);
+  font-weight: 100;
   padding-bottom: 10px;
 }
 
