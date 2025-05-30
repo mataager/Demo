@@ -1,4 +1,4 @@
-function fetchAndRenderProducts() {
+async function fetchAndRenderProducts() {
   document.getElementById("preloader").style.display = "flex";
   fetch(`${url}/Stores/${uid}/Products.json`)
     .then((response) => {
@@ -58,12 +58,15 @@ function fetchAndRenderProducts() {
 
           // Check and set default image source if necessary
           setDefaultImageSource(product);
+          const { colorOptionsContainer, outOfStockBadge } =
+            getColorOptionsAndStockInfo(product);
           // Adjust this part according to your product card structure
           productCard.innerHTML = `
             <div class="product-card" tabindex="0">
               <figure class="card-banner">
                 <img src="${product["product-photo"]}" width="312" height="350" alt=""class="image-contain" id="swipe1">
                 <img src="${product["product-photo2"]}" width="312" height="350" alt="" id="swipe2" class="image-contain" style="display: none;">
+                ${outOfStockBadge}
                 <div class="card-badge"><div class="badge-txt">New</div></div>
                
                 <ul class="card-action-list">
@@ -88,10 +91,14 @@ function fetchAndRenderProducts() {
                 </ul>
               </figure>
               <div class="card-content mt-10">
+                ${colorOptionsContainer}
                 <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
                   <a class="title" href="#">${product["product-title"]}</a>
                 </h3>
-                <p class="card-price">${salePrice} EGP</p>
+                <div class="price-animation-container">
+            <del class="pre-sale-animation">${originalPrice} EGP</del>
+            <p class="card-price-animation">${salePrice} EGP</p>
+            </div>
                 <a href="#" class="card-price hidden font-small">${key}</a>
               </div>
             </div>
@@ -102,8 +109,8 @@ function fetchAndRenderProducts() {
 
           // Setup hover effect for the new product card
           setupHoverEffect(productCard);
+          setupPriceAnimations();
         });
-
         // Limit the number of products to be displayed in the main product overview to 12
         const limitedData = shuffledData.slice(0, 12);
 
@@ -115,41 +122,6 @@ function fetchAndRenderProducts() {
             "animate-on-scroll"
           );
 
-          // Get colors for all sizes if sizes property exists (your existing logic)
-          const allColors = new Set();
-          const colorValues = {};
-          if (product.sizes) {
-            Object.values(product.sizes).forEach((sizeDetails) => {
-              if (sizeDetails) {
-                Object.keys(sizeDetails).forEach((color) => {
-                  allColors.add(color);
-                  colorValues[color] = sizeDetails[color]["color-value"];
-                });
-              }
-            });
-          }
-
-          // Construct color options HTML (your existing logic)
-          let colorOptionsHTML = "";
-          const colorsArray = Array.from(allColors);
-          const displayColors = colorsArray.slice(0, 3);
-
-          displayColors.forEach((color) => {
-            const colorValue = colorValues[color] || "#000000"; // Default color if not found
-            colorOptionsHTML += `<div class="color-option2 " style="background-color: ${colorValue};" data-color-name="${color}"></div>`;
-          });
-
-          if (colorsArray.length > 3) {
-            colorOptionsHTML += `<div class="color-option2 flex center align-items font-small"  onclick="productDetails('${key}')" style="background-color: #e2e2e2;" data-color-name="more">+${
-              allColors.size - 3
-            }</div>`;
-          }
-
-          const colorOptionsContainer =
-            allColors.size > 0
-              ? `<div class="color-options m-5 mb-7 center">${colorOptionsHTML}</div>`
-              : `<p class="no-color-options mb-7">No color options available</p>`;
-
           const saleAmount = product["sale-amount"];
           const originalPrice = product["Product-Price"];
 
@@ -159,6 +131,8 @@ function fetchAndRenderProducts() {
             : "";
           //
           const salePrice = calculateSalePrice(originalPrice, saleAmount);
+          const { colorOptionsContainer, outOfStockBadge } =
+            getColorOptionsAndStockInfo(product);
           setDefaultImageSource(product);
 
           // Construct product card HTML (your existing logic)
@@ -171,6 +145,7 @@ function fetchAndRenderProducts() {
                 <img src="${
                   product["product-photo2"]
                 }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
+                ${outOfStockBadge}
                 ${
                   saleAmount
                     ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div>${bestSellerHTML}</div>`
@@ -203,7 +178,10 @@ function fetchAndRenderProducts() {
                 <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
                   <a class="title" href="#">${product["product-title"]}</a>
                 </h3>
-                <p class="card-price">${salePrice} EGP</p>
+                <div class="price-animation-container">
+            <del class="pre-sale-animation">${originalPrice} EGP</del>
+            <p class="card-price-animation">${salePrice} EGP</p>
+            </div>
                 <a href="#" class="card-price hidden font-small">${key}</a>
               </div>
             </div>
@@ -213,6 +191,7 @@ function fetchAndRenderProducts() {
           setDefaultImageSource(product);
           // Set up hover effect for the product card in the product overview
           setupHoverEffect(productCard);
+          setupPriceAnimations();
         });
         setupBadgeAnimations();
         // Render Sale Items
@@ -327,6 +306,8 @@ function renderSaleItems(products, saleContainer) {
         ? `<div class="best-seller" id="best-seller">Bestseller<i class="bi bi-lightning-charge"></i></div>`
         : "";
       //
+      const { colorOptionsContainer, outOfStockBadge } =
+        getColorOptionsAndStockInfo(product);
 
       productCard.innerHTML = `
         <div class="product-card" tabindex="0">
@@ -337,6 +318,7 @@ function renderSaleItems(products, saleContainer) {
             <img src="${
               product["product-photo2"]
             }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
+            ${outOfStockBadge}
            ${
              saleAmount
                ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div></div>`
@@ -364,6 +346,7 @@ function renderSaleItems(products, saleContainer) {
             </ul>
           </figure>
           <div class="card-content mt-10">
+          ${colorOptionsContainer}
             <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
               <a class="title" href="#">${product["product-title"]}</a>
             </h3>
@@ -422,6 +405,8 @@ function renderBestSellers(products, bestSellersContainer) {
 
     // Check and set default image source
     setDefaultImageSource(product);
+    const { colorOptionsContainer, outOfStockBadge } =
+      getColorOptionsAndStockInfo(product);
 
     productCard.innerHTML = `
       <div class="product-card" tabindex="0">
@@ -432,6 +417,7 @@ function renderBestSellers(products, bestSellersContainer) {
           <img src="${
             product["product-photo2"]
           }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
+          ${outOfStockBadge}
           ${
             saleAmount
               ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div></div>`
@@ -459,6 +445,7 @@ function renderBestSellers(products, bestSellersContainer) {
           </ul>
         </figure>
         <div class="card-content mt-10">
+         ${colorOptionsContainer}
           <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
             <a class="title" href="#">${product["product-title"]}</a>
           </h3>

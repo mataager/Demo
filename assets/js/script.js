@@ -64,27 +64,27 @@ function renderProducts() {
       });
     }
 
-    // Construct color options HTML
-    let colorOptionsHTML = "";
-    const colorsArray = Array.from(allColors);
-    const displayColors = colorsArray.slice(0, 3);
+    // // Construct color options HTML
+    // let colorOptionsHTML = "";
+    // const colorsArray = Array.from(allColors);
+    // const displayColors = colorsArray.slice(0, 3);
 
-    displayColors.forEach((color) => {
-      const colorValue = colorValues[color] || "#000000"; // Default color if not found
-      colorOptionsHTML += `<div class="color-option2 " style="background-color: ${colorValue};" data-color-name="${color}"></div>`;
-    });
+    // displayColors.forEach((color) => {
+    //   const colorValue = colorValues[color] || "#000000"; // Default color if not found
+    //   colorOptionsHTML += `<div class="color-option2 " style="background-color: ${colorValue};" data-color-name="${color}"></div>`;
+    // });
 
-    if (colorsArray.length > 3) {
-      colorOptionsHTML += `<div class="color-option2 flex center align-items font-small" onclick="productDetails('${key}')" style="background-color: #e2e2e2;" data-color-name="more">+${
-        allColors.size - 3
-      }</div>`;
-    }
+    // if (colorsArray.length > 3) {
+    //   colorOptionsHTML += `<div class="color-option2 flex center align-items font-small" onclick="productDetails('${key}')" style="background-color: #e2e2e2;" data-color-name="more">+${
+    //     allColors.size - 3
+    //   }</div>`;
+    // }
 
     // If no colors are available, show a default message or hide the color options
-    const colorOptionsContainer =
-      allColors.size > 0
-        ? `<div class="color-options m-5 mb-7 center">${colorOptionsHTML}</div>`
-        : `<p class="no-color-options mb-7">No color options available</p>`;
+    // const colorOptionsContainer =
+    //   allColors.size > 0
+    //     ? `<div class="color-options m-5 mb-7 center">${colorOptionsHTML}</div>`
+    //     : `<p class="no-color-options mb-7">No color options available</p>`;
 
     const saleAmount = product["sale-amount"];
     const originalPrice = product["Product-Price"];
@@ -106,6 +106,9 @@ function renderProducts() {
       ? Object.keys(product.sizes).join(",")
       : "No sizes available";
 
+    const { colorOptionsContainer, outOfStockBadge } =
+      getColorOptionsAndStockInfo(product);
+
     // Construct product card HTML
     productCard.innerHTML = `
       <div class="product-card" tabindex="0">
@@ -118,7 +121,7 @@ function renderProducts() {
           <img src="${
             product["product-photo2"]
           }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
-          
+          ${outOfStockBadge}
           ${
             saleAmount
               ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div>${bestSellerHTML}</div>`
@@ -146,7 +149,7 @@ function renderProducts() {
           </ul>
         </figure>
         <div class="card-content">
-          ${colorOptionsContainer}
+        ${colorOptionsContainer}
           <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
             <a class="title" href="#">${product["product-title"]}</a>
           </h3>

@@ -167,14 +167,30 @@ async function submitOrder() {
         }
 
         if (outofstock && !vanishedstock) {
-          console.log("Setting stock to 0");
-          // Set stock to 0 instead of deleting when outofstock is true and vanishedstock is false
+          const stockQty =
+            productData.sizes[item.productSize]?.[item.productColor]?.qty || 0;
+
+          if (stockQty < item.quantity) {
+            unavailableItems.push({
+              title: item.title,
+              photourl: item.photourl,
+              reason: `Requested quantity (${item.quantity}) exceeds available stock (${stockQty}).`,
+            });
+            continue;
+          }
+
+          // Update the stock in Firebase
+          const newStockQty = stockQty - item.quantity;
+
+          // For outofstock, we always set the quantity (either reduced or 0 if depleted)
           await fetch(
             `${url}/Stores/${uid}/Products/${item.id}/sizes/${item.productSize}/${item.productColor}.json?auth=${idToken}`,
             {
               method: "PATCH",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ qty: 0 }),
+              body: JSON.stringify({
+                qty: newStockQty > 0 ? newStockQty : 0,
+              }),
             }
           );
         }
@@ -418,6 +434,43 @@ async function guestSubmitorder() {
               });
               continue;
             }
+            // if (vanishedstock) {
+            //   const stockQty =
+            //     productData.sizes[item.productSize]?.[item.productColor]?.qty ||
+            //     0;
+
+            //   if (stockQty < item.quantity) {
+            //     unavailableItems.push({
+            //       title: item.title,
+            //       photourl: item.photourl,
+            //       reason: `Requested quantity (${item.quantity}) exceeds available stock (${stockQty}).`,
+            //     });
+            //     continue;
+            //   }
+
+            //   // Update stock in Firebase
+            //   const newStockQty = stockQty - item.quantity;
+
+            //   if (newStockQty > 0) {
+            //     await fetch(
+            //       `${url}/Stores/${uid}/Products/${item.id}/sizes/${item.productSize}/${item.productColor}.json?auth=${idToken}`,
+            //       {
+            //         method: "PATCH",
+            //         headers: { "Content-Type": "application/json" },
+            //         body: JSON.stringify({ qty: newStockQty }),
+            //       }
+            //     );
+            //   } else {
+            //     // Delete the size/color if stock is depleted
+            //     await fetch(
+            //       `${url}/Stores/${uid}/Products/${item.id}/sizes/${item.productSize}/${item.productColor}.json?auth=${idToken}`,
+            //       {
+            //         method: "DELETE",
+            //       }
+            //     );
+            //   }
+            // }
+
             if (vanishedstock) {
               const stockQty =
                 productData.sizes[item.productSize]?.[item.productColor]?.qty ||
@@ -432,7 +485,7 @@ async function guestSubmitorder() {
                 continue;
               }
 
-              // Update stock in Firebase
+              // Update the stock in Firebase
               const newStockQty = stockQty - item.quantity;
 
               if (newStockQty > 0) {
@@ -445,9 +498,9 @@ async function guestSubmitorder() {
                   }
                 );
               } else {
-                // Delete the size/color if stock is depleted
+                // Delete the size/color if stock is depleted and vanishedstock is true
                 await fetch(
-                  `${url}/Stores/${uid}/Products/${item.id}/sizes/${item.productSize}/${item.productColor}.json?auth=${idToken}`,
+                  `${url}/Stores/${uid}/Products/${item.id}.json?auth=${idToken}`,
                   {
                     method: "DELETE",
                   }
@@ -455,6 +508,35 @@ async function guestSubmitorder() {
               }
             }
 
+            if (outofstock && !vanishedstock) {
+              const stockQty =
+                productData.sizes[item.productSize]?.[item.productColor]?.qty ||
+                0;
+
+              if (stockQty < item.quantity) {
+                unavailableItems.push({
+                  title: item.title,
+                  photourl: item.photourl,
+                  reason: `Requested quantity (${item.quantity}) exceeds available stock (${stockQty}).`,
+                });
+                continue;
+              }
+
+              // Update the stock in Firebase
+              const newStockQty = stockQty - item.quantity;
+
+              // For outofstock, we always set the quantity (either reduced or 0 if depleted)
+              await fetch(
+                `${url}/Stores/${uid}/Products/${item.id}/sizes/${item.productSize}/${item.productColor}.json?auth=${idToken}`,
+                {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    qty: newStockQty > 0 ? newStockQty : 0,
+                  }),
+                }
+              );
+            }
             updatedCart.push(item);
             cartTotal += (parseFloat(item.price) || 0) * item.quantity;
           }

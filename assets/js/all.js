@@ -733,12 +733,12 @@ function setupPricemodalAnimations() {
 }
 
 //
-// In product-stock.js:
-function checkStockStatus(qty) {
+//check the item out of stock or not
+async function checkStockStatus(qty) {
   const stockMessage = document.getElementById("stockMessage");
   const stockContainer = document.getElementById("stockContainer");
 
-  if (qty == 0) {
+  if (qty === 0) {
     stockMessage.innerText = "Out of stock";
     stockContainer.classList.remove("hidden");
     showOutOfStockBadge();
@@ -751,6 +751,7 @@ function checkStockStatus(qty) {
     showPurchaseButtons();
     enableProductOptions();
   } else {
+    console.log("Adequate stock", qty);
     stockMessage.innerText = "";
     stockContainer.classList.add("hidden");
     removeOutOfStockBadge();
@@ -758,7 +759,6 @@ function checkStockStatus(qty) {
     enableProductOptions();
   }
 }
-
 function showOutOfStockBadge() {
   const mainImageContainer = document.getElementById("outofstockmessagebanner");
   mainImageContainer.classList.remove("hidden");
@@ -789,4 +789,92 @@ function enableProductOptions() {
   document.querySelectorAll(".size-radio, .color-option").forEach((option) => {
     option.classList.remove("out-of-stock-option");
   });
+}
+
+//check the item out of stock or not
+function getColorOptionsAndStockInfo(product) {
+  const allColors = new Set();
+  const colorValues = {};
+
+  // First pass to collect all colors and their values
+  if (product.sizes) {
+    Object.values(product.sizes).forEach((sizeDetails) => {
+      if (sizeDetails) {
+        Object.keys(sizeDetails).forEach((color) => {
+          allColors.add(color);
+          colorValues[color] = sizeDetails[color]["color-value"];
+        });
+      }
+    });
+  }
+
+  // Calculate total available quantity
+  let totalAvailableQty = 0;
+  if (product.sizes) {
+    Object.values(product.sizes).forEach((sizeDetails) => {
+      if (sizeDetails) {
+        Object.keys(sizeDetails).forEach((color) => {
+          const qty = sizeDetails[color].qty || 0;
+          totalAvailableQty += qty;
+        });
+      }
+    });
+  }
+
+  // Generate color options HTML
+  let colorOptionsHTML = "";
+  const colorsArray = Array.from(allColors);
+
+  colorsArray.forEach((color) => {
+    const colorValue = colorValues[color] || "#000000";
+    let maxQty = 0;
+
+    // Calculate max quantity for this color across all sizes
+    if (product.sizes) {
+      Object.values(product.sizes).forEach((sizeDetails) => {
+        if (sizeDetails && sizeDetails[color] && sizeDetails[color].qty) {
+          if (sizeDetails[color].qty > maxQty) {
+            maxQty = sizeDetails[color].qty;
+          }
+        }
+      });
+    }
+
+    colorOptionsHTML += `
+      <div class="color-option2 tooltip" 
+           style="background-color: ${colorValue};" 
+           data-color-name="${color}"
+           item-qty="${maxQty}">
+      </div>
+    `;
+  });
+
+  // Optional JavaScript to generate tooltips from data attributes
+  document.querySelectorAll(".color-option2.tooltip").forEach((option) => {
+    const colorName = option.getAttribute("data-color-name");
+    const qty = option.getAttribute("item-qty");
+    const tooltip = document.createElement("span");
+    tooltip.className = "tooltiptext";
+    tooltip.textContent = `${
+      colorName.charAt(0).toUpperCase() + colorName.slice(1)
+    } (Available: ${qty})`;
+    option.appendChild(tooltip);
+  });
+
+  const colorOptionsContainer =
+    allColors.size > 0
+      ? `<div class="color-options m-5 mb-7 center">${colorOptionsHTML}</div>`
+      : `<p class="no-color-options mb-7">No color options available</p>`;
+
+  // Generate out of stock badge if needed
+  const outOfStockBadge =
+    totalAvailableQty === 0
+      ? '<div class="out-of-stock-badge">Out of Stock</div>'
+      : "";
+
+  return {
+    colorOptionsContainer,
+    outOfStockBadge,
+    totalAvailableQty,
+  };
 }

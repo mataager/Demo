@@ -602,6 +602,11 @@
         const BuyNowElement = document.getElementById(buynowbtn);
         const carti = buttonElement.querySelector('i'); // Get the icon element
 
+        console.log(sizeElement)
+
+
+        console.log("buynow", BuyNowElement);
+
         // Check if either size or color element is empty
         if (!sizeElement.innerText.trim() || !colorElement.innerText.trim()) {
             buttonElement.disabled = true; // Disable the button
@@ -651,7 +656,7 @@
             }
 
             // Check and toggle button state
-            checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
+            // checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
         });
     });
 
@@ -673,7 +678,7 @@
 
     // Initialize on page load
     document.addEventListener("DOMContentLoaded", function () {
-        checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
+        // checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
 
         // Automatically select the first size and color
         const firstSizeOption = sizeOptions[0];
@@ -752,7 +757,6 @@
 
             // Get the quantity from data-qty attribute
             const colorQty = firstColorOption.getAttribute('data-qty');
-
             // Check stock status before clicking
             checkStockStatus(colorQty);
 
@@ -774,28 +778,15 @@
         }
     }
     // Function to handle size selection
-    function SizeRef(element) {
-        const selectedSize = element.querySelector('.size-value').textContent;
-        document.getElementById('product-Size').textContent = selectedSize;
-        // Update any size hints if necessary
-        const sizeHintText = document.getElementById('size-hint-text');
-        if (sizeHintText) {
-            sizeHintText.style.display = 'none';
-        }
-    }
-
-    // Function to handle color selection
-    function ColorRef(element) {
-        const selectedColor = element.getAttribute('data-color-name');
-        document.getElementById('product-color').textContent = selectedColor;
-
-        // Remove any color hint text
-        const colorHintText = document.getElementById('color-hint-text');
-        if (colorHintText) {
-            colorHintText.style.display = 'none';
-        }
-    }
-
+    // function SizeRef(element) {
+    //     const selectedSize = element.querySelector('.size-value').textContent;
+    //     document.getElementById('product-Size').textContent = selectedSize;
+    //     // Update any size hints if necessary
+    //     const sizeHintText = document.getElementById('size-hint-text');
+    //     if (sizeHintText) {
+    //         sizeHintText.style.display = 'none';
+    //     }
+    // }
     // Example of calling the function on page load
     document.addEventListener('DOMContentLoaded', () => {
         initializeProductSelections();
@@ -881,6 +872,7 @@
 
                 prePriceElement.innerHTML = prePriceHTML;
                 productPriceElement.innerHTML = productPriceHTML;
+
 
                 // Check if the product qualifies for free shipping
                 let freeShippingHTML = "";
@@ -1005,26 +997,26 @@
                                     hidePreloader();
                                 }, 500);
                             });
-                            colorOption.addEventListener('click', function () {
-                                productColorElement.innerText = color;
-                                checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
-                                const BuyNowButton = document.getElementById('BuyNowButton');
-                                // Display stock quantity
-                                if (colorOptions) {
-                                    const colors = sizes[size];
-                                    for (const color in colors) {
-                                        const qty = colors[color]["qty"];
-                                        const stockContainer = document.getElementById('stockContainer');
-                                        const stockMessage = document.getElementById('stockMessage');
+                            // colorOption.addEventListener('click', function () {
+                            //     productColorElement.innerText = color;
+                            //     checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
+                            //     const BuyNowButton = document.getElementById('BuyNowButton');
+                            //     // Display stock quantity
+                            //     if (colorOptions) {
+                            //         const colors = sizes[size];
+                            //         for (const color in colors) {
+                            //             const qty = colors[color]["qty"];
+                            //             const stockContainer = document.getElementById('stockContainer');
+                            //             const stockMessage = document.getElementById('stockMessage');
 
 
-                                        if (stockContainer && stockMessage) {
-                                            BuyNowButton.setAttribute('data-qty', qty);
-                                            checkStockStatus(qty);
-                                        }
-                                    }
-                                }
-                            });
+                            //             if (stockContainer && stockMessage) {
+                            //                 BuyNowButton.setAttribute('data-qty', qty);
+                            //                 checkStockStatus(qty);
+                            //             }
+                            //         }
+                            //     }
+                            // });
 
                             // Append colorOption to the wrapper first
                             colorOptionwrapper.appendChild(colorOption);
@@ -1033,7 +1025,7 @@
                             colorOptions.appendChild(colorOptionwrapper);
                         }
 
-                        checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
+                        // checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
                     });
                 }
 
@@ -1206,100 +1198,211 @@
     }
 
 
-    document.addEventListener('DOMContentLoaded', function () {
 
-        function SizeRef(selectedElement) {
-            // Get all the size-radio elements
-            const sizeElements = document.querySelectorAll('.size-radio');
 
-            // Loop through each size and reset the background and text color
-            sizeElements.forEach(function (element) {
-                element.style.backgroundColor = ''; // Reset background color
-                element.style.color = ''; // Reset text color
-            });
 
-            // Set the background color and text color of the clicked element
-            selectedElement.style.backgroundColor = '#333';
-            selectedElement.style.color = 'white';
+    // Also call checkSelection when the page loads in case there are default selections
+    document.addEventListener('DOMContentLoaded', checkSelection);
+    async function checkSelection() {
+        const buttonElement = document.getElementById('addToCartButton');
+        const BuyNowElement = document.getElementById('BuyNowButton');
+        const carti = buttonElement?.querySelector('i');
 
-            // Reset the text content of the color text element
-            const productColorElement = document.getElementById('product-color');
-            if (productColorElement) {
-                productColorElement.innerText = ''; // Set the content to be empty
+        // Find selected size (has background-color style)
+        const selectedSize = document.querySelector('.size-radio[style*="background-color"]');
+        // Find selected color (has border style)
+        const selectedColor = document.querySelector('.color-option[style*="border"]');
+        const qty = selectedColor ? parseInt(selectedColor.getAttribute('color-qty')) || 0 : 0;
+
+        // Update stock status if color is selected
+        if (selectedColor) {
+            await checkStockStatus(qty);
+        }
+
+        // Update product color display if color is selected
+        const productColorElement = document.getElementById('product-color');
+        if (productColorElement && selectedColor) {
+            productColorElement.innerText = selectedColor.getAttribute('color-name') || '';
+        }
+
+        // Set quantity data on Buy Now button if color is selected
+        if (BuyNowElement && selectedColor) {
+            BuyNowElement.setAttribute('data-qty', qty);
+        }
+
+        // Handle button states
+        if (!selectedSize || !selectedColor || qty <= 0) {
+            // Disable buttons if either size or color is not selected or qty is 0
+            if (buttonElement) {
+                buttonElement.disabled = true;
+                buttonElement.style.opacity = '0.5';
+                if (carti) {
+                    carti.classList.remove('bi-bag-check');
+                    carti.classList.add('bi-exclamation-lg');
+                }
+                buttonElement.removeAttribute('onclick');
             }
 
-            // Show the hint text asking the user to select a color
-            const hintTextElement = document.getElementById('color-hint-text');
-            if (hintTextElement) {
-                // Set the full hint text immediately
-                hintTextElement.innerHTML = 'Must choose a color <i class="bi bi-arrow-down"></i>';
+            if (BuyNowElement) {
+                BuyNowElement.disabled = true;
+                BuyNowElement.style.opacity = '0.5';
+                BuyNowElement.removeAttribute('onclick');
+            }
+        } else {
+            // Enable buttons if both are selected and qty > 0
+            if (buttonElement) {
+                buttonElement.disabled = false;
+                buttonElement.style.opacity = '1';
+                if (carti) {
+                    carti.classList.remove('bi-exclamation-lg');
+                    carti.classList.add('bi-bag-check');
+                }
+                buttonElement.setAttribute('onclick', 'addToCart()');
+            }
 
-                // Make the text visible and add animation class
+            if (BuyNowElement) {
+                BuyNowElement.disabled = false;
+                BuyNowElement.style.opacity = '1';
+                BuyNowElement.setAttribute('onclick', 'handleBuyNowClick()');
+            }
+        }
+
+        // Handle color hint text
+        const hintTextElement = document.getElementById('color-hint-text');
+        if (hintTextElement) {
+            if (selectedSize && !selectedColor) {
+                hintTextElement.innerHTML = 'Must choose a color <i class="bi bi-arrow-down"></i>';
                 hintTextElement.style.display = 'block';
                 hintTextElement.classList.add('rolling-animation');
-
-            }
-            checkSizeSelection();
-        }
-
-        function checkSizeSelection() {
-            const selectedSize = document.querySelector('.size-radio[style*="background-color: rgb(51, 51, 51)"]');
-            const sizeHintTextElement = document.getElementById('size-hint-text');
-
-            if (!selectedSize) {
-                // Show size hint if no size is selected
-                if (sizeHintTextElement) {
-                    sizeHintTextElement.innerHTML = 'Must choose a size <i class="bi bi-arrow-down"></i>';
-                    sizeHintTextElement.style.display = 'block';
-                    sizeHintTextElement.classList.add('rolling-animation');
-                }
             } else {
-                // Hide size hint if a size is selected
-                if (sizeHintTextElement) {
-                    sizeHintTextElement.style.display = 'none';
-                    sizeHintTextElement.innerText = ''; // Clear the hint text
-                    sizeHintTextElement.classList.remove('rolling-animation');
-                }
-            }
-        }
-
-        function ColorRef(selectedElement) {
-            // Get all the color-option elements
-            const colorElements = document.querySelectorAll('.color-option');
-
-            // Loop through each color and reset the border
-            colorElements.forEach(function (element) {
-                element.style.border = ''; // Reset the border
-            });
-
-            // Set the border of the clicked color to 5px solid #c1c1c1
-            selectedElement.style.border = '2px solid #c1c1c1';
-            selectedElement.style.borderBottom = '5px solid #c1c1c1';
-
-            // Show or hide the color hint text
-            const hintTextElement = document.getElementById('color-hint-text');
-            if (hintTextElement) {
-                hintTextElement.style.display = 'none'; // Hide the hint text once a color is selected
-                hintTextElement.innerText = ''; // Clear the hint text
+                hintTextElement.style.display = 'none';
+                hintTextElement.innerText = '';
                 hintTextElement.classList.remove('rolling-animation');
             }
         }
+    }
+    // function SizeRef(selectedElement) {
+    //     // Get all the size-radio elements
+    //     const sizeElements = document.querySelectorAll('.size-radio');
 
-        // Call this function when the user needs a hint for color selection
-        function showColorHint() {
-            const hintTextElement = document.getElementById('color-hint-text');
-            if (hintTextElement) {
-                hintTextElement.innerHTML = 'Please select a color <i class="bi bi-arrow-down"></i>';
-                hintTextElement.style.display = 'block';
-                hintTextElement.classList.add('rolling-animation');
-            }
+    //     // Loop through each size and reset the background and text color
+    //     sizeElements.forEach(function (element) {
+    //         element.style.backgroundColor = ''; // Reset background color
+    //         element.style.color = ''; // Reset text color
+    //     });
+
+    //     // Set the background color and text color of the clicked element
+    //     selectedElement.style.backgroundColor = '#333';
+    //     selectedElement.style.color = 'white';
+
+
+    //     // Reset the text content of the color text element
+    //     const productColorElement = document.getElementById('product-color');
+    //     if (productColorElement) {
+    //         productColorElement.innerText = ''; // Set the content to be empty
+    //     }
+
+    //     // Show the hint text asking the user to select a color
+    //     const hintTextElement = document.getElementById('color-hint-text');
+    //     if (hintTextElement) {
+    //         // Set the full hint text immediately
+    //         hintTextElement.innerHTML = 'Must choose a color <i class="bi bi-arrow-down"></i>';
+
+    //         // Make the text visible and add animation class
+    //         hintTextElement.style.display = 'block';
+    //         hintTextElement.classList.add('rolling-animation');
+
+    //     }
+
+    // }
+
+    // async function ColorRef(selectedElement) {
+    //     // Get quantity from selected color
+    //     const qty = parseInt(selectedElement.getAttribute('color-qty')) || 0;
+
+    //     // Update stock status display
+    //     await checkStockStatus(qty);
+
+    //     // Update selected color display
+    //     const productColorElement = document.getElementById('product-color');
+    //     if (productColorElement) {
+    //         productColorElement.innerText = selectedElement.getAttribute('color-name') || '';
+    //     }
+
+    //     // Check and toggle purchase buttons - only enable if qty > 0
+    //     checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton", qty);
+
+    //     // Set quantity data on Buy Now button
+    //     const BuyNowButton = document.getElementById('BuyNowButton');
+    //     if (BuyNowButton) {
+    //         BuyNowButton.setAttribute('data-qty', qty);
+    //     }
+
+    //     // Reset all color option borders
+    //     const colorElements = document.querySelectorAll('.color-option');
+    //     colorElements.forEach(element => {
+    //         element.style.border = '';
+    //         element.style.borderBottom = '';
+    //     });
+
+    //     // Highlight selected color
+    //     selectedElement.style.border = '2px solid #c1c1c1';
+    //     selectedElement.style.borderBottom = '5px solid #c1c1c1';
+
+    //     // Hide color hint text if exists
+    //     const hintTextElement = document.getElementById('color-hint-text');
+    //     if (hintTextElement) {
+    //         hintTextElement.style.display = 'none';
+    //         hintTextElement.innerText = '';
+    //         hintTextElement.classList.remove('rolling-animation');
+    //     }
+    // }
+    function SizeRef(selectedElement) {
+        const sizeElements = document.querySelectorAll('.size-radio');
+        sizeElements.forEach(element => {
+            element.style.backgroundColor = '';
+            element.style.color = '';
+        });
+
+        selectedElement.style.backgroundColor = '#333';
+        selectedElement.style.color = 'white';
+
+        // Reset color selection when size changes
+        const colorElements = document.querySelectorAll('.color-option');
+        colorElements.forEach(element => {
+            element.style.border = '';
+            element.style.borderBottom = '';
+        });
+
+        // Call the unified check
+        checkSelection();
+    }
+
+    // Updated ColorRef function
+    async function ColorRef(selectedElement) {
+        // Reset all color option borders
+        const colorElements = document.querySelectorAll('.color-option');
+        colorElements.forEach(element => {
+            element.style.border = '';
+            element.style.borderBottom = '';
+        });
+
+        // Highlight selected color
+        selectedElement.style.border = '2px solid #c1c1c1';
+        selectedElement.style.borderBottom = '5px solid #c1c1c1';
+
+        // Call the unified check
+        await checkSelection();
+    }
+    function showColorHint() {
+        const hintTextElement = document.getElementById('color-hint-text');
+        if (hintTextElement) {
+            hintTextElement.innerHTML = 'Please select a color <i class="bi bi-arrow-down"></i>';
+            hintTextElement.style.display = 'block';
+            hintTextElement.classList.add('rolling-animation');
         }
+    }
 
-        // Expose these functions to the global scope so they can be used in HTML onclick events
-        window.SizeRef = SizeRef;
-        window.ColorRef = ColorRef;
-        checkSizeSelection();
-    });
     const showDetailsButton = document.getElementById('showdetails');
     const detailsSection = document.getElementById('details-section');
 
@@ -1528,15 +1631,14 @@
 
             // Render size chart content
             modalContent.innerHTML = `
-      <div class="flex justify-content-space-between width-available modal-header">
-        <div class="flex center flex-end" onclick="closeModal()">
-          <button style="margin: 0px; border-radius: 0px 8px 0px 8px; background: initial !important; color:#333;" 
-                  type="button" class="Add-to-Cart" closeModal() id="closeButton">
+      <div class="flex justify-content-space-between width-available modal-header flex-end">
+        <div class="flex center " onclick="closeModal()">
+          <button type="button" class="modalbtnR" closeModal() id="closeButton">
             <i class="bi bi-x-lg"></i>
           </button>
         </div>
       </div>
-      <div class="m-5" style="overflow: auto; max-height: 70vh;">
+      <div class="m-5 mt-30" style="overflow: auto; max-height: 70vh;">
         <img src="${sizeChartUrl}" alt="Size Chart" style="width: 100%; height: auto; display: block;">
       </div>
     `;

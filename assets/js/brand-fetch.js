@@ -110,36 +110,39 @@ function renderProducts() {
   productKeys.forEach((key) => {
     const product = allData[key];
 
-    // Extracting color options, sale amount, and other necessary data
-    let colorOptionsHtml = ""; // Initialize color options HTML
-    let seenColors = new Set(); // Set to track seen colors
-    let extraColorsCount = 0; // Track number of extra colors
+    // // Extracting color options, sale amount, and other necessary data
+    // let colorOptionsHtml = ""; // Initialize color options HTML
+    // let seenColors = new Set(); // Set to track seen colors
+    // let extraColorsCount = 0; // Track number of extra colors
 
-    if (product["sizes"]) {
-      // Loop through each size and its colors
-      Object.keys(product["sizes"]).forEach((size) => {
-        const sizeData = product["sizes"][size];
-        // Loop through each color within the size
-        Object.keys(sizeData).forEach((color) => {
-          const colorData = sizeData[color];
-          if (!seenColors.has(colorData["color-value"])) {
-            seenColors.add(colorData["color-value"]);
-            if (seenColors.size <= 3) {
-              colorOptionsHtml += `
-                <div class="color-option2" style="background-color: ${colorData["color-value"]};" data-color-name="${color}"></div>`;
-            } else {
-              extraColorsCount++; // Increment count for extra colors
-            }
-          }
-        });
-      });
-    }
+    // if (product["sizes"]) {
+    //   // Loop through each size and its colors
+    //   Object.keys(product["sizes"]).forEach((size) => {
+    //     const sizeData = product["sizes"][size];
+    //     // Loop through each color within the size
+    //     Object.keys(sizeData).forEach((color) => {
+    //       const colorData = sizeData[color];
+    //       if (!seenColors.has(colorData["color-value"])) {
+    //         seenColors.add(colorData["color-value"]);
+    //         if (seenColors.size <= 3) {
+    //           colorOptionsHtml += `
+    //             <div class="color-option2" style="background-color: ${colorData["color-value"]};" data-color-name="${color}"></div>`;
+    //         } else {
+    //           extraColorsCount++; // Increment count for extra colors
+    //         }
+    //       }
+    //     });
+    //   });
+    // }
 
-    // If there are more than 3 colors, add the "more" button
-    if (extraColorsCount > 0) {
-      colorOptionsHtml += `
-        <div class="color-option2 flex center align-items font-small" onclick="productDetails('${key}')" style="background-color: #e2e2e2;" data-color-name="more">+${extraColorsCount}</div>`;
-    }
+    // // If there are more than 3 colors, add the "more" button
+    // if (extraColorsCount > 0) {
+    //   colorOptionsHtml += `
+    //     <div class="color-option2 flex center align-items font-small" onclick="productDetails('${key}')" style="background-color: #e2e2e2;" data-color-name="more">+${extraColorsCount}</div>`;
+    // }
+
+    const { colorOptionsContainer, outOfStockBadge } =
+      getColorOptionsAndStockInfo(product);
 
     const saleAmount = product["sale-amount"] || 0;
     const originalPrice = parseFloat(product["Product-Price"]);
@@ -168,6 +171,7 @@ function renderProducts() {
           <img src="${
             product["product-photo2"]
           }" width="312" height="350" id="swipe2" class="image-contain" style="display: none;">
+          ${outOfStockBadge}
           ${
             saleAmount
               ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div>${bestSellerHTML}</div>`
@@ -195,7 +199,7 @@ function renderProducts() {
           </ul>
         </figure>
         <div class="card-content">
-          <div class="color-options m-5 mb-7 center">${colorOptionsHtml}</div>
+        ${colorOptionsContainer}
           <h3 class="h3 card-title mb-7" onclick="productDetails('${key}')">
             <a class="title" href="#">${product["product-title"]}</a>
           </h3>

@@ -470,6 +470,7 @@ img {
   justify-content: center;
   left: 0;
   transition: transform 0.5s ease;
+  font-weight: 100;
 }
 
 /* Sale badge - visible by default */
@@ -479,18 +480,21 @@ img {
 
 #saleAmountbadge {
   transform: translateY(0);
+  font-weight: 100;
 }
 
 /* Bestseller badge - hidden below by default */
 #best-seller {
   transform: translateY(100%);
   background: var(--bittersweet);
+  font-weight: 100;
   /* Match your badge color */
 }
 
 /* Animation state */
 .show-bestseller #saleAmountbadge {
   transform: translateY(-100%);
+  font-weight: 100;
 }
 
 .show-bestseller #best-seller {
@@ -675,7 +679,7 @@ img {
 .card-price {
   color: #838383;
   font-family: var(--ff-roboto);
-  font-weight: var(--fw-600);
+  font-weight: 100;
 }
 
 .pre-sale {
@@ -2126,10 +2130,6 @@ a.footer-link:is(:hover, :focus) {
     height: 15px !important;
   }
 
-  .color-option2:hover {
-    border: 1px solid #f5f5f5 !important;
-  }
-
   .product-card:is(:hover, :focus) .card-action-list {
     right: 20px;
     opacity: 1;
@@ -2673,12 +2673,19 @@ select {
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
+  /* Combined transition for all properties */
+  border: 2px dotted rgb(109, 109, 109);
+  /* Initial transparent border */
+  transform: translateY(0);
+  /* Initial position */
 }
 
-/* .color-option2:hover {
-  border: 2px solid #000000;
-} */
+.color-option2:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .outofstockmessagebanner {
   border-radius: 8px 8px 0px 0px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -3272,26 +3279,32 @@ select {
   color: black;
 }
 
-.color-option2:hover {
-  border: 1px solid #f5f5f5 !important;
-}
-
-
-
 .modalbtnL {
+  color: black;
   font-size: small;
   background: white;
   border-radius: 0px 0px 8px 0px;
-  padding: 15px;
+  padding: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+
 }
 
 .modalbtnR {
+  color: black;
   font-size: small;
   background: white;
   border-radius: 0px 0px 0px 8px;
-  padding: 15px;
+  padding: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+
+}
+
+.modalbtnR:hover,
+.modalbtnL:hover {
+  box-shadow: none;
+  /* Remove box shadow on hover */
 }
 
 .modal-content {
@@ -4295,7 +4308,8 @@ a {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.8s ease;
-
+  font-weight: 200;
+  font-size: small;
 }
 
 .detailscollapsible.open {
@@ -8130,4 +8144,91 @@ body.swal2-shown {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* // */
+.out-of-stock-badge {
+  display: flex;
+  width: 90px;
+  position: absolute;
+  top: 14px;
+  left: -1;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 0px 10px 10px 10px;
+  font-size: x-small;
+  font-weight: 100;
+  z-index: 1;
+  justify-content: center;
+}
+
+/* Base styles for color options */
+/* .color-option2 {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+} */
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: max-content;
+  background-color: white;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: x-small;
+
+  /* Optional arrow */
+  /* &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  } */
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Optional: Add animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.tooltip:hover .tooltiptext {
+  animation: fadeIn 0.3s ease-in-out;
 }

@@ -156,7 +156,7 @@ function openCartModal(productId) {
       </div>
       <div class="flex center flex-end" onclick="closeModal()">
           <button type="button" class="modalbtnR" id="perv4Button">
-              <i class="bi bi-x-lg"></i>
+             <i class="bi bi-x"></i>
           </button>
       </div>
       </div>
@@ -202,7 +202,7 @@ function openCartModal(productId) {
            <h5 id="stockContainer" class="mb-10 m-5 flex pl-0 hidden">
                                         <p class="stockMessage-p" id="stockMessage"></p>
                                     </h5>
-          <div class="" id="buybuttonsarea">
+          <div class="flex center flex-direction-column align-items" id="buybuttonsarea">
           <div class="m-5">
               <div id="BuyNowButton" class="Buyitnow">Buy Now
                 <i class="bi bi-lightning"></i>
@@ -246,33 +246,6 @@ function closeModal() {
   }, 400); // Match transition duration
 }
 
-// function colorRef(color) {
-//   const modalContent = document.querySelector(".modal-content");
-//   const product = modalContent.productDetails;
-//   const size = document.getElementById("product-Size").innerText;
-
-//   const choosedColor = document.getElementById("product-color");
-//   choosedColor.innerText = color;
-
-//   // Update the images for the selected color
-//   if (product.sizes[size] && product.sizes[size][color]) {
-//     const colorDetails = product.sizes[size][color];
-
-//     document.getElementById("productImage").src = colorDetails.img1;
-//   }
-
-//   // Highlight the selected color
-//   const colorOptions = document.querySelectorAll(".color-option");
-//   colorOptions.forEach((option) => {
-//     option.style.borderBottom =
-//       option.dataset.colorName === color ? "5px solid #c1c1c1" : "none";
-//     // replaceInvalidImages();
-//   });
-
-//   updateAddToCartButtonState();
-// }
-
-// Call the function after the images are loaded into the DOM
 function colorRef(color) {
   const modalContent = document.querySelector(".modal-content");
   const product = modalContent.productDetails;

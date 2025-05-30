@@ -355,40 +355,64 @@ function showUserForm(itemQty) {
         throw new Error("Product no longer available");
       }
       const requestedQty = productqty; // Since this is single product order
+      // if (vanishedstock) {
+      //   // Check stock quantity
+      //   const stockQty =
+      //     productData.sizes?.[productSize]?.[productColor]?.qty || 0;
+
+      //   if (stockQty < requestedQty) {
+      //     Swal.fire({
+      //       icon: "warning",
+      //       title: "Product Unavailable",
+      //       html: `
+      //       <div style="text-align: center;">
+      //         <img src="${productImage}" alt="${productTitle}" style="width: 100px; height: 100px; margin-bottom: 15px;">
+      //         <p><strong>${productTitle}</strong></p>
+      //         <p>Requested quantity (${requestedQty}) exceeds available stock (${stockQty}).</p>
+      //       </div>
+      //     `,
+      //       confirmButtonText: "OK",
+      //     });
+      //     return;
+      //   }
+
+      //   // Update stock in Firebase
+      //   const newStockQty = stockQty - requestedQty;
+      //   if (newStockQty > 0) {
+      //     await fetch(
+      //       `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
+      //       {
+      //         method: "PATCH",
+      //         headers: { "Content-Type": "application/json" },
+      //         body: JSON.stringify({ qty: newStockQty }),
+      //       }
+      //     );
+      //   } else {
+      //     // Delete the size/color if stock is depleted
+      //     await fetch(
+      //       `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
+      //       {
+      //         method: "DELETE",
+      //       }
+      //     );
+      //   }
+      // }
+
+      // Prepare order data
+      // const newStockQty = stockQty - requestedQty;
       if (vanishedstock) {
-        // Check stock quantity
-        const stockQty =
-          productData.sizes?.[productSize]?.[productColor]?.qty || 0;
-
-        if (stockQty < requestedQty) {
-          Swal.fire({
-            icon: "warning",
-            title: "Product Unavailable",
-            html: `
-            <div style="text-align: center;">
-              <img src="${productImage}" alt="${productTitle}" style="width: 100px; height: 100px; margin-bottom: 15px;">
-              <p><strong>${productTitle}</strong></p>
-              <p>Requested quantity (${requestedQty}) exceeds available stock (${stockQty}).</p>
-            </div>
-          `,
-            confirmButtonText: "OK",
-          });
-          return;
-        }
-
-        // Update stock in Firebase
-        const newStockQty = stockQty - requestedQty;
-        if (newStockQty > 0) {
+        if (requestedQty > 0) {
+          // Update remaining stock
           await fetch(
             `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
             {
               method: "PATCH",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ qty: newStockQty }),
+              body: JSON.stringify({ qty: requestedQty }),
             }
           );
         } else {
-          // Delete the size/color if stock is depleted
+          // Delete the size/color if stock is depleted and vanishedstock is true
           await fetch(
             `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
             {
@@ -396,9 +420,22 @@ function showUserForm(itemQty) {
             }
           );
         }
+      } else if (outofstock && !vanishedstock) {
+        const stockQty =
+          productData.sizes?.[productSize]?.[productColor]?.qty || 0;
+        const newStockQty = stockQty - requestedQty;
+        console.log(newStockQty);
+        // For outofstock, set the new quantity (could be reduced or 0)
+        await fetch(
+          `${url}/Stores/${uid}/Products/${productID}/sizes/${productSize}/${productColor}.json?auth=${idToken}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ qty: newStockQty > 0 ? newStockQty : 0 }),
+          }
+        );
       }
 
-      // Prepare order data
       const order = {
         Customeruid: "Guest User",
         Date: new Date().toISOString(),

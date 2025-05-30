@@ -270,40 +270,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (shippingFeesElement) {
     const savedCity = localStorage.getItem("City"); // Get the city from local storage
-
-    // if (savedCity) {
-    //   if (
-    //     savedCity === "Cairo" ||
-    //     savedCity === "Giza" ||
-    //     savedCity === "Alexandria"
-    //   ) {
-    //     shippingFeesElement.innerText = "65 EGP";
-    //     localStorage.setItem("shippingFees", "65");
-    //   } else {
-    //     shippingFeesElement.innerText = "100 EGP";
-    //     localStorage.setItem("shippingFees", "100");
-    //   }
-    // } else {
-    //   // Default if no city is selected
-    //   shippingFeesElement.innerText = "100 EGP";
-    //   localStorage.setItem("shippingFees", "100");
-    // }
-    // if (savedCity) {
-    //   if (!cityOptions.includes(savedCity)) {
-    //     console.warn(`Unknown city: ${savedCity}`);
-    //   }
-
-    //   const shippingFee = mainCities.includes(savedCity)
-    //     ? minShipping
-    //     : maxShipping;
-
-    //   shippingFeesElement.innerText = `${shippingFee} EGP`;
-    //   localStorage.setItem("shippingFees", shippingFee.toString());
-    // } else {
-    //   // Default case (no city selected)
-    //   shippingFeesElement.innerText = `${maxShipping} EGP`;
-    //   localStorage.setItem("shippingFees", maxShipping.toString());
-    // }
   }
 });
 
@@ -342,147 +308,41 @@ function updateFreeShippingWidget() {
 // Call this whenever the cart updates
 document.addEventListener("DOMContentLoaded", updateFreeShippingWidget);
 
-// async function applyPromoCode() {
-//   const applyButton = document.getElementById("apply-promo");
-//   const promoInput = document.getElementById("promo-code");
-//   const promoMessage = document.getElementById("promo-message");
-//   const enteredPromo = promoInput.value.trim();
-//   const startTime = Date.now(); // Track when we started
+function resetPromoCode() {
+  const applyButton = document.getElementById("apply-promo");
+  const promoInput = document.getElementById("promo-code");
+  const promoMessage = document.getElementById("promo-message");
+  const totalPriceElement = document.getElementById("total-price");
+  const cartTotalElement = document.getElementById("cart-total");
+  const shippingFeesElement = document.getElementById("shipping-fees");
 
-//   if (!enteredPromo) {
-//     promoMessage.textContent = "Please enter a promo code";
-//     promoMessage.style.color = "red";
-//     return { success: false, message: "No promo code entered" };
-//   }
+  // Clear input and message
+  promoInput.value = "";
+  promoMessage.textContent = "";
 
-//   // Show loader
-//   const originalButtonText = applyButton.innerHTML;
-//   applyButton.innerHTML = 'Apply <div class="preloader-sm"></div>';
-//   applyButton.disabled = true;
+  // Remove stored promo data from button
+  if (applyButton.dataset.appliedPromo) {
+    delete applyButton.dataset.appliedPromo;
+  }
 
-//   try {
-//     // Start both operations simultaneously
-//     const [fetchSuccess] = await Promise.all([
-//       fetchPromoCodes(),
-//       // Ensure minimum 1s delay
-//       new Promise((resolve) =>
-//         setTimeout(resolve, 1000 - Math.min(0, Date.now() - startTime))
-//       ),
-//     ]);
+  // Recalculate original total (cart total + shipping)
+  const cartTotal = parseFloat(
+    cartTotalElement.textContent.replace("EGP", "").trim()
+  );
+  const shippingFees = parseFloat(
+    shippingFeesElement.textContent.replace("EGP", "").trim()
+  );
+  const originalTotal = cartTotal + shippingFees;
 
-//     if (!fetchSuccess) {
-//       throw new Error("Failed to fetch promo codes");
-//     }
+  // Update total display
+  totalPriceElement.textContent = `${originalTotal} EGP`;
 
-//     // Find matching promo (case insensitive)
-//     const matchedPromo = storeHintsConfig.currentPromos.find(
-//       (promo) => promo.promoName.toLowerCase() === enteredPromo.toLowerCase()
-//     );
+  // Reset button state if needed
+  applyButton.innerHTML = "Apply";
+  applyButton.disabled = false;
 
-//     if (matchedPromo) {
-//       // Apply discount
-//       const cartTotalElement = document.getElementById("cart-total");
-//       const shippingFeesElement = document.getElementById("shipping-fees");
-//       const totalPriceElement = document.getElementById("total-price");
-
-//       const cartTotal = parseFloat(
-//         cartTotalElement.textContent.replace("EGP", "").trim()
-//       );
-//       const shippingFees = parseFloat(
-//         shippingFeesElement.textContent.replace("EGP", "").trim() || 0
-//       );
-
-//       let discountAmount;
-//       if (matchedPromo.promoAmount.includes("%")) {
-//         // Percentage discount
-//         const percentage = parseFloat(matchedPromo.promoAmount);
-//         discountAmount = (cartTotal * percentage) / 100;
-//       } else {
-//         // Fixed amount discount
-//         discountAmount = parseFloat(matchedPromo.promoAmount);
-//       }
-
-//       const newSubtotal = cartTotal - discountAmount;
-//       const newTotal = newSubtotal + shippingFees;
-
-//       // Update UI
-//       totalPriceElement.textContent = `${newTotal} EGP`;
-
-//       // Show discount message
-//       promoMessage.innerHTML = `Discount applied: -${discountAmount} EGP`;
-//       promoMessage.style.color = "green";
-
-//       // Store discount info for potential later use
-//       applyButton.dataset.appliedPromo = JSON.stringify(matchedPromo);
-
-//       return {
-//         success: true,
-//         discountAmount,
-//         newTotal,
-//         message: "Discount applied successfully",
-//       };
-//     } else {
-//       promoMessage.textContent = "Invalid promo code";
-//       promoMessage.style.color = "red";
-//       return { success: false, message: "Invalid promo code" };
-//     }
-//   } catch (error) {
-//     console.error("Error applying promo:", error);
-//     promoMessage.textContent = "Error applying promo. Please try again.";
-//     promoMessage.style.color = "red";
-//     return {
-//       success: false,
-//       message: "Error applying promo code",
-//       error: error.message,
-//     };
-//   } finally {
-//     // Calculate remaining time to reach 1s if needed
-//     const elapsed = Date.now() - startTime;
-//     if (elapsed < 1000) {
-//       await new Promise((resolve) => setTimeout(resolve, 1000 - elapsed));
-//     }
-
-//     // Restore button
-//     applyButton.innerHTML = originalButtonText;
-//     applyButton.disabled = false;
-//   }
-// }
-
-// function resetPromoCode() {
-//   const applyButton = document.getElementById("apply-promo");
-//   const promoInput = document.getElementById("promo-code");
-//   const promoMessage = document.getElementById("promo-message");
-//   const totalPriceElement = document.getElementById("total-price");
-//   const cartTotalElement = document.getElementById("cart-total");
-//   const shippingFeesElement = document.getElementById("shipping-fees");
-
-//   // Clear input and message
-//   promoInput.value = "";
-//   promoMessage.textContent = "";
-
-//   // Remove stored promo data from button
-//   if (applyButton.dataset.appliedPromo) {
-//     delete applyButton.dataset.appliedPromo;
-//   }
-
-//   // Recalculate original total (cart total + shipping)
-//   const cartTotal = parseFloat(
-//     cartTotalElement.textContent.replace("EGP", "").trim()
-//   );
-//   const shippingFees = parseFloat(
-//     shippingFeesElement.textContent.replace("EGP", "").trim()
-//   );
-//   const originalTotal = cartTotal + shippingFees;
-
-//   // Update total display
-//   totalPriceElement.textContent = `${originalTotal} EGP`;
-
-//   // Reset button state if needed
-//   applyButton.innerHTML = "Apply";
-//   applyButton.disabled = false;
-
-//   return { success: true, message: "Promo code reset successfully" };
-// }
+  return { success: true, message: "Promo code reset successfully" };
+}
 
 async function applyPromoCode() {
   const applyButton = document.getElementById("apply-promo");

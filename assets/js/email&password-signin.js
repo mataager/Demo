@@ -8,8 +8,8 @@ function emailPasswordSignIn() {
   modalContent.innerHTML = `
     <div class="guestmodalarea">
     <div class="flex center flex-end guest-modal-close-btn-7a3b" onclick="closesigningModal()">
-    <button type="button" class="Add-to-Cart" id="perv4Button">
-        <i class="bi bi-x-lg"></i>
+    <button type="button" class="modalbtnL" id="perv4Button">
+        <i class="bi bi-x"></i>
     </button>
     </div>
       <!-- Sign In Form -->
