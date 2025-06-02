@@ -429,6 +429,10 @@ img {
   transition: color 0.3s ease;
 }
 
+.prices-area {
+  font-weight: 100;
+}
+
 /* Optional: Add color change on hover */
 .product-item:is(:hover, :focus-within) .card-title {
   color: var(--primary-color);
@@ -825,6 +829,7 @@ img {
   position: relative;
   transition: all 0.3s ease;
   width: fit-content;
+  font-weight: 100;
 }
 
 .navbar-link::after,
@@ -834,7 +839,7 @@ img {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
+  height: 1px;
   background-color: #19191a;
   transition: width 0.3s ease;
   /* Only animate the width */
@@ -852,6 +857,7 @@ img {
 }
 
 .nav-action-btn {
+  font-weight: 100;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -880,7 +886,7 @@ img {
 }
 
 .cart-amount {
-  font-weight: 500 !important;
+  font-weight: 100 !important;
   font-size: small;
 }
 
@@ -1403,6 +1409,7 @@ img {
 }
 
 .footer-link {
+  font-weight: 100;
   color: var(--onyx);
   display: flex;
   align-items: center;
@@ -1425,7 +1432,7 @@ a.footer-link:is(:hover, :focus) {
 
 .footer-list:first-child ion-icon {
   color: var(--bittersweet);
-  font-size: 22px;
+  font-size: 15px;
 }
 
 .table-row {
@@ -1445,6 +1452,7 @@ a.footer-link:is(:hover, :focus) {
 }
 
 .newsletter-text {
+  font-weight: 100;
   color: var(--onyx);
   line-height: 1.7;
   margin-bottom: 20px;
@@ -1852,10 +1860,6 @@ a.footer-link:is(:hover, :focus) {
     gap: 35px;
   }
 
-  .navbar-link {
-    /* font-family: var(--ff-roboto); */
-    font-weight: var(--fw-500);
-  }
 
   .nav-action-list>li:first-child {
     display: block;
@@ -2494,6 +2498,23 @@ a.footer-link:is(:hover, :focus) {
   display: inline-block;
 }
 
+.size-cart-area {
+  font-weight: 300;
+}
+
+.colors-circels-area {
+  min-width: 200px;
+  box-shadow: 0 0px 7px 3px #dddddd75;
+  border-radius: 10px;
+  padding: 10px 10px 30px 10px;
+}
+
+
+.radio-input_option {
+  font-weight: 400;
+  font-size: medium;
+}
+
 label {
   font-size: 16px;
   font-weight: bold;
@@ -2647,6 +2668,7 @@ select {
 .color-options {
   display: flex;
   gap: 0.5rem;
+  transition: max-height 0.3s ease;
 }
 
 .color-option {
@@ -2659,12 +2681,30 @@ select {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+.colorOptionwrapper-selected {
+  border-bottom: 1px solid #0000006b !important;
+}
 
+.colorOptionwrapper {
+  border-bottom: 1px solid transparent;
+  /* Initial transparent border */
+  transition: border-bottom 0.3s ease;
+  padding-bottom: 5px;
+  /* Transition for border changes */
+}
 
-.color-option:hover {
+/* Hover state - change border color */
+
+/* .color-option:hover {
   border-color: rgba(25, 25, 26, 0.44);
   transform: scale(1.1);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 4px 8px rgba(0, 0, 0, 0.15);
+} */
+
+.color-option:hover~.colorOptionwrapper,
+.colorOptionwrapper:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  /* #0000006b in rgba */
 }
 
 .color-option2 {
@@ -2721,6 +2761,30 @@ select {
   letter-spacing: 1px;
 }
 
+.product-details-Buyitnow {
+  display: flex;
+  padding: 20px;
+  opacity: 1;
+  width: -webkit-fill-available;
+  justify-content: center;
+  border: 1px solid;
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin: 2px;
+  border-radius: 5px;
+  color: rgb(255 255 255);
+  background: #000;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.product-details-Buyitnow:hover {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+
 .Add-to-Cart,
 .close-btn,
 .Buyitnow,
@@ -2731,20 +2795,13 @@ select {
   letter-spacing: 1px;
   padding-block: 10px;
   margin: 2px;
-  padding: 7px;
+  padding: 12px 25px;
   color: rgb(255 255 255);
   background: #000;
+  border-radius: 5px;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-.Add-to-Cart,
-.Buyitnow,
-.placeorderbtn {
-  padding: 10px;
-  font-size: small;
-  border-radius: 5px;
-  width: fit-content;
-}
 
 .Buyitnow {
   cursor: pointer;
@@ -3686,6 +3743,7 @@ a {
 
 /* Base styles for the mega menu */
 .mega-menu {
+  font-weight: 100;
   display: none;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -3755,7 +3813,7 @@ a {
 }
 
 .menu-category h4 {
-  margin: 0 0 10px 0;
+  margin: 0px 10px 10px 10px;
   width: max-content;
   font-size: 16px;
   font-weight: bold;
@@ -3769,7 +3827,7 @@ a {
 }
 
 .menu-category ul li {
-  margin: 5px 0;
+  margin: 15px 10px;
 }
 
 .menu-category ul li a {
@@ -3800,23 +3858,65 @@ a {
 }
 
 /* // */
-
-/* .no-product-message-container {
-  padding: 76px;
-  text-align: center;
+.no-product-message-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dddddd61;
+  /* Semi-transparent white overlay */
+  z-index: 1000;
+  /* High z-index to overlay everything */
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  backdrop-filter: blur(5px);
+  /* Optional blur effect */
 }
 
-.No-available-items {
-  padding: 30px;
-  font-size: 2.25rem;
-  color: #333;
-  font-weight: bold;
-  margin-bottom: 10px;
-  line-height: 1.5;
-  text-transform: capitalize;
+.icon {
+  font-size: 4rem;
+  color: #ff4757;
+  margin-bottom: 1.5rem;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.No-available-items p {
+  font-size: 2rem;
+  color: #2f3542;
+  font-weight: 600;
+  margin: 0;
+  padding: 0 20px;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.4;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .icon {
+    font-size: 3rem;
+  }
+
+  .No-available-items p {
+    font-size: 1.5rem;
+  }
 }
 
 
@@ -4212,12 +4312,6 @@ a {
   padding: 10px;
   margin-top: 10px;
   border: 1px solid #ddd;
-}
-
-/* Color Options */
-.color-options {
-  display: flex;
-  gap: 10px;
 }
 
 .color-circle {
@@ -4807,6 +4901,7 @@ a {
   position: relative;
   display: inline-block;
   overflow: hidden;
+  padding: 10px 10px;
 }
 
 /* Overlay effect to hide the hint text */
@@ -5750,6 +5845,11 @@ th {
 .rotating-hints {
   position: relative;
   height: 100%;
+  font-weight: 100;
+}
+
+#productTitle {
+  font-weight: 100;
 }
 
 .hint {
@@ -8231,4 +8331,67 @@ body.swal2-shown {
 
 .tooltip:hover .tooltiptext {
   animation: fadeIn 0.3s ease-in-out;
+}
+
+ion-icon {
+  font-size: small;
+}
+
+
+/* Add smooth transitions to all height changes */
+.details-info,
+.prices-area,
+.size,
+.color-selector,
+#buybuttonsarea,
+#addtofavouritediv {
+  transition: height 0.3s ease, padding 0.3s ease;
+  /* Ensures content doesn't spill during transitions */
+}
+
+.color-text-area {
+  gap: 1px;
+  left: 15px;
+  bottom: 0px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  margin: 5px 5px;
+  font-size: small;
+  font-weight: 100;
+  color: #333;
+}
+
+.color-text {
+  display: inline-block;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Specific element transitions */
+.colors-circels-area {
+  transition: height 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* For the rotating hints */
+.rotating-hints {
+  transition: height 0.3s ease;
+}
+
+.hint {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* For buttons to make hover effects smooth */
+.Add-to-Cart,
+.product-details-Buyitnow,
+.Share-Product {
+  transition: all 0.2s ease;
+}
+
+/* For size radio buttons */
+.size-radio {
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
