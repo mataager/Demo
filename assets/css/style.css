@@ -2503,12 +2503,28 @@ a.footer-link:is(:hover, :focus) {
 }
 
 .colors-circels-area {
-  min-width: 200px;
+  margin: 10px 0px;
   box-shadow: 0 0px 7px 3px #dddddd75;
   border-radius: 10px;
-  padding: 10px 10px 30px 10px;
+  gap: 5px;
+  padding: 10px 10px 0px 10px;
+  transition: height 0.3s ease, box-shadow 0.3s ease;
 }
 
+.size-buttons-area {
+  margin: 10px 0px;
+  box-shadow: 0 0px 7px 3px #dddddd75;
+  border-radius: 10px;
+  gap: 5px;
+  padding: 10px 10px 10px 10px;
+  transition: height 0.3s ease, box-shadow 0.3s ease;
+}
+
+#product-selected-color,
+#product-color {
+  font-weight: 400;
+  font-size: small;
+}
 
 .radio-input_option {
   font-weight: 400;
@@ -2804,6 +2820,9 @@ select {
 
 
 .Buyitnow {
+  cursor: pointer;
+  padding: 20px 0px !important;
+  width: 60%;
   cursor: pointer;
 }
 
@@ -4893,6 +4912,14 @@ a {
   height: 20px;
   /* Restrict visible height for the animation */
   line-height: 20px;
+}
+
+#color-hint-text {
+  font-size: small;
+  font-weight: 100;
+  color: rgb(51, 51, 51);
+  display: block;
+  margin-top: 10px;
 }
 
 .rolling-animation {
@@ -8350,16 +8377,17 @@ ion-icon {
 }
 
 .color-text-area {
-  gap: 1px;
-  left: 15px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  gap: 10px;
   bottom: 0px;
-  position: absolute;
+  position: relative;
   display: flex;
-  align-items: center;
-  margin: 5px 5px;
+  align-items: flex-start;
   font-size: small;
   font-weight: 100;
   color: #333;
+  flex-direction: column;
 }
 
 .color-text {
@@ -8371,9 +8399,7 @@ ion-icon {
 }
 
 /* Specific element transitions */
-.colors-circels-area {
-  transition: height 0.3s ease, box-shadow 0.3s ease;
-}
+
 
 /* For the rotating hints */
 .rotating-hints {

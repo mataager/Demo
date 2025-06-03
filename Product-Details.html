@@ -258,7 +258,7 @@
                                 </div>
 
 
-                                <div class="size m-5 mb-10">
+                                <div class="size m-5 mb-10 ">
                                     <label class="m-5 flex pb-7 hidden" for="product-Size">
                                         Size:<p id="product-Size"> </p>
                                     </label>
@@ -279,24 +279,26 @@
 
                                 <div class="color-selector m-5 mb-10">
 
-                                    <div id="color-hint-text"
-                                        style="display: none; font-size: 16px; color: #333; margin-top: 10px;">
-                                    </div>
-                                    <div class="relative">
-                                        <div class="color-options colors-circels-area m-5 flex-wrap width-80 mb-10">
+
+                                    <div class="relative colors-circels-area">
+                                        <div id="color-hint-text">
                                         </div>
-                                        <label class="color-text-area" for="product-color">
-                                            Color:
-                                            <p id="product-color"></p> <!-- Just the color name -->
-                                            <p id="product-selected-color"></p> <!-- Just the color name -->
-                                            <div id="hint" class="hint-text hidden"></div>
-                                        </label>
+                                        <div class="color-options  m-5 flex-wrap width-80 mb-10">
+                                        </div>
+                                        <div class="color-text-area"><label class="" for="product-color">
+                                                <p id="product-color"></p> <!-- Just the color name -->
+                                                <p id="product-selected-color"></p> <!-- Just the color name -->
+                                                <div id="hint" class="hint-text hidden"></div>
+                                            </label>
+                                            <h5 id="stockContainer" class="hidden">
+                                                <p class="stockMessage-p" id="stockMessage"></p>
+                                            </h5>
+                                        </div>
+
                                     </div>
 
 
-                                    <h5 id="stockContainer" class="mb-10 m-5 flex pl-0 hidden">
-                                        <p class="stockMessage-p" id="stockMessage"></p>
-                                    </h5>
+
 
                                 </div>
                                 <div class="animate-on-scroll-auto" id="buybuttonsarea">
@@ -425,6 +427,7 @@
 
                                     //     updateCartCount();
                                     // }
+
                                     function addToCart() {
                                         const title = document.getElementById("productTitle").innerText;
                                         const brandName = document.getElementById("BrandName").innerText;
@@ -505,6 +508,7 @@
 
                                         updateCartCount();
                                     }
+
                                 </script>
 
                                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">

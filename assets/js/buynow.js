@@ -19,7 +19,7 @@ function showUserForm(itemQty) {
   // Get product details
   const productImage = document.getElementById("productImage").src;
   const productSize = document.getElementById("product-Size").innerText;
-  const productColor = document.getElementById("product-color").innerText;
+  const productColor = document.getElementById("product-selected-color").innerText;
   const productPrice = document.getElementById("productPrice").innerText;
 
   // Create close button
