@@ -2504,10 +2504,9 @@ a.footer-link:is(:hover, :focus) {
 
 .colors-circels-area {
   margin: 10px 0px;
-  box-shadow: 0 0px 7px 3px #dddddd75;
   border-radius: 10px;
   gap: 5px;
-  padding: 10px 10px 0px 10px;
+  /* padding: 10px 10px 0px 10px; */
   transition: height 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -2777,23 +2776,12 @@ select {
   letter-spacing: 1px;
 }
 
-/* .product-details-Buyitnow {
+.product-details-Buyitnow {
   display: flex;
-  padding: 20px;
-  opacity: 0;
+  padding: 25px !important;
   width: -webkit-fill-available;
   justify-content: center;
-  border: 1px solid;
-  font-size: small;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  margin: 2px;
-  border-radius: 5px;
-  color: rgb(255 255 255);
-  background: #000;
-  transition: color 0.3s ease, background-color 0.3s ease;
-} */
+}
 
 
 
@@ -8468,5 +8456,8 @@ ion-icon {
   cursor: not-allowed !important;
 }
 
+#pricecontainer {
+  transform: none !important;
+}
 
 /* // */

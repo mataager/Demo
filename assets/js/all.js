@@ -881,6 +881,8 @@ function getColorOptionsAndStockInfo(product) {
 
 // Function to animate buttons with staggered delays
 // Function to animate buttons with staggered delays
+
+//animation on product details page
 function animateProductPage() {
   const animationSequence = [
     { selector: "#BrandName, #productTitle", delay: 0 },
@@ -942,5 +944,269 @@ function initAnimations() {
   observer.observe(preloader, {
     attributes: true,
     attributeFilter: ["class"],
+  });
+}
+
+// animate on modal open page
+function animateModalContent() {
+  const animationSequence = [
+    { selector: ".modal-header", delay: 0, transform: "translateY(-20px)" },
+    { selector: "#BrandName", delay: 100, transform: "translateY(-20px)" },
+    { selector: "#productTitle", delay: 200, transform: "translateY(-20px)" },
+    {
+      selector: ".price-animation-modal-container",
+      delay: 300,
+      transform: "translateY(-20px)",
+    },
+    { selector: "#productImage", delay: 400, transform: "scale(0.95)" },
+    {
+      selector: ".size-buttons-area",
+      delay: 500,
+      transform: "translateY(-20px)",
+    },
+    {
+      selector: ".colors-circels-area",
+      delay: 600,
+      transform: "translateY(-20px)",
+    },
+    { selector: "#BuyNowButton", delay: 700, transform: "translateY(20px)" },
+    { selector: "#addToCartButton", delay: 800, transform: "translateY(20px)" },
+  ];
+
+  animationSequence.forEach((item) => {
+    setTimeout(() => {
+      const elements = document.querySelectorAll(item.selector);
+      elements.forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+        el.style.transition = "all 0.5s ease-out";
+
+        // Special case for image scaling animation
+        if (item.selector === "#productImage") {
+          el.style.transform = "scale(1)";
+          el.style.transition =
+            "transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+        }
+      });
+    }, item.delay);
+  });
+}
+
+// Initialize modal animations
+// function animateModalContent() {
+//   // First make sure all elements are hidden initially
+//   const elementsToAnimate = [
+//     ".modal-header",
+//     "#BrandName",
+//     "#productTitle",
+//     ".price-animation-modal-container",
+//     "#productImage",
+//     ".size-buttons-area",
+//     ".colors-circels-area",
+//     "#BuyNowButton",
+//     "#addToCartButton",
+//   ];
+
+//   // Set initial state (hidden)
+//   elementsToAnimate.forEach((selector) => {
+//     document.querySelectorAll(selector).forEach((el) => {
+//       el.style.opacity = "0";
+//       el.style.transition = "all 0.5s ease-out";
+//     });
+//   });
+
+//   // Animation sequence
+//   const animationSequence = [
+//     { selector: ".modal-header", delay: 0, transform: "translateY(-20px)" },
+//     { selector: "#BrandName", delay: 100, transform: "translateY(-20px)" },
+//     { selector: "#productTitle", delay: 200, transform: "translateY(-20px)" },
+//     {
+//       selector: ".price-animation-modal-container",
+//       delay: 300,
+//       transform: "translateY(-20px)",
+//     },
+//     { selector: "#productImage", delay: 400, transform: "scale(0.95)" },
+//     {
+//       selector: ".size-buttons-area",
+//       delay: 500,
+//       transform: "translateY(-20px)",
+//     },
+//     {
+//       selector: ".colors-circels-area",
+//       delay: 600,
+//       transform: "translateY(-20px)",
+//     },
+//     { selector: "#BuyNowButton", delay: 700, transform: "translateY(20px)" },
+//     { selector: "#addToCartButton", delay: 800, transform: "translateY(20px)" },
+//   ];
+
+//   // Execute animations
+//   animationSequence.forEach((item) => {
+//     setTimeout(() => {
+//       document.querySelectorAll(item.selector).forEach((el) => {
+//         el.style.opacity = "1";
+//         el.style.transform = "none";
+
+//         if (item.selector === "#productImage") {
+//           el.style.transform = "scale(1)";
+//           el.style.transition =
+//             "transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+//         }
+//       });
+//     }, item.delay);
+//   });
+// }
+
+// function initModalAnimations() {
+//   const preloader = document.getElementById("preloader-overlay");
+
+//   // First wait for preloader to hide
+//   if (preloader && preloader.classList.contains("hidden")) {
+//     // Then wait for the modal content to be fully rendered
+//     waitForModalContent().then(animateModalContent);
+//     return;
+//   }
+
+//   if (preloader) {
+//     const observer = new MutationObserver((mutations) => {
+//       mutations.forEach((mutation) => {
+//         if (
+//           mutation.attributeName === "class" &&
+//           preloader.classList.contains("hidden")
+//         ) {
+//           observer.disconnect();
+//           // Then wait for the modal content to be fully rendered
+//           waitForModalContent().then(animateModalContent);
+//         }
+//       });
+//     });
+
+//     observer.observe(preloader, {
+//       attributes: true,
+//       attributeFilter: ["class"],
+//     });
+//   } else {
+//     // If no preloader, just wait for modal content
+//     waitForModalContent().then(animateModalContent);
+//   }
+// }
+
+// // Helper function to wait for modal content to be fully rendered
+// function waitForModalContent() {
+//   return new Promise((resolve) => {
+//     const checkContent = () => {
+//       // Check for specific elements that should exist after render
+//       if (
+//         document.querySelector("#productImage") &&
+//         document.querySelector(".size-buttons-area") &&
+//         document.querySelector("#BuyNowButton")
+//       ) {
+//         resolve();
+//       } else {
+//         setTimeout(checkContent, 50);
+//       }
+//     };
+//     checkContent();
+//   });
+// }
+
+function animateModalContent() {
+  // First make sure all elements are hidden initially
+  const elementsToAnimate = [
+    ".modal-header",
+    "#BrandName",
+    "#productTitlearea",
+    "#pricecontainer",
+    "#productImage",
+    ".size-buttons-area",
+    ".colors-circels-area",
+    "#BuyNowButton",
+    "#addToCartButton",
+  ];
+
+  // Set initial state (hidden and positioned below)
+  elementsToAnimate.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(30px)";
+      el.style.transition = "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+    });
+  });
+
+  // Animation sequence - each element appears 100ms after the previous one
+  let currentDelay = 100; // Start with 100ms delay for the first element
+
+  elementsToAnimate.forEach((selector) => {
+    setTimeout(() => {
+      document.querySelectorAll(selector).forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+      });
+    }, currentDelay);
+
+    currentDelay += 100; // Increment delay for next element
+  });
+
+  // Special animation for product image (slight scale effect)
+  setTimeout(() => {
+    const productImage = document.querySelector("#productImage");
+    if (productImage) {
+      productImage.style.transform = "translateY(0) scale(1)";
+      productImage.style.transition =
+        "transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease-out";
+    }
+  }, 400); // Image gets special timing
+}
+
+function initModalAnimations() {
+  const preloader = document.getElementById("preloader-overlay");
+
+  // First wait for preloader to hide
+  if (preloader && preloader.classList.contains("hidden")) {
+    // Then wait for the modal content to be fully rendered
+    waitForModalContent().then(animateModalContent);
+    return;
+  }
+
+  if (preloader) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.attributeName === "class" &&
+          preloader.classList.contains("hidden")
+        ) {
+          observer.disconnect();
+          // Then wait for the modal content to be fully rendered
+          waitForModalContent().then(animateModalContent);
+        }
+      });
+    });
+
+    observer.observe(preloader, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  } else {
+    // If no preloader, just wait for modal content
+    waitForModalContent().then(animateModalContent);
+  }
+}
+
+// Helper function to wait for modal content to be fully rendered
+function waitForModalContent() {
+  return new Promise((resolve) => {
+    const checkContent = () => {
+      // Check for specific elements that should exist after render
+      if (
+        document.querySelector("#productImage") &&
+        document.querySelector(".size-buttons-area") &&
+        document.querySelector("#BuyNowButton")
+      ) {
+        resolve();
+      } else {
+        setTimeout(checkContent, 50);
+      }
+    };
+    checkContent();
   });
 }
