@@ -303,13 +303,13 @@
                                 </div>
                                 <div class="animate-on-scroll-auto" id="buybuttonsarea">
                                     <div class="m-5 mb-10 flex">
-                                        <div id="BuyNowButton" class="product-details-Buyitnow ">Buy Now
+                                        <div id="BuyNowButton" class="product-details-Buyitnow button-animate">Buy Now
                                             <i class="bi bi-lightning"></i>
                                         </div>
                                     </div>
 
                                     <div class="m-5 mb-10 flex">
-                                        <button id="addToCartButton" class="Add-to-Cart">Add
+                                        <button id="addToCartButton" class="Add-to-Cart button-animate">Add
                                             To Cart
                                             <i class="bi bi-bag-plus"></i>
                                         </button>
@@ -321,7 +321,7 @@
                                 </div>
 
                                 <div class="m-5 mb-10">
-                                    <button id="showdetails" class="Add-to-Cart">Show Product Details
+                                    <button id="showdetails" class="Add-to-Cart button-animate">Show Product Details
                                         <i class="bi bi-arrow-down-short"></i>
                                     </button>
                                 </div>
@@ -350,7 +350,7 @@
                                 </div>
                                 <div class="m-5 mb-10 flex">
                                     <div>
-                                        <button id="shareProductButton" class="Share-Product"><i
+                                        <button id="shareProductButton" class="Share-Product button-animate"><i
                                                 class="bi bi-link-45deg"></i>
                                         </button>
                                         <div id="copyMessage" style="display: none; color: green; margin-top: 10px;">
@@ -359,7 +359,8 @@
                                     </div>
                                     <div>
                                         <button id="shareWhatsApp" title="Share on WhatsApp"
-                                            class="Share-Product whatsapp"><i class="bi bi-whatsapp"></i></i>
+                                            class="Share-Product whatsapp button-animate"><i
+                                                class="bi bi-whatsapp"></i></i>
                                         </button>
 
                                     </div>
@@ -367,67 +368,6 @@
 
 
                                 <script>
-                                    // function addToCart() {
-                                    //     const title = document.getElementById("productTitle").innerText;
-                                    //     const brandName = document.getElementById("BrandName").innerText;
-                                    //     const productPrice = document.getElementById("productPrice").innerText;
-                                    //     const productSize = document.getElementById("product-Size").innerText;
-                                    //     const productColor = document.getElementById("product-color").innerText;
-                                    //     const productID = document.getElementById("productID").innerText;
-                                    //     const matagerCut =
-                                    //         parseInt(
-                                    //             document.getElementById("BuyNowButton").getAttribute("matagerCut")
-                                    //         ) || 1;
-
-                                    //     // Get the reference to the img element
-                                    //     const productImage = document.getElementById('productImage');
-                                    //     const srcValue = productImage.getAttribute('src');
-
-                                    //     const newItem = {
-                                    //         id: productID,
-                                    //         brand: brandName,
-                                    //         title: title,
-                                    //         productSize: productSize,
-                                    //         productColor: productColor,
-                                    //         price: productPrice,
-                                    //         photourl: srcValue,
-                                    //         cut: matagerCut,
-                                    //         quantity: 1 // Initialize quantity
-                                    //     };
-
-                                    //     // Retrieve cart from local storage or initialize it as an empty array
-                                    //     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-                                    //     // Check if an item with the same ID, size, and color already exists
-                                    //     const existingItem = cart.find(item =>
-                                    //         item.id === newItem.id &&
-                                    //         item.productSize === newItem.productSize &&
-                                    //         item.productColor === newItem.productColor
-                                    //     );
-
-                                    //     if (existingItem) {
-                                    //         // If the item exists, increase its quantity
-                                    //         existingItem.quantity += 1;
-                                    //         existingItem.cut = (existingItem.cut / (existingItem.quantity - 1)) * existingItem.quantity;
-                                    //     } else {
-                                    //         // If the item doesn't exist, add it as a new item
-                                    //         cart.push(newItem);
-                                    //     }
-
-                                    //     // Store the updated cart back to local storage
-                                    //     localStorage.setItem('cart', JSON.stringify(cart));
-
-                                    //     // Change button text and add a message using SweetAlert
-                                    //     Swal.fire({
-                                    //         icon: 'success',
-                                    //         title: 'Added to Cart',
-                                    //         showConfirmButton: false,
-                                    //         timer: 1500 // Close the alert after 1.5 seconds
-                                    //     });
-
-                                    //     updateCartCount();
-                                    // }
-
                                     function addToCart() {
                                         const title = document.getElementById("productTitle").innerText;
                                         const brandName = document.getElementById("BrandName").innerText;
@@ -622,22 +562,31 @@
         if (!sizeElement.innerText.trim() || !colorElement.innerText.trim()) {
             buttonElement.disabled = true; // Disable the button
             buttonElement.style.opacity = '0.5'; // Set opacity to 0.5
+            // buttonElement.classList.add('disable-btn');
+            // buttonElement.classList.add('hidden');
             carti.classList.remove('bi-bag-check');
             carti.classList.add('bi-exclamation-lg');
             buttonElement.removeAttribute('onclick'); // Remove onclick attribute if any
 
             BuyNowElement.disabled = true; // Disable the button
             BuyNowElement.style.opacity = '0.5'; // Set opacity to 0.5
+            // BuyNowElement.classList.add('disable-btn');
+            // BuyNowElement.classList.add('hidden');
             BuyNowElement.removeAttribute('onclick'); // Remove onclick attribute if any
         } else {
             buttonElement.disabled = false; // Enable the button
             buttonElement.style.opacity = '1'; // Set opacity to 1
+            // buttonElement.classList.remove('disable-btn');
+            // buttonElement.classList.remove('hidden');
             carti.classList.remove('bi-exclamation-lg');
             carti.classList.add('bi-bag-check');
             buttonElement.setAttribute('onclick', 'addToCart()'); // Add onclick attribute
 
             BuyNowElement.disabled = false; // Enable the button
+            // BuyNowElement.classList.remove('hidden');
             BuyNowElement.style.opacity = '1'; // Set opacity to 1
+            // BuyNowElement.classList.remove('disable-btn');
+
             BuyNowElement.setAttribute('onclick', 'handleBuyNowClick()'); // Add onclick attribute
 
         }
@@ -854,7 +803,7 @@
                 // Add to favourite button
                 const addToFavouriteDiv = document.getElementById("addtofavouritediv");
                 addToFavouriteDiv.innerHTML = `
-                <button id="addtofavourite" class="Add-to-Cart" onclick="addfavouriteproduct('${key}')">
+                <button id="addtofavourite" class="Add-to-Cart button-animate" onclick="addfavouriteproduct('${key}')">
                     Add To favourite <i class="bi bi-heart" style="font-size: small;"></i>
                 </button>
              `;
@@ -1042,6 +991,7 @@
 
                 checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
                 initializeProductSelections();
+                initAnimations();
                 initializeImageGallery();
             }
 
@@ -1235,6 +1185,7 @@
             if (buttonElement) {
                 buttonElement.disabled = true;
                 buttonElement.style.opacity = '0.5';
+                buttonElement.classList.add('disable-btn');
                 if (carti) {
                     carti.classList.remove('bi-bag-check');
                     carti.classList.add('bi-exclamation-lg');
@@ -1245,6 +1196,7 @@
             if (BuyNowElement) {
                 BuyNowElement.disabled = true;
                 BuyNowElement.style.opacity = '0.5';
+                BuyNowElement.classList.add('disable-btn');
                 BuyNowElement.removeAttribute('onclick');
             }
         } else {
@@ -1252,6 +1204,7 @@
             if (buttonElement) {
                 buttonElement.disabled = false;
                 buttonElement.style.opacity = '1';
+                buttonElement.classList.remove('disable-btn');
                 if (carti) {
                     carti.classList.remove('bi-exclamation-lg');
                     carti.classList.add('bi-bag-check');
@@ -1262,6 +1215,7 @@
             if (BuyNowElement) {
                 BuyNowElement.disabled = false;
                 BuyNowElement.style.opacity = '1';
+                BuyNowElement.classList.remove('disable-btn');
                 BuyNowElement.setAttribute('onclick', 'handleBuyNowClick()');
             }
         }
@@ -1287,6 +1241,10 @@
             element.style.color = '';
         });
 
+        //
+
+        //
+
         selectedElement.style.backgroundColor = '#333';
         selectedElement.style.color = 'white';
 
@@ -1301,31 +1259,6 @@
         checkSelection();
     }
 
-    // Updated ColorRef function
-    // async function ColorRef(selectedElement) {
-    //     // Reset all color option borders
-    //     const colorElements = document.querySelectorAll('.color-option');
-    //     colorElements.forEach(element => {
-    //         element.style.border = '';
-    //         element.style.borderBottom = '';
-    //         if (element.parentElement.classList.contains('colorOptionwrapper')) {
-
-    //             element.parentElement.classList.remove("colorOptionwrapper-selected");
-    //         }
-    //     });
-
-    //     // Add border bottom to the parent wrapper
-    //     if (selectedElement.parentElement.classList.contains('colorOptionwrapper')) {
-    //         selectedElement.parentElement.classList.add("colorOptionwrapper-selected");
-    //     }
-
-    //     // Highlight selected color
-    //     selectedElement.style.border = '0px solid #c1c1c6';
-    //     selectedElement.style.borderBottom = '0px solid #c1c1c1';
-
-    //     // Call the unified check
-    //     await checkSelection();
-    // }
 
 
     async function ColorRef(selectedElement) {

@@ -2511,14 +2511,14 @@ a.footer-link:is(:hover, :focus) {
   transition: height 0.3s ease, box-shadow 0.3s ease;
 }
 
-.size-buttons-area {
+/* .size-buttons-area {
   margin: 10px 0px;
   box-shadow: 0 0px 7px 3px #dddddd75;
   border-radius: 10px;
   gap: 5px;
   padding: 10px 10px 10px 10px;
   transition: height 0.3s ease, box-shadow 0.3s ease;
-}
+} */
 
 #product-selected-color,
 #product-color {
@@ -2777,10 +2777,10 @@ select {
   letter-spacing: 1px;
 }
 
-.product-details-Buyitnow {
+/* .product-details-Buyitnow {
   display: flex;
   padding: 20px;
-  opacity: 1;
+  opacity: 0;
   width: -webkit-fill-available;
   justify-content: center;
   border: 1px solid;
@@ -2793,18 +2793,17 @@ select {
   color: rgb(255 255 255);
   background: #000;
   transition: color 0.3s ease, background-color 0.3s ease;
-}
+} */
 
-.product-details-Buyitnow:hover {
-  background-color: #f0f0f0;
-  color: black;
-}
+
 
 
 .Add-to-Cart,
 .close-btn,
 .Buyitnow,
-.placeorderbtn {
+.placeorderbtn,
+.product-details-Buyitnow {
+  opacity: 0 !important;
   border: 1px solid;
   font-size: small;
   text-transform: uppercase;
@@ -2816,6 +2815,24 @@ select {
   background: #000;
   border-radius: 5px;
   transition: color 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.Buyitnow2,
+.placeorderbtn2 {
+  opacity: 1;
+  border: 1px solid;
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-block: 10px;
+  margin: 2px;
+  padding: 12px 25px;
+  color: rgb(255 255 255);
+  background: #000;
+  border-radius: 5px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
 }
 
 
@@ -2831,9 +2848,13 @@ select {
 }
 
 .Add-to-Cart:hover,
+.product-details-Buyitnow:hover,
 .close-btn:hover,
 .Buyitnow:hover,
-.placeorderbtn:hover {
+.placeorderbtn:hover,
+.Buyitnow2:hover,
+.placeorderbtn2:hover {
+  transition: color 0.3s ease, background-color 0.3s ease !important;
   background-color: #f0f0f0;
   color: black;
 }
@@ -4648,6 +4669,7 @@ a {
 }
 
 .Share-Product {
+  opacity: 0;
   background-color: #000000;
   color: white;
   border: none;
@@ -8411,13 +8433,40 @@ ion-icon {
 }
 
 /* For buttons to make hover effects smooth */
-.Add-to-Cart,
-.product-details-Buyitnow,
-.Share-Product {
-  transition: all 0.2s ease;
-}
 
 /* For size radio buttons */
 .size-radio {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+.button-animate {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(20px);
+}
+
+.button-animate.show {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+#BrandName,
+#productTitle,
+#hints-container,
+.prices-area,
+.size,
+.color-selector {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.button-animate.disable-btn,
+.Add-to-Cart.disable-btn,
+.product-details-Buyitnow.disable-btn {
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
+
+
+/* // */

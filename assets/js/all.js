@@ -878,3 +878,69 @@ function getColorOptionsAndStockInfo(product) {
     totalAvailableQty,
   };
 }
+
+// Function to animate buttons with staggered delays
+// Function to animate buttons with staggered delays
+function animateProductPage() {
+  const animationSequence = [
+    { selector: "#BrandName, #productTitle", delay: 0 },
+    { selector: "#hints-container", delay: 200 },
+    { selector: ".prices-area", delay: 400 },
+    { selector: ".size", delay: 600 },
+    { selector: ".color-selector", delay: 800 },
+    { selector: ".button-animate", delay: 1000 },
+  ];
+
+  animationSequence.forEach((item) => {
+    setTimeout(() => {
+      const elements = document.querySelectorAll(item.selector);
+      elements.forEach((el) => {
+        if (item.selector === ".button-animate") {
+          // Special handling for buttons (staggered animation)
+          animateButtons();
+        } else {
+          // For other elements
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        }
+      });
+    }, item.delay);
+  });
+}
+
+// Modified button animation (staggered within button group)
+function animateButtons() {
+  const buttons = document.querySelectorAll(".button-animate");
+  buttons.forEach((button, index) => {
+    setTimeout(() => {
+      button.classList.add("show");
+    }, index * 100);
+  });
+}
+
+// Initialize animations when preloader is hidden
+function initAnimations() {
+  const preloader = document.getElementById("preloader");
+
+  if (preloader.classList.contains("hidden")) {
+    animateProductPage();
+    return;
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (
+        mutation.attributeName === "class" &&
+        preloader.classList.contains("hidden")
+      ) {
+        observer.disconnect();
+        animateProductPage();
+      }
+    });
+  });
+
+  observer.observe(preloader, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+}

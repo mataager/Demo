@@ -364,7 +364,7 @@ function openCartModal(productId) {
         SKU:<p id="productID">${productId}</p>
     </div>
 </div>
-              <div id="BuyNowButton" matagercut="${cut}" onclick="handleBuyNowClick()" class="Buyitnow">Buy Now
+              <div id="BuyNowButton" matagercut="${cut}" onclick="handleBuyNowClick()" class="Buyitnow2">Buy Now
                   <i class="bi bi-lightning"></i>
                 </div>
             <div class="flex center flex-direction-column align-items" id="buybuttonsarea">

@@ -19,7 +19,9 @@ function showUserForm(itemQty) {
   // Get product details
   const productImage = document.getElementById("productImage").src;
   const productSize = document.getElementById("product-Size").innerText;
-  const productColor = document.getElementById("product-selected-color").innerText;
+  const productColor = document.getElementById(
+    "product-selected-color"
+  ).innerText;
   const productPrice = document.getElementById("productPrice").innerText;
 
   // Create close button
@@ -270,7 +272,7 @@ function showUserForm(itemQty) {
 
   // Add a submit button
   const submitButton = document.createElement("button");
-  submitButton.classList.add("placeorderbtn");
+  submitButton.classList.add("placeorderbtn2");
   submitButton.type = "submit";
   submitButton.innerText = "Place order";
 
