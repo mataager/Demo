@@ -2088,7 +2088,6 @@ a.footer-link:is(:hover, :focus) {
 
   #cart-items p,
   h5 {
-    font-weight: 500;
     padding: 3px;
     /* padding-left: 20px; */
   }
@@ -2804,6 +2803,21 @@ select {
   cursor: pointer;
 }
 
+.checkoutbtn {
+  border: 1px solid;
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-block: 10px;
+  margin: 2px;
+  padding: 12px 25px;
+  color: rgb(255 255 255);
+  background: #000;
+  border-radius: 5px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+}
+
 .Buyitnow2,
 .placeorderbtn2,
 .Add-to-Cart2 {
@@ -2826,8 +2840,9 @@ select {
 }
 
 .Buyitnow2 {
+  margin-bottom: 10px;
   padding-block: 20px;
-  width: 55vh;
+  width: 205px;
 }
 
 .Buyitnow {
@@ -2848,7 +2863,9 @@ select {
 .placeorderbtn:hover,
 .Buyitnow2:hover,
 .Add-to-Cart2:hover,
-.placeorderbtn2:hover {
+.placeorderbtn2:hover,
+.checkoutbtn:hover,
+.Gotoaccountbtn:hover {
   transition: color 0.3s ease, background-color 0.3s ease !important;
   background-color: #f0f0f0;
   color: black;
@@ -3373,10 +3390,10 @@ select {
 
 .modalbtnL {
   color: black;
-  font-size: small;
+  font-size: x-small;
   background: white;
   border-radius: 0px 0px 8px 0px;
-  padding: 12px;
+  padding: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, background 0.3s ease;
 
@@ -3384,17 +3401,19 @@ select {
 
 .modalbtnR {
   color: black;
-  font-size: small;
+  font-size: x-small;
   background: white;
   border-radius: 0px 0px 0px 8px;
-  padding: 12px;
+  padding: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, background 0.3s ease;
 
 }
 
 .modalbtnR:hover,
-.modalbtnL:hover {
+.modalbtnL:hover,
+.Gotoaccountbtn:hover,
+#cancelGuestOrder:hover {
   box-shadow: none;
   /* Remove box shadow on hover */
 }
@@ -6209,6 +6228,7 @@ th {
 @media (max-width: 630px) {}
 
 .preloader2 {
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6217,7 +6237,7 @@ th {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgb(255, 255, 255);
+  background-color: #f9f9f9;
   /* z-index: 100; */
 }
 
@@ -7167,6 +7187,7 @@ body.modal-open #mainpagearea {
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
+  font-weight: 300;
 }
 
 .apply-promo-btn {
@@ -7180,6 +7201,7 @@ body.modal-open #mainpagearea {
   /* Added border-color to transition */
   background-color: transparent;
   /* Ensures consistency */
+  font-weight: 300;
 }
 
 .promo-code-btn-message-area {
@@ -7197,9 +7219,9 @@ body.modal-open #mainpagearea {
 }
 
 .promo-message {
+  font-weight: 300;
   font-size: 12px;
   color: #28a745;
-
 }
 
 .promo-message.error {
@@ -7387,22 +7409,21 @@ body.modal-open::after {
 }
 
 .Gotoaccountbtn {
-  font-size: x-small;
   color: white;
   background: black;
-  padding: 6px 20px;
+  padding: 10px 25px;
   border: 1px solid transparent;
   border-radius: 4px;
   cursor: pointer;
   transition: var(--transition-1);
 }
 
-.Gotoaccountbtn:hover,
+/* .Gotoaccountbtn:hover,
 #cancelGuestOrder:hover {
   background: white;
   border: 1px solid black;
   Color: black;
-}
+} */
 
 .continueasguest {
   color: black;
@@ -7473,16 +7494,16 @@ textarea {
 }
 
 #cancelGuestOrder {
-  padding: 5;
-  right: 5px;
-  top: 5px;
+  right: 0;
+  top: 0;
   position: absolute;
+  color: black;
   font-size: x-small;
-  color: #000;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: var(--transition-1);
+  background: white;
+  border-radius: 0px 0px 0px 8px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .suborderasguest {
