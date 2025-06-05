@@ -89,7 +89,6 @@ function addToCart() {
   });
   updateCartCount();
 }
-
 function openCartModal(productId) {
   // Create preloader overlay if it doesn't exist
   let preloader = document.getElementById("preloader-overlay");
@@ -268,6 +267,7 @@ function openCartModal(productId) {
       //         });
       //       }, remainingTime);
       // Inside your setTimeout where you render the modal content:
+
       setTimeout(() => {
         // Fade out preloader
         preloader.classList.add("hidden");
@@ -285,9 +285,9 @@ function openCartModal(productId) {
         const originalPrice = product["Product-Price"];
         const cut = product["matager-Cut"];
 
-        function calculateSalePrice(originalPrice, saleAmount) {
-          return originalPrice * (1 - saleAmount / 100);
-        }
+        // function calculateSalePrice(originalPrice, saleAmount) {
+        //   return originalPrice * (1 - saleAmount / 100);
+        // }
 
         let salePrice = originalPrice;
 
@@ -375,7 +375,7 @@ function openCartModal(productId) {
                     <div class="flex center flex-direction-column align-items" id="buybuttonsarea">
   
                     <div class="m-5">
-                      <button id="addToCartButton" onclick="addToCart()" class="Add-to-Cart" disabled style="opacity: 0.5;">Add to Cart <i class="bi bi-exclamation-lg"></i></button>
+                      <button id="addToCartButton" onclick="addToCart()" class="Add-to-Cart2" disabled >Add to Cart <i class="bi bi-exclamation-lg"></i></button>
                     </div>
   
                       </div>
@@ -439,7 +439,6 @@ function closeModal() {
     document.body.classList.remove("modal-open");
   }, 400); // Match transition duration
 }
-
 function colorRef(color) {
   const modalContent = document.querySelector(".modal-content");
   const product = modalContent.productDetails;
@@ -469,11 +468,6 @@ function colorRef(color) {
     document.getElementById("productImage").src = colorDetails.img1;
   }
 
-  // Check stock status using the data-qty attribute
-  // if (clickedColorOption) {
-  //   const qty = clickedColorOption.getAttribute("data-qty");
-  //   checkStockStatus(qty);
-  // }
   if (clickedColorOption) {
     const qty = clickedColorOption.getAttribute("data-qty");
     // Update Buy Now button with quantity data
@@ -483,7 +477,6 @@ function colorRef(color) {
 
   updateAddToCartButtonState();
 }
-
 function SizeRef(size) {
   const modalContent = document.querySelector(".modal-content");
   const product = modalContent.productDetails;
@@ -527,13 +520,13 @@ function SizeRef(size) {
 
   updateAddToCartButtonState();
 }
-
 function updateAddToCartButtonState() {
   const size = document.getElementById("product-Size").innerText.trim(); // Get the selected size
   const color = document
     .getElementById("product-selected-color")
     .innerText.trim(); // Get the selected color
   const addToCartButton = document.getElementById("addToCartButton");
+  const buynowButton = document.getElementById("BuyNowButton");
   const sizeHintTextElement = document.getElementById("size-hint-text");
   const colorHintTextElement = document.getElementById("color-hint-text");
 
@@ -576,10 +569,13 @@ function updateAddToCartButtonState() {
 
     // Disable "Add to Cart" button
     addToCartButton.disabled = true;
-    addToCartButton.style.opacity = 0.5;
+    buynowButton.disabled = true;
+    addToCartButton.classList.add("opcacity05");
+    buynowButton.classList.add("opcacity05");
     addToCartButton.innerHTML =
       'Add to Cart <i class="bi bi-exclamation-lg"></i>';
     addToCartButton.onclick = null;
+    buynowButton.onclick = null;
     return;
   }
 
@@ -592,8 +588,11 @@ function updateAddToCartButtonState() {
 
   // Enable "Add to Cart" button when both size and color are selected
   addToCartButton.disabled = false;
-  addToCartButton.style.opacity = 1;
+  buynowButton.disabled = false;
+  addToCartButton.classList.remove("opcacity05");
+  buynowButton.classList.remove("opcacity05");
   addToCartButton.innerHTML =
     'Add to Cart <ion-icon name="cart-outline" role="img" class="md hydrated" aria-label="cart outline"></ion-icon>';
   addToCartButton.onclick = addToCart;
+  buynowButton.onclick = handleBuyNowClick;
 }
