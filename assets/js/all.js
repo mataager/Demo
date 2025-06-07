@@ -199,7 +199,7 @@ function prepareguestbtn() {
 
   if (addedbtn) {
     addedbtn.innerHTML = `
-      <button id="guestSubmitorderbtn" class="Add-to-Cart">
+      <button id="guestSubmitorderbtn" class="checkoutbtn">
         Order Now As Guest
         <i class="bi bi-check2-all"></i>
       </button>

@@ -309,7 +309,7 @@ async function guestSubmitorder() {
     // Show guest checkout form modal
     modalContent.innerHTML = `
       <div class="guestmodalarea">
-        <button type="button" id="cancelGuestOrder">
+        <button type="button" class="modalbtnR" id="cancelGuestOrder">
           <i class="bi bi-x-lg"></i>
         </button>
         <h2>Guest Checkout</h2>

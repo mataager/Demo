@@ -1129,6 +1129,11 @@ img {
   font-weight: 200;
 }
 
+.section-title,
+h5 {
+  font-weight: 400;
+}
+
 .itemscounter {
   text-transform: none;
   border-radius: 5px;
@@ -1160,16 +1165,12 @@ img {
   font-weight: var(--fw-500);
   border: 1px solid var(--gainsboro);
   border-radius: 30px;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .filter-btn.active {
   background: black;
   color: var(--white);
-}
-
-.filter-btn:hover {
-  color: white;
-  background: #000;
 }
 
 .product-list,
@@ -2089,6 +2090,7 @@ a.footer-link:is(:hover, :focus) {
   #cart-items p,
   h5 {
     padding: 3px;
+    font-weight: 400;
     /* padding-left: 20px; */
   }
 
@@ -2789,6 +2791,7 @@ select {
 .placeorderbtn,
 .product-details-Buyitnow {
   opacity: 0 !important;
+  font-weight: 300;
   border: 1px solid;
   font-size: small;
   text-transform: uppercase;
@@ -2821,6 +2824,7 @@ select {
 .Buyitnow2,
 .placeorderbtn2,
 .Add-to-Cart2 {
+  font-weight: 300;
   display: flex;
   opacity: 1;
   border: 1px solid;
@@ -2865,7 +2869,10 @@ select {
 .Add-to-Cart2:hover,
 .placeorderbtn2:hover,
 .checkoutbtn:hover,
-.Gotoaccountbtn:hover {
+.Gotoaccountbtn:hover,
+.filtering-close-btn:hover,
+.filter-btn:hover,
+.Grid-btn:hover {
   transition: color 0.3s ease, background-color 0.3s ease !important;
   background-color: #f0f0f0;
   color: black;
@@ -3390,24 +3397,22 @@ select {
 
 .modalbtnL {
   color: black;
-  font-size: x-small;
+  font-size: small;
   background: white;
   border-radius: 0px 0px 8px 0px;
   padding: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, background 0.3s ease;
-
 }
 
 .modalbtnR {
   color: black;
-  font-size: x-small;
+  font-size: small;
   background: white;
   border-radius: 0px 0px 0px 8px;
   padding: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, background 0.3s ease;
-
 }
 
 .modalbtnR:hover,
@@ -3454,17 +3459,17 @@ select {
 } */
 
 .add-to-fav-btn {
+  font-weight: 300;
   font-size: small;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding-block: 10px;
   width: fit-content;
   margin: 2px;
   color: rgb(255 255 255);
   background: #000;
   font-size: small;
   border-radius: 5px;
-  padding: 10px;
+  padding: 12px;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
@@ -3491,6 +3496,7 @@ select {
 }
 
 .fav-modal-label {
+  font-weight: 300;
   font-size: small;
   margin-top: 10px;
   display: flex;
@@ -4263,15 +4269,12 @@ a {
   padding: 7px 10px;
   border: none;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 300;
   font-size: smaller;
   border-radius: 5px;
 }
 
-.filter-btn:hover,
-.Grid-btn:hover {
-  background-color: #333;
-}
+
 
 /* Sidebar Styling */
 .filter-sidebar {
@@ -4913,6 +4916,7 @@ a {
 .related-product-title {
   font-size: 18px;
   margin-top: 10px;
+  font-weight: 300;
 }
 
 .no-related-products {
@@ -5043,16 +5047,19 @@ a {
 }
 
 .user-details h4 {
+  font-weight: 400;
   margin: 0;
   font-size: 1.2rem;
 }
 
 .user-details p {
+  font-weight: 300;
   margin: 5px 0 0;
   font-size: 0.9rem;
 }
 
 .user-navigation {
+  font-weight: 100;
   background: #f4f4f4;
   border-bottom: 1px solid #ddd;
 }
@@ -5138,6 +5145,7 @@ th {
 }
 
 .order-card .order-header h5 {
+  font-weight: 400;
   margin: 0;
   font-size: small;
   color: #333;
@@ -5148,7 +5156,7 @@ th {
   border-radius: 16px;
   font-size: 0.85rem;
   color: white;
-  font-weight: bold;
+  font-weight: 300;
   text-transform: uppercase;
 }
 
@@ -5184,6 +5192,7 @@ th {
 }
 
 .order-details span {
+  FONT-WEIGHT: 300;
   display: block;
   margin-bottom: 5px;
 }
@@ -5191,6 +5200,7 @@ th {
 .favourite-section span {
   font-size: small;
   color: #555;
+  font-weight: 400;
 }
 
 .favourite-item {
@@ -5219,6 +5229,7 @@ th {
 }
 
 .order-actions .btn-view {
+  FONT-WEIGHT: 300;
   background: #000000;
   color: white;
 }
@@ -5268,6 +5279,7 @@ th {
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-weight: 400;
 }
 
 #save-settings-btn {
@@ -5312,26 +5324,28 @@ th {
 }
 
 .detail-group {
+  /* font-weight: 300; */
   flex: 1;
   padding: 0 10px 10px;
 }
 
 .detail-group h6 {
   font-size: 14px;
-  color: #555;
+  color: rgb(0, 0, 0);
   margin-bottom: 5px;
-  font-weight: normal;
+  font-weight: 400;
 }
 
 .detail-group p {
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 400;
   color: #333;
 }
 
 
 
 .edit-button {
+  font-weight: 400;
   padding: 8px 16px;
   color: #333;
   border: 1px solid #ededed;
@@ -5381,6 +5395,7 @@ th {
 .swal2-input,
 .swal2-textarea,
 .select-governorate {
+  font-weight: 300;
   font-size: small;
   width: 100%;
   max-width: 400px;
@@ -5413,12 +5428,34 @@ th {
   /* Adds a subtle glow effect */
 }
 
+.swal2-input option {
+  font-weight: 100;
+}
+
 /* Textarea specific styling */
 .swal2-textarea {
   height: 100px;
   /* Makes textarea taller */
   resize: vertical;
   /* Allows vertical resizing only */
+}
+
+div:where(.swal2-container) h2:where(.swal2-title),
+div:where(.swal2-container) div:where(.swal2-html-container),
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm),
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
+  font-weight: 300 !important;
+  /* Removed 'px' */
+}
+
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover {
+  transition: color 0.3s ease, background-color 0.3s ease !important;
+  background-color: #f0f0f0 !important;
+  color: black !important;
 }
 
 /* Dropdown arrow customization */
@@ -5708,7 +5745,7 @@ th {
   padding: 5px 20px;
   border-radius: 16px;
   font-size: x-small;
-  font-weight: bold;
+  font-weight: 300;
   color: white;
   text-transform: uppercase;
   background: black;
@@ -7409,6 +7446,7 @@ body.modal-open::after {
 }
 
 .Gotoaccountbtn {
+  font-size: x-small;
   color: white;
   background: black;
   padding: 10px 25px;
@@ -8138,12 +8176,12 @@ body.swal2-shown {
   font-size: x-small;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-weight: 600;
+  font-weight: 300;
   color: #555;
 }
 
 .shipping-message .success {
-  font-weight: 600;
+  font-weight: 300;
   color: black;
   display: none;
 }
@@ -8318,6 +8356,7 @@ body.swal2-shown {
 }
 
 .note-row-orderhistory {
+  font-weight: 300;
   gap: 3px;
   display: flex;
 }
@@ -8512,6 +8551,15 @@ ion-icon {
 
 .opcacity05 {
   opacity: 0.5 !important;
+}
+
+.filtering-close-btn {
+  border-radius: 5px;
+  font-size: x-small;
+  padding: 7px;
+  background: black;
+  color: white;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 /* // */

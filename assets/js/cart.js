@@ -302,7 +302,7 @@ function updateFreeShippingWidget() {
   } else {
     // Free shipping not reached
     widget.classList.remove("free-shipping-reached");
-    remainingAmount.textContent = `${remaining.toFixed(2)} EGP`;
+    remainingAmount.textContent = `${remaining} EGP`;
   }
 }
 // Call this whenever the cart updates

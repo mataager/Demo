@@ -205,7 +205,7 @@
                                             <div class="progress-fill-freeshipping"></div>
                                         </div>
                                         <div class="shipping-message">
-                                            <span class="remaining">Shop ABOVE<span id="remainingAmount">0.00 EGP</span>
+                                            <span class="remaining">Shop ABOVE<span id="remainingAmount">0 EGP</span>
                                                 for GETTING
                                                 shipping</span>
                                             <span class="success">You've earned free shipping! </span>
@@ -391,6 +391,7 @@
                                             <div class="flex center total-cart-div mt-20" id="cart-section-all">
                                                 <div class="flex center Cart-summary-section">
                                                     <p class="mb-10 cart-area-divs-titels">Cart Summary</p>
+
                                                     <div
                                                         class="flex flex-start flex-direction-column align-items-flex-start p-30">
                                                         <div
@@ -405,12 +406,20 @@
                                                             <span id="shipping-fees" class="ml-3 hidden"></span>
                                                         </div>
 
+                                                        <div class="flex center align-items font-small mb-10 cart-data-area"
+                                                            id="paymentfees-area">
+                                                            <h5>COD Fees :</h5><span id="" class="ml-3">10 EGP</span>
+                                                            <span id="" class="ml-3 hidden"></span>
+                                                        </div>
+
                                                         <div
                                                             class="flex center align-items font-small mb-10 cart-data-area">
                                                             <h5>Total Price :</h5><span id="total-price"
                                                                 class="ml-3"></span>
                                                         </div>
                                                         <h5 class="hidden" id="total-cart-amount"></h5>
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -419,7 +428,7 @@
                                         </div>
                                     </div>
                                     <div class="flex center m-30" id="checkoutByAccount"><button id="Submit"
-                                            class="Add-to-Cart" onclick="submitOrder()">proceed to checkout
+                                            class="checkoutbtn" onclick="submitOrder()">proceed to checkout
                                             <i class="bi bi-check2-all"></i>
                                         </button></div>
                                     <div class="flex center m-30 hidden" id="checkoutWithoutAccount"></div>
@@ -522,54 +531,55 @@
                                         });
                                     });
                                 }
-                                // // Function to update quantity in the cart
-                                // function updateQuantity(index, increment) {
-                                //     const item = cart[index];
-                                //     const requestedQuantity = item.quantity + increment;
-                                //     const preloader = document.getElementById("cart-items-preloader");
-                                //     const cartItems = document.getElementById("cart-items");
+                                // Function to update quantity in the cart
+                                function updateQuantity(index, increment) {
+                                    const item = cart[index];
+                                    const requestedQuantity = item.quantity + increment;
+                                    const preloader = document.getElementById("cart-items-preloader");
+                                    const cartItems = document.getElementById("cart-items");
 
-                                //     // Visual feedback - dim cart items and show loader
-                                //     if (cartItems) cartItems.classList.add("updating");
-                                //     if (preloader) {
-                                //         preloader.classList.remove("hidden");
-                                //     }
+                                    // Visual feedback - dim cart items and show loader
+                                    if (cartItems) cartItems.classList.add("updating");
+                                    if (preloader) {
+                                        preloader.classList.remove("hidden");
+                                    }
 
 
-                                //     // Ensure the requested quantity is never less than 1
-                                //     if (requestedQuantity < 1) {
-                                //         preloader.classList.add("hidden");
-                                //         return; // Prevent decrement below 1
-                                //     }
+                                    // Ensure the requested quantity is never less than 1
+                                    if (requestedQuantity < 1) {
+                                        preloader.classList.add("hidden");
+                                        return; // Prevent decrement below 1
+                                    }
 
-                                //     // Check availability based on the updated requested quantity
-                                //     checkAvailability(item.id, item.productSize, item.productColor, requestedQuantity, (isAvailable, availableQty) => {
-                                //         if (isAvailable) {
-                                //             // If the item is available and stock is sufficient, update the cart
-                                //             item.quantity = requestedQuantity; // Update quantity based on the requested quantity
-                                //             cart[index] = item;
+                                    // Check availability based on the updated requested quantity
+                                    checkAvailability(item.id, item.productSize, item.productColor, requestedQuantity, (isAvailable, availableQty) => {
+                                        if (isAvailable) {
+                                            // If the item is available and stock is sufficient, update the cart
+                                            item.quantity = requestedQuantity; // Update quantity based on the requested quantity
+                                            cart[index] = item;
 
-                                //             // Update local storage
-                                //             localStorage.setItem("cart", JSON.stringify(cart));
+                                            // Update local storage
+                                            localStorage.setItem("cart", JSON.stringify(cart));
 
-                                //             // Update UI
-                                //             const quantitySpan = document.querySelector(`#qty-${item.id}`);
-                                //             const priceSpan = document.querySelector(`#price-${item.id}`);
-                                //             quantitySpan.textContent = `Qty: ${item.quantity}`;
-                                //             priceSpan.textContent = `${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP`;
+                                            // Update UI
+                                            const quantitySpan = document.querySelector(`#qty-${item.id}`);
+                                            const priceSpan = document.querySelector(`#price-${item.id}`);
+                                            quantitySpan.textContent = `Qty: ${item.quantity}`;
+                                            priceSpan.textContent = `${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP`;
 
-                                //             // Refresh total amount
-                                //             updateTotalAmount();
-                                //             updateFreeShippingWidget();
-                                //             updatecartitemscount();
-                                //             resetPromoCode();
-                                //             preloader.classList.add("hidden");
-                                //             updateCartCount();
-                                //         }
-                                //     });
-                                //     updatecartitemscount();
+                                            // Refresh total amount
+                                            updateTotalAmount();
+                                            updateFreeShippingWidget();
+                                            updatecartitemscount();
+                                            resetPromoCode();
+                                            preloader.classList.add("hidden");
+                                            updateCartCount();
+                                        }
+                                    });
+                                    updatecartitemscount();
 
-                                // }
+                                }
+
                                 function updateQuantity(index, increment) {
                                     const item = cart[index];
                                     const requestedQuantity = item.quantity + increment;
@@ -674,6 +684,8 @@
                                         return acc + itemPrice * item.quantity;
                                     }, 0);
 
+
+
                                     // Determine shipping status
                                     const hasFreeShipping = totalAmount >= FREE_SHIPPING_THRESHOLD;
                                     const shippingFee = hasFreeShipping ? 0 : maxshipping;
@@ -720,6 +732,8 @@
                                         hasFreeShipping: hasFreeShipping
                                     };
                                 }
+
+
                                 // Populate cart items
                                 // if (cart.length > 0) {
                                 //     const preloader = document.getElementById("cart-items-preloader");
@@ -879,6 +893,7 @@
                                                 updatecartitemscount();
                                                 resetPromoCode();
                                                 checkCartState(cart);
+                                                updateCartCount();
                                                 // Hide preloader after operations complete
                                                 preloader.classList.add("hidden");
                                             }, 50);
@@ -905,6 +920,7 @@
 
                                     // Initial total amount calculation
                                     updateTotalAmount();
+
 
                                     // Make sure preloader is hidden initially when items exist
                                     preloader.classList.add("hidden");

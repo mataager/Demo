@@ -21,6 +21,7 @@ const vanishedstock = false;
 const outofstock = true;
 const flippedimages = false;
 const autopricehandle = true;
+const codfees = 10;
 
 // guest checkout
 const GuestEmail = "exampleguest999@gmail.com";

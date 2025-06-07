@@ -553,11 +553,6 @@
         const BuyNowElement = document.getElementById(buynowbtn);
         const carti = buttonElement.querySelector('i'); // Get the icon element
 
-        console.log(sizeElement)
-
-
-        console.log("buynow", BuyNowElement);
-
         // Check if either size or color element is empty
         if (!sizeElement.innerText.trim() || !colorElement.innerText.trim()) {
             buttonElement.disabled = true; // Disable the button
@@ -654,7 +649,6 @@
     });
 
 </script>
-
 <script>
     // Function to extract query parameters from URL
     function getParameterByName(name, url) {
@@ -673,35 +667,6 @@
 
 </script>
 <script>
-    // function initializeProductSelections() {
-    //     // Select the first measurement
-    //     const sizeOptions = document.querySelectorAll('.size-radio');
-    //     if (sizeOptions.length > 0) {
-    //         sizeOptions[0].click(); // Trigger a click event on the first size option
-    //     }
-
-    //     // Select the first color
-    //     const colorOptions = document.querySelectorAll('.color-option');
-    //     if (colorOptions.length > 0) {
-    //         const firstColorOption = colorOptions[0];
-    //         firstColorOption.click(); // Trigger a click event on the first color option
-
-    //         // Optionally update the product color text
-    //         const productColorElement = document.getElementById('product-color');
-    //         if (productColorElement) {
-    //             const colorName = firstColorOption.getAttribute('data-color-name');
-    //             productColorElement.textContent = colorName;
-    //         }
-
-    //     }
-
-    //     // Remove "Must choose a color" message if present
-    //     const colorHintText = document.getElementById('color-hint-text');
-    //     if (colorHintText) {
-    //         colorHintText.style.display = 'none';
-    //     }
-
-    // }
 
     function initializeProductSelections() {
         // Select the first measurement
@@ -752,7 +717,6 @@
         initializeProductSelections();
     });
 </script>
-
 <script>
 
     function fetchProducts(key) {
@@ -1648,15 +1612,6 @@
     });
     // Modify your image handling to use Blob URLs
 </script>
-
-<script>
-
-</script>
-
-
-
-
-
 <script src="./assets/js/update-cart-amont.js"></script>
 <script src="./assets/js/route.js"></script>
 <script src="./assets/js/all.js"></script>
