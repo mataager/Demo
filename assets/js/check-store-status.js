@@ -137,6 +137,107 @@ async function checkSiteStatus(uid) {
     return false;
   }
 }
+/**
+ * Blocks the page and shows an error message with contact info.
+ * @param {Object} options - Error details
+ */
+// function blockPageAccess({
+//   title,
+//   message,
+//   reason,
+//   endingDate,
+//   contactNumber,
+// }) {
+//   document.documentElement.innerHTML = `
+//     <!DOCTYPE html>
+//     <html>
+//       <head>
+//         <title>${title}</title>
+//         <style>
+
+//           body {
+//             background: white;
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             height: 100vh;
+//             margin: 0;
+//             font-family: 'Josefin Sans';
+//           }
+//           .message {
+//             text-align: center;
+//             padding: 20px;
+//             max-width: 80%;
+//           }
+//             .message p {
+//             font-weight: 300;
+//             font-size: small;
+//             }
+//              .message h1 {
+//             font-weight: 100;
+//             font-size: xx-large;
+//             }
+//           .contact-box {
+//             margin-top: 20px;
+//             padding: 15px;
+//             background: #f0f8ff;
+//             border-radius: 8px;
+//             border: 1px solid #d0e3ff;
+//           }
+//           .contact-button {
+//             display: inline-block;
+//             margin-top: 10px;
+//             padding: 8px 16px;
+//             background: #d0e3ff;
+//             border: 1px solid #d0e3ff;
+//             color: #272727;
+//             text-decoration: none;
+//             border-radius: 4px;
+//             font-weight: 500;
+//             color: rgb(255 255 255);
+//             transition: color 0.3s ease, background-color 0.3s ease;
+//             background: #000;
+//           }
+//           .contact-button:hover {
+//            border: 1px solid #272727;
+
+//           }
+
+//         </style>
+//         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+//         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+//       </head>
+//       <body>
+//         <div class="message">
+//           <h1>${title}</h1>
+//           <p>${message}</p>
+//           ${
+//             endingDate
+//               ? `<p><strong>Ending Date:</strong> ${endingDate}</p>`
+//               : ""
+//           }
+
+//           ${
+//             contactNumber
+//               ? `
+//             <div class="contact-box">
+//               <p><strong>Contact Store Owner:</strong></p>
+//               <a href="tel:${contactNumber}" class="contact-button">
+//                 Call ${formatPhoneNumber(contactNumber)}
+//               </a>
+//             </div>
+//           `
+//               : ""
+//           }
+
+//           <div style="margin-top: 20px; color: #666; font-size: 14px;">
+//             <strong>Reason:</strong> ${reason}
+//           </div>
+//         </div>
+//       </body>
+//     </html>
+//   `;
+// }
 
 function blockPageAccess({
   title,
@@ -153,6 +254,17 @@ function blockPageAccess({
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300&display=swap');
       
+      /* Ultra-thin scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 1px; /* Makes the scrollbar super thin */
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: transparent; /* Makes track invisible */
+      }
+      
+     
+
       body {
         background: linear-gradient(135deg, #f9f9f9 0%, #f0f5ff 100%);
         display: flex;
@@ -161,7 +273,7 @@ function blockPageAccess({
         height: 100vh;
         margin: 0;
         font-family: 'Josefin Sans', sans-serif;
-        overflow: hidden;
+        overflow-y: scroll;
       }
       
       .message {
