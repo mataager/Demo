@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order System with WP Messages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #0073aa;
+            color: white;
+            border: none;
+        }
+
+        .notification {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .success {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #842029;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Place Your Order</h1>
+        <form id="orderForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">WhatsApp Number (with country code):</label>
+                <input type="tel" id="phone" placeholder="+20123456789" required>
+            </div>
+            <div class="form-group">
+                <label for="product">Product:</label>
+                <select id="product" required>
+                    <option value="">Select product</option>
+                    <option value="Product A">Product A</option>
+                    <option value="Product B">Product B</option>
+                </select>
+            </div>
+            <button type="submit">Place Order</button>
+        </form>
+        <div id="notificationArea"></div>
+    </div>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value; // Add this field to your form
+            const product = document.getElementById('product').value;
+
+            // Create order object
+            const order = {
+                id: 'ORD-' + Math.floor(Math.random() * 10000),
+                customer: name,
+                phone: phone,
+                product: product,
+                status: 'submitted',
+                date: new Date().toLocaleString()
+            };
+
+            showNotification('Processing your order...', 'info');
+
+            try {
+                // 1. Send confirmation to customer
+                await sendWhatsAppMessage(
+                    phone.includes('+') ? phone : `+${phone}`, // Ensure + prefix
+                    `Dear ${name},\n\nThank you for your order!\n\nOrder #${order.id}\nProduct: ${product}\nStatus: ${order.status}\n\nWe'll notify you when it's processed.`
+                );
+
+                // 2. Send notification to admin (your number)
+                await sendWhatsAppMessage(
+                    '+01010773587', // Your admin number
+                    `NEW ORDER ALERT!\n\nOrder #${order.id}\nCustomer: ${name}\nPhone: ${phone}\nProduct: ${product}\nDate: ${order.date}`
+                );
+
+                showNotification(`Order #${order.id} submitted! WhatsApp confirmation sent.`, 'success');
+                document.getElementById('orderForm').reset();
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Failed to send notifications. Please try again.', 'error');
+            }
+        });
+
+        // WhatsApp API function
+        async function sendWhatsAppMessage(phoneNumber, message) {
+            const instanceId = '74558';
+            const apiToken = 'pyagI4TYNudeW36Nxh5gtK0sAwGjcprTkVpGgFLD9894cffc';
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    authorization: 'Bearer ' + apiToken
+                },
+                body: JSON.stringify({
+                    chatId: phoneNumber.includes('@c.us') ? phoneNumber : `${phoneNumber}@c.us`,
+                    message: message
+                })
+            };
+
+            const response = await fetch(`https://waapi.app/api/v1/instances/${instanceId}/client/action/send-message`, options);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to send WhatsApp message');
+            }
+
+            return data;
+        }
+
+        // Helper function to show notifications
+        function showNotification(message, type) {
+            const area = document.getElementById('notificationArea');
+            const note = document.createElement('div');
+            note.className = `notification ${type}`;
+            note.textContent = message;
+            area.appendChild(note);
+            setTimeout(() => note.remove(), 5000);
+        }
+    </script>
+</body>
+
+</html>
