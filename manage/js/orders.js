@@ -136,16 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         row.innerHTML = `
-                         <td>
-        <label class="orders-checkbox">
-            <input type="checkbox" class="order-checkbox" 
-                   data-order-id="${orderId}" shipping="${
-          order.shippingFees
-        }" amount="${totalPrice}" cut="${totalcuts}">
-            <span class="checkmark"></span>
-        </label>
+                        <td class="ordercheck">
+        <input type="checkbox" class="order-checkbox" 
+               data-order-id="${orderId}" shipping="${order.shippingFees}" 
+               amount="${totalPrice}" cut="${totalcuts}"
+               onclick="event.stopPropagation()">
+        <span class="checkmark"></span>
     </td>
-                        <td>${index}</td>
+                        <td class="orderRowNum">(${index})</td>
                         <td>${orderId}</td>
                         <td>${customerName}</td>
                         <td class="w-300">${email}</td>
@@ -975,12 +973,18 @@ async function updateshippingStatus(orderId, shippingtester, event) {
       <p>How would you like to ship this order?</p>
       <div class="shipping-options" style="margin: 15px 0; display: flex; flex-direction: column; gap: 10px;">
         <label style="display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;">
-          <input type="radio" name="shippingMethod" value="bosta" checked style="margin-right: 10px;">
+          <input type="radio" name="shippingMethod" value="bosta"  style="margin-right: 10px;">
           <div>
             <strong>Ship with Bosta</strong>
-            <p style="margin: 5px 0 0; font-size: 0.8em; color: #666;">
-              We'll handle shipping through our integrated Bosta service. Best for standard deliveries.
-            </p>
+            
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;">
+          <input type="radio" name="shippingMethod" value="aramex"  style="margin-right: 10px;">
+          <div>
+            <strong>Ship with aramex</strong>
+            
           </div>
         </label>
         
@@ -988,9 +992,7 @@ async function updateshippingStatus(orderId, shippingtester, event) {
           <input type="radio" name="shippingMethod" value="own" style="margin-right: 10px;">
           <div>
             <strong>Ship with Your Own Method</strong>
-            <p style="margin: 5px 0 0; font-size: 0.8em; color: #666;">
-              You'll arrange shipping separately. Use this for custom couriers or special handling.
-            </p>
+            
           </div>
         </label>
       </div>
@@ -1102,20 +1104,165 @@ document.addEventListener("click", function (event) {
     dropdown.classList.remove("active");
   }
 });
+
+//old toggle
+// async function toggleOrderDetails(event) {
+//   const row = event.currentTarget;
+//   const nextRow = row.nextElementSibling;
+
+//   // Check if the next row is already the details row
+//   if (nextRow && nextRow.classList.contains("order-details")) {
+//     // Collapse to hide cart items (instant removal, no transition)
+//     nextRow.remove();
+//   } else {
+//     disableInteractions(event);
+//     // Add wave loading effect
+//     row.classList.add("wave-loading");
+
+//     const MIN_LOADING_TIME = 1000; // Minimum wave effect duration in milliseconds
+//     const startTime = Date.now();
+
+//     try {
+//       const orderId = row.getAttribute("data-order-id");
+//       const response = await fetch(
+//         `${url}/Stores/${uid}/orders/${orderId}.json`
+//       );
+//       const order = await response.json();
+
+//       if (!order || !order.cart) {
+//         console.error("Order or cart is null or undefined.");
+//         return;
+//       }
+
+//       const cartItems = order.cart
+//         .map(
+//           (item) => `
+//             <tr class="cart-item">
+//               <td colspan="11">
+//                 <div style="display: flex; align-items: center; width: max-content;">
+//                   <img src="${item.photourl}" alt="${item.title}"
+//                        style="width: auto; height: 80px; margin-right: 10px;"
+//                        class="clickable-image pointer">
+//                   <div style="display: flex; flex-direction: column; gap: 5px;">
+//                     <p>${item.id}</p>
+//                     <p>${item.brand}</p>
+//                     <p>${item.productColor}</p>
+//                     <p>${item.productSize}</p>
+//                     <p>Qty: ${item.quantity}</p>
+//                     <p>${
+//                       parseFloat(item.price.replace(" EGP", "")) * item.quantity
+//                     } EGP</p>
+//                     <p>${item.cut}</p>
+//                   </div>
+//                 </div>
+//               </td>
+//             </tr>`
+//         )
+
+//         .join("");
+
+//       const elapsedTime = Date.now() - startTime;
+//       const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+
+//       // Wait for the remaining time before adding the details row
+//       await new Promise((resolve) => setTimeout(resolve, remainingTime));
+
+//       const detailsRow = document.createElement("div");
+//       detailsRow.classList.add("order-details");
+//       detailsRow.innerHTML = `
+
+//           <table>
+//             <tbody class="flex gap-10 p-7">
+//               ${cartItems}
+//             </tbody>
+//           </table>
+
+//       `;
+
+//       // Append the details row and animate its opening
+//       row.after(detailsRow);
+//       expandDetailsRow(detailsRow);
+
+//       // Scroll to the first row both horizontally and vertically
+//       row.scrollIntoView({
+//         behavior: "smooth",
+//         block: "start",
+//         inline: "start",
+//       });
+
+//       // Attach click event to images
+//       document.querySelectorAll(".clickable-image").forEach((img) => {
+//         img.addEventListener("click", openModal);
+//       });
+//     } catch (error) {
+//       console.error("Error fetching order details:", error);
+//     } finally {
+//       enableInteractions();
+//       // Remove the wave-loading effect
+//       row.classList.remove("wave-loading");
+//     }
+//   }
+// }
+// Helper function to collapse the details row with animation
+
+// function collapseDetailsRow(detailsRow) {
+//   detailsRow.style.height = `${detailsRow.scrollHeight}px`; // Set to current height
+//   detailsRow.style.opacity = "1";
+//   detailsRow.style.transition = "height 0.6s ease-out, opacity 0.6s ease-out";
+
+//   // Trigger the collapse transition
+//   setTimeout(() => {
+//     detailsRow.style.height = "0";
+//     detailsRow.style.opacity = "0";
+//   }, 15);
+
+//   // Remove the row after the transition completes
+//   detailsRow.addEventListener(
+//     "transitionend",
+//     (event) => {
+//       if (
+//         event.propertyName === "height" &&
+//         detailsRow.style.height === "0px"
+//       ) {
+//         detailsRow.remove();
+//       }
+//     },
+//     { once: true }
+//   );
+// }
+// // Helper function to expand the details row with animation
+// function expandDetailsRow(detailsRow) {
+//   detailsRow.style.maxHeight = "0";
+//   detailsRow.style.opacity = "0";
+//   detailsRow.style.overflow = "hidden";
+//   detailsRow.style.transition =
+//     "max-height 0.6s ease-out, opacity 0.6s ease-out";
+
+//   // Trigger the expansion transition
+//   setTimeout(() => {
+//     detailsRow.style.maxHeight = `${detailsRow.scrollHeight}px`;
+//     detailsRow.style.opacity = "1";
+//   }, 15);
+// }
+
+//new toggle in testing
 async function toggleOrderDetails(event) {
   const row = event.currentTarget;
-  const nextRow = row.nextElementSibling;
+  const detailsContainer = row.nextElementSibling;
 
-  // Check if the next row is already the details row
-  if (nextRow && nextRow.classList.contains("order-details")) {
-    // Collapse to hide cart items (instant removal, no transition)
-    nextRow.remove();
+  // Check if details are already shown
+  if (
+    detailsContainer &&
+    detailsContainer.classList.contains("order-details-container")
+  ) {
+    // Collapse details with animation
+    collapseDetails(detailsContainer);
   } else {
     disableInteractions(event);
-    // Add wave loading effect
-    row.classList.add("wave-loading");
+    // Add loading effect
+    row.classList.add("loading-active");
 
-    const MIN_LOADING_TIME = 1000; // Minimum wave effect duration in milliseconds
+    const MIN_LOADING_TIME = 1000;
     const startTime = Date.now();
 
     try {
@@ -1130,63 +1277,77 @@ async function toggleOrderDetails(event) {
         return;
       }
 
+      // Create cart items HTML
       const cartItems = order.cart
         .map(
           (item) => `
-            <tr class="cart-item">
-              <td colspan="11">
-                <div style="display: flex; align-items: center; width: max-content;">
-                  <img src="${item.photourl}" alt="${item.title}"
-                       style="width: auto; height: 80px; margin-right: 10px;"
-                       class="clickable-image pointer">
-                  <div style="display: flex; flex-direction: column; gap: 5px;">
-                    <p>${item.id}</p>
-                    <p>${item.brand}</p>
-                    <p>${item.productColor}</p>
-                    <p>${item.productSize}</p>
-                    <p>Qty: ${item.quantity}</p>
-                    <p>${
-                      parseFloat(item.price.replace(" EGP", "")) * item.quantity
-                    } EGP</p>
-                    <p>${item.cut}</p>
-                  </div>
-                </div>
-              </td>
-            </tr>`
+        <div class="cart-item-card">
+          <div class="cart-item-image-container">
+            <img src="${item.photourl}" alt="${item.title}" 
+                 class="cart-item-image clickable-image pointer">
+          </div>
+          <div class="cart-item-details">
+            <div class="cart-item-row">
+              <span class="detail-label">ID:</span>
+              <span>${item.id}</span>
+            </div>
+            <div class="cart-item-row">
+              <span class="detail-label">Brand:</span>
+              <span>${item.brand}</span>
+            </div>
+            <div class="cart-item-row">
+              <span class="detail-label">Color:</span>
+              <span>${item.productColor}</span>
+            </div>
+            <div class="cart-item-row">
+              <span class="detail-label">Size:</span>
+              <span>${item.productSize}</span>
+            </div>
+            <div class="cart-item-row">
+              <span class="detail-label">Qty:</span>
+              <span>${item.quantity}</span>
+            </div>
+            <div class="cart-item-row">
+              <span class="detail-label">Price:</span>
+              <span>${
+                parseFloat(item.price.replace(" EGP", "")) * item.quantity
+              } EGP</span>
+            </div>
+            <div class="cart-item-row">
+              <span class="detail-label">Cut:</span>
+              <span>${item.cut}</span>
+            </div>
+          </div>
+        </div>
+      `
         )
-
         .join("");
 
       const elapsedTime = Date.now() - startTime;
       const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
-
-      // Wait for the remaining time before adding the details row
       await new Promise((resolve) => setTimeout(resolve, remainingTime));
 
-      const detailsRow = document.createElement("div");
-      detailsRow.classList.add("order-details");
-      detailsRow.innerHTML = `
-        
-          <table>
-            <tbody class="flex gap-10 p-7">
-              ${cartItems}
-            </tbody>
-          </table>
-       
+      // Create details container
+      const detailsContainer = document.createElement("div");
+      detailsContainer.className = "order-details-container";
+      detailsContainer.innerHTML = `
+        <div class="cart-items-grid">
+          ${cartItems}
+        </div>
       `;
 
-      // Append the details row and animate its opening
-      row.after(detailsRow);
-      expandDetailsRow(detailsRow);
+      // Append and animate
+      row.after(detailsContainer);
+      expandDetails(detailsContainer);
 
-      // Scroll to the first row both horizontally and vertically
-      row.scrollIntoView({
+      // Smooth scroll to show the expanded details
+      detailsContainer.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "nearest",
         inline: "start",
       });
 
-      // Attach click event to images
+      // Attach image click handlers
       document.querySelectorAll(".clickable-image").forEach((img) => {
         img.addEventListener("click", openModal);
       });
@@ -1194,51 +1355,45 @@ async function toggleOrderDetails(event) {
       console.error("Error fetching order details:", error);
     } finally {
       enableInteractions();
-      // Remove the wave-loading effect
-      row.classList.remove("wave-loading");
+      row.classList.remove("loading-active");
     }
   }
 }
-// Helper function to collapse the details row with animation
-function collapseDetailsRow(detailsRow) {
-  detailsRow.style.height = `${detailsRow.scrollHeight}px`; // Set to current height
-  detailsRow.style.opacity = "1";
-  detailsRow.style.transition = "height 0.6s ease-out, opacity 0.6s ease-out";
+// Animation functions
+function expandDetails(element) {
+  element.style.maxHeight = "0";
+  element.style.opacity = "0";
+  element.style.overflow = "hidden";
 
-  // Trigger the collapse transition
-  setTimeout(() => {
-    detailsRow.style.height = "0";
-    detailsRow.style.opacity = "0";
-  }, 15);
+  requestAnimationFrame(() => {
+    element.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
+    element.style.maxHeight = `${element.scrollHeight}px`;
+    element.style.opacity = "1";
 
-  // Remove the row after the transition completes
-  detailsRow.addEventListener(
-    "transitionend",
-    (event) => {
-      if (
-        event.propertyName === "height" &&
-        detailsRow.style.height === "0px"
-      ) {
-        detailsRow.remove();
-      }
-    },
-    { once: true }
-  );
+    // Clean up after animation
+    setTimeout(() => {
+      element.style.overflow = "visible";
+      element.style.transition = "";
+    }, 300);
+  });
 }
-// Helper function to expand the details row with animation
-function expandDetailsRow(detailsRow) {
-  detailsRow.style.maxHeight = "0";
-  detailsRow.style.opacity = "0";
-  detailsRow.style.overflow = "hidden";
-  detailsRow.style.transition =
-    "max-height 0.6s ease-out, opacity 0.6s ease-out";
+function collapseDetails(element) {
+  element.style.maxHeight = `${element.scrollHeight}px`;
+  element.style.opacity = "1";
+  element.style.overflow = "hidden";
 
-  // Trigger the expansion transition
-  setTimeout(() => {
-    detailsRow.style.maxHeight = `${detailsRow.scrollHeight}px`;
-    detailsRow.style.opacity = "1";
-  }, 15);
+  requestAnimationFrame(() => {
+    element.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
+    element.style.maxHeight = "0";
+    element.style.opacity = "0";
+
+    // Remove element after collapse
+    setTimeout(() => {
+      element.remove();
+    }, 300);
+  });
 }
+
 const modal = document.getElementById("imageModal");
 const modalImg = document.getElementById("modalImage");
 const captionText = document.getElementById("caption");
@@ -1724,3 +1879,195 @@ $(document).ready(function () {
     }
   });
 });
+
+//
+// function showorderscheckboxes() {
+//   // Toggle checkbox column visibility in completed orders section
+//   const completedOrdersTh = document.querySelectorAll(
+//     "#completed-orders-section table thead th:nth-child(1)"
+//   );
+//   const completedOrdersTd = document.querySelectorAll(
+//     "#completed-orders-section table tbody td:nth-child(1)"
+//   );
+
+//   // Check current state using computed style (works on first click)
+//   const isHidden =
+//     completedOrdersTd.length > 0
+//       ? window.getComputedStyle(completedOrdersTd[0]).display === "none"
+//       : false;
+
+//   // Toggle visibility with flex display
+//   completedOrdersTh.forEach((th) => {
+//     th.style.display = isHidden ? "table-cell" : "none";
+//   });
+
+//   completedOrdersTd.forEach((td) => {
+//     td.style.display = isHidden ? "table-cell" : "none";
+//   });
+
+//   // Optional: Toggle button state visual feedback
+//   const button = document.querySelector(
+//     'button[onclick="showorderscheckboxes()"]'
+//   );
+//   if (button) {
+//     button.classList.toggle("checkboxes-visible", !isHidden);
+//     const icon = button.querySelector("i");
+//     if (icon) {
+//       icon.className = isHidden ? "bi bi-check2-all" : "bi bi-check2-circle";
+//     }
+//   }
+// }
+
+// Global variable to track checkbox state
+let checkboxesVisible = false;
+let calculateBtn = null;
+
+function showorderscheckboxes() {
+  // Toggle checkbox column visibility in completed orders section
+  const completedOrdersTh = document.querySelectorAll(
+    "#completed-orders-section table thead th:nth-child(1)"
+  );
+  const completedOrdersTd = document.querySelectorAll(
+    "#completed-orders-section table tbody td:nth-child(1)"
+  );
+
+  // Check current state
+  const isHidden = !checkboxesVisible;
+  checkboxesVisible = isHidden;
+
+  // Toggle visibility
+  completedOrdersTh.forEach((th) => {
+    th.style.display = isHidden ? "table-cell" : "none";
+    th.classList.toggle("highlight-column", isHidden);
+  });
+
+  completedOrdersTd.forEach((td) => {
+    td.style.display = isHidden ? "table-cell" : "none";
+    td.classList.toggle("highlight-column", isHidden);
+  });
+
+  // Update button text and icon
+  const chooseOrderBtn = document.querySelector(
+    'button[onclick="showorderscheckboxes()"]'
+  );
+  if (chooseOrderBtn) {
+    const textEl = chooseOrderBtn.querySelector("p");
+    const iconEl = chooseOrderBtn.querySelector("i");
+
+    if (textEl) {
+      textEl.textContent = isHidden ? "Ignore" : "Choose orders";
+    }
+    if (iconEl) {
+      iconEl.className = isHidden ? "bi bi-x-circle" : "bi bi-check2-circle";
+    }
+  }
+
+  // Smooth scroll to the left when checkboxes become visible
+  if (isHidden) {
+    const tableContainer = document.querySelector(
+      ".overflow.border-div-table.c8080800a.radius-15"
+    );
+    if (tableContainer) {
+      tableContainer.style.scrollBehavior = "smooth";
+      tableContainer.scrollLeft = 0;
+      setTimeout(() => {
+        tableContainer.style.scrollBehavior = "auto";
+      }, 1000);
+    }
+  }
+
+  // Add visual hint to the check header
+  const checkHeader = document.querySelector(".ordercheck");
+  if (checkHeader) {
+    checkHeader.style.boxShadow = isHidden
+      ? "0 0 15px rgba(25, 135, 84, 0.7)"
+      : "none";
+    checkHeader.style.transition = "box-shadow 0.5s ease";
+    if (isHidden) {
+      setTimeout(() => {
+        checkHeader.style.boxShadow = "none";
+      }, 1500);
+    }
+  }
+
+  // Create or remove calculate button
+  const buttonsArea = document.getElementById("completed-orders-btns-area");
+  if (isHidden) {
+    // Create calculate button if it doesn't exist
+    if (!calculateBtn) {
+      calculateBtn = document.createElement("button");
+      calculateBtn.className = "calculate-btn";
+      calculateBtn.innerHTML = `
+        <p class="white mr-5i">Calculate Selected</p>
+        <i class="bi bi-calculator"></i>
+      `;
+      calculateBtn.onclick = calculateSelectedOrders;
+      calculateBtn.style.display = "none"; // Hidden by default
+      buttonsArea.appendChild(calculateBtn);
+    }
+  } else {
+    // Remove calculate button when hiding checkboxes
+    if (calculateBtn) {
+      calculateBtn.remove();
+      calculateBtn = null;
+    }
+  }
+
+  // Add event listeners to checkboxes
+  document.querySelectorAll(".order-checkbox").forEach((checkbox) => {
+    checkbox.addEventListener("change", updateCalculateButtonVisibility);
+  });
+}
+
+function updateCalculateButtonVisibility() {
+  if (!calculateBtn) return;
+
+  const checkedBoxes = document.querySelectorAll(".order-checkbox:checked");
+  calculateBtn.style.display = checkedBoxes.length > 0 ? "inline-flex" : "none";
+}
+
+function calculateSelectedOrders() {
+  const checkedBoxes = document.querySelectorAll(".order-checkbox:checked");
+
+  if (checkedBoxes.length === 0) {
+    Swal.fire({
+      icon: "error",
+      title: "No Orders Selected",
+      text: "Please select at least one order to calculate",
+      confirmButtonColor: "#3085d6",
+    });
+    return;
+  }
+
+  let totalAmount = 0;
+  let totalShipping = 0;
+  let totalCuts = 0;
+
+  checkedBoxes.forEach((checkbox) => {
+    totalAmount += parseFloat(checkbox.getAttribute("amount")) || 0;
+    totalShipping += parseFloat(checkbox.getAttribute("shipping")) || 0;
+    totalCuts += parseFloat(checkbox.getAttribute("cut")) || 0;
+  });
+
+  const grandTotal = (totalAmount - totalShipping) * matager_percentage;
+
+  Swal.fire({
+    title: "Order Calculations",
+    html: `
+      <div style="text-align: left; margin: 10px 0;">
+        <p><strong>Selected Orders:</strong> ${checkedBoxes.length}</p>
+        <p><strong>Total Amount:</strong> ${totalAmount} EGP</p>
+        <p><strong>Total Shipping:</strong> ${totalShipping} EGP</p>
+        <p><strong>Total Cuts:</strong> ${totalCuts} EGP</p>
+        <hr style="margin: 10px 0;">
+        <p><strong>Grand Total+Tax:</strong> ${grandTotal} EGP</p>
+      </div>
+    `,
+    icon: "success",
+    toast: true,
+    position: "top-end",
+    confirmButtonColor: "#3085d6",
+    confirmButtonText: "OK",
+    width: "500px",
+  });
+}

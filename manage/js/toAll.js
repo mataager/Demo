@@ -221,20 +221,36 @@ document.addEventListener("DOMContentLoaded", function () {
 // Add this to your script
 function showSearchBar() {
   const searchArea = document.getElementById("searchorderarea");
-  const chooseBtn = document.getElementById("choose-order-btn");
+  const chooseBtns = document.querySelectorAll(".choose-order-btn");
 
-  // Toggle visibility with animation
+  // Create transition styles if they don't exist
+  const style = document.createElement("style");
+
+  // Calculate and set the natural height
+  if (!searchArea.style.getPropertyValue("--search-area-height")) {
+    searchArea.style.display = "flex";
+    const height = searchArea.offsetHeight;
+    searchArea.style.display = "";
+    searchArea.style.setProperty("--search-area-height", `${height}px`);
+  }
+
   if (searchArea.style.display === "flex") {
-    // Hide animation
+    // Hide animation with smooth height decrease
     searchArea.style.animation = "fadeOut 0.3s ease forwards";
     setTimeout(() => {
       searchArea.style.display = "none";
     }, 300);
-    chooseBtn.innerHTML = `<p class="white mr-5i">search order</p><i class="bi bi-search"></i>`;
+
+    chooseBtns.forEach((btn) => {
+      btn.innerHTML = `<p class="white mr-5i">search order</p><i class="bi bi-search"></i>`;
+    });
   } else {
-    // Show animation
+    // Show animation with smooth height increase
     searchArea.style.display = "flex";
     searchArea.style.animation = "fadeIn 0.3s ease forwards";
-    chooseBtn.innerHTML = `<p class="white mr-5i">hide search</p><i class="bi bi-x-lg"></i>`;
+
+    chooseBtns.forEach((btn) => {
+      btn.innerHTML = `<p class="white mr-5i">hide search</p>`;
+    });
   }
 }

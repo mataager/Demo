@@ -132,20 +132,21 @@
                     Pending orders
                 </div> -->
                 <div class="orders-btns-area">
-                    <button id="choose-order-btn" onclick="showSearchBar()">
+                    <button class="choose-order-btn" onclick="showSearchBar()">
                         <p class="white mr-5i">search order</p>
                         <i class="bi bi-search"></i>
                     </button>
 
                 </div>
+
                 <div class="flex flex-wrap center overflow-y">
                     <section class="overflow border-div-table c8080800a radius-15" style="width: fit-content;">
                         <div class="tbl-header">
                             <table cellpadding="0" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>check</th>
-                                        <th>#</th>
+                                        <th class="ordercheck">check</th>
+                                        <th class="orderRowNum">#</th>
                                         <th>Order ID</th>
                                         <th>Customer</th>
                                         <th class="w-300">Email</th>
@@ -168,7 +169,7 @@
 
                             <table cellpadding="0" cellspacing="0">
                                 <tbody id="orders-table-body">
-                                    <!-- Data will be inserted here by JavaScript -->
+
                                 </tbody>
                             </table>
                             <script>
@@ -176,6 +177,7 @@
                             </script>
 
                         </div>
+
                     </section>
                 </div>
             </div>
@@ -183,15 +185,20 @@
                 <!-- <div class="flex center mb-20">
                     Completed orders
                 </div> -->
-                <div class="orders-btns-area">
-                    <button id="choose-order-btn" onclick="showSearchBar()">
+                <div class="orders-btns-area" id="completed-orders-btns-area">
+                    <button class="choose-order-btn" onclick="showSearchBar()">
                         <p class="white mr-5i">search order</p>
                         <i class="bi bi-search"></i>
                     </button>
 
-                    <button id="choose-order-btn">
+                    <button onclick="showorderscheckboxes()">
                         <p class="white mr-5i">Choose orders</p>
                         <i class="bi bi-check2-circle"></i>
+                    </button>
+
+                    <button onclick="Printallcompletedorders()">
+                        <p class="white mr-5i">Print All orders</p>
+                        <i class="bi bi-printer"></i>
                     </button>
                 </div>
 
@@ -202,8 +209,8 @@
                             <table cellpadding="0" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>check</th>
-                                        <th>#</th>
+                                        <th class="ordercheck">check</th>
+                                        <th class="orderRowNum">#</th>
                                         <th>Order ID</th>
                                         <th>Customer</th>
                                         <th class="w-300">Email</th>
@@ -238,7 +245,7 @@
                     Canceled orders
                 </div> -->
                 <div class="orders-btns-area">
-                    <button id="choose-order-btn" onclick="showSearchBar()">
+                    <button class="choose-order-btn" onclick="showSearchBar()">
                         <p class="white mr-5i">search order</p>
                         <i class="bi bi-search"></i>
                     </button>
@@ -250,8 +257,8 @@
                             <table cellpadding="0" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>check</th>
-                                        <th>#</th>
+                                        <th class="ordercheck">check</th>
+                                        <th class="orderRowNum">#</th>
                                         <th>Order ID</th>
                                         <th>Customer</th>
                                         <th class="w-300">Email</th>
