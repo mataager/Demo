@@ -5,17 +5,45 @@ document.addEventListener("DOMContentLoaded", function () {
   const navbar = document.querySelector("[data-navbar]");
   const navCloseBtn = document.querySelector("[data-nav-close-btn]");
   const megaMenu = document.querySelector("[data-mega-menu]");
+  const navItems = document.querySelectorAll(".navbar-item");
+  const actionItems = document.querySelectorAll(".li-action");
 
   // Event listeners for opening and closing the navbar
   navOpenBtn.addEventListener("click", function () {
     navbar.classList.add("active");
     overlay.classList.add("active");
+
+    // Reset all animations first
+    resetNavAnimations();
+
+    // Animate each nav item with delay
+    navItems.forEach((item, index) => {
+      item.style.animation = `fadeInUp 0.3s ease-out ${index * 0.2}s forwards`;
+    });
+
+    // Animate action items with delay (starting after nav items)
+    actionItems.forEach((item, index) => {
+      item.style.animation = `fadeInUp 0.3s ease-out ${
+        navItems.length * 0.1 + index * 0.1
+      }s forwards`;
+    });
   });
 
   navCloseBtn.addEventListener("click", function () {
     navbar.classList.remove("active");
     overlay.classList.remove("active");
+    resetNavAnimations();
   });
+
+  // Reset all animations
+  function resetNavAnimations() {
+    const allItems = [...navItems, ...actionItems];
+    allItems.forEach((item) => {
+      item.style.animation = "none";
+      // Force reflow
+      void item.offsetWidth;
+    });
+  }
 
   overlay.addEventListener("click", function () {
     navbar.classList.remove("active");
@@ -454,15 +482,21 @@ function openPolicyModal() {
       // Policy content with improved list styling
       modalContent.innerHTML = `
         <div class="flex justify-content-space-between width-available modal-header">
-          <div class="flex center flex-end" onclick="closeModal()">
-            <button style="margin: 0px; border-radius: 0px 8px 0px 8px; background: initial !important; color:#333;" type="button" class="Add-to-Cart" id="closeButton">
-              <i class="bi bi-x-lg"></i>
-            </button>
-          </div>
+      <div class="flex justify-content-space-between width-available modal-header" style="
+">
+     
+       <div class="modal-header policy-modal-header">
+        <button type="button" class="modalbtnR" onclick="closeModal()">
+         <i class="bi bi-x"></i>
+        </button>
+        <h2 style="display: flex;color: #333;width: -webkit-fill-available;">Shipping & Return Policy</h2>
+           </div>
         </div>
+        </div>
+      
         
         <div class="policy-content" style="padding: 20px;overflow-y: auto;">
-          <h2 style="margin-bottom: 20px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">Return Policy</h2>
+          <h2 class="policy-modal-header-topics">Return Policy</h2>
           <ul class="policy-list">
             <li class="policy-item"><span class="policy-icon">•</span> You can only return the Order/Item within 24 hours after receiving your order.</li>
             <li class="policy-item"><span class="policy-icon">•</span> When returned, the item must be in the same condition as received.</li>
@@ -471,7 +505,7 @@ function openPolicyModal() {
           </ul>
           
           <div class="arabic-policy" style="margin-top: 30px; direction: rtl; text-align: right;">
-            <h3 style="text-align: center;margin-bottom: 15px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">سياسة الإرجاع</h3>
+            <h3 class="policy-modal-header-topics">سياسة الإرجاع</h3>
             <ul class="policy-list" style="padding-right: 20px;">
               <li class="policy-item"><span class="policy-icon">•</span> يمكنك تقديم على إرجاع الطلب / المنتج بعد استلامه خلال 24 ساعة من الاستلام</li>
               <li class="policy-item"><span class="policy-icon">•</span> رسوم الشحن غير قابلة للاسترداد</li>
@@ -1210,3 +1244,41 @@ function waitForModalContent() {
     checkContent();
   });
 }
+//show modal tool tips
+function showHeaderTooltip(text) {
+  const tooltip = document.getElementById("headerTooltip");
+
+  // Create tooltip if it doesn't exist
+  if (!tooltip.querySelector(".header-tooltip")) {
+    const tooltipElement = document.createElement("span");
+    tooltipElement.className = "header-tooltip";
+    tooltipElement.textContent = text;
+    tooltip.appendChild(tooltipElement);
+
+    // Force reflow to enable transition
+    void tooltipElement.offsetWidth;
+  } else {
+    tooltip.querySelector(".header-tooltip").textContent = text;
+  }
+
+  // Apply show styles
+  tooltip.querySelector(".header-tooltip").style.opacity = "1";
+  tooltip.querySelector(".header-tooltip").style.transform = "translateY(0)";
+}
+
+function hideHeaderTooltip() {
+  const tooltip = document.getElementById("headerTooltip");
+  const tooltipElement = tooltip.querySelector(".header-tooltip");
+
+  if (tooltipElement) {
+    tooltipElement.style.opacity = "0";
+    tooltipElement.style.transform = "translateY(-10px)";
+
+    // Remove element after animation completes
+    tooltipElement.addEventListener("transitionend", function handler() {
+      tooltipElement.remove();
+      tooltipElement.removeEventListener("transitionend", handler);
+    });
+  }
+}
+//

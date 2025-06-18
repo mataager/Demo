@@ -244,14 +244,28 @@ async function addfavouriteproduct(key) {
 
     // Then populate and show modal
     modalContent.innerHTML = `
-      <div class="modal-header">
-        <button class="modalbtnL" onclick="productDetails('${key}')">
-          <i class="bi bi-box-arrow-in-down-right"></i>
-        </button>
-        <button type="button" class="modalbtnR" onclick="closeModal()">
-         <i class="bi bi-x"></i>
-        </button>
-      </div>
+      <div class="flex justify-content-space-between width-available modal-header">
+    <!-- View Product Button -->
+    <div class="flex center flex-end" onclick="productDetails('${key}')">
+      <button type="button" class="modalbtnL" id="perv4Button" aria-label="View Product Details" 
+              onmouseenter="showHeaderTooltip('View Product Details')"
+              onmouseleave="hideHeaderTooltip()">
+        <i class="bi bi-box-arrow-in-down-right"></i>
+      </button>
+    </div>
+    
+    <!-- Centered Tooltip Container -->
+    <div class="header-tooltip-container" id="headerTooltip"></div>
+    
+    <!-- Close Button -->
+    <div class="flex center flex-end" onclick="closeModal()">
+      <button type="button" class="modalbtnR" id="perv4Button" aria-label="Close Modal"
+              onmouseenter="showHeaderTooltip('Close Modal')"
+              onmouseleave="hideHeaderTooltip()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
       <form class="m-30" id="productForm">
         <div id="image-preview" class="fav-image-preview">
           <img width="200px" class="radius-5" src="" alt="Selected Product Image" id="productImage">
