@@ -17,7 +17,13 @@
   --white: hsl(0, 0%, 100%);
   --black: hsl(0, 0%, 0%);
   --onyx: hsl(0, 0%, 27%);
+  --dark-gray: #333;
+  /* Define the variable */
 
+  --borderRadius-25: 25px;
+  --borderRadius-50: 50%;
+  --productpadge: 10px 10px 10px 0px;
+  /* Define the variable */
   /**
    * typography
    */
@@ -463,7 +469,7 @@ img {
   font-family: var(--ff-roboto);
   font-size: var(--fs-7);
   z-index: 100;
-  border-radius: 10px 10px 10px 0px;
+  border-radius: var(--productpadge);
   height: 22px;
   /* Fixed height for animation */
   overflow: hidden;
@@ -531,7 +537,7 @@ img {
   /* Replaces margin-bottom on items */
   padding: 8px;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 24px;
+  border-radius: var(--borderRadius-25);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -559,7 +565,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   transition: all 0.3s ease, transform 0.2s ease;
   border: 1px solid rgba(85, 85, 85, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -747,7 +753,7 @@ img {
 }
 
 .nav-open-btn {
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   font-size: 30px;
   background: #000;
   color: var(--white);
@@ -912,7 +918,7 @@ img {
   height: 18px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
 }
 
 .overlay {
@@ -1296,7 +1302,7 @@ h5 {
   background: black;
   min-width: 55px;
   height: 55px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   display: grid;
   place-items: center;
 }
@@ -1518,7 +1524,7 @@ a.footer-link:is(:hover, :focus) {
   font-size: 20px;
   padding: 10px;
   border: 1px solid var(--white);
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   opacity: 0;
   visibility: hidden;
   /* transition: var(--transition-1); */
@@ -1564,13 +1570,13 @@ a.footer-link:is(:hover, :focus) {
 .scrolltocheckout:is(:hover, :focus) .godownicon {
   border: 1px solid black;
   color: rgb(0, 0, 0) !important;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   background: rgb(255 255 255);
 }
 
 .godownicon {
   font-size: small;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   right: -22px;
   position: absolute;
   padding: 10px;
@@ -2140,7 +2146,7 @@ a.footer-link:is(:hover, :focus) {
     color: var(--rich-black-fogra-29);
     font-size: 10px;
     padding: 7px;
-    border-radius: 50%;
+    border-radius: var(--borderRadius-50);
     transition: var(--transition-1);
   }
 
@@ -2588,7 +2594,7 @@ select {
   height: 50px;
   border: 2px solid #ccc;
   border-top: 2px solid #000000;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   animation: spin 1s linear infinite;
 }
 
@@ -2614,7 +2620,7 @@ select {
   position: absolute;
   border: 3px solid #f3f3f3;
   border-top: 3px solid #000000;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   width: 60px;
   height: 60px;
   animation: spin 2s linear infinite;
@@ -2644,8 +2650,8 @@ select {
 .double-bounce2 {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  background-color: #333;
+  border-radius: var(--borderRadius-50);
+  background-color: var(--dark-gray);
   opacity: 0.6;
   position: absolute;
   top: 0;
@@ -2710,7 +2716,7 @@ select {
   width: 30px;
   height: 30px;
   margin: 5px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -2745,7 +2751,7 @@ select {
 .color-option2 {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -2903,7 +2909,7 @@ select {
   width: fit-content;
   font-weight: var(--fw-100);
   font-size: small;
-  color: #333;
+  color: var(--dark-gray);
   letter-spacing: 1px;
   position: relative;
   display: inline-block;
@@ -2947,7 +2953,7 @@ select {
 }
 
 .size-radio:hover {
-  background-color: #333;
+  background-color: var(--dark-gray);
   color: #fff !important;
 }
 
@@ -2992,7 +2998,7 @@ select {
   width: 50px;
   height: 50px;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   border-top-color: #000000;
   animation: spin 1s ease-in-out infinite;
 }
@@ -3420,7 +3426,7 @@ select {
   background: linear-gradient(135deg, #000, #19191a);
   border-radius: 20%;
   padding: 10px;
-  box-shadow: 0 1px 5px #555;
+  box-shadow: 0 0px 2px #555;
   transition: all 0.3s ease-in-out;
   font-weight: var(--fw-600);
   border: none;
@@ -3435,13 +3441,14 @@ select {
   background: linear-gradient(135deg, #000, #19191a);
   border-radius: 20%;
   padding: 10px;
-  box-shadow: 0 1px 5px #555;
+  box-shadow: 0 0px 2px #555;
   transition: all 0.3s ease-in-out;
   font-weight: var(--fw-600);
   border: none;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+
 }
 
 
@@ -3499,10 +3506,14 @@ select {
   left: 200%;
 }
 
-.modalbtnL:hover,
+.modalbtnL:hover {
+  box-shadow: 0 2px 3px #555;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
 .modalbtnR:hover {
   box-shadow: 0 2px 3px #555;
-  transform: scale(1.05);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 
@@ -3578,6 +3589,7 @@ select {
 }
 
 .modal-header {
+  position: absolute;
   display: flex;
   padding: 8px 16px;
   opacity: 1;
@@ -3768,7 +3780,7 @@ select {
   width: 100px;
   height: 100px;
   margin-right: 20px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   background-size: cover;
   background-position: center;
   flex-shrink: 0;
@@ -3798,7 +3810,7 @@ select {
   align-items: center;
   justify-content: center;
   background-color: #f0f0f0;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
 }
 
 .overlay-category svg {
@@ -3830,7 +3842,7 @@ a {
 }
 
 .c333 {
-  color: #333;
+  color: var(--dark-gray);
 }
 
 .black-font {
@@ -3857,7 +3869,7 @@ a {
   font-weight: var(--fw-600);
   margin-right: 10px;
   font-family: var(--ff-josefin-sans);
-  color: #333;
+  color: var(--dark-gray);
 }
 
 /* Style for the sort-by container */
@@ -3959,6 +3971,47 @@ a {
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
+/* Animation for mega menu items */
+.mega-menu-item {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+/* Stagger the animation delays */
+.mega-menu-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.mega-menu-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.mega-menu-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.mega-menu-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.mega-menu-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.mega-menu-item:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.mega-menu-item:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+.mega-menu-item:nth-child(8) {
+  animation-delay: 0.8s;
+}
+
+
 /* Styles for larger screens (more than 991px) */
 @media (min-width: 992px) {
   .navbar-item:hover .mega-menu {
@@ -4016,7 +4069,7 @@ a {
   color: white;
   background: #000000;
   padding: 5px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
 }
 
 .open-category-btn:hover {
@@ -4049,7 +4102,7 @@ a {
 
 .menu-category ul li a {
   text-decoration: none;
-  color: #333;
+  color: var(--dark-gray);
   padding: 5px;
   width: max-content;
 }
@@ -4241,12 +4294,12 @@ a {
 
 #search-input:focus {
   outline: none;
-  border-color: #333;
+  border-color: var(--dark-gray);
 }
 
 .search-btn {
   background: transparent;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   padding: 0;
   width: 40px;
   height: 40px;
@@ -4288,7 +4341,7 @@ a {
   transition: max-height 0.3s ease, opacity 0.3s ease;
   scrollbar-width: thin;
   /* Native thin scrollbar */
-  scrollbar-color: #33333345 transparent;
+  scrollbar-color: var(--dark-gray)33345 transparent;
   /* thumb and track */
 }
 
@@ -4343,7 +4396,7 @@ a {
 
 .suggestion-product-title {
   font-weight: var(--fw-500);
-  color: #333;
+  color: var(--dark-gray);
   margin-bottom: 3px;
 }
 
@@ -4441,7 +4494,7 @@ a {
   width: 350px;
   height: 100%;
   background-color: #fff;
-  color: #333;
+  color: var(--dark-gray);
   padding: 20px;
   transition: left 0.4s ease;
   z-index: 1000;
@@ -4501,7 +4554,7 @@ a {
 }
 
 .sort-option:hover {
-  background-color: #333;
+  background-color: var(--dark-gray);
   color: #ffffff;
 }
 
@@ -4519,7 +4572,7 @@ a {
 
 .size-options button:hover,
 .footwear-options button:hover {
-  background-color: #333;
+  background-color: var(--dark-gray);
   color: #fff;
 }
 
@@ -4534,7 +4587,7 @@ a {
 .color-circle {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   border: 1px solid #ddd;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -4583,26 +4636,26 @@ a {
 }
 
 .action-btn:hover {
-  background-color: #333;
+  background-color: var(--dark-gray);
 }
 
 .clear-btn:hover {
   border: 1px solid #0000007d !important;
   color: black;
-  border: #333;
+  border: var(--dark-gray);
 }
 
 .active-selection {
-  background-color: #333;
+  background-color: var(--dark-gray);
   color: #fff !important;
 }
 
 .selected-color {
-  border: 1px solid #333;
+  border: 1px solid var(--dark-gray);
 }
 
 .color-circle.active-selection {
-  border: 2px solid #333;
+  border: 2px solid var(--dark-gray);
 }
 
 .grey {
@@ -4704,7 +4757,7 @@ a {
 
 .user-info img {
   margin-bottom: 10px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   width: 100px;
   height: 100px;
 }
@@ -4881,7 +4934,7 @@ a {
 .circle-button {
   width: 35px;
   height: 35px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4916,7 +4969,7 @@ a {
 .hint-text {
   display: none;
   font-size: 16px;
-  color: #333;
+  color: var(--dark-gray);
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
@@ -4929,7 +4982,7 @@ a {
 
 .hint-text {
   font-size: 16px;
-  color: #333;
+  color: var(--dark-gray);
   font-weight: bold;
   position: relative;
   /* Required to position the underline correctly */
@@ -4942,7 +4995,7 @@ a {
   left: 0;
   margin-top: 3px;
   height: 2px;
-  background-color: #333;
+  background-color: var(--dark-gray);
   animation: underline-grow 4s ease-in-out infinite;
   animation-delay: 1s;
   max-width: 150px;
@@ -5119,7 +5172,7 @@ a {
   height: 10px;
   margin: 0 5px;
   background-color: #bbb;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   transition: background-color 0.3s;
 }
 
@@ -5216,7 +5269,7 @@ a {
 }
 
 .user-info img {
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   width: 80px;
   height: 80px;
   margin-right: 20px;
@@ -5324,7 +5377,7 @@ th {
   font-weight: var(--fw-400);
   margin: 0;
   font-size: small;
-  color: #333;
+  color: var(--dark-gray);
 }
 
 .order-card .order-header .status {
@@ -5515,7 +5568,7 @@ th {
 .detail-group p {
   font-size: 12px;
   font-weight: var(--fw-400);
-  color: #333;
+  color: var(--dark-gray);
 }
 
 
@@ -5523,7 +5576,7 @@ th {
 .edit-button {
   font-weight: var(--fw-400);
   padding: 8px 16px;
-  color: #333;
+  color: var(--dark-gray);
   border: 1px solid #ededed;
   border-radius: 5px;
   cursor: pointer;
@@ -5767,7 +5820,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   padding: 3;
   background: #fff;
   color: #000000;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
 }
 
 .no-address-message {
@@ -5792,7 +5845,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 .elegant-message {
   font-size: 1.25rem;
-  color: #333;
+  color: var(--dark-gray);
   font-weight: var(--fw-400);
   margin-bottom: 10px;
 }
@@ -5835,7 +5888,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 .payment-option.active::after {
   padding: 3px 6px;
   background: black;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   content: 'Ã¢Å“â€';
   position: absolute;
   top: 8px;
@@ -6001,13 +6054,13 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 }
 
 .logout-btn {
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   padding: 5;
   background: white;
   top: 10px;
   right: 10px;
   font-size: small;
-  color: #333;
+  color: var(--dark-gray);
   cursor: pointer;
   transition: color 0.3s ease, transform 0.3s ease;
   position: absolute;
@@ -6020,7 +6073,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 .save-changes-btn {
   margin: 10px;
   font-size: smaller;
-  border-radius: 24px;
+  border-radius: var(--borderRadius-25);
   padding: 4px 10px;
   background: white;
   border: 2px solid white;
@@ -6051,7 +6104,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   height: 15px;
   border: 2px solid transparent;
   border-top: 2px solid #3498db;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   animation: spin 1s linear infinite;
   display: inline-block;
 
@@ -6078,7 +6131,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 .avatar-carousel img {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   cursor: pointer;
   transition: transform 0.3s, border 0.3s;
 }
@@ -6155,7 +6208,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 }
 
 .shipping-status {
-  color: #333333 !important;
+  color: var(--dark-gray)333 !important;
   font-size: small;
   font-weight: bold;
 }
@@ -6321,13 +6374,13 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   width: 10px;
   height: 10px;
   background-color: #ccc;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .dot.active {
-  background-color: #333;
+  background-color: var(--dark-gray);
 }
 
 @media (max-width: 450px) {
@@ -6462,7 +6515,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   position: absolute;
   border: 3px solid #f3f3f3;
   border-top: 3px solid #000000;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   width: 60px;
   height: 60px;
   animation: spin2 2s linear infinite;
@@ -6584,7 +6637,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 .product-not-found-title {
   text-transform: uppercase;
-  color: #333;
+  color: var(--dark-gray);
   font-size: 24px;
   margin-bottom: 15px;
   font-weight: var(--fw-600);
@@ -6690,7 +6743,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   margin: 0;
   font-size: 12px;
   font-weight: var(--fw-400);
-  color: #333;
+  color: var(--dark-gray);
 }
 
 .buynow-productimage {
@@ -6704,7 +6757,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 .BuyItNowForm-shipping-message {
   font-size: 10px !important;
   text-align: center;
-  color: #333;
+  color: var(--dark-gray);
   font-weight: var(--fw-400);
   margin-bottom: 10px;
 }
@@ -6741,7 +6794,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 .buynow-quantity-label {
   font-size: 12px;
-  color: #333;
+  color: var(--dark-gray);
 }
 
 .buynow-quantity-btn {
@@ -6786,7 +6839,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 .BuyItNowForm input,
 .input-report {
-  color: #333;
+  color: var(--dark-gray);
   font-size: small;
   max-width: 375px;
   margin-top: 8px;
@@ -6820,7 +6873,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   font-size: 20px;
   cursor: pointer;
   padding: 5px 10px;
-  color: #333;
+  color: var(--dark-gray);
   transition: all 0.3s ease;
 }
 
@@ -6840,7 +6893,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 #Gityandgovernment {
   height: 35px;
-  color: #333;
+  color: var(--dark-gray);
   font-size: small;
   max-width: 375px;
   margin-top: 8px;
@@ -6874,7 +6927,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 #Gityandgovernment optgroup,
 #Gityandgovernment option {
   background: #f1f1f1;
-  color: #333;
+  color: var(--dark-gray);
 }
 
 /* For better appearance of disabled option */
@@ -7115,7 +7168,11 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   box-sizing: border-box;
 }
 
-.modal-content h2 {
+.modal-content h2,
+h3,
+h4,
+h5,
+.faq-answer {
   font-weight: 300;
 }
 
@@ -7153,7 +7210,7 @@ body.modal-open #mainpagearea {
   width: 50px;
   height: 50px;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   border-top-color: #fff;
   animation: spin 1s ease-in-out infinite;
 }
@@ -7367,7 +7424,7 @@ body.modal-open #mainpagearea {
   text-transform: uppercase;
   letter-spacing: 1px;
   padding-block: 10px;
-  color: #333;
+  color: var(--dark-gray);
   font-weight: var(--fw-500);
   margin-bottom: 10px;
   margin-top: 10px;
@@ -7396,7 +7453,7 @@ body.modal-open #mainpagearea {
 }
 
 .return-to-home-a:hover {
-  color: #333;
+  color: var(--dark-gray);
 }
 
 /* // */
@@ -7543,7 +7600,7 @@ body.modal-open #mainpagearea {
 }
 
 .bi-caret-right {
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   padding: 5px;
   background: white;
   cursor: pointer;
@@ -7672,7 +7729,7 @@ body.modal-open::after {
 .guestmodalarea input,
 select,
 textarea {
-  color: #333;
+  color: var(--dark-gray);
   font: inherit;
   max-width: 375px;
   margin-top: 8px;
@@ -7698,7 +7755,7 @@ textarea {
 
 .form-input,
 #guest-government {
-  color: #333;
+  color: var(--dark-gray);
   font: inherit;
   max-width: 375px;
   margin-top: 8px;
@@ -7818,7 +7875,7 @@ textarea {
 }
 
 .progress-step-sign.active {
-  background-color: #333;
+  background-color: var(--dark-gray);
   color: white;
 }
 
@@ -7836,7 +7893,7 @@ textarea {
 .progress-fill {
   height: 100%;
   border-radius: 3px;
-  background-color: #333;
+  background-color: var(--dark-gray);
   width: 33.33%;
   transition: width 0.3s ease;
 }
@@ -7953,7 +8010,7 @@ textarea {
   margin: 0px;
   border-radius: 0px 8px 0px 8px;
   background: initial !important;
-  color: #333;
+  color: var(--dark-gray);
 }
 
 /* // */
@@ -8211,7 +8268,7 @@ body.swal2-shown {
 }
 
 #cartBtn:hover {
-  background: #333 !important;
+  background: var(--dark-gray) !important;
 }
 
 .swal2-progress-bar {
@@ -8280,7 +8337,7 @@ body.swal2-shown {
 }
 
 .swal-cart-btn:hover {
-  background: #333;
+  background: var(--dark-gray);
 }
 
 /* SweetAlert Overrides */
@@ -8383,11 +8440,14 @@ body.swal2-shown {
 
 .link-matager {
   text-decoration-line: underline;
-  color: #333;
+  color: var(--dark-gray);
 }
 
 /* // */
 .policy-modal-header {
+  padding-bottom: 10px;
+  margin: 20px 20px 0px 20px;
+  position: relative;
   display: flex;
   opacity: 1;
   transform: translateY(0px);
@@ -8399,10 +8459,15 @@ body.swal2-shown {
   border-bottom: 1px solid #eee;
 }
 
+.policy-modal-header-title {
+  display: flex;
+  color: var(--dark-gray);
+}
+
 .policy-modal-header-topics {
   display: flex;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--dark-gray);
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
 }
@@ -8413,6 +8478,14 @@ body.swal2-shown {
   display: flex;
   font-weight: var(--fw-200);
   justify-content: center;
+}
+
+.faq-section h3 {
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  width: -webkit-fill-available;
 }
 
 .arabic-policy {
@@ -8442,7 +8515,7 @@ body.swal2-shown {
 
 
 .brands-picker button {
-  color: #333;
+  color: var(--dark-gray);
   letter-spacing: 1px;
   text-transform: none;
   border-radius: 5px;
@@ -8465,9 +8538,9 @@ body.swal2-shown {
 }
 
 .brands-picker button.active {
-  border-color: #333;
+  border-color: var(--dark-gray);
   /* Same as hover for active state */
-  background: #333;
+  background: var(--dark-gray);
   /* Dark background for active state */
   color: white;
 }
@@ -8548,7 +8621,7 @@ body.swal2-shown {
 .continueshopmodalbtn {
   margin: 5px;
   background-color: transparent !important;
-  color: #333 !important;
+  color: var(--dark-gray) !important;
   border: 1px solid #ddd !important;
   padding: 10px 20px !important;
   border-radius: 5px !important;
@@ -8599,7 +8672,7 @@ body.swal2-shown {
   height: 30px;
   margin: 5px;
   border: 1px solid #ddd;
-  border-radius: 50%;
+  border-radius: var(--borderRadius-50);
   cursor: pointer;
   position: relative;
 } */
@@ -8688,7 +8761,7 @@ ion-icon {
   align-items: flex-start;
   font-size: small;
   font-weight: var(--fw-100);
-  color: #333;
+  color: var(--dark-gray);
   flex-direction: column;
 }
 

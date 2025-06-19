@@ -481,20 +481,17 @@ function openPolicyModal() {
 
       // Policy content with improved list styling
       modalContent.innerHTML = `
-        <div class="flex justify-content-space-between width-available modal-header">
-      <div class="flex justify-content-space-between width-available modal-header" style="
-">
-     
-       <div class="modal-header policy-modal-header">
+        
+
+      <div class="policy-modal-header">
         <button type="button" class="modalbtnR" onclick="closeModal()">
          <i class="bi bi-x"></i>
         </button>
-        <h2 style="display: flex;color: #333;width: -webkit-fill-available;">Shipping & Return Policy</h2>
-           </div>
-        </div>
-        </div>
-      
-        
+
+         <h2 class="policy-modal-header-title">Shipping & Return Policy</h2>
+       
+      </div> 
+
         <div class="policy-content" style="padding: 20px;overflow-y: auto;">
           <h2 class="policy-modal-header-topics">Return Policy</h2>
           <ul class="policy-list">
@@ -514,7 +511,7 @@ function openPolicyModal() {
           </div>
           
           <div class="faq-section" style="margin-top: 40px;">
-  <h3 style="margin-bottom: 20px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px;">Frequently Asked Questions</h3>
+  <h3 style="">Frequently Asked Questions</h3>
   
   <div class="faq-item" style="margin-bottom: 20px;">
     <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► How to place an Order?</h4>
