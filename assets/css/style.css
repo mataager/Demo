@@ -18,6 +18,7 @@
   --black: hsl(0, 0%, 0%);
   --onyx: hsl(0, 0%, 27%);
   --dark-gray: #333;
+  --f9f9f9: #f9f9f9;
   /* Define the variable */
 
   --borderRadius-25: 25px;
@@ -1163,12 +1164,12 @@ img {
   letter-spacing: 1px;
   color: #19191a;
   text-align: center;
-  font-weight: var(--fw-200);
+  font-weight: var(--fw-200) !important;
 }
 
 .section-title,
 h5 {
-  font-weight: var(--fw-400);
+  font-weight: var(--fw-400) !important;
 }
 
 .itemscounter {
@@ -3092,6 +3093,8 @@ select {
 
 #cart-items p {
   padding-left: 20px;
+  font-weight: var(--fw-200);
+  ;
 }
 
 #cart-items img {
@@ -5794,9 +5797,10 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   padding: 3px;
 }
 
-.address-area {
+.address-area,
+.total-cart-div {
   box-shadow: 0 14px 10px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
+  background-color: var(--f9f9f9);
   border-radius: 20px;
   position: relative;
   /* overflow: auto; */
@@ -5918,7 +5922,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   padding: 3px 6px;
   background: black;
   border-radius: var(--borderRadius-50);
-  content: 'Ã¢Å“â€';
+  content: 'ÃƒÂ¢Ã…â€œÃ¢â‚¬Â';
   position: absolute;
   top: 8px;
   right: 8px;
@@ -6427,14 +6431,14 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   align-items: center;
 }
 
-.total-cart-div {
+/* .total-cart-div {
   border-radius: 20px;
   box-shadow: 0 14px 10px rgba(0, 0, 0, 0.1);
   background: #f9f9f9;
   margin: 20px 10px 20px 10px;
   align-items: center;
   flex-direction: column;
-}
+} */
 
 .manage-cart-item {
   background: #00000014;
@@ -8433,11 +8437,11 @@ body.swal2-shown {
 /* // */
 /* Free Shipping Widget Container */
 .free-shipping-widget {
-  border-radius: 20px;
+  border-radius: 0px 0px 20px 20px;
   display: flex;
   margin: 20px 0;
-  padding: 15px;
-  background: #f9f9f9;
+  padding: 0;
+  background: rgb(249 249 249);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   flex-direction: column;
   align-items: center;
@@ -8448,7 +8452,7 @@ body.swal2-shown {
   height: 2px;
   background: #e9ecef;
   border-radius: 3px;
-  margin: 10px 0;
+  /* margin: 0px 0px 10px 0px; */
   overflow: hidden;
   width: -webkit-fill-available;
 }
@@ -8466,14 +8470,14 @@ body.swal2-shown {
 
 
 .shipping-message .remaining {
+  padding: 15px;
   gap: 12px;
   display: flex;
   font-size: x-small;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 1px;
   font-weight: var(--fw-400);
   color: #555;
-  margin-top: 5px;
 }
 
 .shipping-message .success {

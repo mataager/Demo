@@ -495,7 +495,7 @@ function openPolicyModal() {
             <li class="policy-item"><span class="policy-icon">•</span> You can only return the Order/Item within 24 hours after receiving your order.</li>
             <li class="policy-item"><span class="policy-icon">•</span> When returned, the item must be in the same condition as received.</li>
             <li class="policy-item"><span class="policy-icon">•</span> Shipping fees are non-refundable.</li>
-            <li class="policy-item"><span class="policy-icon">•</span> You can try the product before making a payment. If it doesn't fit or you don't like it, you can return it directly with the delivery agent.</li>
+            <li class="policy-item"><span class="policy-icon">•</span>You can try the product before making a payment. If it doesn't fit or you don't like it, you can return it directly with the delivery agent.</li>
           </ul>
           
           <div class="arabic-policy" style="margin-top: 30px; direction: rtl; text-align: right;">
