@@ -1,8 +1,8 @@
 const url = "https://matager-f1f00-default-rtdb.firebaseio.com";
 const storeurl = "https://matager-f1f00-default-rtdb.firebaseio.com";
 const storename = "StoreName";
-const uid = "GxQaBxk8tFa25RudRDnpAUyjQ0l1";
-const storeuid = "GxQaBxk8tFa25RudRDnpAUyjQ0l1";
+const uid = "g6LZtEiyVUXSqOYiQFOY7iDMsOt1
+const storeuid = "g6LZtEiyVUXSqOYiQFOY7iDMsOt1";
 const storePhoneNum = "Store number here!";
 const storePhoneNum2 = "";
 const storeEmail = "Store email here!";
