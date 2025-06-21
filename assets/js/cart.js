@@ -151,7 +151,7 @@ function renderAddresses(addresses) {
     div.innerHTML = `
     <button class="toggle-btn" onclick="toggleAddress(this, event)">
     <p>show more</p>
-      <i class="fa-regular fa-circle-right"></i>
+      <i class="bi bi-arrow-right-short"></i>
     </button>
       <div class="details-row">
         <div class="detail-group">
@@ -205,13 +205,13 @@ function toggleAddress(button, event) {
     const fullHeight = addressCard.scrollHeight; // Get the full height of the content
     addressCard.style.height = `${fullHeight}px`; // Set the height explicitly
     addressCard.classList.add("expanded");
-    button.innerHTML = '<p>Hide</p><i class="fa-regular fa-circle-down"></i>';
+    button.innerHTML = '<p>Hide</p><i class="bi bi-arrow-down-short"></i>';
   } else {
     // Collapse the card
     addressCard.style.height = "85px"; // Set the height to collapsed value
     addressCard.classList.remove("expanded");
     button.innerHTML =
-      '<p>Show More</p><i class="fa-regular fa-circle-right"></i>';
+      '<p>Show More</p><i class="bi bi-arrow-right-short"></i>';
   }
 }
 

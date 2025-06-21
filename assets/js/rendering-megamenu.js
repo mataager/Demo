@@ -71,7 +71,7 @@ function renderMegaMenu() {
     </div>
     <div class="flex col-u-991 hidden ${showMen ? "" : "hidden"}" id="men-menu">
       <div class="menu-category">
-        <h4>Top</h4>
+        <h4 class="mega-menu-item">Top</h4>
         <ul>
           <li class="mega-menu-item"><a onclick="changeFrameSrc('./Category.html?&category=men&piece=T-Shirt')">T-Shirts</a></li>
           <li class="mega-menu-item"><a onclick="changeFrameSrc('./Category.html?&category=men&piece=Polo-Shirt')">Polo-shirt</a></li>
@@ -84,7 +84,7 @@ function renderMegaMenu() {
         </ul>
       </div>
       <div class="menu-category">
-        <h4>Bottom</h4>
+        <h4 class="mega-menu-item">Bottom</h4>
         <ul>
           <li class="mega-menu-item"><a onclick="changeFrameSrc('./Category.html?&category=men&piece=Trousers')">Trousers</a></li>
           <li class="mega-menu-item"><a onclick="changeFrameSrc('./Category.html?&category=men&piece=Jeans')">Jeans</a></li>
@@ -96,14 +96,14 @@ function renderMegaMenu() {
         </ul>
       </div>
       <div class="menu-category">
-        <h4>Footwear</h4>
+        <h4 class="mega-menu-item">Footwear</h4>
         <ul>
           <li class="mega-menu-item"><a onclick="changeFrameSrc('./Category.html?&category=men&piece=Shoes')">Shoes</a></li>
           <li class="mega-menu-item"><a onclick="changeFrameSrc('./Category.html?&category=men&piece=Slipper')">Slipper</a></li>
         </ul>
       </div>
       <div class="menu-category">
-        <h4>Accessories</h4>
+        <h4 class="mega-menu-item">Accessories</h4>
         <ul>
           <li class="mega-menu-item"><a onclick="changeFrameSrc('./Category.html?&category=men&piece=Belts')">Belts</a></li>
           <li class="mega-menu-item"><a onclick="changeFrameSrc('./Category.html?&category=men&piece=Caps')">Caps</a></li>

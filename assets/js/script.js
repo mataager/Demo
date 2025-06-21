@@ -6,7 +6,20 @@ let totalProducts = 0;
 let allProducts = [];
 let allData = {};
 
+//
+
+//
 function fetchAndRenderProducts() {
+  // Show skeletons with loading animation
+  const minDisplayTime = createSkeletonItems(".product-list", {
+    withShine: true,
+    fadeDelay: 0.15,
+  });
+
+  const skeletonTimer = setTimeout(() => {
+    document.querySelector(".product-list").style.opacity = "1";
+  }, minDisplayTime);
+
   fetch(`${url}/Stores/${uid}/Products.json`)
     .then((response) => {
       if (!response.ok) {
@@ -17,6 +30,7 @@ function fetchAndRenderProducts() {
     .then((data) => {
       // Check if data is not empty
       if (data) {
+        clearTimeout(skeletonTimer);
         allData = data;
         allProducts = Object.keys(data).reverse(); // Reverse the product keys to sort from end to first
         totalProducts = allProducts.length;

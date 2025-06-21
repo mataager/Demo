@@ -70,20 +70,17 @@ document.addEventListener("DOMContentLoaded", function () {
     menMenu.classList.add("hidden");
     womenMenu.classList.add("hidden");
     kidsMenu.classList.add("hidden");
-    menLabel.style.fontWeight = "400";
-    womenLabel.style.fontWeight = "400";
-    kidsLabel.style.fontWeight = "400";
 
     // Show the selected category menu and highlight the label
     if (category === "men") {
       menMenu.classList.remove("hidden");
-      menLabel.style.fontWeight = "700";
+      menLabel.classList.add("category-type-selected");
     } else if (category === "women") {
       womenMenu.classList.remove("hidden");
-      womenLabel.style.fontWeight = "700";
+      menLabel.classList.add("category-type-selected");
     } else if (category === "kids") {
       kidsMenu.classList.remove("hidden");
-      kidsLabel.style.fontWeight = "700";
+      menLabel.classList.add("category-type-selected");
     }
   };
 
@@ -1279,3 +1276,154 @@ function hideHeaderTooltip() {
   }
 }
 //
+
+//for make animation dalys in index panner when the page load
+document.addEventListener("DOMContentLoaded", function () {
+  const preloader = document.getElementById("preloader");
+
+  // Function to start animations when preloader is hidden
+  function startAnimations() {
+    // Get all elements with animate-delay classes
+    const animatedElements = document.querySelectorAll(
+      '[class*="animate-delay"]'
+    );
+
+    // Apply animation to each element
+    animatedElements.forEach((el) => {
+      const classes = el.className.split(" ");
+      const delayClass = classes.find((cls) =>
+        cls.startsWith("animate-delay-")
+      );
+
+      if (delayClass) {
+        const delayNumber = delayClass.split("-")[2]; // Get the number (1-5)
+        const delay = 0.3 * delayNumber; // Calculate delay (0.3s, 0.6s, etc.)
+
+        // Apply the animation with the calculated delay
+        el.style.animation = `fadeInUp 1s ease-out ${delay}s forwards`;
+        el.style.opacity = "0"; // Start invisible
+      }
+    });
+  }
+
+  // Check if preloader is already hidden (style="display: none;")
+  if (preloader && window.getComputedStyle(preloader).display === "none") {
+    startAnimations();
+  } else {
+    // If using a preloader that hides after load, listen for when it's hidden
+    const observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        if (mutation.attributeName === "style") {
+          const currentDisplay = window.getComputedStyle(preloader).display;
+          if (currentDisplay === "none") {
+            startAnimations();
+            observer.disconnect(); // Stop observing once triggered
+          }
+        }
+      });
+    });
+
+    // Start observing the preloader for style changes
+    if (preloader) {
+      observer.observe(preloader, { attributes: true });
+    }
+  }
+});
+
+//for skelton preloader
+// Function to create skeleton preloader items
+
+// skeletonUtils.js
+
+function createSkeletonItems(containerSelector, options = {}) {
+  const defaults = {
+    count: getResponsiveCount(),
+    fadeDelay: 0.1,
+    minDisplayTime: 3000,
+    withShine: true,
+  };
+
+  const config = { ...defaults, ...options };
+  const productList = document.querySelector(containerSelector);
+
+  if (!productList) return;
+
+  // Clear existing content
+  productList.innerHTML = "";
+
+  // Create skeleton items
+  for (let i = 0; i < config.count; i++) {
+    const skeletonItem = document.createElement("li");
+    skeletonItem.className = "product-item skeleton-item";
+    skeletonItem.style.animationDelay = `${i * config.fadeDelay}s`;
+
+    skeletonItem.innerHTML = `
+      <div class="product-card skeleton-card ${
+        config.withShine ? "skeleton-loading" : ""
+      }" tabindex="0">
+        <figure class="card-banner">
+          <div class="skeleton-banner ${
+            config.withShine ? "skeleton-loading" : ""
+          }"></div>
+          <div class="skeleton-badge ${
+            config.withShine ? "skeleton-loading" : ""
+          }"></div>
+          <div class="skeleton-actions">
+            <div class="skeleton-action ${
+              config.withShine ? "skeleton-loading" : ""
+            }"></div>
+            <div class="skeleton-action ${
+              config.withShine ? "skeleton-loading" : ""
+            }"></div>
+            <div class="skeleton-action ${
+              config.withShine ? "skeleton-loading" : ""
+            }"></div>
+          </div>
+        </figure>
+        <div class="card-content skeleton-content">
+          <div class="skeleton-color-options">
+            <div class="skeleton-color-option ${
+              config.withShine ? "skeleton-loading" : ""
+            }"></div>
+            <div class="skeleton-color-option ${
+              config.withShine ? "skeleton-loading" : ""
+            }"></div>
+            <div class="skeleton-color-option ${
+              config.withShine ? "skeleton-loading" : ""
+            }"></div>
+          </div>
+          <div class="skeleton-title ${
+            config.withShine ? "skeleton-loading" : ""
+          }"></div>
+          <div class="skeleton-price ${
+            config.withShine ? "skeleton-loading" : ""
+          }"></div>
+        </div>
+      </div>
+    `;
+
+    productList.appendChild(skeletonItem);
+  }
+
+  return config.minDisplayTime;
+}
+
+function removeSkeletons(containerSelector) {
+  const productList = document.querySelector(containerSelector);
+  if (productList) {
+    productList.style.opacity = "0";
+    setTimeout(() => {
+      productList.innerHTML = "";
+      productList.style.opacity = "1";
+      productList.style.transition = "opacity 0.3s ease";
+    }, 300);
+  }
+}
+
+function getResponsiveCount() {
+  const width = window.innerWidth;
+  if (width < 576) return 2; // Mobile
+  if (width < 768) return 3; // Tablet
+  if (width < 1200) return 4; // Small desktop
+  return 5; // Large desktop
+}

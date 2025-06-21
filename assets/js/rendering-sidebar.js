@@ -1,6 +1,8 @@
 const sidebarContent = `<div class="filter-header">
                             <h3>Filters</h3>
-                            <button type="button" id="closeBtn" class="filtering-close-btn">
+                           
+
+                            <button type="button" class="modalbtnR" id="closeBtn" aria-label="Close Modal">
                                 <i class="bi bi-x-lg"></i>
                             </button>
                         </div>
