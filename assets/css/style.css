@@ -345,6 +345,8 @@ body {
   opacity: 0.5;
 }
 
+
+
 .image-contain {
   max-height: 300px;
   max-width: 300px;
@@ -2574,11 +2576,14 @@ a.footer-link:is(:hover, :focus) {
 #product-color {
   font-weight: var(--fw-200);
   font-size: small;
+  display: none;
 }
 
 .radio-input_option {
+  display: flex;
   font-weight: var(--fw-200);
   font-size: medium;
+  justify-content: center;
 }
 
 label {
@@ -2800,7 +2805,10 @@ select {
   padding: 10px;
   display: flex;
   width: -webkit-fill-available;
-  position: absolute;
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
   justify-content: center;
   align-items: center;
@@ -2825,6 +2833,52 @@ select {
   font-weight: var(--fw-100);
   font-size: x-small;
   letter-spacing: 1px;
+}
+
+.stockMessage-p,
+.outofstockmessagebanner {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 15px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+
+  /* Seamless repeating gradient */
+  background: repeating-linear-gradient(90deg,
+      #666,
+      /* dark grey */
+      #111 20%,
+      /* almost black */
+      #111 40%,
+      /* almost black */
+      #ccc 60%,
+      /* light grey */
+      #eee 70%
+      /* very light grey */
+    );
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  animation: gradientLoop 6s linear infinite;
+}
+
+@keyframes gradientLoop {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .product-details-Buyitnow {
@@ -2968,13 +3022,17 @@ select {
 
 /* Style for the size radio buttons */
 .size-radio {
+  display: flex;
+  min-width: 30px;
   color: #000;
-  display: inline-block;
   padding: 8px;
   margin: 5px;
   border: 1px solid #ddd;
   cursor: pointer;
   border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .size-radio:hover {
@@ -3487,7 +3545,8 @@ select {
 .modalbtnL,
 .modalbtnR,
 .Buyitnow2,
-.Add-to-Cart2 {
+.Add-to-Cart2,
+.add-to-fav-btn {
   position: relative;
   overflow: hidden;
   /* This ensures the pseudo-element doesn't overflow */
@@ -3504,7 +3563,8 @@ select {
 .Buyitnow2::after,
 .Add-to-Cart2::after,
 .show-all-btn::after,
-.placeorderbtn2::after {
+.placeorderbtn2::after,
+.add-to-fav-btn::after {
   content: "";
   position: absolute;
   top: 0;
@@ -3529,7 +3589,8 @@ select {
 .Add-to-Cart2:hover::after,
 .Buyitnow2:hover::after,
 /* .placeorderbtn2:hover::after, */
-.Add-to-Cart2:hover::after {
+.Add-to-Cart2:hover::after,
+.add-to-fav-btn:hover::after {
   left: 200%;
 }
 
@@ -8467,9 +8528,27 @@ body.swal2-shown {
 }
 
 /* Text Messages */
+#stockContainer {
+  width: -webkit-fill-available;
+}
+
+/* .stockMessage-p {
+  display: flex;
+  width: -webkit-fill-available;
+  font-weight: var(--fw-300);
+  font-size: small;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  padding: 15px;
+  background: black;
+  color: aliceblue;
+  justify-content: center;
+} */
 
 
-.shipping-message .remaining {
+.shipping-message .remaining,
+.success {
   padding: 15px;
   gap: 12px;
   display: flex;
@@ -8481,8 +8560,6 @@ body.swal2-shown {
 }
 
 .shipping-message .success {
-  font-weight: var(--fw-300);
-  color: black;
   display: none;
 }
 
