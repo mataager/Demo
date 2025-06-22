@@ -29,6 +29,14 @@ const sidebarContent = `<div class="filter-header">
                                 }">Kids</button>
                             </div>
 
+                            <!-- brands Section -->
+                            <h4>Brands</h4>
+                            <div class="brands-options">
+                                <button>adidas</button>
+                                <button>nike</button>
+                                <button>bullandbear</button>
+                            </div>
+
                             <!-- Size Section -->
                             <h4>Size</h4>
                             <div class="size-options">

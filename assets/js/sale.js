@@ -102,6 +102,8 @@ function renderSaleProducts() {
       //
       // Get category and sizes information
       const category = product["category"] || "Unknown category"; // Default to 'Unknown category' if not present
+      const postedat = product["posted-at"] || "Unknown date";
+      const Brand = product["Brand-Name"] || "Unknown Brand";
       const sizes = product.sizes
         ? Object.keys(product.sizes).join(",")
         : "No sizes available";
@@ -165,7 +167,7 @@ function renderSaleProducts() {
           </div>
           <a href="#" class="card-price hidden font-small">${key}</a>
         </div>
-         <div class="hidden" data-category="${category}" data-sizes="${sizes}">sorting helper</div>
+         <div class="hidden" data-brand="${Brand}" data-date="${postedat}" data-category="${category}" data-sizes="${sizes}">sorting helper</div>
       </div>`;
 
       // Append product card to the product list

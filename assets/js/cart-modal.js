@@ -472,5 +472,3 @@ function updateAddToCartButtonState() {
   addToCartButton.onclick = addToCart;
   buynowButton.onclick = handleBuyNowClick;
 }
-
-

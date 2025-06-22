@@ -1342,21 +1342,16 @@ function createSkeletonItems(containerSelector, options = {}) {
     minDisplayTime: 3000,
     withShine: true,
   };
-
   const config = { ...defaults, ...options };
   const productList = document.querySelector(containerSelector);
-
   if (!productList) return;
-
   // Clear existing content
   productList.innerHTML = "";
-
   // Create skeleton items
   for (let i = 0; i < config.count; i++) {
     const skeletonItem = document.createElement("li");
     skeletonItem.className = "product-item skeleton-item";
     skeletonItem.style.animationDelay = `${i * config.fadeDelay}s`;
-
     skeletonItem.innerHTML = `
       <div class="product-card skeleton-card ${
         config.withShine ? "skeleton-loading" : ""
@@ -1401,10 +1396,8 @@ function createSkeletonItems(containerSelector, options = {}) {
         </div>
       </div>
     `;
-
     productList.appendChild(skeletonItem);
   }
-
   return config.minDisplayTime;
 }
 

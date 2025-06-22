@@ -2838,10 +2838,9 @@ select {
 .stockMessage-p,
 .outofstockmessagebanner {
   display: flex;
-  justify-content: center;
   padding: 5px;
   border-radius: 12px;
-  font-weight: 600;
+  font-weight: var(--fw-400);
   letter-spacing: 1px;
   font-size: 15px;
   backdrop-filter: blur(8px);
@@ -2897,7 +2896,7 @@ select {
 .placeorderbtn,
 .product-details-Buyitnow {
   opacity: 0 !important;
-  font-weight: var(--fw-300);
+  font-weight: var(--fw-400);
   font-size: small;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -2930,7 +2929,7 @@ select {
 .placeorderbtn2,
 .Add-to-Cart2 {
   position: relative;
-  font-weight: var(--fw-300);
+  font-weight: var(--fw-400);
   display: flex;
   opacity: 1;
   font-size: small;
@@ -2983,7 +2982,6 @@ select {
 }
 
 .size-chart-p,
-.stockMessage-p,
 .BrandName-p {
   width: fit-content;
   font-weight: var(--fw-100);
@@ -3650,7 +3648,7 @@ select {
 } */
 
 .add-to-fav-btn {
-  font-weight: var(--fw-300);
+  font-weight: var(--fw-400);
   font-size: small;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -4601,7 +4599,7 @@ a {
 
 .filter-header h3 {
   font-size: 24px;
-  font-weight: var(--fw-400);
+  font-weight: var(--fw-300);
 }
 
 .close-btn {
@@ -4650,7 +4648,8 @@ a {
 
 /* Size Options Styling */
 .size-options button,
-.footwear-options button {
+.footwear-options button,
+.brands-options button {
   font-weight: var(--fw-200);
   color: #000;
   display: inline-block;
@@ -4661,7 +4660,8 @@ a {
 }
 
 .size-options button:hover,
-.footwear-options button:hover {
+.footwear-options button:hover,
+.brands-options button:hover {
   background-color: var(--dark-gray);
   color: #fff;
 }
@@ -8642,7 +8642,8 @@ body.swal2-shown {
   align-items: flex-start;
 }
 
-.brands-picker {
+.brands-picker,
+.active-filters-container {
   display: flex;
   padding: 15px;
   width: -webkit-fill-available;
@@ -8652,13 +8653,56 @@ body.swal2-shown {
   /* For Firefox */
 }
 
-.brands-picker::-webkit-scrollbar {
+/*  */
+.filters-area-bar {
+  max-height: 0;
+  min-height: 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: white;
+  width: 95%;
+  overflow: hidden;
+  /* Hide overflow when collapsed */
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+  /* Smooth transitions */
+}
+
+/* Expand when .active-filters-container has content */
+.filters-area-bar:has(.active-filters-container:not(:empty)) {
+  max-height: 200px;
+  /* Adjust to a value larger than expected content */
+  min-height: auto;
+}
+
+.brands-picker,
+.active-filters-container {
+  display: flex;
+  padding: 15px;
+  width: -webkit-fill-available;
+  overflow-x: auto;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease 0.1s;
+  /* Fade in after height expands */
+}
+
+/* Show content when expanded */
+.filters-area-bar:has(.active-filters-container:not(:empty)) .brands-picker,
+.filters-area-bar:has(.active-filters-container:not(:empty)) .active-filters-container {
+  opacity: 1;
+}
+
+/*  */
+
+.brands-picker::-webkit-scrollbar,
+.active-filters-container::-webkit-scrollbar {
   height: 2px !important;
 }
 
 
 
-.brands-picker button {
+.brands-picker button,
+.active-filter-chip {
   color: var(--dark-gray);
   letter-spacing: 1px;
   text-transform: none;
@@ -9162,4 +9206,26 @@ ion-icon {
   height: 20px;
   border-radius: 50%;
   background-color: #e0e0e0;
+}
+
+.active-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  background: #f0f0f0;
+  border-radius: 16px;
+  padding: 5px 12px;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sort-chip {
+  background-color: #e0f7fa;
+  border: 1px solid #80deea;
+}
+
+.close-icon {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #666;
 }

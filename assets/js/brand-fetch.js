@@ -153,7 +153,9 @@ function renderProducts() {
       : "";
     //
 
-    const category = product["category"];
+    const category = product["category"] || "Unknown category";
+    const postedat = product["posted-at"] || "Unknown date";
+    const Brand = product["Brand-Name"] || "Unknown Brand";
     const sizes = JSON.stringify(product["sizes"]);
 
     // Generate product card HTML
@@ -213,7 +215,7 @@ function renderProducts() {
           </div>
           <a href="#" class="card-price hidden font-small">${key}</a>
         </div>
-        <div class="hidden" data-category="${category}" data-sizes="${sizes}">sorting helper</div>
+        <div class="hidden" data-brand="${Brand}" data-date="${postedat}" data-category="${category}" data-sizes="${sizes}">sorting helper</div>
       </div>`;
 
     productList.appendChild(productCard);
