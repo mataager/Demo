@@ -353,6 +353,50 @@ function colorRef(color) {
 
   updateAddToCartButtonState();
 }
+// function SizeRef(size) {
+//   const modalContent = document.querySelector(".modal-content");
+//   const product = modalContent.productDetails;
+//   const choosedSize = document.getElementById("product-Size");
+//   const choosedColor = document.getElementById("product-selected-color");
+
+//   // Clear the color when size changes
+//   choosedColor.innerText = "";
+//   choosedSize.innerText = size;
+
+//   // Also clear any selected color wrappers
+//   document.querySelectorAll(".colorOptionwrapper").forEach((wrapper) => {
+//     wrapper.classList.remove("colorOptionwrapper-selected");
+//   });
+
+//   // Update size buttons' styles
+//   const sizeButtons = document.querySelectorAll(".size-radio");
+//   sizeButtons.forEach((button) => {
+//     button.style.backgroundColor =
+//       button.textContent.trim() === size ? "#333" : "";
+//     button.style.color = button.textContent.trim() === size ? "#fff" : "#000";
+//   });
+
+//   // Display available colors for the selected size
+//   const colorsForSize = product.sizes[size];
+//   const colorList = modalContent.querySelector("#product-colors");
+//   colorList.innerHTML = Object.keys(colorsForSize)
+//     .map((color) => {
+//       const qty = colorsForSize[color]["qty"];
+//       return `
+//       <div class="colorOptionwrapper" onclick="colorRef('${color}')">
+//           <div class="color-option"
+//                data-color-name="${color}"
+//                data-qty="${qty}"
+//                style="background-color: ${colorsForSize[color]["color-value"]}">
+//           </div>
+//       </div>`;
+//     })
+//     .join("");
+//   colorList.classList.remove("hidden");
+
+//   updateAddToCartButtonState();
+// }
+
 function SizeRef(size) {
   const modalContent = document.querySelector(".modal-content");
   const product = modalContent.productDetails;
@@ -368,12 +412,41 @@ function SizeRef(size) {
     wrapper.classList.remove("colorOptionwrapper-selected");
   });
 
-  // Update size buttons' styles
-  const sizeButtons = document.querySelectorAll(".size-radio");
-  sizeButtons.forEach((button) => {
-    button.style.backgroundColor =
-      button.textContent.trim() === size ? "#333" : "";
-    button.style.color = button.textContent.trim() === size ? "#fff" : "#000";
+  // Get all available sizes and sort them
+  const availableSizes = Object.keys(product.sizes);
+  const sortedSizes = sortSizes(availableSizes);
+
+  // Update size buttons' styles and reorder them
+  const sizesContainer = document.querySelector(".size-buttons-area");
+  sizesContainer.innerHTML = ""; // Clear existing buttons
+
+  sortedSizes.forEach((sortedSize) => {
+    const sizeDiv = document.createElement("div");
+    sizeDiv.className = "size-radio m-5";
+
+    // Use event delegation instead of direct onclick
+    sizeDiv.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent event bubbling that might close the modal
+      SizeRef(sortedSize);
+    });
+
+    const label = document.createElement("label");
+    label.className = "radio-input_option";
+
+    const span = document.createElement("span");
+    span.className = "size-value";
+    span.textContent = sortedSize;
+
+    label.appendChild(span);
+    sizeDiv.appendChild(label);
+
+    // Style the selected size
+    if (sortedSize === size) {
+      sizeDiv.style.backgroundColor = "#333";
+      span.style.color = "#fff";
+    }
+
+    sizesContainer.appendChild(sizeDiv);
   });
 
   // Display available colors for the selected size
@@ -396,6 +469,69 @@ function SizeRef(size) {
 
   updateAddToCartButtonState();
 }
+// Helper function to sort sizes intelligently
+function sortSizes(sizes) {
+  // Define the standard order for letter sizes
+  const sizeOrder = [
+    "XXS",
+    "XS",
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL",
+    "XXXL",
+    "XXXXL",
+  ].map((size) => size.toUpperCase());
+
+  // Check if sizes are letter sizes (like S, M, L)
+  const hasLetterSizes = sizes.some((size) => {
+    const upperSize = size.toUpperCase();
+    return sizeOrder.includes(upperSize) || /^[A-Za-z]+$/.test(size); // Check if it's alphabetic
+  });
+
+  if (hasLetterSizes) {
+    return sizes.sort((a, b) => {
+      const aUpper = a.toUpperCase();
+      const bUpper = b.toUpperCase();
+
+      // Get indices in the standard order
+      const aIndex = sizeOrder.indexOf(aUpper);
+      const bIndex = sizeOrder.indexOf(bUpper);
+
+      // If both are in the standard order, sort by that
+      if (aIndex !== -1 && bIndex !== -1) {
+        return aIndex - bIndex;
+      }
+
+      // If only one is in standard order, it comes first
+      if (aIndex !== -1) return -1;
+      if (bIndex !== -1) return 1;
+
+      // If neither is in standard order, sort alphabetically
+      return aUpper.localeCompare(bUpper);
+    });
+  }
+
+  // For numeric sizes, sort numerically
+  return sizes.sort((a, b) => {
+    const numA = parseFloat(a);
+    const numB = parseFloat(b);
+
+    // If both are numbers, sort numerically
+    if (!isNaN(numA) && !isNaN(numB)) {
+      return numA - numB;
+    }
+
+    // If one is a number and one isn't, numbers come first
+    if (!isNaN(numA)) return -1;
+    if (!isNaN(numB)) return 1;
+
+    // If neither is a number, sort alphabetically
+    return a.localeCompare(b);
+  });
+}
+
 function updateAddToCartButtonState() {
   const size = document.getElementById("product-Size").innerText.trim(); // Get the selected size
   const color = document

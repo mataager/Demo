@@ -6102,7 +6102,9 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   /* Smooth transition */
 }
 
-
+.zi-1 {
+  z-index: 1;
+}
 
 .bar7t83 {
   width: 100%;
@@ -8649,48 +8651,37 @@ body.swal2-shown {
   width: -webkit-fill-available;
   overflow-x: auto;
   white-space: nowrap;
-
   /* For Firefox */
 }
 
 /*  */
 .filters-area-bar {
-  max-height: 0;
-  min-height: 0;
   border-radius: 5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   background: white;
   width: 95%;
   overflow: hidden;
-  /* Hide overflow when collapsed */
-  transition: max-height 0.3s ease, opacity 0.2s ease;
-  /* Smooth transitions */
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.35s ease;
 }
 
-/* Expand when .active-filters-container has content */
-.filters-area-bar:has(.active-filters-container:not(:empty)) {
-  max-height: 200px;
-  /* Adjust to a value larger than expected content */
-  min-height: auto;
+.filters-area-bar.expanded {
+  max-height: 500px;
+  /* Set to approximate content height */
+  opacity: 1;
 }
 
-.brands-picker,
 .active-filters-container {
   display: flex;
   padding: 15px;
   width: -webkit-fill-available;
   overflow-x: auto;
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.2s ease 0.1s;
-  /* Fade in after height expands */
 }
 
-/* Show content when expanded */
-.filters-area-bar:has(.active-filters-container:not(:empty)) .brands-picker,
-.filters-area-bar:has(.active-filters-container:not(:empty)) .active-filters-container {
-  opacity: 1;
-}
 
 /*  */
 
@@ -9209,11 +9200,13 @@ ion-icon {
 }
 
 .active-filter-chip {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  position: relative;
   display: inline-flex;
   align-items: center;
   background: #f0f0f0;
   border-radius: 16px;
-  padding: 5px 12px;
+  padding: 5px 18px;
   margin: 5px;
   font-size: 14px;
   cursor: pointer;
@@ -9224,8 +9217,29 @@ ion-icon {
   border: 1px solid #80deea;
 }
 
-.close-icon {
-  margin-left: 8px;
+.remove-filter-icon {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  background: #f0f0f0;
+  border: 1px solid transparent;
+  border-radius: 50%;
   font-size: 12px;
-  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.remove-filter-icon:hover {
+  border: 1px solid #ccc;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+}
+
+.remove-filter-icon i {
+  pointer-events: none;
+  line-height: 0;
 }
