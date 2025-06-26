@@ -127,11 +127,13 @@
 
         <nav class="navbar" data-navbar="">
 
-            <button class="nav-close-btn black-font" data-nav-close-btn="" aria-label="Close Menu">
-                <ion-icon name="close-outline" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
-            </button>
+            <div class="flex flex-end">
+                <button class="nav-close-btn " data-nav-close-btn="" aria-label="Close Menu">
+                    <ion-icon name="close-outline" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
+                </button>
+            </div>
 
-            <a href="#" class="logo bg-white">
+            <a href="#" class="logo navbarimagearea">
                 <img src="./assets/images/iicon.svg" width="190" height="50" alt="">
             </a>
 
@@ -1580,36 +1582,13 @@
     function showProductNotFoundMessage() {
         const productArea = document.getElementById('product-area');
         productArea.innerHTML = `
-        <div class="no-product-message-container" style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 300px;
-            width: 100%;
-            border-radius: 8px;
-            margin: 2rem 0;
-        ">
+        <div class="no-product-message-container">
             <div class="no-products-content">
-                <i class="bi bi-exclamation-octagon-fill" style="
-                      margin-block: 10px;
-                "></i>
-                <p class="no-products-text" style="
-                    font-size: 18px;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                    padding: 10px 0;
-                    color: #333;
-                    font-weight: 500;
-                    margin-bottom: 10px;
-                ">
+                <i class="bi bi-exclamation-octagon-fill"></i>
+                <p class="no-products-text">
                     PRODUCT NOT FOUND
                 </p>
-                <p class="no-products-subtext" style="
-                    margin-block: 10px;
-                    font-size: 14px;
-                    color: #777;
-                    letter-spacing: 0.5px;
-                ">
+                <p class="no-products-subtext">
                     The item you're looking for doesn't exist or may have been removed
                 </p>
                 <div class="flex center">

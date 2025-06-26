@@ -19,11 +19,21 @@
   --onyx: hsl(0, 0%, 27%);
   --dark-gray: #333;
   --f9f9f9: #f9f9f9;
+  --blurbg: #dddddd61;
+  --arrowbtnbg: linear-gradient(45deg, #000, #333);
+  --arrowbtnbgreversed: linear-gradient(45deg, #333, #000);
+  --headerbg: #fff;
+  --navbarng: #fff;
+  --mega-menu-bg: #fff;
   /* Define the variable */
 
+  --borderRadius-10: 10px;
   --borderRadius-25: 25px;
   --borderRadius-50: 50%;
   --productpadge: 10px 10px 10px 0px;
+
+
+  --navbar-image: none;
   /* Define the variable */
   /**
    * typography
@@ -73,6 +83,8 @@
   --fw-700: 700;
   --fw-700: 800;
 
+
+  --radius-5: 5px;
   /**
    * transition
    */
@@ -253,7 +265,7 @@ body {
   align-items: center;
   gap: 5px;
   padding: 14px 25px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .btn2:hover {
@@ -759,7 +771,7 @@ img {
 \*-----------------------------------*/
 
 .header {
-  background: var(--white);
+  background: var(--headerbg);
   position: sticky;
   top: 0;
   left: 0;
@@ -779,7 +791,7 @@ img {
   padding-block: 20px;
 }
 
-.nav-open-btn {
+/* .nav-open-btn {
   border-radius: var(--borderRadius-50);
   font-size: 30px;
   background: #000;
@@ -798,10 +810,59 @@ img {
 .nav-open-btn ion-icon {
   --ionicon-stroke-width: 40px;
   font-size: large;
+} */
+
+
+.logo {
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.01);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+.nav-open-btn,
+.nav-close-btn {
+  margin: 5px;
+  border-radius: 8px;
+  background-color: #000;
+  color: var(--white);
+  padding: 8px;
+  font-size: 18px;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-open-btn:hover,
+.nav-close-btn:hover {
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.nav-open-btn ion-icon,
+.nav-close-btn ion-icon {
+  font-size: 15px;
+  transition: transform 0.3s ease;
+}
+
+.nav-open-btn:hover ion-icon,
+.nav-close-btn:hover ion-icon {
+  transform: rotate(90deg);
 }
 
 .navbar {
-  background: var(--white);
+  background: var(--navbarng);
   position: fixed;
   top: 0;
   left: -280px;
@@ -823,7 +884,7 @@ img {
   transition: 0.5s var(--cubic-in);
 }
 
-.nav-close-btn {
+/* .nav-close-btn {
   color: white;
   position: absolute;
   top: 0;
@@ -835,7 +896,7 @@ img {
 
 .nav-close-btn ion-icon {
   --ionicon-stroke-width: 55px;
-}
+} */
 
 .nav-close-btn:is(:hover, :focus) {
   color: black;
@@ -848,6 +909,10 @@ img {
 
 .navbar .logo img {
   margin-inline: auto;
+}
+
+.navbarimagearea {
+  display: var(--navbar-image);
 }
 
 .navbar-list,
@@ -1176,7 +1241,7 @@ h5 {
 
 .itemscounter {
   text-transform: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   background: #f7f7f7;
   font-size: small;
   top: -13px;
@@ -1198,14 +1263,20 @@ h5 {
 
 .filter-btn,
 .Grid-btn {
-  color: var(--onyx);
-  padding: 10px 16px;
-  font-family: var(--ff-roboto);
-  font-size: var(--fs-7);
-  font-weight: var(--fw-500);
-  border: 1px solid var(--gainsboro);
-  border-radius: 30px;
-  transition: color 0.3s ease, background-color 0.3s ease;
+
+  margin: 5px;
+  border-radius: 8px;
+  background-color: #000;
+  color: var(--white);
+  padding: 8px;
+  /* font-size: 18px; */
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .filter-btn.active {
@@ -1505,7 +1576,7 @@ a.footer-link:is(:hover, :focus) {
 
 .newsletter-input {
   font-weight: var(--fw-100);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   background: #f0f0f0;
   color: var(--onyx);
   padding: 15px 25px;
@@ -1546,11 +1617,10 @@ a.footer-link:is(:hover, :focus) {
   position: fixed;
   bottom: 65px;
   right: 20px;
-  background: black;
+  background: var(--arrowbtnbg);
   color: var(--white);
   font-size: 20px;
   padding: 10px;
-  border: 1px solid var(--white);
   border-radius: var(--borderRadius-50);
   opacity: 0;
   visibility: hidden;
@@ -1566,9 +1636,8 @@ a.footer-link:is(:hover, :focus) {
 
 .go-top-btn:is(:hover, :focus),
 .scrolltocheckout:is(:hover, :focus) {
-  background: white;
-  color: black;
-  border-color: black;
+  background: var(--arrowbtnbgreversed);
+  color: rgb(255, 255, 255);
   transform: translateY(-1px);
 }
 
@@ -1576,14 +1645,31 @@ a.footer-link:is(:hover, :focus) {
   font-size: small;
 }
 
+.go-top-btn:hover .arrow-icon {
+  animation: arrowBounce 0.5s ease forwards;
+}
+
+@keyframes arrowBounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .scrolltocheckout {
   position: fixed;
   right: 42px;
   bottom: 25px;
-  background: black;
+  background: var(--arrowbtnbg);
   color: white;
   padding: 5px 15px;
-  border: 1px solid white;
   border-radius: 30px 0px 0px 30px;
   display: flex;
   align-items: center;
@@ -1595,10 +1681,8 @@ a.footer-link:is(:hover, :focus) {
 }
 
 .scrolltocheckout:is(:hover, :focus) .godownicon {
-  border: 1px solid black;
-  color: rgb(0, 0, 0) !important;
   border-radius: var(--borderRadius-50);
-  background: rgb(255 255 255);
+  background: var(--arrowbtnbgreversed);
 }
 
 .godownicon {
@@ -1607,7 +1691,7 @@ a.footer-link:is(:hover, :focus) {
   right: -22px;
   position: absolute;
   padding: 10px;
-  background: black;
+  background: var(--arrowbtnbg);
 }
 
 
@@ -2236,15 +2320,73 @@ a.footer-link:is(:hover, :focus) {
   padding-left: 20px;
 }
 
-/* Light grey background on hover */
-.pagination button:hover {
-  background-color: #f0f0f0;
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-weight: var(--fw-300)
 }
 
-/* Styling for ion-icon */
-.pagination ion-icon {
-  /* margin-right: 5px; */
-  font-size: 1.2em;
+.pagination-btn {
+  margin: 2px;
+  padding: 8px 16px;
+  color: #fff;
+  background: var(--arrowbtnbg);
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-btn:hover {
+  background: var(--arrowbtnbgreversed);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pagination-btn:hover .arrow-icon {
+  transform: translateX(var(--hover-translate));
+}
+
+#prevPageBtn:hover .arrow-icon {
+  --hover-translate: -5px;
+}
+
+#nextPageBtn:hover .arrow-icon {
+  --hover-translate: 5px;
+}
+
+.arrow-icon {
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.page-counter {
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* Disabled state */
+.pagination-btn :disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #ccc;
+}
+
+/* Glow effect for active state */
+.pagination-btn :not(:disabled):active {
+  transform: scale(0.95);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
 }
 
 .margin-bottom-5 {
@@ -2857,9 +2999,9 @@ select {
       /* almost black */
       #111 40%,
       /* almost black */
-      #ccc 60%,
+      #ccc 50%,
       /* light grey */
-      #eee 70%
+      #eee 60%
       /* very light grey */
     );
   background-size: 300% 100%;
@@ -2905,12 +3047,12 @@ select {
   padding: 12px 25px;
   color: rgb(255 255 255);
   background: #000;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   transition: color 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
 }
 
-.checkoutbtn {
+/* .checkoutbtn {
   border: 1px solid;
   font-size: small;
   text-transform: uppercase;
@@ -2920,14 +3062,15 @@ select {
   padding: 12px 25px;
   color: rgb(255 255 255);
   background: #000;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   transition: color 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
-}
+} */
 
 .Buyitnow2,
 .placeorderbtn2,
-.Add-to-Cart2 {
+.Add-to-Cart2,
+.checkoutbtn {
   position: relative;
   font-weight: var(--fw-400);
   display: flex;
@@ -2940,7 +3083,7 @@ select {
   padding: 12px 25px;
   color: rgb(255 255 255);
   background: #000;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   transition: color 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
   align-items: center;
@@ -2975,7 +3118,8 @@ select {
 .filtering-close-btn:hover,
 .filter-btn:hover,
 .Grid-btn:hover,
-#seeSelection:hover {
+#seeSelection:hover,
+.show-all-btn:hover {
   transition: color 0.3s ease, background-color 0.3s ease !important;
   background-color: #f0f0f0;
   color: black;
@@ -3027,7 +3171,7 @@ select {
   margin: 5px;
   border: 1px solid #ddd;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -3174,6 +3318,11 @@ select {
 
 .over-flow-auto {
   overflow: auto;
+}
+
+.over-flow-y-auto {
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .fit-content {
@@ -3478,30 +3627,7 @@ select {
   font-size: small;
 }
 
-/* .cus-btn {
-  margin: 2px;
-  padding: 7px;
-  color: rgb(255 255 255);
-  background: #000;
-  font-size: small;
-  border-radius: 20px;
-  transition: color 0.3s ease, background-color 0.3s ease;
-} */
-.cus-btn {
-  margin: 2px;
-  padding: 5px;
-  color: rgb(255 255 255);
-  background: #000;
-  font-size: small;
-  border-radius: 20%;
-  transition: color 0.3s ease, background-color 0.3s ease;
-}
 
-.cus-btn:hover {
-  background-color: rgba(220, 220, 220, 0.596);
-
-  color: black;
-}
 
 .modalbtnL {
   color: white;
@@ -3544,7 +3670,11 @@ select {
 .modalbtnR,
 .Buyitnow2,
 .Add-to-Cart2,
-.add-to-fav-btn {
+.add-to-fav-btn,
+.filter-btn,
+.nav-open-btn,
+.nav-close-btn,
+.open-category-btn {
   position: relative;
   overflow: hidden;
   /* This ensures the pseudo-element doesn't overflow */
@@ -3560,9 +3690,13 @@ select {
 .modalbtnR::after,
 .Buyitnow2::after,
 .Add-to-Cart2::after,
-.show-all-btn::after,
 .placeorderbtn2::after,
-.add-to-fav-btn::after {
+.add-to-fav-btn::after,
+.checkoutbtn::after,
+.filter-btn::after,
+.nav-open-btn::after,
+.nav-close-btn::after,
+.open-category-btn::after {
   content: "";
   position: absolute;
   top: 0;
@@ -3588,7 +3722,12 @@ select {
 .Buyitnow2:hover::after,
 /* .placeorderbtn2:hover::after, */
 .Add-to-Cart2:hover::after,
-.add-to-fav-btn:hover::after {
+.add-to-fav-btn:hover::after,
+.checkoutbtn:hover::after,
+.filter-btn:hover::after,
+.nav-open-btn:hover::after,
+.nav-close-btn:hover::after,
+.open-category-btn:hover::after {
   left: 200%;
 }
 
@@ -3657,7 +3796,7 @@ select {
   color: rgb(255 255 255);
   background: #000;
   font-size: small;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   padding: 12px;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
@@ -3982,7 +4121,7 @@ a {
   /* Set background to black */
   border: 2px solid #000;
   padding: 10px 10px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   font-size: 16px;
   color: #fff;
   /* White text */
@@ -4049,7 +4188,7 @@ a {
 .mega-menu {
   font-weight: var(--fw-100);
   display: none;
-  background-color: #fff;
+  background-color: var(--mega-menu-bg);
   border: 1px solid #ddd;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   padding: 10px;
@@ -4155,14 +4294,31 @@ a {
 
 .open-category-btn {
   color: white;
-  background: #000000;
+  background: linear-gradient(145deg, #000000, #1a1a1a);
   padding: 5px;
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--borderRadius-10);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  cursor: pointer;
+  transition: all 0.3s ease, transform 0.3s ease;
+  font-size: 15px;
+  z-index: 1000;
+  position: relative;
 }
 
 .open-category-btn:hover {
-  color: rgb(0, 0, 0);
-  background: #e6e3e3;
+  background: white;
+  color: black;
+  transform: scale(1.2) rotate(90deg);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+}
+
+.open-category-btn i {
+  transition: transform 0.4s ease;
+}
+
+.open-category-btn:hover i {
+  transform: rotate(90deg) scale(1.3);
 }
 
 .menu-category {
@@ -4217,21 +4373,21 @@ a {
 
 /* // */
 .no-product-message-container {
+  min-height: 300px;
+  border-radius: 8px;
+  margin: 2rem 0;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: #dddddd61;
-  /* Semi-transparent white overlay */
   z-index: 1000;
-  /* High z-index to overlay everything */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(5px);
-  /* Optional blur effect */
 }
 
 .icon {
@@ -4471,7 +4627,7 @@ a {
   width: 50px;
   height: 50px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   margin-right: 15px;
   flex-shrink: 0;
 }
@@ -4558,7 +4714,7 @@ a {
 
 /* filter  */
 /* Filter Button */
-.filter-btn,
+/* .filter-btn,
 .Grid-btn {
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -4569,8 +4725,8 @@ a {
   cursor: pointer;
   font-weight: var(--fw-300);
   font-size: smaller;
-  border-radius: 5px;
-}
+  border-radius: var(--radius-5);
+} */
 
 
 
@@ -4628,6 +4784,7 @@ a {
 }
 
 .sort-option {
+  border-radius: var(--radius-5);
   font-weight: var(--fw-200);
   display: block;
   width: 100%;
@@ -4650,6 +4807,9 @@ a {
 .size-options button,
 .footwear-options button,
 .brands-options button {
+  min-height: 35px;
+  min-width: 35px;
+  border-radius: var(--radius-5);
   font-weight: var(--fw-200);
   color: #000;
   display: inline-block;
@@ -4677,7 +4837,7 @@ a {
 .color-circle {
   width: 30px;
   height: 30px;
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--radius-5);
   border: 1px solid #ddd;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -4715,7 +4875,7 @@ a {
   color: #fff;
   cursor: pointer;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .clear-btn {
@@ -5002,7 +5162,7 @@ a {
   align-items: center;
   gap: 8px;
   font-size: small;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
@@ -5541,7 +5701,7 @@ th {
 .order-actions button {
   padding: 8px 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   cursor: pointer;
   font-size: 0.85rem;
   transition: background 0.3s ease;
@@ -5575,7 +5735,7 @@ th {
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -5607,7 +5767,7 @@ th {
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   cursor: pointer;
 }
 
@@ -5668,7 +5828,7 @@ th {
   padding: 8px 16px;
   color: var(--dark-gray);
   border: 1px solid #ededed;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   cursor: pointer;
   font-size: 12px;
   transition: background 0.3s ease;
@@ -5729,7 +5889,7 @@ th {
   /* Adds spacing between fields */
   border: 1px solid #ccc;
   /* Adds a light border */
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   /* Slightly rounded corners */
   outline: none;
   /* Removes default outline */
@@ -6113,7 +6273,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   color: var(--text-light);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   /* margin-bottom: 40px; */
   padding: 30px;
   font-size: small;
@@ -6125,7 +6285,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   border: none;
   background-color: transparent;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   margin-inline: 5px;
   padding: 5px;
 }
@@ -6146,7 +6306,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 
 .radius-5 {
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .logout-btn {
@@ -6247,7 +6407,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   color: white;
   padding: 5px 10px;
   border: 2px solid rgb(0, 0, 0);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   cursor: pointer;
 }
 
@@ -6298,7 +6458,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   align-items: center;
   gap: 5px;
   background: #ffffff;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   transition: all 0.5s ease;
   font-size: small;
 }
@@ -6331,10 +6491,23 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 
 .show-all-btn {
+  width: fit-content;
   padding: 10px !important;
   border-radius: 5px !important;
   font-weight: var(--fw-200);
+  font-size: small;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-block: 10px;
+  margin: 2px;
+  padding: 12px 25px;
+  color: rgb(255 255 255);
+  background: #000;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
 }
+
+
 
 .progress-bar-status {
   height: 2px;
@@ -6667,7 +6840,6 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 }
 
 .empty-cart-text {
-  text-transform: uppercase;
   letter-spacing: 1px;
   color: #19191a;
   font-size: small;
@@ -6679,7 +6851,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   background-color: #dddddd;
   color: #000000;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   font-size: x-small;
   margin-top: 5px;
   margin-left: 20px;
@@ -6827,7 +6999,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 .buynow-colortext,
 .buynow-pricetext {
   color: black;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   padding: 5px;
   text-align: center;
   margin: 0;
@@ -6845,7 +7017,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 .buynow-productimage {
   width: 140px;
   height: 140px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   object-fit: cover;
   margin: 20px;
 }
@@ -6862,7 +7034,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   margin: 10px 0;
   padding: 10px;
   background-color: #f5f5f5;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .orderNotesTextArea {
@@ -6923,7 +7095,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   font-size: 10px;
   cursor: pointer;
   color: #555;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   padding: 8px 15px;
   border: 1px solid #cccccc;
   transition: color 0.3s ease, background-color 0.3s ease;
@@ -6997,7 +7169,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   background: #f9f9f9;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   width: 100%;
   margin: 5px 0;
   font-family: var(--ff-josefin-sans);
@@ -7538,6 +7710,9 @@ body.modal-open #mainpagearea {
   padding: 30px;
   max-width: 500px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .no-products-icon {
@@ -7556,20 +7731,24 @@ body.modal-open #mainpagearea {
   font-weight: var(--fw-500);
   margin-bottom: 10px;
   margin-top: 10px;
+
 }
 
 .no-products-subtext {
   font-size: 14px;
   color: #777;
   letter-spacing: 0.5px;
+  margin-block: 10px;
 }
 
 .no-products-content i {
+  margin-block: 10px;
   font-size: 50px;
   color: #f70000ab;
 }
 
-.return-to-home-a {
+.return-to-home-a,
+.clear-all-filter-btn {
   margin-top: 1rem;
   border-radius: 4px;
   cursor: pointer;
@@ -7580,7 +7759,8 @@ body.modal-open #mainpagearea {
   transition: var(--transition-1);
 }
 
-.return-to-home-a:hover {
+.return-to-home-a:hover,
+.clear-all-filter-btn:hover {
   color: var(--dark-gray);
 }
 
@@ -7866,7 +8046,7 @@ textarea {
   margin-bottom: 8px;
   padding: 10px;
   border: 1px solid rgb(204, 204, 204);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
 }
 
 .guestmodalarea textarea {
@@ -7878,7 +8058,7 @@ textarea {
   font-size: medium;
   padding: 10px;
   border: 1px solid rgb(204, 204, 204);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   resize: vertical;
   min-height: 100px;
 }
@@ -7892,7 +8072,7 @@ textarea {
   margin-bottom: 8px;
   padding: 10px;
   border: 1px solid rgb(204, 204, 204);
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   width: -webkit-fill-available;
 }
 
@@ -8540,7 +8720,7 @@ body.swal2-shown {
   font-weight: var(--fw-300);
   font-size: small;
   letter-spacing: 1px;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   transition: color 0.3s ease, background-color 0.3s ease;
   padding: 15px;
   background: black;
@@ -8656,7 +8836,7 @@ body.swal2-shown {
 
 /*  */
 .filters-area-bar {
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   background: white;
   width: 95%;
@@ -8697,7 +8877,7 @@ body.swal2-shown {
   color: var(--dark-gray);
   letter-spacing: 1px;
   text-transform: none;
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   background: #f7f7f7;
   font-size: small;
   padding: 5px 10px;
@@ -9013,7 +9193,7 @@ ion-icon {
 }
 
 .filtering-close-btn {
-  border-radius: 5px;
+  border-radius: var(--radius-5);
   font-size: x-small;
   padding: 7px;
   background: black;
@@ -9242,4 +9422,11 @@ ion-icon {
 .remove-filter-icon i {
   pointer-events: none;
   line-height: 0;
+}
+
+.no-products-message-blur-bg {
+  border-radius: var(--radius-5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--f9f9f9);
+
 }

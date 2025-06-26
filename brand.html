@@ -45,11 +45,14 @@
 
             <nav class="navbar" data-navbar="">
 
-                <button class="nav-close-btn black-font" data-nav-close-btn="" aria-label="Close Menu">
-                    <ion-icon name="close-outline" role="img" class="md hydrated" aria-label="close outline"></ion-icon>
-                </button>
+                <div class="flex flex-end">
+                    <button class="nav-close-btn " data-nav-close-btn="" aria-label="Close Menu">
+                        <ion-icon name="close-outline" role="img" class="md hydrated"
+                            aria-label="close outline"></ion-icon>
+                    </button>
+                </div>
 
-                <a href="#" class="logo bg-white">
+                <a href="#" class="logo navbarimagearea">
                     <img src="./assets/images/iicon.svg" width="190" height="50" alt="">
                 </a>
 
@@ -133,21 +136,34 @@
 
     <section class="section product">
         <div class="container pt-10">
-            <div class="flex align-items justify-content-space-between bar7t83">
-                <div class="flex align-items section-title ">
-                    <h5 class="grey pointer" onclick="changeFrameSrc('index.html')">Home/</h5>
-                    <h5 id="brand-title"></h5>
-                    <p class="itemscounter" id="itemscounter"></p>
-                </div>
-
-                <div class="filter-container flex center">
-                    <div>
-                        <button id="filterBtn" class="filter-btn">Filters <i class="bi bi-funnel-fill"></i></button>
-
+            <div class="relative" style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            margin-bottom: 20px;
+                        ">
+                <div class="flex align-items justify-content-space-between bar7t83">
+                    <div class="flex align-items section-title">
+                        <h5 class="grey pointer" onclick="changeFrameSrc('index.html')">Home</h5>/
+                        <h5 id="brand-title"></h5>
+                        <p class="itemscounter" id="itemscounter">4 Items</p>
                     </div>
 
-                    <div id="sidebar" class="filter-sidebar">
+                    <div class="filter-container flex center">
+                        <div>
+                            <button id="filterBtn" class="filter-btn">Filters <i class="bi bi-funnel-fill"></i></button>
 
+                        </div>
+                        <div id="sidebar" class="filter-sidebar"> </div>
+
+
+                    </div>
+                </div>
+
+                <div class="filters-area-bar">
+
+                    <div class="active-filters-container" id="active-filters-container">
+                        <!-- Active filters will appear here -->
                     </div>
                 </div>
             </div>
@@ -156,15 +172,17 @@
 
 
             </ul>
-            <div class="pagination m-50" style="display: flex; justify-content: center; align-items: center;">
-                <button class="cus-btn flex center align-items" id="prevPageBtn">
-                    <ion-icon name="arrow-back-outline" role="img" class="md hydrated"
-                        aria-label="arrow back outline"></ion-icon>
-
+            <div class="pagination m-50 animate-on-scroll">
+                <button class="pagination-btn flex center align-items" id="prevPageBtn" disabled>
+                    <ion-icon name="arrow-back-outline" class="md hydrated arrow-icon"></ion-icon>
+                    <span class="btn-text">Prev</span>
                 </button>
-                <button class="cus-btn flex center align-items" id="nextPageBtn">
-                    <ion-icon name="arrow-forward-outline" role="img" class="md hydrated"
-                        aria-label="arrow forward outline"></ion-icon>
+
+                <div class="page-counter" id="pageCounter">1 / 5</div>
+
+                <button class="pagination-btn flex center align-items" id="nextPageBtn">
+                    <span class="btn-text">Next</span>
+                    <ion-icon name="arrow-forward-outline" class="md hydrated arrow-icon"></ion-icon>
                 </button>
             </div>
 
@@ -340,15 +358,13 @@
 </footer>
 
 
-<a href="#top" class="go-top-btn" data-go-top="">
-    <ion-icon name="arrow-up-outline" role="img" class="md hydrated" aria-label="arrow up outline"></ion-icon>
-</a>
 
 
 <script src="./assets/js/cart-modal.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule="" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="./assets/js/route.js"></script>
+<script src="./assets/js/rendering/render.js"></script>
 <script src="./assets/js/flip-img.js"></script>
 <script src="./assets/js/brand-fetch.js"></script>
 <script src="./assets/js/filter.js"></script>
