@@ -913,3 +913,60 @@ function createTextArea(id, placeholder) {
   textarea.style.minHeight = "100px"; // Set a minimum height
   return textarea;
 }
+
+function loadEmptyBuyNowForm(containerSelector) {
+  const productImage = document.getElementById("productImage").src;
+  const productSize = document.getElementById("product-Size").innerText;
+  const productColor = document.getElementById(
+    "product-selected-color"
+  ).innerText;
+  const productPrice = document.getElementById("productPrice").innerText;
+
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  container.innerHTML = `
+  <form class="BuyItNowForm">
+    <div class="buynow-summary-container">
+      <img class="buynow-productimage">
+      <div class="buynow-details-container">
+        <p class="buynow-sizetext"></p>
+        <p class="buynow-colortext"></p>
+        <h3 class="buynow-pricetext"></h3>
+        <div class="buynow-quantity-container">
+          <span class="buynow-quantity-label"></span>
+          <button class="buynow-quantity-btn" type="button"><i class="bi bi-dash"></i></button>
+          <input min="1" class="buynow-quantity-input" id="buynow-qty">
+          <button class="buynow-quantity-btn" type="button"><i class="bi bi-plus"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <input type="text" id="name" class="input-name">
+    <input type="tel" id="phone" class="input-phone">
+    <input type="tel" id="secondPhone" class="input-secondphone">
+
+    <select id="Gityandgovernment">
+      <option value="" disabled selected></option>
+    </select>
+
+    <textarea class="BuyItNowTextArea" id="address"></textarea>
+
+    <div class="Addnotesbtn" id="Addnotesbtn">
+      <i class="bi bi-journal-plus"></i>
+    </div>
+
+    <textarea class="BuyItNowTextArea hidden orderNotesTextArea" id="orderNotes"></textarea>
+
+    <div class="shippingFeesDisplay">
+      <p id="shippingText" class="BuyItNowForm-shipping-message"></p>
+      <p id="shippingFeeValue" data-fee="0" style="display: none;"></p>
+    </div>
+
+    <div class="buyitnowcloseButton"><i class="bi bi-x"></i></div>
+    <div class="buynowinfobtn"><i class="bi bi-info-circle"></i></div>
+
+    <button class="placeorderbtn2" type="submit"></button>
+  </form>
+  `;
+}

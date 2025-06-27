@@ -101,9 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
     e.stopPropagation(); // Prevent click from propagating to the document
     showMenu("kids");
   });
-
-
-  
 });
 
 //handle page title
@@ -471,7 +468,7 @@ function openPolicyModal() {
 
       <div class="policy-modal-header">
         <button type="button" class="modalbtnR" onclick="closeModal()">
-         <i class="bi bi-x"></i>
+         <i class="bi bi-x-lg"></i>
         </button>
 
          <h2 class="policy-modal-header-title">Shipping & Return Policy</h2>
@@ -500,28 +497,28 @@ function openPolicyModal() {
   <h3 style="">Frequently Asked Questions</h3>
   
   <div class="faq-item" style="margin-bottom: 20px;">
-    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► How to place an Order?</h4>
+    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">How to place an Order?</h4>
     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 20px; color: #666;">
       <p style="margin-top: 10px;">To place an order, simply browse our products, select the items you want, and proceed to checkout.</p>
     </div>
   </div>
   
   <div class="faq-item" style="margin-bottom: 20px;">
-    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► What are the Installment options?</h4>
+    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">What are the Installment options?</h4>
     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 20px; color: #666;">
       <p style="margin-top: 10px;">We offer various installment plans through select payment providers. Options will be shown at checkout.</p>
     </div>
   </div>
   
   <div class="faq-item" style="margin-bottom: 20px;">
-    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► Can I edit or cancel my order?</h4>
+    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">Can I edit or cancel my order?</h4>
     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 20px; color: #666;">
       <p style="margin-top: 10px;">You can edit or cancel your order within 1 hour of placement by contacting customer service.</p>
     </div>
   </div>
   
   <div class="faq-item" style="margin-bottom: 20px;">
-    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">► What is the estimated delivery?</h4>
+    <h4 style="color: #555; margin-bottom: 8px; cursor: pointer;" onclick="toggleFAQ(this)">What is the estimated delivery?</h4>
     <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 20px; color: #666;">
       <p style="margin-top: 10px;">Delivery typically takes 3-5 business days within major cities, and 5-7 days for other areas.</p>
     </div>
@@ -546,30 +543,21 @@ function openPolicyModal() {
 }
 
 // FAQ toggle function
+
 function toggleFAQ(element) {
   const answer = element.nextElementSibling;
 
-  if (answer.style.display === "none" || !answer.style.display) {
-    // First make it visible (but still at 0 height)
-    answer.style.display = "block";
-    answer.style.maxHeight = "0";
+  const isOpen = element.classList.contains("open");
 
-    // Trigger the transition after a small delay
-    setTimeout(() => {
-      answer.style.maxHeight = answer.scrollHeight + "px";
-      element.innerHTML = element.innerHTML.replace("►", "▼");
-    }, 10);
+  if (isOpen) {
+    answer.style.maxHeight = "0";
+    element.classList.remove("open");
   } else {
-    // Start the collapse transition
-    answer.style.maxHeight = "0";
-    element.innerHTML = element.innerHTML.replace("▼", "►");
-
-    // After transition completes, hide it completely
-    setTimeout(() => {
-      answer.style.display = "none";
-    }, 300); // Match this with your transition duration
+    answer.style.maxHeight = answer.scrollHeight + "px";
+    element.classList.add("open");
   }
 }
+
 // Reuse the same closeModal function
 function closeModal() {
   const modal = document.querySelector(".modal");

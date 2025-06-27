@@ -27,10 +27,23 @@
   --mega-menu-bg: #fff;
   /* Define the variable */
 
+  --borderRadius-5: 5px;
   --borderRadius-10: 10px;
   --borderRadius-25: 25px;
   --borderRadius-50: 50%;
-  --productpadge: 10px 10px 10px 0px;
+
+  /* /5px groub/ */
+  --coloroptionRadius: 5px;
+  --card-badge-top: 5px 5px 5px 0px;
+  --card-badge-bottom: 0px 5px 5px 5px;
+  --paymentCardRadius: 5px;
+  --ShopbyPieceItemRadius: 5px;
+  --EmailInbutRadius: 5px;
+  --EmailBtnRadius: 0px 5px 5px 0px;
+  --card-action-list-radius: 5px;
+  --card-action-btn-list-radius: 5px;
+  --status-radius: 5px;
+
 
 
   --navbar-image: none;
@@ -99,6 +112,29 @@
    */
 
   --section-padding: 60px;
+
+
+  /* inbuts */
+  --inbut-text-color: #000000;
+  --inbut-bg: transparent;
+  --inbut-border: #5f5f5f2b;
+  --inbut-box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px;
+
+
+
+  /*  */
+  --addressCardBg: rgb(255, 255, 255);
+  --cartCardsBg: rgb(255, 255, 255);
+  --detailGrouph6: rgb(0, 0, 0);
+  --detailGroup: rgba(36, 36, 36, 0.863);
+  --cartAreaDivsTitles: rgb(0, 0, 0);
+  --paymentmetbtncolor: rgb(0, 0, 0);
+  --paymentmetbtncolorselected: rgb(0, 0, 0);
+  --paymentmetBorderbtncolor: 1px solid #dddddd;
+  --paymentmetbtnbordershover: 1px solid #dddddd;
+  --cartitemscolor: rgb(0, 0, 0);
+  --manageCartItembg: #ffffffcc;
+  --manageCartItemRadius: 5px
 }
 
 /*-----------------------------------*\
@@ -129,6 +165,19 @@ tbody,
 button,
 ion-icon {
   display: block;
+}
+
+select {
+  background: var(--inbut-bg) !important;
+  color: var(--inbut-text-color) !important;
+}
+
+
+
+input {
+  color: var(--inbut-text-color) !important;
+  background: var(--inbut-bg) !important;
+  box-shadow: var(--inbut-box-shadow) !important;
 }
 
 button,
@@ -265,7 +314,7 @@ body {
   align-items: center;
   gap: 5px;
   padding: 14px 25px;
-  border-radius: var(--radius-5);
+  border-radius: var(--EmailBtnRadius);
 }
 
 .btn2:hover {
@@ -508,7 +557,7 @@ img {
   font-family: var(--ff-roboto);
   font-size: var(--fs-7);
   z-index: 100;
-  border-radius: var(--productpadge);
+  border-radius: var(--card-badge-top);
   height: 22px;
   /* Fixed height for animation */
   overflow: hidden;
@@ -576,7 +625,7 @@ img {
   /* Replaces margin-bottom on items */
   padding: 8px;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: var(--borderRadius-25);
+  border-radius: var(--card-action-list-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -604,7 +653,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--card-action-btn-list-radius);
   transition: all 0.3s ease, transform 0.2s ease;
   border: 1px solid rgba(85, 85, 85, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -1576,7 +1625,7 @@ a.footer-link:is(:hover, :focus) {
 
 .newsletter-input {
   font-weight: var(--fw-100);
-  border-radius: var(--radius-5);
+  border-radius: var(--EmailInbutRadius);
   background: #f0f0f0;
   color: var(--onyx);
   padding: 15px 25px;
@@ -1614,14 +1663,14 @@ a.footer-link:is(:hover, :focus) {
 \*-----------------------------------*/
 
 .go-top-btn {
-  position: fixed;
+  position: fixed !important;
   bottom: 65px;
   right: 20px;
   background: var(--arrowbtnbg);
   color: var(--white);
   font-size: 20px;
   padding: 10px;
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--borderRadius-5);
   opacity: 0;
   visibility: hidden;
   /* transition: var(--transition-1); */
@@ -1634,12 +1683,7 @@ a.footer-link:is(:hover, :focus) {
   visibility: visible;
 }
 
-.go-top-btn:is(:hover, :focus),
-.scrolltocheckout:is(:hover, :focus) {
-  background: var(--arrowbtnbgreversed);
-  color: rgb(255, 255, 255);
-  transform: translateY(-1px);
-}
+
 
 .go-top-btn ion-icon {
   font-size: small;
@@ -1663,41 +1707,18 @@ a.footer-link:is(:hover, :focus) {
   }
 }
 
-.scrolltocheckout {
-  position: fixed;
-  right: 42px;
+.go-down-btn {
+  position: fixed !important;
   bottom: 25px;
+  right: 20px;
   background: var(--arrowbtnbg);
-  color: white;
-  padding: 5px 15px;
-  border-radius: 30px 0px 0px 30px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: x-small;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.scrolltocheckout:is(:hover, :focus) .godownicon {
-  border-radius: var(--borderRadius-50);
-  background: var(--arrowbtnbgreversed);
-}
-
-.godownicon {
-  font-size: small;
-  border-radius: var(--borderRadius-50);
-  right: -22px;
-  position: absolute;
+  color: var(--white);
+  font-size: 20px;
   padding: 10px;
-  background: var(--arrowbtnbg);
-}
-
-
-/* Hide the separate div and style everything within the anchor tag */
-.scrolltocheckout+div {
-  display: none;
+  border-radius: var(--borderRadius-5);
+  opacity: 1;
+  z-index: 2;
+  transition: all 0.3s ease;
 }
 
 /*-----------------------------------*\
@@ -2257,7 +2278,7 @@ a.footer-link:is(:hover, :focus) {
     color: var(--rich-black-fogra-29);
     font-size: 10px;
     padding: 7px;
-    border-radius: var(--borderRadius-50);
+    /* border-radius: var(--borderRadius-50); */
     transition: var(--transition-1);
   }
 
@@ -2315,10 +2336,7 @@ a.footer-link:is(:hover, :focus) {
   }
 }
 
-#cart-items h5 {
-  padding: 3px;
-  padding-left: 20px;
-}
+
 
 .pagination {
   display: flex;
@@ -2923,7 +2941,7 @@ select {
 .color-option2 {
   width: 20px;
   height: 20px;
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--coloroptionRadius);
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -3292,9 +3310,10 @@ select {
 } */
 
 #cart-items p {
+  color: var(--cartitemscolor);
   padding-left: 20px;
   font-weight: var(--fw-200);
-  ;
+
 }
 
 #cart-items img {
@@ -3428,7 +3447,6 @@ select {
 
 .i-cart:hover,
 .toggle-btn:hover {
-  border-radius: 30px;
   background: #f2f2f2;
   color: black;
 }
@@ -3636,7 +3654,7 @@ select {
   border-radius: 20%;
   padding: 10px;
   box-shadow: 0 0px 2px #555;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   font-weight: var(--fw-600);
   border: none;
   cursor: pointer;
@@ -3651,7 +3669,7 @@ select {
   border-radius: 20%;
   padding: 10px;
   box-shadow: 0 0px 2px #555;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.6s ease, color 0.3s ease, box-shadow 0.3s ease;
   font-weight: var(--fw-600);
   border: none;
   cursor: pointer;
@@ -3674,7 +3692,17 @@ select {
 .filter-btn,
 .nav-open-btn,
 .nav-close-btn,
-.open-category-btn {
+.open-category-btn,
+.show-all-btn,
+.btn2,
+.go-top-btn,
+.go-down-btn,
+.bi-arrow-right-short,
+.logout-btn,
+.pagination-btn,
+.action-btn,
+.clear-btn,
+.apply-promo-btn {
   position: relative;
   overflow: hidden;
   /* This ensures the pseudo-element doesn't overflow */
@@ -3696,7 +3724,17 @@ select {
 .filter-btn::after,
 .nav-open-btn::after,
 .nav-close-btn::after,
-.open-category-btn::after {
+.open-category-btn::after,
+.show-all-btn::after,
+.btn2::after,
+.go-top-btn::after,
+.go-down-btn::after,
+.bi-arrow-right-short::after,
+.logout-btn::after,
+.pagination-btn::after,
+.action-btn::after,
+.clear-btn::after,
+.apply-promo-btn::after {
   content: "";
   position: absolute;
   top: 0;
@@ -3727,19 +3765,27 @@ select {
 .filter-btn:hover::after,
 .nav-open-btn:hover::after,
 .nav-close-btn:hover::after,
-.open-category-btn:hover::after {
+.open-category-btn:hover::after,
+.show-all-btn:hover::after,
+.btn2:hover::after,
+.go-top-btn:hover::after,
+.go-down-btn:hover::after,
+.bi-arrow-right-short:hover::after,
+.logout-btn:hover::after,
+.pagination-btn:hover::after,
+.action-btn:hover::after,
+.clear-btn:hover::after,
+.apply-promo-btn:hover::after {
   left: 200%;
 }
 
-.modalbtnL:hover {
-  box-shadow: 0 2px 3px #555;
-  transition: box-shadow 0.3s ease-in-out;
+.modalbtnL:hover,
+.modalbtnR:hover {
+  background: white;
+  color: #19191a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.modalbtnR:hover {
-  box-shadow: 0 2px 3px #555;
-  transition: box-shadow 0.3s ease-in-out;
-}
 
 
 
@@ -3864,14 +3910,11 @@ select {
 /* Button styling */
 .modalbtnL,
 .modalbtnR {
-  transition: transform 0.2s ease;
+  transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 10;
 }
 
-.tooltip-container:hover .modalbtnL,
-.tooltip-container:hover .modalbtnR {
-  transform: scale(1.1);
-}
+
 
 .fav-modal-label {
   font-weight: var(--fw-300);
@@ -3992,6 +4035,7 @@ select {
   height: fit-content;
   padding: 20px;
   background: #f0f0f0;
+  border-radius: var(--borderRadius-5);
 }
 
 
@@ -4000,21 +4044,45 @@ select {
   /* Safari and Chrome */
 }
 
+
 .scroll-item {
   position: relative;
   width: 100px;
   height: 100px;
   margin-right: 20px;
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--ShopbyPieceItemRadius);
   background-size: cover;
   background-position: center;
   flex-shrink: 0;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
   filter: grayscale(100%);
 }
 
-.scroll-item:hover {
-  border: rgba(0, 0, 0, 0.411) solid 2px;
+.overlay-category {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom-left-radius: var(--ShopbyPieceItemRadius);
+  border-bottom-right-radius: var(--ShopbyPieceItemRadius);
+}
+
+.category-main {
+  padding: 10px;
+  font-weight: var(--fw-500);
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.category-sub {
+  font-size: 0.8em;
+  opacity: 0.9;
 }
 
 .overlay-category {
@@ -5632,7 +5700,7 @@ th {
 
 .order-card .order-header .status {
   padding: 5px 10px;
-  border-radius: 16px;
+  border-radius: var(--status-radius);
   font-size: 0.85rem;
   color: white;
   font-weight: var(--fw-300);
@@ -5810,7 +5878,7 @@ th {
 
 .detail-group h6 {
   font-size: 14px;
-  color: rgb(0, 0, 0);
+  color: var(--detailGrouph6);
   margin-bottom: 5px;
   font-weight: var(--fw-200);
 }
@@ -5818,7 +5886,7 @@ th {
 .detail-group p {
   font-size: 12px;
   font-weight: var(--fw-400);
-  color: var(--dark-gray);
+  color: var(--detailGroup);
 }
 
 
@@ -5974,7 +6042,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 
 .address-card {
-  background: white;
+  background: var(--addressCardBg);
   cursor: pointer;
   border: 1px solid #efefef;
   overflow: hidden;
@@ -5990,7 +6058,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 }
 
 .toggle-btn {
-  border-radius: 20px;
+  border-radius: var(--borderRadius-5);
   padding: 3px;
   background: #ddd;
   gap: 5px;
@@ -6007,10 +6075,11 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 }
 
 .toggle-btn i {
-  border-radius: 10px;
+  border-radius: var(--borderRadius-5);
   padding: 3px;
-  background: white;
+  background: #252525;
   transition: transform 0.3s ease;
+  color: white;
 }
 
 .toggle-btn p {
@@ -6021,7 +6090,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 .address-area,
 .total-cart-div {
   box-shadow: 0 14px 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--f9f9f9);
+  background-color: var(--cartCardsBg);
   border-radius: 20px;
   position: relative;
   /* overflow: auto; */
@@ -6062,7 +6131,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   font-size: 25;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #19191a;
+  color: var(--cartAreaDivsTitles);
 }
 
 .address-area-div {
@@ -6226,8 +6295,8 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 .payment-card {
   padding: 5px 20px;
-  border-radius: 16px;
-  font-size: x-small;
+  border-radius: var(--paymentCardRadius);
+  font-size: 0.85rem;
   font-weight: var(--fw-300);
   color: white;
   text-transform: uppercase;
@@ -6310,13 +6379,13 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 }
 
 .logout-btn {
-  border-radius: var(--borderRadius-50);
+  border: 1px solid #ffffff38;
+  border-radius: var(--borderRadius-5);
   padding: 5;
-  background: white;
   top: 10px;
   right: 10px;
   font-size: small;
-  color: var(--dark-gray);
+  color: #ffffff;
   cursor: pointer;
   transition: color 0.3s ease, transform 0.3s ease;
   position: absolute;
@@ -6677,13 +6746,14 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 } */
 
 .manage-cart-item {
-  background: #00000014;
-  border-radius: 20px;
+  background: var(--manageCartItembg);
+  border-radius: var(--manageCartItemRadius);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   margin: 10px 20px;
 }
 
 #cart-items h5 {
+  color: var(--cartitemscolor);
   font-weight: var(--fw-400);
   padding: 3px;
   padding-left: 20px;
@@ -7030,6 +7100,20 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   margin-bottom: 10px;
 }
 
+.BuyItNowTextArea {
+  max-width: 375px;
+  width: -webkit-fill-available;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: medium;
+  padding: 10px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 100px;
+}
+
 .shippingFeesDisplay {
   margin: 10px 0;
   padding: 10px;
@@ -7185,18 +7269,10 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 }
 
 #Gityandgovernment option {
-  background: #f9f9f9;
-  /* Matches the select background */
   padding: 10px;
-  /* Optional: adds padding to options for better appearance */
 }
 
-/* For browsers that support styling the dropdown list */
-#Gityandgovernment optgroup,
-#Gityandgovernment option {
-  background: #f1f1f1;
-  color: var(--dark-gray);
-}
+
 
 /* For better appearance of disabled option */
 #Gityandgovernment option[disabled] {
@@ -7776,16 +7852,14 @@ body.modal-open #mainpagearea {
 
 .apply-promo-btn {
   padding: 8px 16px;
-  color: #838383;
-  border: 1px solid #dddddd;
+  color: #ffffff;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
   transition: color 0.3s ease, border-color 0.3s ease;
-  /* Added border-color to transition */
-  background-color: transparent;
-  /* Ensures consistency */
-  font-weight: var(--fw-300);
+  background-color: #252525;
+  font-weight: var(--fw-400);
+  border: 1px solid #dcdcdc38;
 }
 
 .promo-code-btn-message-area {
@@ -7795,12 +7869,7 @@ body.modal-open #mainpagearea {
   flex-direction: row-reverse;
 }
 
-.apply-promo-btn:hover,
-.paymentmeth-btn:hover {
-  color: #000000ad;
-  border-color: #000000ad;
-  /* Smooth transition for border */
-}
+
 
 .promo-message {
   font-weight: var(--fw-300);
@@ -7816,8 +7885,8 @@ body.modal-open #mainpagearea {
 .paymentmeth-btn {
   font-weight: var(--fw-300);
   padding: 8px 16px;
-  color: #838383;
-  border: 1px solid #dddddd;
+  color: var(--paymentmetbtncolor);
+  border: var(--paymentmetBorderbtncolor);
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
@@ -7829,8 +7898,8 @@ body.modal-open #mainpagearea {
 }
 
 .paymentmeth-btn-selected {
-  color: #000000ad;
-  border-color: #000000ad;
+  color: var(--paymentmetbtncolorselected);
+  border-color: var(--paymentmetbtnborderselected);
   /* Smooth transition for border */
 }
 
@@ -7910,15 +7979,17 @@ body.modal-open #mainpagearea {
 
 .bi-arrow-right-short {
   border: 1px solid rgb(204, 204, 204);
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--borderRadius-5);
   padding: 5px;
-  background: white;
+  background: #252525;
+  color: white;
   cursor: pointer;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .bi-arrow-right-short:hover {
   background: rgb(194 194 194 / 28%);
+  color: black;
 }
 
 .cartitemsamount {
@@ -9017,24 +9088,13 @@ body.swal2-shown {
   background-color: rgb(0, 0, 0);
   color: white;
   padding: 5px 10px;
-  border-radius: 0px 10px 10px 10px;
+  border-radius: var(--card-badge-bottom);
   font-size: x-small;
   font-weight: var(--fw-100);
   z-index: 1;
   justify-content: center;
 }
 
-/* Base styles for color options */
-/* .color-option2 {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 5px;
-  border: 1px solid #ddd;
-  border-radius: var(--borderRadius-50);
-  cursor: pointer;
-  position: relative;
-} */
 
 /* Tooltip container */
 .tooltip {

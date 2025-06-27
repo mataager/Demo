@@ -29,11 +29,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (isCartPage) {
     const scrollToCheckoutHTML = `
-      <a class="scrolltocheckout">
-        <span>Scroll To Check Out</span>
-        <ion-icon name="arrow-down-outline" role="img" class="md hydrated godownicon" aria-label="arrow down outline"></ion-icon>
-      </a>
-    `;
+        <div class="tooltip">
+          <a href="javascript:void(0);" class="go-down-btn" data-go-bottom>
+            <ion-icon name="arrow-down-outline" role="img" class="arrow-icon"></ion-icon>
+          </a>
+          <span class="tooltiptext">Scroll to Checkout</span>
+        </div>
+      `;
     document.body.insertAdjacentHTML("beforeend", scrollToCheckoutHTML);
+
+    // Add scroll-to-bottom behavior
+    const goDownBtn = document.querySelector("[data-go-bottom]");
+    goDownBtn?.addEventListener("click", () => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    });
   }
 });

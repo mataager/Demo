@@ -128,14 +128,22 @@ async function checkSiteStatus(uid) {
     return true; // Return true if access should be allowed
   } catch (error) {
     console.error("Error checking site status:", error);
+
+    const isNetworkError =
+      !navigator.onLine || error.message.includes("Network");
+
     blockPageAccess({
       title: "Verification Failed",
-      message: "Unable to verify store status. Please try again later.",
+      message: isNetworkError
+        ? "Network issue detected. Please check your internet connection and try again."
+        : "Unable to verify store status. Please try again later.",
       reason: error.message,
       contactNumber: null,
     });
+
     return false;
   }
+  
 }
 
 function blockPageAccess({
