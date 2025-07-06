@@ -8,8 +8,8 @@ function emailPasswordSignIn() {
   modalContent.innerHTML = `
     <div class="guestmodalarea">
     <div class="flex center flex-end guest-modal-close-btn-7a3b" onclick="closesigningModal()">
-    <button type="button" class="modalbtnL" id="perv4Button">
-        <i class="bi bi-x"></i>
+    <button type="button" class="modalbtnR" id="perv4Button" aria-label="Close Modal">
+        <i class="bi bi-x-lg"></i>
     </button>
     </div>
       <!-- Sign In Form -->
@@ -20,9 +20,16 @@ function emailPasswordSignIn() {
           <input type="email" id="email" class="swal2-input" placeholder="Enter your email">
           <input type="password" id="password" class="swal2-input" placeholder="Enter your password">
           <div id="signin-error" class="error-hint"></div>
-          <button id="continueGuest" class="modal-btn signinupbtn04392">Sign in</button>
+          <button  id="continueGuest"  class="animate-on-scroll-auto show" style="display: block;">
+                    <div class="flex align-items signinupbtn04392">
+                        <div class="sign-txt mr-5">
+                            Sign In
+                        </div>
+                        <i class="fa-solid fa-right-to-bracket sign-txt"></i>
+                    </div>
+                </button>
           <div id="signin-preloader" class="preloader" style="display: none;"> <div class="loader"></div></div>
-          <p style="margin-top: 40px;" class="signup-link-container ">Don't have an account? <a href="#" id="signup-link" class="mt-10 pb-5">Sign up here</a></p>
+          <p style="margin-top: 40px;" class="signup-link-container ">Don't have an account? <a href="#" id="signup-link" class="mt-10 pb-5 link-matager">Sign up here</a></p>
         </div>
       </div>
 
@@ -51,7 +58,7 @@ function emailPasswordSignIn() {
             <input type="text" id="phone2" class="swal2-input width-available" placeholder="Enter your secondary phone number (optional)">
             <div id="step1-error" class="error-hint"></div>
             <button id="next-to-step2" class="modal-btn signinupbtn04392">Next</button>
-             <p class="mt-30">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
+             <p class="mt-30">Already have an account? <a href="#" id="signin-link" class="mt-10 link-matager">Sign in here</a></p>
           </div>
         </div>
 
@@ -69,10 +76,14 @@ function emailPasswordSignIn() {
             </div>
             <div id="step2-error" class="error-hint"></div>
             <div class="form-navigation">
-              <button id="back-to-step1" class="modal-btn back-btn"><i class="bi bi-arrow-left"></i></button>
+              <button id="back-to-step1" class="modal-btn back-btn">
+                  <span class="arrow-wrapper">
+                  <i class="bi bi-arrow-left"></i>
+                  </span>
+              </button>
               <button id="next-to-step3" class="modal-btn signinupbtn04392">Next</button>
             </div>
-            <p class="mt-30">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
+            <p class="mt-30">Already have an account? <a href="#" id="signin-link" class="mt-10 link-matager">Sign in here</a></p>
           </div>
         </div>
 
@@ -116,11 +127,15 @@ function emailPasswordSignIn() {
             <textarea id="address" class="swal2-textarea width-available" placeholder="Enter your full address" required></textarea>
             <div id="step3-error" class="error-hint"></div>
             <div class="form-navigation">
-              <button id="back-to-step2" class="modal-btn back-btn"><i class="bi bi-arrow-left"></i></button>
+               <button id="back-to-step2" class="modal-btn back-btn">
+                  <span class="arrow-wrapper">
+                  <i class="bi bi-arrow-left"></i>
+                  </span>
+              </button>
               <button id="signup-btn" class="modal-btn signinupbtn04392">Complete Sign Up</button>
             </div>
             <div id="signup-preloader" class="preloader" style="display: none;"> <div class="loader"></div></div>
-             <p class="mt-30">Already have an account? <a href="#" id="signin-link" class="mt-10">Sign in here</a></p>
+           
           </div>
         </div>
         <div id="signup-success" style="display: none; text-align: center;">

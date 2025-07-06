@@ -18,6 +18,7 @@
   --black: hsl(0, 0%, 0%);
   --onyx: hsl(0, 0%, 27%);
   --dark-gray: #333;
+  --mainsitetxtcolor: #333;
   --f9f9f9: #f9f9f9;
   --blurbg: #dddddd61;
   --arrowbtnbg: linear-gradient(45deg, #000, #333);
@@ -32,17 +33,25 @@
   --borderRadius-25: 25px;
   --borderRadius-50: 50%;
 
-  /* /5px groub/ */
-  --coloroptionRadius: 5px;
-  --card-badge-top: 5px 5px 5px 0px;
-  --card-badge-bottom: 0px 5px 5px 5px;
-  --paymentCardRadius: 5px;
-  --ShopbyPieceItemRadius: 5px;
-  --EmailInbutRadius: 5px;
-  --EmailBtnRadius: 0px 5px 5px 0px;
-  --card-action-list-radius: 5px;
-  --card-action-btn-list-radius: 5px;
-  --status-radius: 5px;
+  /* site elemnt radius */
+  --s-e-r: 50px;
+  /*  */
+  --coloroptionRadius: var(--s-e-r);
+  --card-badge-top: var(--s-e-r) var(--s-e-r) var(--s-e-r) 0px;
+  --card-badge-bottom: 0px var(--s-e-r) var(--s-e-r) var(--s-e-r);
+  --paymentCardRadius: var(--s-e-r);
+  --ShopbyPieceItemRadius: var(--s-e-r);
+  --EmailInbutRadius: var(--s-e-r);
+  --EmailBtnRadius: 0px var(--s-e-r) var(--s-e-r) 0px;
+  --card-action-list-radius: var(--s-e-r);
+  --card-action-btn-list-radius: var(--s-e-r);
+  --status-radius: var(--s-e-r);
+  --progressstepradius: var(--s-e-r);
+  --modalbtnradius: var(--s-e-r);
+  --inbutsradius: var(--s-e-r);
+  --buttonsradius: var(--s-e-r);
+
+
 
 
 
@@ -117,14 +126,18 @@
   /* inbuts */
   --inbut-text-color: #000000;
   --inbut-bg: transparent;
+  --inbut-padding: 10px;
   --inbut-border: #5f5f5f2b;
   --inbut-box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 4px;
+
 
 
 
   /*  */
   --addressCardBg: rgb(255, 255, 255);
   --cartCardsBg: rgb(255, 255, 255);
+  --search-inbut-bg: rgb(255, 255, 255);
+  --search-suggestions-bg: rgb(255, 255, 255);
   --detailGrouph6: rgb(0, 0, 0);
   --detailGroup: rgba(36, 36, 36, 0.863);
   --cartAreaDivsTitles: rgb(0, 0, 0);
@@ -134,7 +147,12 @@
   --paymentmetbtnbordershover: 1px solid #dddddd;
   --cartitemscolor: rgb(0, 0, 0);
   --manageCartItembg: #ffffffcc;
-  --manageCartItemRadius: 5px
+  --manageCartItembtnscolor: rgb(255, 255, 255);
+  --manageCartItemBtnsBgColor: black;
+  --manageCartItemRadius: 5px;
+
+  --preloader-site-bg: rgb(255, 255, 255);
+  --preloader-cart-bg: rgb(255, 255, 255);
 }
 
 /*-----------------------------------*\
@@ -174,10 +192,12 @@ select {
 
 
 
-input {
+input,
+select {
   color: var(--inbut-text-color) !important;
   background: var(--inbut-bg) !important;
   box-shadow: var(--inbut-box-shadow) !important;
+  padding: var(--inbut-padding) !important;
 }
 
 button,
@@ -434,7 +454,7 @@ body {
   z-index: 5;
   position: relative;
   box-shadow: 0 2px 10px hsla(0, 0%, 0%, 0.07);
-  border-radius: 10px;
+  border-radius: var(--buttonsradius);
   padding: 0 0 20px 0;
   border: 1px solid #5555551c;
   display: flex;
@@ -474,7 +494,7 @@ body {
   height: auto;
   /* Maintains aspect ratio */
   object-fit: cover;
-  border-radius: 9px 9px 0px 0px;
+  border-radius: var(--buttonsradius);
   /* object-fit: contain; */
   object-position: center;
   transform: translateZ(0);
@@ -1051,15 +1071,17 @@ img {
 }
 
 .nav-action-badge {
+  padding: 10px;
   margin-left: auto;
   font-size: var(--fs-8);
   background: black;
   color: var(--white);
   width: 18px;
   height: 18px;
-  display: grid;
+  display: flex;
   place-items: center;
   border-radius: var(--borderRadius-50);
+  justify-content: center;
 }
 
 .overlay {
@@ -1177,6 +1199,7 @@ img {
   letter-spacing: 2px;
   font-weight: var(--fw-400);
   border: 1px solid #00d0ffd1;
+  border-radius: var(--buttonsradius);
   cursor: pointer;
   transition: all 0.5s ease;
   text-decoration: none;
@@ -1222,6 +1245,7 @@ img {
   padding: 12px 25px;
   display: inline-block;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--buttonsradius);
 }
 
 .secondary-badge span {
@@ -1290,7 +1314,7 @@ h5 {
 
 .itemscounter {
   text-transform: none;
-  border-radius: var(--radius-5);
+  border-radius: var(--buttonsradius);
   background: #f7f7f7;
   font-size: small;
   top: -13px;
@@ -1539,11 +1563,22 @@ h5 {
 }
 
 .social-link {
-  background: var(--gainsboro);
+  position: relative;
+  font-weight: var(--fw-400);
+  display: flex;
+  opacity: 1;
   color: var(--onyx);
   font-size: 20px;
+  margin: 2px;
   padding: 10px;
+  color: rgb(255 255 255);
+  background: #000;
+  border-radius: var(--radius-5);
   transition: var(--transition-1);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--buttonsradius);
 }
 
 .social-link:is(:hover, :focus) {
@@ -2389,7 +2424,7 @@ a.footer-link:is(:hover, :focus) {
 .page-counter {
   padding: 8px 16px;
   background: rgba(0, 0, 0, 0.1);
-  border-radius: 50px;
+  border-radius: var(--buttonsradius);
   min-width: 60px;
   text-align: center;
 }
@@ -2797,7 +2832,7 @@ select {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--preloader-site-bg);
   z-index: 9999;
 }
 
@@ -2906,7 +2941,7 @@ select {
   width: 30px;
   height: 30px;
   margin: 5px;
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--buttonsradius);
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
@@ -3088,13 +3123,17 @@ select {
 .Buyitnow2,
 .placeorderbtn2,
 .Add-to-Cart2,
-.checkoutbtn {
+.checkoutbtn,
+.google-signin-btn,
+.email-signin-btn,
+.signout-btn,
+.pp-option-btn {
   position: relative;
   font-weight: var(--fw-400);
   display: flex;
   opacity: 1;
   font-size: small;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 1px;
   padding-block: 10px;
   margin: 2px;
@@ -3137,7 +3176,13 @@ select {
 .filter-btn:hover,
 .Grid-btn:hover,
 #seeSelection:hover,
-.show-all-btn:hover {
+.clear-btn:hover,
+.show-all-btn:hover,
+.google-signin-btn:hover,
+.email-signin-btn:hover,
+.signout-btn:hover,
+.pp-option-btn:hover,
+.signinupbtn04392:hover {
   transition: color 0.3s ease, background-color 0.3s ease !important;
   background-color: #f0f0f0;
   color: black;
@@ -3189,10 +3234,12 @@ select {
   margin: 5px;
   border: 1px solid #ddd;
   cursor: pointer;
-  border-radius: var(--radius-5);
+  border-radius: var(--buttonsradius);
   justify-content: center;
   align-items: center;
   align-content: center;
+  min-width: 40px;
+  min-height: 40px;
 }
 
 .size-radio:hover {
@@ -3289,7 +3336,7 @@ select {
 /* cart */
 #cart-items li {
   box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  border-radius: var(--manageCartItemRadius);
   margin: 10px 10px 30px 10px;
   display: flex;
   align-items: center;
@@ -3433,10 +3480,11 @@ select {
 }
 
 .i-cart {
+  background: var(--manageCartItemBtnsBgColor);
+  color: var();
   font-size: small;
   border-radius: 20%;
   padding: 5px;
-  color: #000000;
   width: 30px;
   display: flex;
   height: 30px;
@@ -3651,7 +3699,7 @@ select {
   color: white;
   font-size: 1.2rem;
   background: linear-gradient(135deg, #000, #19191a);
-  border-radius: 20%;
+  border-radius: var(--modalbtnradius);
   padding: 10px;
   box-shadow: 0 0px 2px #555;
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
@@ -3666,7 +3714,7 @@ select {
   color: white;
   font-size: 1.2rem;
   background: linear-gradient(135deg, #000, #19191a);
-  border-radius: 20%;
+  border-radius: var(--modalbtnradius);
   padding: 10px;
   box-shadow: 0 0px 2px #555;
   transition: background-color 0.6s ease, color 0.3s ease, box-shadow 0.3s ease;
@@ -3702,9 +3750,18 @@ select {
 .pagination-btn,
 .action-btn,
 .clear-btn,
-.apply-promo-btn {
+.apply-promo-btn,
+.i-cart,
+.google-signin-btn,
+.email-signin-btn,
+.signout-btn,
+.pp-option-btn,
+.signinupbtn04392,
+.social-link,
+.Share-Product {
   position: relative;
   overflow: hidden;
+  border-radius: var(--buttonsradius);
   /* This ensures the pseudo-element doesn't overflow */
 }
 
@@ -3734,7 +3791,16 @@ select {
 .pagination-btn::after,
 .action-btn::after,
 .clear-btn::after,
-.apply-promo-btn::after {
+.apply-promo-btn::after,
+.i-cart::after,
+.google-signin-btn::after,
+.google-signin-btn::after,
+.email-signin-btn::after,
+.signout-btn::after,
+.pp-option-btn::after,
+.signinupbtn04392::after,
+.social-link::after,
+.Share-Product::after {
   content: "";
   position: absolute;
   top: 0;
@@ -3775,7 +3841,16 @@ select {
 .pagination-btn:hover::after,
 .action-btn:hover::after,
 .clear-btn:hover::after,
-.apply-promo-btn:hover::after {
+.apply-promo-btn:hover::after,
+.i-cart:hover::after,
+.google-signin-btn:hover::after,
+.google-signin-btn:hover::after,
+.email-signin-btn:hover::after,
+.signout-btn:hover::after,
+.pp-option-btn:hover::after,
+.signinupbtn04392:hover::after,
+.social-link:hover::after,
+.Share-Product:hover::after {
   left: 200%;
 }
 
@@ -3842,7 +3917,7 @@ select {
   color: rgb(255 255 255);
   background: #000;
   font-size: small;
-  border-radius: var(--radius-5);
+  border-radius: var(--buttonsradius);
   padding: 12px;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
@@ -3852,6 +3927,7 @@ select {
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
+  border-radius: var(--buttonsradius);
 }
 
 .add-to-fav-btn:hover {
@@ -3889,6 +3965,7 @@ select {
   display: flex;
   align-items: center;
   pointer-events: none;
+  border-radius: var(--buttonsradius);
 }
 
 .header-tooltip {
@@ -4035,7 +4112,7 @@ select {
   height: fit-content;
   padding: 20px;
   background: #f0f0f0;
-  border-radius: var(--borderRadius-5);
+  border-radius: var(--buttonsradius);
 }
 
 
@@ -4258,6 +4335,7 @@ a {
   display: none;
   background-color: var(--mega-menu-bg);
   border: 1px solid #ddd;
+  border-radius: var(--buttonsradius);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   padding: 10px;
   z-index: 1000;
@@ -4364,7 +4442,7 @@ a {
   color: white;
   background: linear-gradient(145deg, #000000, #1a1a1a);
   padding: 5px;
-  border-radius: var(--borderRadius-10);
+  border-radius: var(--buttonsradius);
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
   border: 2px solid white;
   cursor: pointer;
@@ -4577,28 +4655,28 @@ a {
 .floating-search {
   display: flex;
   position: absolute;
-  top: 119px;
+  top: 160px;
   left: 0;
   width: 100%;
   justify-content: center;
-  padding: 0 20px;
   box-sizing: border-box;
 }
 
 /* Container for input and button */
 .search-input-container {
   position: relative;
-  width: 70%;
+  width: -webkit-fill-available;
   max-width: 800px;
 }
 
 #search-input {
-  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  background: var(--search-inbut-bg) !important;
   width: 100%;
   padding: 12px 50px 12px 20px;
   font-size: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 30px;
+  /* border: 1px solid #e0e0e0; */
+  border-radius: var(--buttonsradius);
   transition: all 0.3s ease;
   box-sizing: border-box;
   height: 50px;
@@ -4611,7 +4689,7 @@ a {
 
 .search-btn {
   background: transparent;
-  border-radius: var(--borderRadius-50);
+  border-radius: var(--buttonsradius);
   padding: 0;
   width: 40px;
   height: 40px;
@@ -4643,8 +4721,8 @@ a {
   position: absolute;
   top: 100%;
   left: 0;
-  background: white;
-  border-radius: 10px;
+  background: var(--search-suggestions-bg);
+  border-radius: var(--buttonsradius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   margin-top: 5px;
   max-height: 0;
@@ -4852,7 +4930,7 @@ a {
 }
 
 .sort-option {
-  border-radius: var(--radius-5);
+  border-radius: var(--buttonsradius);
   font-weight: var(--fw-200);
   display: block;
   width: 100%;
@@ -4877,7 +4955,7 @@ a {
 .brands-options button {
   min-height: 35px;
   min-width: 35px;
-  border-radius: var(--radius-5);
+  border-radius: var(--buttonsradius);
   font-weight: var(--fw-200);
   color: #000;
   display: inline-block;
@@ -4905,7 +4983,7 @@ a {
 .color-circle {
   width: 30px;
   height: 30px;
-  border-radius: var(--radius-5);
+  border-radius: var(--buttonsradius);
   border: 1px solid #ddd;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -4943,25 +5021,15 @@ a {
   color: #fff;
   cursor: pointer;
   border: none;
-  border-radius: var(--radius-5);
-}
-
-.clear-btn {
+  border-radius: var(--buttonsradius);
   transition: border-color 0.3s ease, border-width 0.3s ease;
-  background-color: #ffffff;
-  color: black;
-  border: 1px solid black;
 }
 
-.action-btn:hover {
-  background-color: var(--dark-gray);
-}
 
-.clear-btn:hover {
-  border: 1px solid #0000007d !important;
-  color: black;
-  border: var(--dark-gray);
-}
+
+
+
+
 
 .active-selection {
   background-color: var(--dark-gray);
@@ -5085,120 +5153,6 @@ a {
   margin: 5px 0;
 }
 
-/* .google-signin-btn,
-.signout-btn {
-  font-size: small;
-  padding: 15px !important;
-  background-color: #000000;
-  padding: 5px;
-  border-radius: 38px;
-  color: white;
-  border: 1px solid #000000;
-  } */
-
-.google-signin-btn {
-  border-radius: 5px !important;
-  padding: 8px 33px !important;
-}
-
-/* Common button styles */
-.google-signin-btn,
-.email-signin-btn,
-.signout-btn,
-.pp-option-btn {
-  font-size: small;
-  padding: 10px;
-  background-color: #000000;
-  border-radius: 10px;
-  color: white;
-  border: 2px solid #000000;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-/* Pseudo-element for background transition */
-.google-signin-btn::before,
-.email-signin-btn::before,
-.signout-btn::before,
-.pp-option-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  transition: all 0.3s ease;
-}
-
-/* On hover, set the background color to white */
-.google-signin-btn:hover,
-.email-signin-btn:hover,
-.signout-btn:hover,
-.pp-option-btn:hover {
-  background-color: white;
-  color: #000000;
-  /* Change text color to black when hovered */
-  border: 2px solid #000000;
-  /* Border becomes 2px solid black */
-}
-
-/* Move the background (pseudo-element) from left to right on hover */
-.google-signin-btn:hover::before,
-.email-signin-btn:hover::before,
-.signout-btn:hover::before {
-  left: 0;
-}
-
-/* Make the text and icon color change to black */
-.google-signin-btn:hover .sign-txt,
-.email-signin-btn:hover .sign-txt,
-.signout-btn:hover .sign-txt {
-  color: #000000;
-  /* Ensure the text is black */
-  z-index: 100;
-  /* Bring the text to the front */
-}
-
-/* Ensure the icon also changes color to black */
-.google-signin-btn:hover i,
-.email-signin-btn:hover i,
-.signout-btn:hover i {
-  color: #000000;
-  /* Ensure the icon is black */
-}
-
-/* Styling for the flex container */
-.google-signin-btn .flex,
-.email-signin-btn .flex,
-.signout-btn .flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-/* Signout button additional style */
-
-
-/* General layout for larger screens */
-/* .content-photo-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
-  justify-content: center;
-  width: 100%;
-  padding: 10px;
-} */
-
-/* .product-image {
-  border-radius: 20px;
-  padding: 10px !important;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-} */
 
 /* Navigation buttons positioning */
 .previous-button,
@@ -5223,14 +5177,14 @@ a {
   background-color: #000000;
   color: white;
   border: none;
-  padding: 7px;
+  padding: 12px 25px;
   margin: 2px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: small;
-  border-radius: var(--radius-5);
+  border-radius: var(--buttonsradius);
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
@@ -5424,7 +5378,7 @@ a {
   z-index: 2;
   position: relative;
   box-shadow: 0 2px 10px hsla(0, 0%, 0%, 0.07);
-  border-radius: 10px;
+  border-radius: var(--buttonsradius);
   padding: 0 0 20px 0;
   border: 1px solid #5555551c;
   display: flex;
@@ -5447,7 +5401,7 @@ a {
   height: auto;
   /* Maintains aspect ratio */
   object-fit: cover;
-  border-radius: 9px 9px 0px 0px;
+  border-radius: var(--buttonsradius);
   /* object-fit: contain; */
   object-position: center;
   transform: translateZ(0);
@@ -5957,7 +5911,7 @@ th {
   /* Adds spacing between fields */
   border: 1px solid #ccc;
   /* Adds a light border */
-  border-radius: var(--radius-5);
+  border-radius: var(--inbutsradius);
   /* Slightly rounded corners */
   outline: none;
   /* Removes default outline */
@@ -6342,7 +6296,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   color: var(--text-light);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
-  border-radius: var(--radius-5);
+  border-radius: var(--buttonsradius);
   /* margin-bottom: 40px; */
   padding: 30px;
   font-size: small;
@@ -6562,7 +6516,6 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 .show-all-btn {
   width: fit-content;
   padding: 10px !important;
-  border-radius: 5px !important;
   font-weight: var(--fw-200);
   font-size: small;
   text-transform: uppercase;
@@ -6746,10 +6699,12 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 } */
 
 .manage-cart-item {
+  color: var(--manageCartItembtnscolor);
   background: var(--manageCartItembg);
   border-radius: var(--manageCartItemRadius);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 12px rgba(0, 0, 0, 0.2);
   margin: 10px 20px;
+  padding: 8px 12px;
 }
 
 #cart-items h5 {
@@ -6844,8 +6799,8 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #f9f9f9;
-  /* z-index: 100; */
+  background-color: var(--preloader-cart-bg);
+  z-index: 1;
 }
 
 
@@ -7410,7 +7365,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
 
 }
 
-.menfashioncpllectioncard {
+.gender-collection-card {
   background-size: cover;
   background-position: center center;
   backdrop-filter: blur(10px);
@@ -7418,7 +7373,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   padding: 20px;
   width: 120px;
   height: 160px;
-  border-radius: 8px;
+  border-radius: var(--buttonsradius);
   transition: 0.5s !important;
   cursor: pointer;
   transform: translateY(0px);
@@ -7440,6 +7395,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   padding: 16px 48px;
   font-size: 1rem;
   font-weight: var(--fw-200);
+  border-radius: var(--buttonsradius);
   letter-spacing: 3px;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -7516,7 +7472,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):ho
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 1000;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   background: transparent;
   will-change: transform;
   /* Add this for better performance */
@@ -7771,7 +7727,7 @@ body.modal-open #mainpagearea {
  */
 .spec-font {
   font-size: small;
-  text-transform: uppercase;
+  /* text-transform: uppercase;; */
   letter-spacing: 1px;
   color: #19191a;
   padding-block: 10px;
@@ -7789,6 +7745,7 @@ body.modal-open #mainpagearea {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: var(--buttonsradius);
 }
 
 .no-products-icon {
@@ -8037,6 +7994,7 @@ body.modal-open::after {
   align-items: center;
   justify-content: center;
   height: -webkit-fill-available;
+  color: var(--mainsitetxtcolor);
 }
 
 .lh-1-3 {
@@ -8048,14 +8006,14 @@ body.modal-open::after {
   font-size: 25px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #19191a;
+  color: var(--mainsitetxtcolor);
 }
 
 .guestmodalarea p {
   font-size: 8px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #19191a;
+  color: var(--mainsitetxtcolor);
   line-height: 2;
 }
 
@@ -8117,7 +8075,7 @@ textarea {
   margin-bottom: 8px;
   padding: 10px;
   border: 1px solid rgb(204, 204, 204);
-  border-radius: var(--radius-5);
+  border-radius: var(--inbutsradius);
 }
 
 .guestmodalarea textarea {
@@ -8186,7 +8144,7 @@ textarea {
   font-size: x-small;
   color: #ffffff;
   padding: 8px 30px;
-  border-radius: 4px;
+  border-radius: var(--buttonsradius);
   cursor: pointer;
   transition: var(--transition-1);
   background: black;
@@ -8203,15 +8161,45 @@ textarea {
 
 .back-btn {
   font-size: x-small;
-  color: #000000;
-  padding: 8px 30px;
-  border-radius: 4px;
+  color: #fff;
+  padding: 8px 20px 8px 15px;
+  /* More padding on left */
+  border-radius: var(--buttonsradius);
   cursor: pointer;
   transition: var(--transition-1);
-  background: rgb(255, 255, 255);
+  background: #000000;
   margin-top: 10px;
   border: 0.5px solid black;
-  width: 20px;
+  width: auto;
+  /* Changed from 20px to auto */
+  position: relative;
+  overflow: hidden;
+}
+
+.arrow-wrapper {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.back-btn:hover .arrow-wrapper {
+  transform: translateX(-4px);
+  /* Arrow moves left */
+}
+
+/* Optional: Add a subtle background slide effect */
+/* .back-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.3s ease;
+} */
+
+.back-btn:hover::after {
+  left: 0;
 }
 
 .form-container {
@@ -8242,7 +8230,7 @@ textarea {
 
 .progress-step-sign {
   padding: 5px 5px 5px 5px;
-  border-radius: 20px;
+  border-radius: var(--progressstepradius);
   background-color: #f0f0f0;
   color: #777;
   font-size: 8px;
@@ -8263,7 +8251,7 @@ textarea {
 .progress-line {
   height: 6px;
   background-color: #f0f0f0;
-  border-radius: 3px;
+  border-radius: var(--progressstepradius);
   margin: 0 10px;
 }
 
@@ -8273,7 +8261,7 @@ textarea {
 
 .progress-fill {
   height: 100%;
-  border-radius: 3px;
+  border-radius: var(--progressstepradius);
   background-color: var(--dark-gray);
   width: 33.33%;
   transition: width 0.3s ease;
@@ -8287,14 +8275,14 @@ textarea {
 .strength-meter {
   height: 5px;
   background-color: #f0f0f0;
-  border-radius: 3px;
+  border-radius: var(--progressstepradius);
   margin-bottom: 5px;
   width: 200px;
 }
 
 .strength-fill {
   height: 100%;
-  border-radius: 3px;
+  border-radius: var(--progressstepradius);
   width: 0%;
   transition: width 0.3s ease, background-color 0.3s ease;
 }
@@ -8343,9 +8331,40 @@ textarea {
   overflow: hidden;
 }
 
+#sign-in-by-matager {
+  padding: 20px !important;
+  background: white;
+  border-radius: var(--s-e-r);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+  max-width: 400px;
+  margin: 50px;
+}
+
 #signin-form,
 #signup-form {
+  overflow-y: scroll;
   height: fit-content;
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+#signin-form::-webkit-scrollbar,
+#signup-form::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+#signin-form::-webkit-scrollbar-thumb,
+#signup-form::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 3px;
+}
+
+#signin-form::-webkit-scrollbar-track,
+#signup-form::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 .success-icon {
@@ -8382,17 +8401,12 @@ textarea {
 }
 
 .guest-modal-close-btn-7a3b {
+  margin: 10px;
   top: 0;
   right: 0;
   position: absolute;
 }
 
-.guest-modal-close-btn-7a3b button {
-  margin: 0px;
-  border-radius: 0px 8px 0px 8px;
-  background: initial !important;
-  color: var(--dark-gray);
-}
 
 /* // */
 /* Store hints container */
@@ -8755,7 +8769,7 @@ body.swal2-shown {
   display: flex;
   margin: 20px 0;
   padding: 0;
-  background: rgb(249 249 249);
+  background: var(--cartCardsBg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   flex-direction: column;
   align-items: center;
@@ -8835,9 +8849,32 @@ body.swal2-shown {
   display: block;
 }
 
+
+
 .link-matager {
-  text-decoration-line: underline;
-  color: var(--dark-gray);
+  width: fit-content;
+  color: var(--mainsitetxtcolor);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.2s ease;
+  margin: 0px auto;
+}
+
+
+.link-matager::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #000;
+  transition: width 0.2s ease;
+}
+
+.link-matager:hover::after {
+  width: 100%;
 }
 
 /* // */
@@ -9490,3 +9527,23 @@ ion-icon {
   background-color: var(--f9f9f9);
 
 }
+
+.select-inbut {
+  width: 100%;
+  padding: var(--select-padding);
+  background: var(--inbut-bg) !important;
+  color: var(--inbut-text-color) !important;
+  border: 1px solid #ccc;
+  border-radius: var(--buttonsradius);
+  appearance: none;
+  transition: all var(--transition-speed) ease;
+  box-shadow: var(--select-shadow);
+  cursor: pointer;
+}
+
+.select-inbut option {
+  border-radius: var(--buttonsradius);
+  padding: 10px;
+}
+
+/*  */

@@ -270,15 +270,15 @@ async function addfavouriteproduct(key) {
         <div id="image-preview" class="fav-image-preview">
           <img width="200px" class="radius-5" src="" alt="Selected Product Image" id="productImage">
         </div>
-        <label class="fav-modal-label" for="size">Size:</label>
-        <select class="swal2-input black-font" id="size" name="size" required>
+        <label class="fav-modal-label" for="size">Choose Size :</label>
+        <select class="select-inbut" id="size" name="size" required>
           ${Object.keys(product.sizes)
             .map((size) => `<option value="${size}">${size}</option>`)
             .join("")}
         </select>
         <br>
-        <label class="fav-modal-label" for="color">Color:</label>
-        <select class="swal2-input black-font" id="color" name="color" required></select>
+        <label class="fav-modal-label" for="color">Choose Color :</label>
+        <select class="select-inbut" id="color" name="color" required></select>
         <br>
       </form>
       <div class="flex center align-items width-available flex-direction-column">
