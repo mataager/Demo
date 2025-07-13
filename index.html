@@ -101,7 +101,7 @@
                     <!--  -->
 
                     <li class="navbar-item">
-                        <a href="#" class="navbar-link red-txt" onclick="changeFrameSrc('sale.html')">Sale</a>
+                        <a href="#" class="navbar-link special-txt" onclick="changeFrameSrc('sale.html')">Sale</a>
                     </li>
 
                     <li class="navbar-item">
@@ -178,7 +178,7 @@
                                     class="md hydrated"></ion-icon>
                             </a>
 
-                            <div class="secondary-badge pointer" onclick="changeFrameSrc('./sale.html')">
+                            <div class="secondary-cta-button pointer" onclick="changeFrameSrc('./sale.html')">
                                 <span>EXPLORE SALE ITEMS</span>
                             </div>
                         </div>
@@ -224,10 +224,12 @@
                                 z-index: 3;
                                 color: white;
                             ">
-                    <button class="animate-on-scroll explorecollectionbtn ">
-                        <span class="explorecollectionbtnspan">SHOP NOW</span>
 
-                    </button>
+                    <a href="./sale.html" class="primary-cta-button">
+                        <span>VIEW COLLECTION</span>
+                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
+                            class="md hydrated"></ion-icon>
+                    </a>
                 </div>
 
                 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/94d5d968437969.5b5cf6dccecfe.jpg"
@@ -277,10 +279,11 @@
                 </div>
 
                 <div class="explorecollectionbtndiv">
-                    <button class="animate-on-scroll show explorecollectionbtn">
-                        <span class="explorecollectionbtnspan">EXPLORE COLLECTION</span>
-
-                    </button>
+                    <a href="" class="primary-cta-button">
+                        <span>EXPLORE COLLECTION</span>
+                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
+                            class="md hydrated"></ion-icon>
+                    </a>
                 </div>
 
                 <!-- Main Image with Tilt Effect -->
@@ -343,10 +346,11 @@
                 </div>
 
                 <div class="explorecollectionbtndiv">
-                    <button class="animate-on-scroll show explorecollectionbtn">
-                        <span class="explorecollectionbtnspan">EXPLORE COLLECTION</span>
-
-                    </button>
+                    <a href="" class="primary-cta-button">
+                        <span>EXPLORE COLLECTION</span>
+                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
+                            class="md hydrated"></ion-icon>
+                    </a>
                 </div>
 
                 <!-- Main Image with Tilt Effect -->
@@ -371,503 +375,6 @@
                         height="578" style="width: 100%; height: 100%;"></canvas></div>
             </div>
 
-            <!-- 
-            <div>
-                <div id="men-area" class="hidden">
-                    <section class="mt-40 flex flex-wrap">
-
-                        <div class="collection-card height-200 width-available m-20 pointer" id="mencollection-img"
-                            onclick="changeFrameSrc('./Category.html?category=men')">
-                            <h3 class="h4 card-title white-font">men Collections</h3>
-                            <a href="./Category.html?category=men" type="men" class="btn btn-secondary2 mt-10">
-                                <span>Explore All</span>
-
-                                <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                    class="md hydrated"></ion-icon>
-                            </a>
-                        </div>
-                    </section>
-
-                    <section class="section collection">
-                        <div class="container">
-
-                            <ul class="collection-list has-scrollbar">
-                                <li>
-
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="men-top-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&type=Top')">
-                                        <h3 class="h4 card-title card-title-Category">Tops Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&type=Top" type="Tops"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="men-bottom-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&type=Bottom')">
-                                        <h3 class="h4 card-title card-title-Category">Bottoms Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&type=Bottom" type="Bottoms"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="men-footware-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&type=Footwear')">
-                                        <h3 class="h4 card-title card-title-Category">FootWare Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&type=Footwear" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-                <div id="men-footware-area" class="hidden">
-                    <section class="section collection py-50 px-20">
-                        <div class="container flex">
-                            <div class="flex flex-direction-column center p-10">
-                                <h4 class="h4 card-title card-title-Category">Men Collection</h4>
-                                <a href="./Category.html?&category=men&type=Footwear" type="Shoses"
-                                    class="btn btn-secondary btn-secondary-sm btn-explore mt-10 fit-content">
-                                    <span>Explore All</span>
-
-                                    <ion-icon name="arrow-forward-outline" size="small" aria-hidden="true" role="img"
-                                        class="md hydrated"></ion-icon>
-                                </a>
-                            </div>
-
-                            <ul class="collection-list has-scrollbar">
-
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="men-shoses-img"
-                                        id="men-Shoses-Collections"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&piece=Shoes')">
-                                        <h3 class="h4 card-title card-title-Category">Shoses Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&piece=Shoes" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="men-slippers-img"
-                                        id="men-Slippers-Collections"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&piece=Slipper')">
-                                        <h3 class="h4 card-title card-title-Category">Slippers Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&piece=Slipper" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="men-Flip-Flop-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&piece=Flip-Flop')">
-                                        <h3 class="h4 card-title card-title-Category">Flip Flops Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&piece=Flip-Flop" type="Flip-Flop"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="men-sandal-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&piece=Sandal')">
-                                        <h3 class="h4 card-title card-title-Category">Sandals Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&piece=Sandal" type="Sandal"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="men-Loafers-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&piece=Loafers')">
-                                        <h3 class="h4 card-title card-title-Category">Loafers Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&piece=Loafers" type="Loafers"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="men-moccasins-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&piece=Moccasins')">
-                                        <h3 class="h4 card-title card-title-Category">Moccasins Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&piece=Moccasins" type="moccasins"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="men-classic-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=men&piece=classic')">
-                                        <h3 class="h4 card-title card-title-Category">Classic Shoes Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=men&piece=classic" type="classic"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-
-                <div id="women-area" class="hidden">
-                    <section class="mt-40 flex flex-wrap">
-                        <div class="collection-card height-200 width-available m-20 pointer" id="womencollection-img"
-                            onclick="changeFrameSrc('./Category.html?category=women')">
-                            <h3 class="h4 card-title white-font">Women Collections</h3>
-
-                            <a href="./Category.html?category=women" type="Women" class="btn btn-secondary2 mt-10">
-                                <span>Explore All</span>
-
-                                <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                    class="md hydrated"></ion-icon>
-                            </a>
-                        </div>
-
-                    </section>
-                    <section class="section collection">
-                        <div class="container">
-                            <ul class="collection-list has-scrollbar">
-
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="women-top-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&type=Top')">
-                                        <h3 class="h4 card-title card-title-Category">Tops Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&type=Top" type="Tops"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="women-bottom-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&type=Bottom')">
-                                        <h3 class="h4 card-title card-title-Category">Bottoms Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&type=Bottom" type="Bottoms"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="women-footware-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&type=Footwear')">
-                                        <h3 class="h4 card-title card-title-Category">FootWare Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&type=Footwear" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-                <div id="women-footware-area" class="hidden">
-                    <section class="section collection py-50 px-20">
-                        <div class="container flex ">
-                            <div class="flex flex-direction-column center p-10">
-                                <h4 class="h4 card-title card-title-Category">Women Collection</h4>
-                                <a href="./Category.html?&category=women&type=Footwear" type="Shoses"
-                                    class="btn btn-secondary btn-secondary-sm btn-explore mt-10 fit-content">
-                                    <span>Explore All</span>
-
-                                    <ion-icon name="arrow-forward-outline" size="small" aria-hidden="true" role="img"
-                                        class="md hydrated"></ion-icon>
-                                </a>
-                            </div>
-                            <ul class="collection-list has-scrollbar ">
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="women-shoses-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&piece=Shoes')">
-                                        <h3 class="h4 card-title card-title-Category">Shoses Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&piece=Shoes" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="women-slippers-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&piece=Slipper')">
-                                        <h3 class="h4 card-title card-title-Category">Slippers Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&piece=Slipper" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="women-Flip-Flop-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&piece=Flip-Flop')">
-                                        <h3 class="h4 card-title card-title-Category">Flip Flops Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&piece=Flip-Flop" type="Flip-Flop"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="women-sandal-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&piece=Sandal')">
-                                        <h3 class="h4 card-title card-title-Category">Sandals Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&piece=Sandal" type="Sandal"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="women-heels-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&piece=Heels')">
-                                        <h3 class="h4 card-title card-title-Category">Heels Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&piece=Heels" type="Sandal"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="women-Loafers-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&piece=Loafers')">
-                                        <h3 class="h4 card-title card-title-Category">Loafers Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&piece=Loafers" type="Loafers"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="women-moccasins-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=women&piece=Moccasins')">
-                                        <h3 class="h4 card-title card-title-Category">Moccasins Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=women&piece=Moccasins" type="moccasins"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-
-                <div id="kids-area" class="hidden">
-                    <section class="mt-40 flex flex-wrap">
-                        <div class="collection-card height-200 width-available m-20 pointer" id="kidscollection-img"
-                            onclick="changeFrameSrc('./Category.html?category=kids')">
-                            <h3 class="h4 card-title white-font">Kids Collections</h3>
-
-                            <a href="./Category.html?category=kids" type="Kids" class="btn btn-secondary2 mt-10">
-                                <span>Explore All</span>
-
-                                <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                    class="md hydrated"></ion-icon>
-                            </a>
-                        </div>
-
-                    </section>
-
-                    <section class="section collection">
-                        <div class="container">
-                            <ul class="collection-list has-scrollbar">
-
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="kids-top-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=kids&type=Top')">
-                                        <h3 class="h4 card-title card-title-Category">Tops Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=kids&type=Top" type="Tops"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="kids-bottom-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=kids&type=Bottom')">
-                                        <h3 class="h4 card-title card-title-Category">Bottoms Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=kids&type=Bottom" type="Bottoms"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="kids-footware-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=kids&type=Footwear')">
-                                        <h3 class="h4 card-title card-title-Category">FootWare Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=kids&type=Footwear" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-                <div id="kids-footware-area" class="hidden">
-                    <section class="section collection py-50 px-20">
-                        <div class="container flex">
-                            <div class="flex flex-direction-column center p-10">
-                                <h4 class="h4 card-title card-title-Category">Kids Collection</h4>
-                                <a href="./Category.html?&category=kids&type=Footwear" type="Shoses"
-                                    class="btn btn-secondary btn-secondary-sm btn-explore mt-10 fit-content">
-                                    <span>Explore All</span>
-
-                                    <ion-icon name="arrow-forward-outline" size="small" aria-hidden="true" role="img"
-                                        class="md hydrated"></ion-icon>
-                                </a>
-                            </div>
-
-                            <ul class="collection-list has-scrollbar">
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="kids-shoses-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=kids&piece=Shoes')">
-                                        <h3 class="h4 card-title card-title-Category">Shoses Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=kids&piece=Shoes" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer"
-                                        id="kids-slippers-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=kids&piece=Slipper')">
-                                        <h3 class="h4 card-title card-title-Category">Slippers Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=kids&piece=Slipper" type="Shoses"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="kids-sandal-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=kids&piece=Sandal')">
-                                        <h3 class="h4 card-title card-title-Category">Sandals Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=kids&piece=Sandal" type="Sandal"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="collection-card height-400 flex-start p-0 pointer" id="kids-boots-img"
-                                        onclick="changeFrameSrc('./Category.html?&category=kids&piece=Boots')">
-                                        <h3 class="h4 card-title card-title-Category">Boots Collections</h3>
-                                    </div>
-                                    <a href="./Category.html?&category=kids&piece=Boots" type="Sandal"
-                                        class="btn btn-secondary btn-explore mt-10 fit-content">
-                                        <span>Explore All</span>
-
-                                        <ion-icon name="arrow-forward-outline" aria-hidden="true" role="img"
-                                            class="md hydrated"></ion-icon>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-            </div> -->
 
             <div class="scroll-container flex space-around height-max" id="piece-choose">
                 <div class="flex center align-items m-20 shop-by-piece">

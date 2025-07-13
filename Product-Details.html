@@ -27,8 +27,9 @@
             height: auto;
             /* object-fit: contain; */
             grid-area: main;
-            border-radius: var(--buttonsradius);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: var(--s-e-r);
+            box-shadow: 0 2px 4px var(--vipcolorop05);
+            ;
         }
 
         /* Thumbnail container */
@@ -48,7 +49,7 @@
             width: 80px;
             height: 80px;
             object-fit: cover;
-            border-radius: var(--buttonsradius);
+            border-radius: var(--s-e-r);
             border: 1px solid transparent;
             transition: all 0.2s ease;
         }
@@ -60,7 +61,7 @@
         }
 
         .thumbnail.active {
-            border: 1px solid #666;
+            border: 1px solid var(--vipcolorop05);
             transform: translateY(-3px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -425,10 +426,10 @@
                                             html: `
         <div style="gap: 10px;display: flex;align-items: center;margin-bottom: 15px;flex-direction: column;">
             <img src="${srcValue}" style="width: 200px; height: 200px; object-fit: cover; margin-right: 15px;">
-            <div style="text-align: center;">
-                <h4 style="margin: 0; font-size: 16px;">${title}</h4>
-                <p style="margin: 5px 0; color: #555;">${productSize} | ${productColor}</p>
-                <p style="margin: 0; font-weight: bold;">${productPrice}</p>
+            <div style="text-align: center;display: flex;gap: 10px;flex-direction: column;">
+                <h4 class="modal-txt">${title}</h4>
+                <p class="modal-txt">${productSize} | ${productColor}</p>
+                <p class="modal-txt">${productPrice}</p>
             </div>
         </div>
     `,
