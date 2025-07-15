@@ -137,7 +137,7 @@ function openCartModal(productId) {
         // }
 
         let salePrice = originalPrice;
-
+        mainPrice = calculateSalePrice(originalPrice, saleAmount);
         if (saleAmount) {
           salePrice = calculateSalePrice(originalPrice, saleAmount);
         }
@@ -193,7 +193,7 @@ function openCartModal(productId) {
           ? `<del class="pre-sale-animation">${originalPrice} EGP</del>`
           : ""
       }
-      <p class="card-price-animation" id="productPrice">${salePrice} EGP</p>
+      <p class="card-price-animation" id="productPrice">${mainPrice} EGP</p>
     </div>
 
     <!-- Product Image -->
@@ -211,7 +211,7 @@ function openCartModal(productId) {
       </h3>
       <div id="size-hint-text" style="display: none; font-size: 16px; color: #333; margin-top: 10px;"></div>
     </div>
-    <ul class="mt-5 flex flex-wrap size-buttons-area">
+    <ul class="mt-5 flex center flex-wrap size-buttons-area">
       ${Object.keys(product.sizes)
         .map(
           (size) => `
@@ -372,7 +372,7 @@ function SizeRef(size) {
   const sizeButtons = document.querySelectorAll(".size-radio");
   sizeButtons.forEach((button) => {
     button.style.backgroundColor =
-      button.textContent.trim() === size ? "#333" : "";
+      button.textContent.trim() === size ? "var(--vipcolorop05)" : "";
     button.style.color = button.textContent.trim() === size ? "#fff" : "#000";
   });
 

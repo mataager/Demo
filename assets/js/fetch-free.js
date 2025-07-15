@@ -148,7 +148,7 @@ async function fetchAndRenderProducts() {
                 ${outOfStockBadge}
                 ${
                   saleAmount
-                    ? `<div class="card-badge"><div id="saleAmountbadge">-${saleAmount}%</div>${bestSellerHTML}</div>`
+                    ? `<div class="card-badge"><div id="saleAmountbadge">Save ${saleAmount}%</div>${bestSellerHTML}</div>`
                     : ""
                 }
                

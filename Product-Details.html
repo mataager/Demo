@@ -28,8 +28,7 @@
             /* object-fit: contain; */
             grid-area: main;
             border-radius: var(--s-e-r);
-            box-shadow: 0 2px 4px var(--vipcolorop05);
-            ;
+            box-shadow: 0 0px 2px var(--vipcolorop05);
         }
 
         /* Thumbnail container */
@@ -790,11 +789,12 @@
                 let productPriceHTML = '';
 
                 const salePrice = calculateSalePrice(originalPrice, saleAmount);
+                const mainPrice = calculateSalePrice(originalPrice, saleAmount);
                 if (saleAmount) {
                     prePriceHTML = `<p id="preprice" class="m-5 mb-10"><del class="pre-sale">${originalPrice} EGP</del></p>`;
                     productPriceHTML = `<p id="productPrice" class="m-5 mb-10">${salePrice} EGP</p>`;
                 } else {
-                    productPriceHTML = `<p id="productPrice" class="m-5 mb-10">${originalPrice} EGP</p>`;
+                    productPriceHTML = `<p id="productPrice" class="m-5 mb-10">${mainPrice} EGP</p>`;
                 }
 
                 prePriceElement.innerHTML = prePriceHTML;
@@ -879,61 +879,6 @@
                 sizeTabs.innerHTML = ''; // Clear previous size options
                 colorOptions.innerHTML = ''; // Clear previous color options
 
-                // for (const size in sizes) {
-                //     const sizeRadio = document.createElement('div');
-                //     sizeRadio.classList.add('size-radio');
-                //     sizeRadio.setAttribute('onclick', 'SizeRef(this)');
-
-                //     const label = document.createElement('label');
-                //     label.classList.add('radio-input_option');
-
-                //     const span = document.createElement('span');
-                //     span.classList.add('size-value');
-                //     span.innerText = size;
-
-                //     label.appendChild(span);
-                //     sizeRadio.appendChild(label);
-                //     sizeTabs.appendChild(sizeRadio);
-
-                //     // Event listener for size selection
-                //     sizeRadio.addEventListener('click', function () {
-                //         productSizeElement.innerText = size;
-                //         colorOptions.innerHTML = ''; // Clear color options when size is selected
-
-                //         // Hide the hint element
-                //         hintElement.classList.add('hidden');
-
-                //         const colors = sizes[size];
-
-                //         for (const color in colors) {
-                //             const colorOption = document.createElement('div');
-                //             const colorOptionwrapper = document.createElement('div');
-                //             colorOption.classList.add('color-option');
-                //             colorOptionwrapper.classList.add('colorOptionwrapper');
-                //             const qty = colors[color]["qty"];
-
-                //             colorOption.style.backgroundColor = colors[color]["color-value"];
-                //             colorOption.setAttribute('data-color-name', color);
-                //             colorOption.setAttribute('onclick', 'ColorRef(this)');
-                //             colorOption.setAttribute('color-qty', qty); // Add quantity as data attribute
-                //             colorOption.addEventListener('click', function (colorName) {
-                //                 var colorName = colorOption.getAttribute('data-color-name');
-                //                 showPreloader();
-                //                 updateProductImages(colorName);
-                //                 setTimeout(() => {
-                //                     hidePreloader();
-                //                 }, 500);
-                //             });
-                //             colorOptionwrapper.appendChild(colorOption);
-
-                //             // Then append the wrapper to colorOptions
-                //             colorOptions.appendChild(colorOptionwrapper);
-                //         }
-
-                //         // checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
-                //     });
-                // }
-                // Sort sizes before generating size buttons
                 const letterSizeOrder = [
                     'xxxs', 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl', 'xxxxl'
                 ];
@@ -1255,12 +1200,7 @@
             element.style.backgroundColor = '';
             element.style.color = '';
         });
-
-        //
-
-        //
-
-        selectedElement.style.backgroundColor = '#333';
+        selectedElement.style.backgroundColor = 'var(--vipcolorop05)';
         selectedElement.style.color = 'white';
 
         // Reset color selection when size changes

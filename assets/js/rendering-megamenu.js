@@ -324,8 +324,8 @@ const brandsData = [
     logo: "https://images.seeklogo.com/logo-png/37/1/lanvin-paris-logo-png_seeklogo-379039.png",
   },
   {
-    name: "Salomon",
-    logo: "https://cdn.freebiesupply.com/logos/large/2x/salomon-logo-png-transparent.png",
+    name: "loropiana",
+    logo: "https://brandlogos.net/wp-content/uploads/2022/07/loro_piana-logo_brandlogos.net_vkqaw-512x512.png",
   },
 
   {

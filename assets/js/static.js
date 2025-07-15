@@ -13,14 +13,14 @@ const brandsnavbar = ["yes"];
 const storeType = "clothing"; // clothing or footwear
 //shipping config
 const maincities = ["Cairo", "Giza", "Alexandria"];
-const freeshipping = "6000";
+const freeshipping = "1000";
 const minshipping = 60;
 const maxshipping = 90;
 const specialshipping = 75;
 const vanishedstock = false;
 const outofstock = true;
 const flippedimages = true;
-const autopricehandle = false;
+const autopricehandle = true;
 const codfees = 10;
 
 // guest checkout
