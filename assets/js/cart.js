@@ -248,11 +248,47 @@ function renderNoAddressesMessage() {
     noAddressDiv.classList.add("no-address-message");
 
     noAddressDiv.innerHTML = `
-    <i class="bi bi-geo-alt-fill"></i>
-      <h5 class="elegant-message">No address found</h5>
-      <p>
-        Please <a href="./account.html" class="link-to-add">add an address</a> to submit your order.
-      </p>
+    <div class="no-address-card">
+        <div class="address-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#4a6cf7" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+        </div>
+        <h3 class="address-title">No Address Found</h3>
+        <p class="address-subtitle">To complete your order, please add a delivery address</p>
+        
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <a href="./account.html" class="step-link">Go to Account Page</a>
+                    <p class="step-description">Click to navigate to your account settings</p>
+                </div>
+                <div class="step-arrow">→</div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <span class="step-link">Add New Address</span>
+                    <p class="step-description">Fill in your delivery address details</p>
+                </div>
+                <div class="step-arrow">→</div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <span class="step-link">Return to Cart</span>
+                    <p class="step-description">Come back to complete your order</p>
+                </div>
+            </div>
+        </div>
+        
+        <a href="./account.html" class="add-address-button">
+            Add Address Now
+        </a>
+    </div>
     `;
 
     // Append the no address message to the container

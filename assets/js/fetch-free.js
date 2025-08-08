@@ -486,3 +486,56 @@ function shuffle(array) {
   }
   return array;
 }
+
+//
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(showWelcomeCard, 5000);
+});
+
+function showWelcomeCard() {
+  // Create elements
+  const overlay = document.createElement("div");
+  overlay.className = "welcome-overlay";
+
+  const card = document.createElement("div");
+  card.className = "welcome-card";
+  card.innerHTML = `
+                <h2>Elevating Your Experience</h2>
+                <p>Sign in to unlock personalized features, exclusive content, and a seamless experience tailored just for you.</p>
+                <button class="regularbtn p-10" onclick="changeFrameSrc('account.html')">Continue to Sign In</button>
+                <button class="regularbtn p-10 skipbtn">Skip</button>
+                <div class="linkastxt mt-20" onclick="changeFrameSrc('https://matager.online')">want to own your website !</div>
+            `;
+
+  // Append to body
+  document.body.appendChild(overlay);
+  overlay.appendChild(card);
+
+  // Trigger animations
+  setTimeout(() => {
+    overlay.classList.add("show-overlay");
+    card.classList.add("show-card");
+  }, 10);
+
+  // Close functionality
+  const skipbtn = card.querySelector(".skipbtn");
+
+  function closeCard() {
+    card.classList.remove("show-card");
+    overlay.classList.remove("show-overlay");
+
+    setTimeout(() => {
+      document.body.removeChild(overlay);
+    }, 400);
+  }
+
+  skipbtn.addEventListener("click", closeCard);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeCard();
+  });
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeCard();
+  });
+}

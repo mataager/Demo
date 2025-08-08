@@ -19,7 +19,7 @@ const maxshipping = 90;
 const specialshipping = 75;
 const vanishedstock = false;
 const outofstock = true;
-const flippedimages = true;
+const flippedimages = false;
 const autopricehandle = true;
 const codfees = 10;
 

@@ -220,11 +220,7 @@ async function handleProductRendering() {
     console.error("Error during product rendering:", error);
   }
 }
-function updateSalePaginationButtons() {
-  document.getElementById("prevPageBtn").disabled = currentPageSale === 1;
-  document.getElementById("nextPageBtn").disabled =
-    currentPageSale * itemsPerPageSale >= totalSaleProducts;
-}
+
 
 // Function to set up hover effect
 function setupHoverEffect(productCard) {
@@ -242,20 +238,7 @@ function setupHoverEffect(productCard) {
 }
 
 // Function to handle "Next" button click event
-document.getElementById("nextPageBtn").addEventListener("click", () => {
-  const productList = document.querySelector(".product-list");
-  currentPageSale++;
-  productList.scrollIntoView({ behavior: "smooth", block: "start" }); // Scroll to the top of the product list
-  renderSaleProducts(); // Render products for the next page
-});
 
-// Function to handle "Previous" button click event
-document.getElementById("prevPageBtn").addEventListener("click", () => {
-  const productList = document.querySelector(".product-list");
-  currentPageSale = Math.max(1, currentPageSale - 1);
-  productList.scrollIntoView({ behavior: "smooth", block: "start" }); // Scroll to the top of the product list
-  renderSaleProducts(); // Render products for the previous page
-});
 
 // Fetch and render sale products on page load
 fetchAndRenderSaleProducts();

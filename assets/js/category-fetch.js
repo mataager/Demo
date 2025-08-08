@@ -264,24 +264,18 @@ async function handleProductRendering() {
   }
 }
 
-function updatePaginationButtons() {
-  document.getElementById("prevPageBtn").disabled = currentPage === 1;
-  document.getElementById("nextPageBtn").disabled =
-    currentPage * itemsPerPage >= totalProducts;
-}
+// document.getElementById("prevPageBtn").addEventListener("click", () => {
+//   if (currentPage > 1) {
+//     currentPage--;
+//     renderProducts();
+//   }
+// });
 
-document.getElementById("prevPageBtn").addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
-    renderProducts();
-  }
-});
-
-document.getElementById("nextPageBtn").addEventListener("click", () => {
-  if (currentPage * itemsPerPage < totalProducts) {
-    currentPage++;
-    renderProducts();
-  }
-});
+// document.getElementById("nextPageBtn").addEventListener("click", () => {
+//   if (currentPage * itemsPerPage < totalProducts) {
+//     currentPage++;
+//     renderProducts();
+//   }
+// });
 
 fetchAndRenderProducts();

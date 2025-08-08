@@ -260,11 +260,7 @@ async function handleProductRendering() {
 }
 
 // Update pagination buttons
-function updatePaginationButtons() {
-  document.getElementById("prevPageBtn").disabled = currentPage === 1;
-  document.getElementById("nextPageBtn").disabled =
-    currentPage * itemsPerPage >= totalProducts;
-}
+
 
 // On page load, fetch and render products by category or brand
 window.addEventListener("load", fetchAndRenderProductsByCategoryOrBrand);

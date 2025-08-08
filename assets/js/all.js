@@ -1417,5 +1417,3 @@ function getResponsiveCount() {
   if (width < 1200) return 4; // Small desktop
   return 5; // Large desktop
 }
-
-//

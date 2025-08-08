@@ -17,7 +17,8 @@ function rendersearch() {
                                 </button>
                                 <ul id="suggestions" class="suggestion-list"></ul>
                             </div>
-                        </div>`;
+                        </div>
+                        `;
 }
 // Call the function to render the menu when needed
 rendersearch();

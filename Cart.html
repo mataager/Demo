@@ -232,11 +232,11 @@
                                                             <div class="preloader2 hidden" id="cart-items-preloader">
                                                                 <div class="loader2"></div>
                                                             </div>
-                                                            <ul class="m-10-0-20-0" id="cart-items">
+                                                            <ul class=",t-10" id="cart-items">
                                                             </ul>
 
                                                         </div>
-                                                        <div class="h-5"></div>
+                                                        <!-- <div class="h-5"></div> -->
                                                     </div>
 
 
@@ -316,23 +316,64 @@
                                                     <div class="paymentdiv" id="paymentdiv">
                                                         <div
                                                             class="flex center align-items payment-options-sec-div mb-10">
-                                                            <button id=""
-                                                                class="paymentmeth-btn paymentmeth-btn-selected">Cash on
-                                                                Delivery</button>
-                                                            <button id="" class="paymentmeth-btn disabled" disabled
-                                                                title="Currently unavailable">Pay By Visa Card</button>
-                                                            <button id="" class="paymentmeth-btn disabled" disabled
-                                                                title="Currently unavailable">Pay By mobile
-                                                                wallet</button>
-                                                            <button id="" class="paymentmeth-btn disabled" disabled
-                                                                title="Currently unavailable">Pay By Value</button>
-                                                        </div>
-                                                        <p class="payment-note mb-20">Note: Currently only Cash on
-                                                            Delivery is
-                                                            available
-                                                        </p>
-                                                    </div>
+                                                            <div class="egys-payment-options">
+                                                                <h3 class="egys-payment-title">Which payment method
+                                                                    would you prefer?</h3>
 
+                                                                <div class="egys-payment-method">
+                                                                    <input type="radio" id="egys-visa"
+                                                                        name="paymentMethod" value="visa" checked=""
+                                                                        class="egys-payment-radio">
+                                                                    <label for="egys-visa" class="egys-payment-label">
+                                                                        <img src="https://www.logo.wine/a/logo/Visa_Inc./Visa_Inc.-Logo.wine.svg"
+                                                                            alt="Visa" class="egys-payment-icon">
+                                                                        <span class="egys-payment-text">Credit/Debit
+                                                                            Card</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="egys-payment-method">
+                                                                    <input type="radio" id="egys-vodafone"
+                                                                        name="paymentMethod" value="vodafone"
+                                                                        class="egys-payment-radio">
+                                                                    <label for="egys-vodafone"
+                                                                        class="egys-payment-label">
+                                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vodafone_logo_2017.png"
+                                                                            alt="Vodafone Cash"
+                                                                            class="egys-payment-icon">
+                                                                        <span class="egys-payment-text">Vodafone
+                                                                            Cash</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="egys-payment-method">
+                                                                    <input type="radio" id="egys-valu"
+                                                                        name="paymentMethod" value="valu"
+                                                                        class="egys-payment-radio">
+                                                                    <label for="egys-valu" class="egys-payment-label">
+                                                                        <img src="https://valu.com.eg/assets/images/valu.webp"
+                                                                            alt="Valu" class="egys-payment-icon">
+                                                                        <span class="egys-payment-text">Valu</span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="egys-payment-method">
+                                                                    <input type="radio" id="egys-cod"
+                                                                        name="paymentMethod" value="cod"
+                                                                        class="egys-payment-radio">
+                                                                    <label for="egys-cod" class="egys-payment-label">
+                                                                        <img src="https://icons.veryicon.com/png/o/business/a-set-of-commercial-icons/money-transfer.png"
+                                                                            alt="Cash on Delivery"
+                                                                            class="egys-payment-icon">
+                                                                        <span class="egys-payment-text">Cash on
+                                                                            Delivery</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="flex center total-cart-div mt-20">
@@ -366,7 +407,7 @@
                                                     <p class="mb-10 cart-area-divs-titels">Cart Summary</p>
 
                                                     <div
-                                                        class="flex flex-start flex-direction-column align-items-flex-start p-30">
+                                                        class="flex flex-start flex-direction-column align-items-flex-start p-30 cartsummarydiv">
                                                         <div
                                                             class="flex center align-items font-small mb-10 cart-data-area">
                                                             <h5>Cart Total :</h5><span id="cart-total"
@@ -381,7 +422,8 @@
 
                                                         <div class="flex center align-items font-small mb-10 cart-data-area"
                                                             id="paymentfees-area">
-                                                            <h5>COD Fees :</h5><span id="" class="ml-3">10 EGP</span>
+                                                            <h5>COD Fees :</h5><span id="" class="ml-3">10
+                                                                EGP</span>
                                                             <span id="" class="ml-3 hidden"></span>
                                                         </div>
 
@@ -813,21 +855,32 @@
                                         const imageDiv = document.createElement("div");
                                         const itemImage = document.createElement("img");
                                         itemImage.src = item.photourl;
-                                        itemImage.classList.add("pointer", "image-cart-sm");
+                                        itemImage.classList.add("pointer", "image-cart-sm", "prodcut-image-cart-div");
+                                        imageDiv.classList.add("prodcut-image-cart-div");
                                         itemImage.onclick = () => productDetails(item.id);
                                         imageDiv.appendChild(itemImage);
+                                        itemDetailsDiv.appendChild(imageDiv);
+
+                                        // Quantity - adding it to the imageDiv
+                                        const qtyElement = document.createElement("p");
+                                        qtyElement.classList.add("cartQty");
+                                        qtyElement.id = `qty-${item.id}`;
+                                        qtyElement.textContent = `Qty: ${item.quantity}`;
+                                        imageDiv.appendChild(qtyElement);
+
                                         itemDetailsDiv.appendChild(imageDiv);
 
                                         // Text
                                         const textDiv = document.createElement("div");
                                         textDiv.classList.add("Product-record");
                                         textDiv.innerHTML = `
+            <div class="cartItem-color" style="background-color:${item.colorValue};"></div>
             <h5 class="pointer" onclick="brand('${item.brand}')">${item.brand}</h5>
             <p class="cart-font-smaller">${item.title}</p>
             <p>Size: ${item.productSize}</p>
-            <p>Color: ${item.productColor}</p>
+            <p class="hidden">Color: ${item.productColor}</p>
             <p id="price-${item.id}">${(parseFloat(item.price.replace(" EGP", "")) * item.quantity)} EGP</p>
-            <p id="qty-${item.id}">Qty: ${item.quantity}</p>
+            
         `;
                                         itemDetailsDiv.appendChild(textDiv);
 

@@ -20,13 +20,14 @@ function emailPasswordSignIn() {
           <input type="email" id="email" class="swal2-input" placeholder="Enter your email">
           <input type="password" id="password" class="swal2-input" placeholder="Enter your password">
           <div id="signin-error" class="error-hint"></div>
-          <button  id="continueGuest"  class="animate-on-scroll-auto show" style="display: block;">
-                    <div class="flex align-items signinupbtn04392">
+          <div id="continueGuest" class="flex align-items signinupbtn04392">
                         <div class="sign-txt mr-5">
                             Sign In
                         </div>
                         <i class="fa-solid fa-right-to-bracket sign-txt"></i>
                     </div>
+          <button    class="animate-on-scroll-auto show" style="display: block;">
+                    
                 </button>
           <div id="signin-preloader" class="preloader" style="display: none;"> <div class="loader"></div></div>
           <p style="margin-top: 40px;" class="signup-link-container ">Don't have an account? <a href="#" id="signup-link" class="mt-10 pb-5 link-matager">Sign up here</a></p>
