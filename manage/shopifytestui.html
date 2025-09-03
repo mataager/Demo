@@ -99,28 +99,59 @@
 
         <!-- Dashboard Content -->
         <div id="dashboard" class="content-section active">
-            <div class="dashboard-cards">
+            <div class="dashboard-header">
+                <h2>Dashboard Overview</h2>
+            </div>
+            <div class="cards-grid">
+                <!-- Total Products Card -->
                 <div class="card">
-                    <h3>Total Products</h3>
-                    <p id="Total-Products">124</p>
-                    <div class="shine"></div>
+                    <div class="card-shine"></div>
+                    <div class="card-header">
+                        <h3 class="card-title">Total Products</h3>
+                        <div class="card-icon icon-products">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">124</div>
                 </div>
+
+                <!-- Total Orders Card -->
                 <div class="card">
-                    <h3>Shop Email</h3>
-                    <p id="shop-Email">contact@peacock.com</p>
-                    <div class="shine"></div>
+                    <div class="card-shine"></div>
+                    <div class="card-header">
+                        <h3 class="card-title">Total Orders</h3>
+                        <div class="card-icon icon-orders">
+                            <i class="bi bi-cart"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">256</div>
                 </div>
+
+                <!-- phone num -->
                 <div class="card">
-                    <h3>Shop Numbers</h3>
-                    <p id="shop-Numbers">+1 (555) 123-4567</p>
-                    <div class="shine"></div>
+                    <div class="card-shine"></div>
+                    <div class="card-header">
+                        <h3 class="card-title">Shop Numbers</h3>
+                        <div class="card-icon icon-orders">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">+20 1010773587</div>
                 </div>
+
+                <!-- Email-->
                 <div class="card">
-                    <h3>Total Orders</h3>
-                    <p>256</p>
-                    <div class="shine"></div>
+                    <div class="card-shine"></div>
+                    <div class="card-header">
+                        <h3 class="card-title">Shop Email</h3>
+                        <div class="card-icon icon-orders">
+                            <i class="bi bi-inbox"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">peacockmenswear@gmail.com</div>
                 </div>
             </div>
+
 
             <div class="image-section">
                 <div class="image-card panner-img">
@@ -162,42 +193,52 @@
             <div class="orders-header">
                 <h2>Orders Management</h2>
                 <div class="orders-summary">
-                    <div class="summary-card">
-                        <div class="summary-icon total">
-                            <i class="bi bi-cart"></i>
+
+                    <div class="card">
+                        <div class="card-shine"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Total Orders</h3>
+                            <div class="card-icon icon-orders">
+                                <i class="bi bi-cart"></i>
+                            </div>
                         </div>
-                        <div class="summary-info">
-                            <h3>Total Orders</h3>
-                            <p>21</p>
-                        </div>
+                        <div class="card-value">21</div>
                     </div>
-                    <div class="summary-card">
-                        <div class="summary-icon pending">
-                            <i class="bi bi-clock"></i>
+
+                    <div class="card">
+                        <div class="card-shine"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Pending</h3>
+                            <div class="card-icon icon-orders">
+                                <i class="bi bi-clock"></i>
+                            </div>
                         </div>
-                        <div class="summary-info">
-                            <h3>Pending</h3>
-                            <p>14</p>
-                        </div>
+                        <div class="card-value">14</div>
                     </div>
-                    <div class="summary-card">
-                        <div class="summary-icon completed">
-                            <i class="bi bi-check-circle"></i>
+
+                    <div class="card">
+                        <div class="card-shine"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Completed Orders</h3>
+                            <div class="card-icon icon-orders">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
                         </div>
-                        <div class="summary-info">
-                            <h3>Completed</h3>
-                            <p>5</p>
-                        </div>
+                        <div class="card-value">5</div>
                     </div>
-                    <div class="summary-card">
-                        <div class="summary-icon cancelled">
-                            <i class="bi bi-x-circle"></i>
+
+                    <div class="card">
+                        <div class="card-shine"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Cancelled Orders</h3>
+                            <div class="card-icon icon-orders">
+                                <i class="bi bi-x-circle"></i>
+                            </div>
                         </div>
-                        <div class="summary-info">
-                            <h3>Cancelled</h3>
-                            <p>2</p>
-                        </div>
+                        <div class="card-value">9</div>
                     </div>
+
+
                 </div>
             </div>
 
@@ -355,7 +396,7 @@
             <div class="dashboard-container">
                 <div class="dashboard-header">
                     <div>
-                        <h1>Products Management</h1>
+                        <h2>Products Management</h2>
                         <p>Manage your product inventory and listings</p>
                     </div>
                     <div class="header-actions">
@@ -710,7 +751,7 @@
                         </div>
                     </div>
 
-                    <div class="metrics-grid">
+                    <!-- <div class="metrics-grid">
                         <div class="metric-card">
                             <div class="metric-header">
                                 <div class="metric-title">Total Revenue</div>
@@ -762,6 +803,67 @@
                                 <i class="bi bi-arrow-down"></i> 1.2% from last period
                             </div>
                         </div>
+                    </div> -->
+                    <div class="cards-grid">
+                        <!-- Total Revenue Card -->
+                        <div class="card">
+                            <div class="card-shine"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">Total Revenue</h3>
+                                <div class="card-icon icon-revenue">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </div>
+                            </div>
+                            <div class="card-value">$24,582</div>
+                            <div class="card-change change-positive">
+                                <i class="bi bi-arrow-up"></i> 12.5% from last period
+                            </div>
+                        </div>
+
+                        <!-- Orders Card -->
+                        <div class="card">
+                            <div class="card-shine"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">Orders</h3>
+                                <div class="card-icon icon-orders">
+                                    <i class="bi bi-cart"></i>
+                                </div>
+                            </div>
+                            <div class="card-value">1,247</div>
+                            <div class="card-change change-positive">
+                                <i class="bi bi-arrow-up"></i> 8.3% from last period
+                            </div>
+                        </div>
+
+                        <!-- Orders Card -->
+                        <div class="card">
+                            <div class="card-shine"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">Customers</h3>
+                                <div class="card-icon icon-customers">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                            </div>
+                            <div class="card-value">3,458</div>
+                            <div class="card-change change-positive">
+                                <i class="bi bi-arrow-up"></i> 8.3% from last period
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-shine"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">Conversion Rate</h3>
+                                <div class="card-icon icon-conversion">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                            </div>
+                            <div class="card-value">4.2%</div>
+                            <div class="card-change change-negative">
+                                <i class="">1.2% from last period
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <div class="charts-container">
@@ -1236,6 +1338,47 @@
                     element.textContent = formatNumberWithCommas(text);
                 }
             });
+        });
+    </script>
+    <script>
+        // Set initial state for animation
+        function initializeCards() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+        }
+
+        // Animate cards function
+        function animateCards() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        }
+
+        // Reset animation
+        function resetAnimation() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+            });
+
+            // Re-animate after reset
+            setTimeout(animateCards, 100);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeCards();
+            // Start animation after a short delay
+            setTimeout(animateCards, 100);
         });
     </script>
 </body>
