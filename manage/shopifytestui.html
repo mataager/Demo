@@ -99,8 +99,9 @@
 
         <!-- Dashboard Content -->
         <div id="dashboard" class="content-section active">
-            <div class="dashboard-header">
+            <div class="dashboard-right-header">
                 <h2>Dashboard Overview</h2>
+                <p>Manage your store efficiently with our comprehensive dashboard</p>
             </div>
             <div class="cards-grid">
                 <!-- Total Products Card -->
@@ -191,7 +192,11 @@
         <!-- Orders Content -->
         <div id="orders" class="content-section">
             <div class="orders-header">
-                <h2>Orders Management</h2>
+                <div class="dashboard-right-header">
+                    <h2>Orders Management</h2>
+                    <p>Process, track, and manage customer orders efficiently</p>
+                </div>
+
                 <div class="orders-summary">
 
                     <div class="card">
@@ -394,24 +399,16 @@
         <!-- Products Content -->
         <div id="products" class="content-section">
             <div class="dashboard-container">
-                <div class="dashboard-header">
+                <div class="dashboard-right-header">
                     <div>
                         <h2>Products Management</h2>
                         <p>Manage your product inventory and listings</p>
-                    </div>
-                    <div class="header-actions">
-                        <div class="search-box">
-                            <input type="text" placeholder="Search products..." class="form-input">
-                        </div>
-                        <button class="btn btn-primary">
-                            <i class="bi bi-plus-circle"></i> Add New Product
-                        </button>
                     </div>
                 </div>
 
                 <!-- Stats Cards -->
                 <div class="stats-container">
-                    <div class="stat-card available">
+                    <div class="card available">
                         <div class="stat-card-header">
                             <div class="stat-card-title">Available Products</div>
                             <div class="stat-card-icon available">
@@ -428,7 +425,7 @@
                         </div>
                     </div>
 
-                    <div class="stat-card uploaded">
+                    <div class="card uploaded">
                         <div class="stat-card-header">
                             <div class="stat-card-title">Uploaded Products</div>
                             <div class="stat-card-icon uploaded">
@@ -446,272 +443,304 @@
                     </div>
                 </div>
 
-                <!-- Product Form -->
-                <div class="form-container">
-                    <div class="form-header">
-                        <h2 class="form-title"><i class="bi bi-tag"></i> Product Information</h2>
-                        <div class="form-actions">
-                            <button class="btn btn-outline">
-                                <i class="bi bi-eye"></i> Preview
-                            </button>
-                            <button class="btn btn-outline">
-                                <i class="bi bi-gear"></i> Set as Default
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label">Product Title</label>
-                            <input type="text" class="form-input" placeholder="Enter your product title">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Brand Name</label>
-                            <input type="text" class="form-input" placeholder="Enter your brand">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Main Category</label>
-                            <select class="form-select">
-                                <option value="men">Men</option>
-                                <option value="women">Women</option>
-                                <option value="unisex">Unisex</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Product Type</label>
-                            <select class="form-select">
-                                <option value="T-Shirt">T-Shirt</option>
-                                <option value="Polo-Shirt">Polo-Shirt</option>
-                                <option value="Shirt">Shirt</option>
-                                <option value="Tank-top">Tank-top</option>
-                                <option value="Sweatshirt">Sweatshirt</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Wear Type</label>
-                            <select class="form-select">
-                                <option value="Top">Top</option>
-                                <option value="Bottom">Bottom</option>
-                                <option value="Footwear">Footwear</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Product Description</label>
-                        <textarea class="form-textarea" placeholder="Type product description here..."></textarea>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search Amoung Products..." id="productSearch">
                     </div>
                 </div>
-
-                <!-- Pricing Form -->
-                <div class="form-container">
-                    <div class="form-header">
-                        <h2 class="form-title"><i class="bi bi-currency-exchange"></i> Pricing</h2>
-                        <div class="form-actions">
-                            <button class="btn btn-outline">
-                                <i class="bi bi-gear"></i> Set as Default
+                <div class="btn-group-unique-container">
+                    <div class="btn-group-unique-wrapper">
+                        <div class="btn-group-unique-buttons" style="transform: translateY(0px);">
+                            <button class="btn-group-unique-btn btn-group-unique-primary">
+                                <i class="bi bi-plus-circle"></i> Add Product
+                            </button>
+                            <button class="btn-group-unique-btn btn-group-unique-secondary">
+                                <i class="bi bi-pencil-square"></i> Edit Product
+                            </button>
+                            <button class="btn-group-unique-btn btn-group-unique-tertiary">
+                                <i class="bi bi-trash"></i> Delete Product
                             </button>
                         </div>
                     </div>
 
-                    <div class="pricing-grid">
-                        <div class="form-group">
-                            <label class="form-label">Base Price</label>
-                            <input type="text" class="form-input" placeholder="EGP">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Discount</label>
-                            <input type="text" class="form-input" placeholder="%">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">You Collect</label>
-                            <input type="text" class="form-input" placeholder="EGP" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">System Cut</label>
-                            <input type="text" class="form-input" placeholder="EGP" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Store Price</label>
-                            <input type="text" class="form-input" placeholder="EGP" readonly>
-                        </div>
+                    <div class="btn-group-unique-nav">
+                        <button class="btn-group-unique-arrow" id="btnGroupUniqueUpArrow" disabled>
+                            <i class="bi bi-chevron-up"></i>
+                        </button>
+                        <button class="btn-group-unique-arrow" id="btnGroupUniqueDownArrow">
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
                     </div>
+                </div>
+            </div>
 
-                    <div class="pricing-summary">
-                        <div class="summary-item">
-                            <span class="summary-label">Your Earnings:</span>
-                            <span class="summary-value profit">$0</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">System Fee:</span>
-                            <span class="summary-value system-cut">$0</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Customer Pays:</span>
-                            <span class="summary-value">$0</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
+            <!-- Product Form -->
+            <div class="form-container">
+                <div class="form-header">
+                    <h4 class="form-title"><i class="bi bi-tag"></i> Product Information</h4>
+                    <div class="form-actions">
                         <button class="btn btn-outline">
-                            <i class="bi bi-magic"></i> Enhance Price
+                            <i class="bi bi-eye"></i> Preview
+                        </button>
+                        <button class="btn btn-outline">
+                            <i class="bi bi-gear"></i> Set as Default
                         </button>
                     </div>
                 </div>
 
-                <!-- Size & Quantity Form -->
-                <div class="form-container">
-                    <div class="form-header">
-                        <h2 class="form-title"><i class="bi bi-rulers"></i> Size & Quantity</h2>
-                        <div class="form-actions">
-                            <button class="btn btn-outline">
-                                <i class="bi bi-gear"></i> Set as Default
-                            </button>
-                        </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Product Title</label>
+                        <input type="text" class="form-input" placeholder="Enter your product title">
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Size Type</label>
-                        <div class="size-toggle">
-                            <div class="toggle-option active">
-                                <i class="bi bi-123"></i> Numeric
-                            </div>
-                            <div class="toggle-option">
-                                <i class="bi bi-fonts"></i> Alphabetical
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="range-selector">
-                        <div class="form-group">
-                            <label class="form-label">From</label>
-                            <input type="number" class="form-input" value="35">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">To</label>
-                            <input type="number" class="form-input" value="45">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Selected Range</label>
-                            <div class="form-input" style="background: #f9fafc;">35-45</div>
-                        </div>
+                        <label class="form-label">Brand Name</label>
+                        <input type="text" class="form-input" placeholder="Enter your brand">
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Exceptions (Select sizes to exclude)</label>
-                        <div class="exceptions-grid">
-                            <div class="exception-chip">36</div>
-                            <div class="exception-chip">38</div>
-                            <div class="exception-chip">40</div>
-                            <div class="exception-chip">42</div>
-                            <div class="exception-chip">44</div>
-                        </div>
+                        <label class="form-label">Main Category</label>
+                        <select class="form-select">
+                            <option value="men">Men</option>
+                            <option value="women">Women</option>
+                            <option value="unisex">Unisex</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Default Quantity</label>
-                        <input type="number" class="form-input" value="10">
+                        <label class="form-label">Product Type</label>
+                        <select class="form-select">
+                            <option value="T-Shirt">T-Shirt</option>
+                            <option value="Polo-Shirt">Polo-Shirt</option>
+                            <option value="Shirt">Shirt</option>
+                            <option value="Tank-top">Tank-top</option>
+                            <option value="Sweatshirt">Sweatshirt</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Wear Type</label>
+                        <select class="form-select">
+                            <option value="Top">Top</option>
+                            <option value="Bottom">Bottom</option>
+                            <option value="Footwear">Footwear</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-- Images Form -->
-                <div class="form-container">
-                    <div class="form-header">
-                        <h2 class="form-title"><i class="bi bi-images"></i> Images</h2>
-                        <div class="form-actions">
-                            <button class="btn btn-outline">
-                                <i class="bi bi-gear"></i> Set as Default
-                            </button>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Product Description</label>
+                    <textarea class="form-textarea" placeholder="Type product description here..."></textarea>
+                </div>
+            </div>
 
-                    <div class="image-upload-grid">
-                        <div class="upload-box">
-                            <i class="bi bi-cloud-arrow-up upload-icon"></i>
-                            <span>Upload Image</span>
-                        </div>
-                        <div class="upload-box">
-                            <i class="bi bi-cloud-arrow-up upload-icon"></i>
-                            <span>Upload Image</span>
-                        </div>
-                        <div class="upload-box">
-                            <i class="bi bi-cloud-arrow-up upload-icon"></i>
-                            <span>Upload Image</span>
-                        </div>
-                        <div class="upload-box">
-                            <i class="bi bi-cloud-arrow-up upload-icon"></i>
-                            <span>Upload Image</span>
-                        </div>
-                        <div class="upload-box">
-                            <i class="bi bi-plus upload-icon"></i>
-                            <span>Add More</span>
-                        </div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label">Color Value</label>
-                            <input type="color" class="form-input" style="height: 45px;">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Color Name</label>
-                            <input type="text" class="form-input" placeholder="Black">
-                        </div>
+            <!-- Pricing Form -->
+            <div class="form-container">
+                <div class="form-header">
+                    <h4 class="form-title"><i class="bi bi-currency-exchange"></i> Pricing</h4>
+                    <div class="form-actions">
+                        <button class="btn btn-outline">
+                            <i class="bi bi-gear"></i> Set as Default
+                        </button>
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="action-buttons">
+                <div class="pricing-grid">
+                    <div class="form-group">
+                        <label class="form-label">Base Price</label>
+                        <input type="text" class="form-input" placeholder="EGP">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Discount</label>
+                        <input type="text" class="form-input" placeholder="%">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">You Collect</label>
+                        <input type="text" class="form-input" placeholder="EGP" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">System Cut</label>
+                        <input type="text" class="form-input" placeholder="EGP" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Store Price</label>
+                        <input type="text" class="form-input" placeholder="EGP" readonly>
+                    </div>
+                </div>
+
+                <div class="pricing-summary">
+                    <div class="summary-item">
+                        <span class="summary-label">Your Earnings:</span>
+                        <span class="summary-value profit">$0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">System Fee:</span>
+                        <span class="summary-value system-cut">$0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Customer Pays:</span>
+                        <span class="summary-value">$0</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <button class="btn btn-outline">
-                        <i class="bi bi-arrow-clockwise"></i> Reset
-                    </button>
-                    <button class="btn btn-primary">
-                        <i class="bi bi-check-circle"></i> Submit Product
+                        <i class="bi bi-magic"></i> Enhance Price
                     </button>
                 </div>
             </div>
 
-            <script>
-                // Simple interactivity for the demo
-                document.addEventListener('DOMContentLoaded', function () {
-                    // Toggle options
-                    const toggleOptions = document.querySelectorAll('.toggle-option');
-                    toggleOptions.forEach(option => {
-                        option.addEventListener('click', function () {
-                            toggleOptions.forEach(opt => opt.classList.remove('active'));
-                            this.classList.add('active');
-                        });
-                    });
+            <!-- Size & Quantity Form -->
+            <div class="form-container">
+                <div class="form-header">
+                    <h4 class="form-title"><i class="bi bi-rulers"></i> Size & Quantity</h4>
+                    <div class="form-actions">
+                        <button class="btn btn-outline">
+                            <i class="bi bi-gear"></i> Set as Default
+                        </button>
+                    </div>
+                </div>
 
-                    // Exception chips
-                    const exceptionChips = document.querySelectorAll('.exception-chip');
-                    exceptionChips.forEach(chip => {
-                        chip.addEventListener('click', function () {
-                            this.classList.toggle('selected');
-                        });
-                    });
+                <div class="form-group">
+                    <label class="form-label">Size Type</label>
+                    <div class="size-toggle">
+                        <div class="toggle-option active">
+                            <i class="bi bi-123"></i> <span class="toggle-text">Numeric</span>
+                        </div>
+                        <div class="toggle-option">
+                            <i class="bi bi-fonts"></i> <span class="toggle-text">Alphabetical</span>
+                        </div>
+                    </div>
+                </div>
 
-                    // Upload boxes
-                    const uploadBoxes = document.querySelectorAll('.upload-box');
-                    uploadBoxes.forEach(box => {
-                        box.addEventListener('click', function () {
-                            alert('Image upload dialog would open here');
-                        });
+                <div class="range-selector">
+                    <div class="form-group">
+                        <label class="form-label">From</label>
+                        <input type="number" class="form-input" value="35">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">To</label>
+                        <input type="number" class="form-input" value="45">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Selected Range</label>
+                        <div class="form-input">35-45</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Exceptions (Select sizes to exclude)</label>
+                    <div class="exceptions-grid">
+                        <div class="exception-chip">36</div>
+                        <div class="exception-chip">38</div>
+                        <div class="exception-chip">40</div>
+                        <div class="exception-chip">42</div>
+                        <div class="exception-chip">44</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Default Quantity</label>
+                    <input type="number" class="form-input" value="10">
+                </div>
+            </div>
+
+            <!-- Images Form -->
+            <div class="form-container">
+                <div class="form-header">
+                    <h4 class="form-title"><i class="bi bi-images"></i> Images</h4>
+                    <div class="form-actions">
+                        <button class="btn btn-outline">
+                            <i class="bi bi-gear"></i> Set as Default
+                        </button>
+                    </div>
+                </div>
+
+                <div class="image-upload-grid">
+                    <div class="upload-box">
+                        <i class="bi bi-cloud-arrow-up upload-icon"></i>
+                        <span>Upload Image</span>
+                    </div>
+                    <div class="upload-box">
+                        <i class="bi bi-cloud-arrow-up upload-icon"></i>
+                        <span>Upload Image</span>
+                    </div>
+                    <div class="upload-box">
+                        <i class="bi bi-cloud-arrow-up upload-icon"></i>
+                        <span>Upload Image</span>
+                    </div>
+                    <div class="upload-box">
+                        <i class="bi bi-cloud-arrow-up upload-icon"></i>
+                        <span>Upload Image</span>
+                    </div>
+                    <div class="upload-box">
+                        <i class="bi bi-plus upload-icon"></i>
+                        <span>Add More</span>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Color Value</label>
+                        <input type="color" class="form-input" style="height: 45px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Color Name</label>
+                        <input type="text" class="form-input" placeholder="Black">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-outline">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </button>
+                <button class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> Submit Product
+                </button>
+            </div>
+        </div>
+
+        <script>
+            // Simple interactivity for the demo
+            document.addEventListener('DOMContentLoaded', function () {
+                // Toggle options
+                const toggleOptions = document.querySelectorAll('.toggle-option');
+                toggleOptions.forEach(option => {
+                    option.addEventListener('click', function () {
+                        toggleOptions.forEach(opt => opt.classList.remove('active'));
+                        this.classList.add('active');
                     });
                 });
-            </script>
-        </div>
+
+                // Exception chips
+                const exceptionChips = document.querySelectorAll('.exception-chip');
+                exceptionChips.forEach(chip => {
+                    chip.addEventListener('click', function () {
+                        this.classList.toggle('selected');
+                    });
+                });
+
+                // Upload boxes
+                const uploadBoxes = document.querySelectorAll('.upload-box');
+                uploadBoxes.forEach(box => {
+                    box.addEventListener('click', function () {
+                        alert('Image upload dialog would open here');
+                    });
+                });
+            });
+        </script>
+
 
         <!-- Other content sections would follow the same pattern -->
         <div id="customers" class="content-section">
@@ -721,37 +750,33 @@
 
         <div id="analytics" class="content-section">
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-            </head>
-
-            <body>
-                <div class="dashboard-container">
-                    <div class="dashboard-header">
-                        <div>
-                            <h1>Analytics Dashboard</h1>
-                            <p>View your store performance and metrics</p>
-                        </div>
-                        <div class="header-actions">
-                            <div class="date-filter">
-                                <i class="bi bi-calendar"></i>
-                                <select id="dateRange">
-                                    <option value="7">Last 7 Days</option>
-                                    <option value="30" selected>Last 30 Days</option>
-                                    <option value="90">Last 90 Days</option>
-                                    <option value="365">Last Year</option>
-                                    <option value="custom">Custom Range</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-outline">
-                                <i class="bi bi-download"></i> Export CSV
-                            </button>
-                            <button class="btn btn-primary">
-                                <i class="bi bi-file-earmark-pdf"></i> Generate Report
-                            </button>
-                        </div>
+            <div class="dashboard-container">
+                <div>
+                    <div class="dashboard-right-header">
+                        <h2>Analytics Dashboard</h2>
+                        <p>View your store performance and metrics</p>
                     </div>
+                    <div class="header-actions">
+                        <div class="date-filter">
+                            <i class="bi bi-calendar"></i>
+                            <select id="dateRange">
+                                <option value="7">Last 7 Days</option>
+                                <option value="30" selected>Last 30 Days</option>
+                                <option value="90">Last 90 Days</option>
+                                <option value="365">Last Year</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-outline">
+                            <i class="bi bi-download"></i> Export CSV
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="bi bi-file-earmark-pdf"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
 
-                    <!-- <div class="metrics-grid">
+                <!-- <div class="metrics-grid">
                         <div class="metric-card">
                             <div class="metric-header">
                                 <div class="metric-title">Total Revenue</div>
@@ -804,340 +829,260 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="cards-grid">
-                        <!-- Total Revenue Card -->
-                        <div class="card">
-                            <div class="card-shine"></div>
-                            <div class="card-header">
-                                <h3 class="card-title">Total Revenue</h3>
-                                <div class="card-icon icon-revenue">
-                                    <i class="bi bi-currency-dollar"></i>
-                                </div>
-                            </div>
-                            <div class="card-value">$24,582</div>
-                            <div class="card-change change-positive">
-                                <i class="bi bi-arrow-up"></i> 12.5% from last period
+                <div class="cards-grid">
+                    <!-- Total Revenue Card -->
+                    <div class="card">
+                        <div class="card-shine"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Total Revenue</h3>
+                            <div class="card-icon icon-revenue">
+                                <i class="bi bi-currency-dollar"></i>
                             </div>
                         </div>
-
-                        <!-- Orders Card -->
-                        <div class="card">
-                            <div class="card-shine"></div>
-                            <div class="card-header">
-                                <h3 class="card-title">Orders</h3>
-                                <div class="card-icon icon-orders">
-                                    <i class="bi bi-cart"></i>
-                                </div>
-                            </div>
-                            <div class="card-value">1,247</div>
-                            <div class="card-change change-positive">
-                                <i class="bi bi-arrow-up"></i> 8.3% from last period
-                            </div>
-                        </div>
-
-                        <!-- Orders Card -->
-                        <div class="card">
-                            <div class="card-shine"></div>
-                            <div class="card-header">
-                                <h3 class="card-title">Customers</h3>
-                                <div class="card-icon icon-customers">
-                                    <i class="bi bi-people"></i>
-                                </div>
-                            </div>
-                            <div class="card-value">3,458</div>
-                            <div class="card-change change-positive">
-                                <i class="bi bi-arrow-up"></i> 8.3% from last period
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-shine"></div>
-                            <div class="card-header">
-                                <h3 class="card-title">Conversion Rate</h3>
-                                <div class="card-icon icon-conversion">
-                                    <i class="bi bi-people"></i>
-                                </div>
-                            </div>
-                            <div class="card-value">4.2%</div>
-                            <div class="card-change change-negative">
-                                <i class="">1.2% from last period
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div class="charts-container">
-                        <div class="chart-card">
-                            <div class="chart-header">
-                                <div class="chart-title">Revenue Overview</div>
-                                <div class="chart-actions">
-                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                        <i class="bi bi-filter"></i> Filter
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="chart-container">
-                                <canvas id="revenueChart"></canvas>
-                            </div>
-                        </div>
-
-                        <div class="chart-card">
-                            <div class="chart-header">
-                                <div class="chart-title">Sales by Category</div>
-                                <div class="chart-actions">
-                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                        <i class="bi bi-three-dots"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="chart-container">
-                                <canvas id="categoryChart"></canvas>
-                            </div>
+                        <div class="card-value">$24,582</div>
+                        <div class="card-change change-positive">
+                            <i class="bi bi-arrow-up"></i> 12.5% from last period
                         </div>
                     </div>
 
-                    <div class="data-grid">
-                        <div class="data-card">
-                            <div class="chart-header">
-                                <div class="chart-title">Top Performing Products</div>
-                                <div class="chart-actions">
-                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                        <i class="bi bi-three-dots"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="product-row">
-                                <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
-                                <div class="product-info">
-                                    <div class="product-name">Classic White T-Shirt</div>
-                                    <div class="product-category">T-Shirts</div>
-                                </div>
-                                <div class="product-sales">$3,458</div>
-                            </div>
-
-                            <div class="product-row">
-                                <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
-                                <div class="product-info">
-                                    <div class="product-name">Slim Fit Jeans</div>
-                                    <div class="product-category">Jeans</div>
-                                </div>
-                                <div class="product-sales">$2,891</div>
-                            </div>
-
-                            <div class="product-row">
-                                <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
-                                <div class="product-info">
-                                    <div class="product-name">Sports Hoodie</div>
-                                    <div class="product-category">Hoodies</div>
-                                </div>
-                                <div class="product-sales">$2,145</div>
-                            </div>
-
-                            <div class="product-row">
-                                <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
-                                <div class="product-info">
-                                    <div class="product-name">Running Shoes</div>
-                                    <div class="product-category">Footwear</div>
-                                </div>
-                                <div class="product-sales">$1,978</div>
-                            </div>
-
-                            <div class="product-row">
-                                <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
-                                <div class="product-info">
-                                    <div class="product-name">Baseball Cap</div>
-                                    <div class="product-category">Accessories</div>
-                                </div>
-                                <div class="product-sales">$1,235</div>
+                    <!-- Orders Card -->
+                    <div class="card">
+                        <div class="card-shine"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Orders</h3>
+                            <div class="card-icon icon-orders">
+                                <i class="bi bi-cart"></i>
                             </div>
                         </div>
+                        <div class="card-value">1,247</div>
+                        <div class="card-change change-positive">
+                            <i class="bi bi-arrow-up"></i> 8.3% from last period
+                        </div>
+                    </div>
 
-                        <div class="data-card">
-                            <div class="chart-header">
-                                <div class="chart-title">Traffic Sources</div>
-                                <div class="chart-actions">
-                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                        <i class="bi bi-three-dots"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="data-item">
-                                <span class="data-label">Direct</span>
-                                <span class="data-value">32%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill progress-revenue" style="width: 32%;"></div>
-                            </div>
-
-                            <div class="data-item">
-                                <span class="data-label">Organic Search</span>
-                                <span class="data-value">24%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill progress-orders" style="width: 24%;"></div>
-                            </div>
-
-                            <div class="data-item">
-                                <span class="data-label">Social Media</span>
-                                <span class="data-value">18%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill progress-customers" style="width: 18%;"></div>
-                            </div>
-
-                            <div class="data-item">
-                                <span class="data-label">Email Campaigns</span>
-                                <span class="data-value">15%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill progress-revenue" style="width: 15%;"></div>
-                            </div>
-
-                            <div class="data-item">
-                                <span class="data-label">Referral</span>
-                                <span class="data-value">11%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill progress-orders" style="width: 11%;"></div>
+                    <!-- Orders Card -->
+                    <div class="card">
+                        <div class="card-shine"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Customers</h3>
+                            <div class="card-icon icon-customers">
+                                <i class="bi bi-people"></i>
                             </div>
                         </div>
-
-                        <div class="data-card">
-                            <div class="chart-header">
-                                <div class="chart-title">Recent Activities</div>
-                                <div class="chart-actions">
-                                    <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
-                                        <i class="bi bi-three-dots"></i>
-                                    </button>
-                                </div>
+                        <div class="card-value">3,458</div>
+                        <div class="card-change change-positive">
+                            <i class="bi bi-arrow-up"></i> 8.3% from last period
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-shine"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Conversion Rate</h3>
+                            <div class="card-icon icon-conversion">
+                                <i class="bi bi-people"></i>
                             </div>
+                        </div>
+                        <div class="card-value">4.2%</div>
+                        <div class="card-change change-negative">
+                            <i class="">1.2% from last period
+                        </div>
+                    </div>
 
-                            <ul class="data-list">
-                                <li class="data-item">
-                                    <div>
-                                        <div class="data-value">New order #3258</div>
-                                        <div class="data-label">2 minutes ago</div>
-                                    </div>
-                                    <span class="change-positive">+$124</span>
-                                </li>
 
-                                <li class="data-item">
-                                    <div>
-                                        <div class="data-value">Customer registered</div>
-                                        <div class="data-label">15 minutes ago</div>
-                                    </div>
-                                    <span class="change-positive">+1</span>
-                                </li>
+                </div>
 
-                                <li class="data-item">
-                                    <div>
-                                        <div class="data-value">Product out of stock</div>
-                                        <div class="data-label">45 minutes ago</div>
-                                    </div>
-                                    <span class="change-negative">Slim Jeans</span>
-                                </li>
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Revenue Overview</div>
+                            <div class="chart-actions">
+                                <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                    <i class="bi bi-filter"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
 
-                                <li class="data-item">
-                                    <div>
-                                        <div class="data-value">Payment processed</div>
-                                        <div class="data-label">1 hour ago</div>
-                                    </div>
-                                    <span class="change-positive">+$89</span>
-                                </li>
-
-                                <li class="data-item">
-                                    <div>
-                                        <div class="data-value">New review received</div>
-                                        <div class="data-label">2 hours ago</div>
-                                    </div>
-                                    <span class="change-positive">4.5★</span>
-                                </li>
-                            </ul>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Sales by Category</div>
+                            <div class="chart-actions">
+                                <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        // Revenue Chart
-                        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-                        const revenueChart = new Chart(revenueCtx, {
-                            type: 'line',
-                            data: {
-                                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                                datasets: [{
-                                    label: 'Revenue',
-                                    data: [18500, 19200, 17800, 21000, 22500, 23800, 21500, 19800, 22400, 24100, 25800, 24500],
-                                    borderColor: '#4361ee',
-                                    backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                                    tension: 0.3,
-                                    fill: true
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        display: false
-                                    }
-                                },
-                                scales: {
-                                    y: {
-                                        beginAtZero: false,
-                                        grid: {
-                                            drawBorder: false
-                                        }
-                                    },
-                                    x: {
-                                        grid: {
-                                            display: false
-                                        }
-                                    }
-                                }
-                            }
-                        });
+                <div class="data-grid">
+                    <div class="data-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Top Performing Products</div>
+                            <div class="chart-actions">
+                                <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
 
-                        // Category Chart
-                        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-                        const categoryChart = new Chart(categoryCtx, {
-                            type: 'doughnut',
-                            data: {
-                                labels: ['T-Shirts', 'Jeans', 'Hoodies', 'Footwear', 'Accessories'],
-                                datasets: [{
-                                    data: [35, 25, 20, 15, 5],
-                                    backgroundColor: [
-                                        '#4361ee',
-                                        '#4cc9f0',
-                                        '#f72585',
-                                        '#4895ef',
-                                        '#e63946'
-                                    ],
-                                    borderWidth: 0
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        position: 'bottom'
-                                    }
-                                },
-                                cutout: '70%'
-                            }
-                        });
+                        <div class="product-row">
+                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <div class="product-info">
+                                <div class="product-name">Classic White T-Shirt</div>
+                                <div class="product-category">T-Shirts</div>
+                            </div>
+                            <div class="product-sales">$3,458</div>
+                        </div>
 
-                        // Date range filter
-                        document.getElementById('dateRange').addEventListener('change', function () {
-                            if (this.value === 'custom') {
-                                alert('Custom date range selector would open here.');
-                            }
-                        });
-                    });
-                </script>
+                        <div class="product-row">
+                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <div class="product-info">
+                                <div class="product-name">Slim Fit Jeans</div>
+                                <div class="product-category">Jeans</div>
+                            </div>
+                            <div class="product-sales">$2,891</div>
+                        </div>
+
+                        <div class="product-row">
+                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <div class="product-info">
+                                <div class="product-name">Sports Hoodie</div>
+                                <div class="product-category">Hoodies</div>
+                            </div>
+                            <div class="product-sales">$2,145</div>
+                        </div>
+
+                        <div class="product-row">
+                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <div class="product-info">
+                                <div class="product-name">Running Shoes</div>
+                                <div class="product-category">Footwear</div>
+                            </div>
+                            <div class="product-sales">$1,978</div>
+                        </div>
+
+                        <div class="product-row">
+                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <div class="product-info">
+                                <div class="product-name">Baseball Cap</div>
+                                <div class="product-category">Accessories</div>
+                            </div>
+                            <div class="product-sales">$1,235</div>
+                        </div>
+                    </div>
+
+                    <div class="data-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Traffic Sources</div>
+                            <div class="chart-actions">
+                                <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="data-item">
+                            <span class="data-label">Direct</span>
+                            <span class="data-value">32%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-revenue" style="width: 32%;"></div>
+                        </div>
+
+                        <div class="data-item">
+                            <span class="data-label">Organic Search</span>
+                            <span class="data-value">24%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-orders" style="width: 24%;"></div>
+                        </div>
+
+                        <div class="data-item">
+                            <span class="data-label">Social Media</span>
+                            <span class="data-value">18%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-customers" style="width: 18%;"></div>
+                        </div>
+
+                        <div class="data-item">
+                            <span class="data-label">Email Campaigns</span>
+                            <span class="data-value">15%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-revenue" style="width: 15%;"></div>
+                        </div>
+
+                        <div class="data-item">
+                            <span class="data-label">Referral</span>
+                            <span class="data-value">11%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-orders" style="width: 11%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="data-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Recent Activities</div>
+                            <div class="chart-actions">
+                                <button class="btn btn-outline" style="padding: 5px 10px; font-size: 12px;">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <ul class="data-list">
+                            <li class="data-item">
+                                <div>
+                                    <div class="data-value">New order #3258</div>
+                                    <div class="data-label">2 minutes ago</div>
+                                </div>
+                                <span class="change-positive">+$124</span>
+                            </li>
+
+                            <li class="data-item">
+                                <div>
+                                    <div class="data-value">Customer registered</div>
+                                    <div class="data-label">15 minutes ago</div>
+                                </div>
+                                <span class="change-positive">+1</span>
+                            </li>
+
+                            <li class="data-item">
+                                <div>
+                                    <div class="data-value">Product out of stock</div>
+                                    <div class="data-label">45 minutes ago</div>
+                                </div>
+                                <span class="change-negative">Slim Jeans</span>
+                            </li>
+
+                            <li class="data-item">
+                                <div>
+                                    <div class="data-value">Payment processed</div>
+                                    <div class="data-label">1 hour ago</div>
+                                </div>
+                                <span class="change-positive">+$89</span>
+                            </li>
+
+                            <li class="data-item">
+                                <div>
+                                    <div class="data-value">New review received</div>
+                                    <div class="data-label">2 hours ago</div>
+                                </div>
+                                <span class="change-positive">4.5★</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="marketing" class="content-section">
@@ -1154,233 +1099,378 @@
             <h2>Settings</h2>
             <p>Configure your store settings here.</p>
         </div>
-    </div>
 
-    <script>
-        // Toggle dropdown menu
-        function toggleDropdown() {
-            const dropdown = document.getElementById('dropdown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function (event) {
-            const dropdown = document.getElementById('dropdown');
-            const profileIcon = document.querySelector('.profile-icon');
-
-            if (!profileIcon.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.style.display = 'none';
-            }
-        });
-
-        // Navigation functionality
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Remove active class from all items
-                document.querySelectorAll('.nav-item').forEach(navItem => {
-                    navItem.classList.remove('active');
-                });
-
-                // Add active class to clicked item
-                this.classList.add('active');
-
-                // Hide all content sections
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.remove('active');
-                });
-
-                // Show the targeted content section
-                const target = this.getAttribute('data-target');
-                document.getElementById(target).classList.add('active');
-
-                // Update header title
-                document.querySelector('.header h1').textContent = this.querySelector('.nav-text').textContent;
-            });
-        });
-
-        // Image upload functionality
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const fileInput = this.closest('.image-card').querySelector('input[type="file"]');
-                fileInput.click();
-            });
-        });
-
-        // Handle file selection
-        document.querySelectorAll('input[type="file"]').forEach(input => {
-            input.addEventListener('change', function () {
-                if (this.files && this.files[0]) {
-                    const reader = new FileReader();
-                    const imgElement = this.closest('.image-card').querySelector('.shop-panner-img');
-
-                    reader.onload = function (e) {
-                        imgElement.style.backgroundImage = `url(E£{e.target.result})`;
-                        imgElement.innerHTML = '';
-                    };
-
-                    reader.readAsDataURL(this.files[0]);
-                }
-            });
-        });
-
-        // Toggle order details
-        document.querySelectorAll('.order-row').forEach(row => {
-            row.addEventListener('click', function (e) {
-                if (!e.target.closest('.action-buttons') && !e.target.matches('input[type="checkbox"]')) {
-                    const detailsRow = this.nextElementSibling;
-                    detailsRow.classList.toggle('expanded');
-                }
-            });
-        });
-
-        // Select all orders checkbox
-        document.getElementById('selectAllOrders').addEventListener('change', function () {
-            const checkboxes = document.querySelectorAll('.order-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-            });
-        });
-
-        // Search functionality
-        document.getElementById('orderSearch').addEventListener('input', function () {
-            const searchTerm = this.value.toLowerCase();
-            const rows = document.querySelectorAll('.order-row');
-
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(searchTerm) ? '' : 'none';
-            });
-        });
-
-        // Filter by status
-        document.getElementById('statusFilter').addEventListener('change', function () {
-            const status = this.value;
-            const rows = document.querySelectorAll('.order-row');
-
-            rows.forEach(row => {
-                if (status === 'all') {
-                    row.style.display = '';
-                } else {
-                    row.style.display = row.getAttribute('data-status') === status ? '' : 'none';
-                }
-            });
-        });
-
-        // Theme persistence functionality
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check for saved theme preference
-            const savedTheme = localStorage.getItem('theme');
-            const themeToggle = document.getElementById('theme-toggle');
-
-            // Set toggle state based on saved preference
-            if (savedTheme === 'dark') {
-                themeToggle.checked = true;
-            } else {
-                themeToggle.checked = false;
-                // Ensure light theme is explicitly set if not dark
-                document.documentElement.removeAttribute('data-theme');
+        <script>
+            // Toggle dropdown menu
+            function toggleDropdown() {
+                const dropdown = document.getElementById('dropdown');
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
             }
 
-            // Theme toggle functionality
-            themeToggle.addEventListener('change', function () {
-                if (this.checked) {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.documentElement.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'light');
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (event) {
+                const dropdown = document.getElementById('dropdown');
+                const profileIcon = document.querySelector('.profile-icon');
+
+                if (!profileIcon.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.style.display = 'none';
                 }
             });
 
-            // Make body visible after theme is applied
-            document.body.style.opacity = "1";
-        });
-    </script>
-    <!-- // Function to format numbers with commas -->
-    <script>
-        // Function to format numbers with commas
-        function formatNumberWithCommas(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
+            // Navigation functionality
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
 
-        // Format all currency values on page load
-        document.addEventListener('DOMContentLoaded', function () {
-            // Format values in the orders table
-            const allCells = document.querySelectorAll('td');
-            allCells.forEach(cell => {
-                const text = cell.textContent;
-                if (text.includes('E£') && !text.includes(',')) {
-                    const amount = text.replace(' E£', '').trim();
-                    if (!isNaN(amount.replace(/[^0-9]/g, ''))) {
-                        const numericValue = parseFloat(amount.replace(/[^0-9]/g, ''));
-                        cell.textContent = formatNumberWithCommas(numericValue) + ' E£';
+                    // Remove active class from all items
+                    document.querySelectorAll('.nav-item').forEach(navItem => {
+                        navItem.classList.remove('active');
+                    });
+
+                    // Add active class to clicked item
+                    this.classList.add('active');
+
+                    // Hide all content sections
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    // Show the targeted content section
+                    const target = this.getAttribute('data-target');
+                    document.getElementById(target).classList.add('active');
+
+                    // Update header title
+                    document.querySelector('.header h1').textContent = this.querySelector('.nav-text').textContent;
+                });
+            });
+
+            // Image upload functionality
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const fileInput = this.closest('.image-card').querySelector('input[type="file"]');
+                    fileInput.click();
+                });
+            });
+
+            // Handle file selection
+            document.querySelectorAll('input[type="file"]').forEach(input => {
+                input.addEventListener('change', function () {
+                    if (this.files && this.files[0]) {
+                        const reader = new FileReader();
+                        const imgElement = this.closest('.image-card').querySelector('.shop-panner-img');
+
+                        reader.onload = function (e) {
+                            imgElement.style.backgroundImage = `url(E£{e.target.result})`;
+                            imgElement.innerHTML = '';
+                        };
+
+                        reader.readAsDataURL(this.files[0]);
                     }
+                });
+            });
+
+            // Toggle order details
+            document.querySelectorAll('.order-row').forEach(row => {
+                row.addEventListener('click', function (e) {
+                    if (!e.target.closest('.action-buttons') && !e.target.matches('input[type="checkbox"]')) {
+                        const detailsRow = this.nextElementSibling;
+                        detailsRow.classList.toggle('expanded');
+                    }
+                });
+            });
+
+            // Select all orders checkbox
+            document.getElementById('selectAllOrders').addEventListener('change', function () {
+                const checkboxes = document.querySelectorAll('.order-checkbox');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+
+            // Search functionality
+            document.getElementById('orderSearch').addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const rows = document.querySelectorAll('.order-row');
+
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            });
+
+            // Filter by status
+            document.getElementById('statusFilter').addEventListener('change', function () {
+                const status = this.value;
+                const rows = document.querySelectorAll('.order-row');
+
+                rows.forEach(row => {
+                    if (status === 'all') {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = row.getAttribute('data-status') === status ? '' : 'none';
+                    }
+                });
+            });
+
+            // Theme persistence functionality
+            document.addEventListener('DOMContentLoaded', function () {
+                // Check for saved theme preference
+                const savedTheme = localStorage.getItem('theme');
+                const themeToggle = document.getElementById('theme-toggle');
+
+                // Set toggle state based on saved preference
+                if (savedTheme === 'dark') {
+                    themeToggle.checked = true;
+                } else {
+                    themeToggle.checked = false;
+                    // Ensure light theme is explicitly set if not dark
+                    document.documentElement.removeAttribute('data-theme');
                 }
-            });
 
-            // Format values in summary cards
-            const summaryValues = document.querySelectorAll('.summary-info p');
-            summaryValues.forEach(element => {
-                const value = element.textContent;
-                if (!isNaN(value) && value !== '' && !value.includes(',')) {
-                    element.textContent = formatNumberWithCommas(value);
+                // Theme toggle functionality
+                themeToggle.addEventListener('change', function () {
+                    if (this.checked) {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        document.documentElement.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
+
+                // Make body visible after theme is applied
+                document.body.style.opacity = "1";
+            });
+        </script>
+        <script>
+            // Function to format numbers with commas
+            function formatNumberWithCommas(number) {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            // Format all currency values on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                // Format values in the orders table
+                const allCells = document.querySelectorAll('td');
+                allCells.forEach(cell => {
+                    const text = cell.textContent;
+                    if (text.includes('E£') && !text.includes(',')) {
+                        const amount = text.replace(' E£', '').trim();
+                        if (!isNaN(amount.replace(/[^0-9]/g, ''))) {
+                            const numericValue = parseFloat(amount.replace(/[^0-9]/g, ''));
+                            cell.textContent = formatNumberWithCommas(numericValue) + ' E£';
+                        }
+                    }
+                });
+
+                // Format values in summary cards
+                const summaryValues = document.querySelectorAll('.summary-info p');
+                summaryValues.forEach(element => {
+                    const value = element.textContent;
+                    if (!isNaN(value) && value !== '' && !value.includes(',')) {
+                        element.textContent = formatNumberWithCommas(value);
+                    }
+                });
+
+                // Format values in dashboard cards
+                const dashboardValues = document.querySelectorAll('.card p');
+                dashboardValues.forEach(element => {
+                    const text = element.textContent;
+                    // Check if it's a number (not containing letters and not already formatted)
+                    if (!isNaN(text) && text !== '' && !text.match(/[a-zA-Z]/) && !text.includes(',')) {
+                        element.textContent = formatNumberWithCommas(text);
+                    }
+                });
+            });
+        </script>
+        <script>
+            // Set initial state for animation
+            function initializeCards() {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                });
+            }
+
+            // Animate cards function
+            function animateCards() {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100 * index);
+                });
+            }
+
+            // Reset animation
+            function resetAnimation() {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                });
+
+                // Re-animate after reset
+                setTimeout(animateCards, 100);
+            }
+
+            // Initialize on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                initializeCards();
+                // Start animation after a short delay
+                setTimeout(animateCards, 100);
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const actionButtons = document.querySelector('.btn-group-unique-buttons');
+                const upArrow = document.getElementById('btnGroupUniqueUpArrow');
+                const downArrow = document.getElementById('btnGroupUniqueDownArrow');
+
+                let currentPosition = 0;
+                const totalButtons = 3;
+                const buttonHeight = 44;
+
+                // Update button position
+                function updateButtonPosition() {
+                    actionButtons.style.transform = `translateY(-${currentPosition * buttonHeight}px)`;
+
+                    // Enable/disable arrows based on position
+                    upArrow.disabled = currentPosition === 0;
+                    downArrow.disabled = currentPosition === totalButtons - 1;
                 }
-            });
 
-            // Format values in dashboard cards
-            const dashboardValues = document.querySelectorAll('.card p');
-            dashboardValues.forEach(element => {
-                const text = element.textContent;
-                // Check if it's a number (not containing letters and not already formatted)
-                if (!isNaN(text) && text !== '' && !text.match(/[a-zA-Z]/) && !text.includes(',')) {
-                    element.textContent = formatNumberWithCommas(text);
-                }
-            });
-        });
-    </script>
-    <script>
-        // Set initial state for animation
-        function initializeCards() {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            });
-        }
+                // Initial update
+                updateButtonPosition();
 
-        // Animate cards function
-        function animateCards() {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 * index);
+                // Up arrow click event
+                upArrow.addEventListener('click', function () {
+                    if (currentPosition > 0) {
+                        currentPosition--;
+                        updateButtonPosition();
+                    }
+                });
+
+                // Down arrow click event
+                downArrow.addEventListener('click', function () {
+                    if (currentPosition < totalButtons - 1) {
+                        currentPosition++;
+                        updateButtonPosition();
+                    }
+                });
+
+                // Keyboard navigation
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'ArrowUp') {
+                        event.preventDefault();
+                        if (currentPosition > 0) {
+                            currentPosition--;
+                            updateButtonPosition();
+                        }
+                    } else if (event.key === 'ArrowDown') {
+                        event.preventDefault();
+                        if (currentPosition < totalButtons - 1) {
+                            currentPosition++;
+                            updateButtonPosition();
+                        }
+                    }
+                });
+
+                // Add active state to nav tabs
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.addEventListener('click', function () {
+                        document.querySelectorAll('.nav-tab').forEach(t => {
+                            t.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    });
+                });
             });
-        }
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Revenue Chart
+                const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+                const revenueChart = new Chart(revenueCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{
+                            label: 'Revenue',
+                            data: [18500, 19200, 17800, 21000, 22500, 23800, 21500, 19800, 22400, 24100, 25800, 24500],
+                            borderColor: '#4361ee',
+                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                grid: {
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
 
-        // Reset animation
-        function resetAnimation() {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
+                // Category Chart
+                const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+                const categoryChart = new Chart(categoryCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['T-Shirts', 'Jeans', 'Hoodies', 'Footwear', 'Accessories'],
+                        datasets: [{
+                            data: [35, 25, 20, 15, 5],
+                            backgroundColor: [
+                                '#4361ee',
+                                '#4cc9f0',
+                                '#f72585',
+                                '#4895ef',
+                                '#e63946'
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        },
+                        cutout: '70%'
+                    }
+                });
+
+                // Date range filter
+                document.getElementById('dateRange').addEventListener('change', function () {
+                    if (this.value === 'custom') {
+                        alert('Custom date range selector would open here.');
+                    }
+                });
             });
+        </script>
 
-            // Re-animate after reset
-            setTimeout(animateCards, 100);
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function () {
-            initializeCards();
-            // Start animation after a short delay
-            setTimeout(animateCards, 100);
-        });
-    </script>
 </body>
 
 </html>
