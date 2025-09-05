@@ -31,7 +31,7 @@
     <!-- Sidebar Navigation -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h2>name</h2>
+            <h2>MATAGER</h2>
         </div>
         <div class="nav-items-container">
             <a href="#" class="nav-item active" data-target="dashboard">
@@ -101,7 +101,7 @@
         <div id="dashboard" class="content-section active">
             <div class="dashboard-right-header">
                 <h2>Dashboard Overview</h2>
-                <p>Manage your store efficiently with our comprehensive dashboard</p>
+                <p>Fetch your store efficiently with our comprehensive dashboard</p>
             </div>
             <div class="cards-grid">
                 <!-- Total Products Card -->
@@ -1284,7 +1284,7 @@
                 });
             });
         </script>
-        <script>
+        <!-- <script>
             // Set initial state for animation
             function initializeCards() {
                 const cards = document.querySelectorAll('.card');
@@ -1324,7 +1324,331 @@
                 // Start animation after a short delay
                 setTimeout(animateCards, 100);
             });
+        </script> -->
+
+        <script>
+            // Set initial state for animation for specific section
+            function initializeSectionElements(sectionId) {
+                const section = document.getElementById(sectionId);
+                if (!section) return;
+
+                const elementsToAnimate = section.querySelectorAll('.card, .image-card, .dashboard-right-header, .stats-container, .charts-container, .data-grid, .btn-group-unique-container, .search-box, .orders-controls, .orders-table-container, .form-container');
+
+                // Also get header and main-content if they exist (they're outside sections)
+                const header = document.querySelector('.header');
+                const mainContent = document.querySelector('.main-content');
+
+                elementsToAnimate.forEach(element => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                });
+                // Animate header and main-content separately if they exist
+                if (header) {
+                    header.style.opacity = '0';
+                    header.style.transform = 'translateY(20px)';
+                    header.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                }
+
+                if (mainContent) {
+                    mainContent.style.opacity = '0';
+                    mainContent.style.transform = 'translateY(20px)';
+                    mainContent.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                }
+            }
+
+            // Animate elements function for specific section
+            function animateSectionElements(sectionId) {
+                const section = document.getElementById(sectionId);
+                if (!section) return;
+
+                const elementsToAnimate = section.querySelectorAll('.card, .image-card, .dashboard-right-header, .stats-container, .charts-container, .data-grid, .btn-group-unique-container, .search-box, .orders-controls, .orders-table-container, .form-container');
+
+                // Also get header and main-content if they exist
+                const header = document.querySelector('.header');
+                const mainContent = document.querySelector('.main-content');
+
+                elementsToAnimate.forEach((element, index) => {
+                    setTimeout(() => {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, 50 * index); // Reduced delay for faster animation
+                });
+
+                // Animate header and main-content with minimal delay
+                setTimeout(() => {
+                    if (header) {
+                        header.style.opacity = '1';
+                        header.style.transform = 'translateY(0)';
+                    }
+                    if (mainContent) {
+                        mainContent.style.opacity = '1';
+                        mainContent.style.transform = 'translateY(0)';
+                    }
+                }, 50);
+            }
+
+            // Reset animation for all elements in a section
+            function resetSectionAnimation(sectionId) {
+                const section = document.getElementById(sectionId);
+                if (!section) return;
+
+                const elementsToAnimate = section.querySelectorAll('.card, .image-card, .dashboard-right-header, .stats-container, .charts-container, .data-grid, .btn-group-unique-container, .search-box, .orders-controls, .orders-table-container, .form-container');
+                elementsToAnimate.forEach(element => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                });
+
+                // Re-animate after reset
+                setTimeout(() => animateSectionElements(sectionId), 50);
+            }
+
+            // Toggle profile dropdown
+            function toggleDropdown() {
+                const dropdown = document.getElementById('dropdown');
+                dropdown.classList.toggle('show');
+            }
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (event) {
+                const dropdown = document.getElementById('dropdown');
+                const profileIcon = document.querySelector('.profile-icon');
+
+                if (!profileIcon.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            // Update URL with target section
+            function updateURL(target) {
+                const newURL = window.location.origin + window.location.pathname + '#' + target;
+                window.history.replaceState({}, '', newURL);
+            }
+
+            // Get target from URL hash
+            function getTargetFromURL() {
+                const hash = window.location.hash.substring(1);
+                // Validate the target exists
+                const validTargets = ['dashboard', 'orders', 'products', 'customers', 'analytics', 'marketing', 'discounts', 'settings'];
+                return validTargets.includes(hash) ? hash : 'dashboard';
+            }
+
+            // Navigation functionality
+            function setupNavigation() {
+                const navItems = document.querySelectorAll('.nav-item');
+                const contentSections = document.querySelectorAll('.content-section');
+
+                // Get initial target from URL
+                const initialTarget = getTargetFromURL();
+
+                // Set initial active section based on URL
+                navItems.forEach(item => {
+                    if (item.getAttribute('data-target') === initialTarget) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Hide all sections first
+                contentSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+
+                // Show only the target section
+                const targetSection = document.getElementById(initialTarget);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    // Initialize animation for this section only
+                    initializeSectionElements(initialTarget);
+                }
+
+                // Set up click handlers
+                navItems.forEach(item => {
+                    item.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        const target = this.getAttribute('data-target');
+                        const targetSection = document.getElementById(target);
+
+                        if (!targetSection) return;
+
+                        // Remove active class from all items
+                        navItems.forEach(navItem => {
+                            navItem.classList.remove('active');
+                        });
+
+                        // Add active class to clicked item
+                        this.classList.add('active');
+
+                        // Hide all content sections
+                        contentSections.forEach(section => {
+                            section.style.display = 'none';
+                        });
+
+                        // Show the target section
+                        targetSection.style.display = 'block';
+                        updateURL(target);
+
+                        // Reset and animate only the current section
+                        resetSectionAnimation(target);
+
+                        // Initialize charts if navigating to analytics
+                        if (target === 'analytics') {
+                            setTimeout(initializeCharts, 100);
+                        }
+                    });
+                });
+            }
+
+            // Handle browser back/forward navigation
+            window.addEventListener('hashchange', function () {
+                const target = getTargetFromURL();
+                const navItems = document.querySelectorAll('.nav-item');
+                const contentSections = document.querySelectorAll('.content-section');
+                const targetSection = document.getElementById(target);
+
+                if (!targetSection) return;
+
+                // Update active nav item
+                navItems.forEach(item => {
+                    if (item.getAttribute('data-target') === target) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Hide all sections
+                contentSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+
+                // Show the target section
+                targetSection.style.display = 'block';
+
+                // Reset and animate only the current section
+                resetSectionAnimation(target);
+
+                // Initialize charts if navigating to analytics
+                if (target === 'analytics') {
+                    setTimeout(initializeCharts, 100);
+                }
+            });
+
+            // Theme toggle functionality
+            function setupThemeToggle() {
+                const themeToggle = document.getElementById('theme-toggle');
+                const savedTheme = localStorage.getItem('theme');
+
+                // Set initial theme
+                if (savedTheme) {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                    themeToggle.checked = savedTheme === 'dark';
+                }
+
+                // Toggle theme on change
+                themeToggle.addEventListener('change', function () {
+                    if (this.checked) {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'light');
+                        localStorage.setItem('theme', 'light');
+                    }
+                });
+            }
+
+            // Initialize everything on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                setupNavigation();
+                setupThemeToggle();
+
+                // Get initial target from URL
+                const initialTarget = getTargetFromURL();
+
+                // Start animation for the initial section after a short delay
+                setTimeout(() => animateSectionElements(initialTarget), 100);
+
+                // Setup logout functionality
+                const logoutLink = document.getElementById('logoutLink');
+                if (logoutLink) {
+                    logoutLink.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        // Add your logout logic here
+                        alert('Logout functionality would be implemented here');
+                    });
+                }
+
+                // Initialize charts if on analytics page
+                if (initialTarget === 'analytics') {
+                    setTimeout(initializeCharts, 200);
+                }
+            });
+
+            // Initialize charts for analytics page
+            function initializeCharts() {
+                // Check if Chart.js is available
+                if (typeof Chart !== 'undefined') {
+                    // Revenue Chart
+                    const revenueCtx = document.getElementById('revenueChart');
+                    if (revenueCtx) {
+                        new Chart(revenueCtx, {
+                            type: 'line',
+                            data: {
+                                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                                datasets: [{
+                                    label: 'Revenue',
+                                    data: [12000, 19000, 15000, 24000, 21000, 24582],
+                                    borderColor: '#4361ee',
+                                    tension: 0.3,
+                                    fill: true,
+                                    backgroundColor: 'rgba(67, 97, 238, 0.1)'
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                    // Category Chart
+                    const categoryCtx = document.getElementById('categoryChart');
+                    if (categoryCtx) {
+                        new Chart(categoryCtx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['T-Shirts', 'Jeans', 'Hoodies', 'Footwear', 'Accessories'],
+                                datasets: [{
+                                    data: [30, 25, 20, 15, 10],
+                                    backgroundColor: [
+                                        '#4361ee',
+                                        '#3a0ca3',
+                                        '#f72585',
+                                        '#4cc9f0',
+                                        '#f9c74f'
+                                    ]
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom'
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
         </script>
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const actionButtons = document.querySelector('.btn-group-unique-buttons');
