@@ -105,7 +105,7 @@
             </div>
             <div class="cards-grid">
                 <!-- Total Products Card -->
-                <div class="card">
+                <div class="card animatedtoup">
                     <div class="card-shine"></div>
                     <div class="card-header">
                         <h3 class="card-title">Total Products</h3>
@@ -117,7 +117,7 @@
                 </div>
 
                 <!-- Total Orders Card -->
-                <div class="card">
+                <div class="card animatedtoup">
                     <div class="card-shine"></div>
                     <div class="card-header">
                         <h3 class="card-title">Total Orders</h3>
@@ -129,7 +129,7 @@
                 </div>
 
                 <!-- phone num -->
-                <div class="card">
+                <div class="card animatedtoup">
                     <div class="card-shine"></div>
                     <div class="card-header">
                         <h3 class="card-title">Shop Numbers</h3>
@@ -141,7 +141,7 @@
                 </div>
 
                 <!-- Email-->
-                <div class="card">
+                <div class="card animatedtoup">
                     <div class="card-shine"></div>
                     <div class="card-header">
                         <h3 class="card-title">Shop Email</h3>
@@ -155,7 +155,7 @@
 
 
             <div class="image-section">
-                <div class="image-card panner-img">
+                <div class="image-card panner-img animatedtoup">
                     <h5>Shop Banner
                         <div class="action-buttons">
                             <button class="edit-btn" title="change image"><i class="bi bi-cloud-plus-fill"></i></button>
@@ -166,7 +166,7 @@
                     <div class="shop-panner-img">Banner Image</div>
                     <input type="file" class="file-input" accept="image/*" hidden>
                 </div>
-                <div class="image-card newarrival-img">
+                <div class="image-card newarrival-img animatedtoup">
                     <h5>New Arrival
                         <div class="action-buttons">
                             <button class="edit-btn" title="change image"><i class="bi bi-cloud-plus-fill"></i></button>
@@ -176,7 +176,7 @@
                     <div class="shop-panner-img">New Arrival Image</div>
                     <input type="file" accept="image/*" hidden>
                 </div>
-                <div class="image-card sale-img">
+                <div class="image-card sale-img animatedtoup">
                     <h5>Sale
                         <div class="action-buttons">
                             <button class="edit-btn" title="change image"><i class="bi bi-cloud-plus-fill"></i></button>
@@ -199,7 +199,7 @@
 
                 <div class="orders-summary">
 
-                    <div class="card">
+                    <div class="card animatedtoup">
                         <div class="card-shine"></div>
                         <div class="card-header">
                             <h3 class="card-title">Total Orders</h3>
@@ -210,7 +210,7 @@
                         <div class="card-value">21</div>
                     </div>
 
-                    <div class="card">
+                    <div class="card animatedtoup">
                         <div class="card-shine"></div>
                         <div class="card-header">
                             <h3 class="card-title">Pending</h3>
@@ -221,7 +221,7 @@
                         <div class="card-value">14</div>
                     </div>
 
-                    <div class="card">
+                    <div class="card animatedtoup">
                         <div class="card-shine"></div>
                         <div class="card-header">
                             <h3 class="card-title">Completed Orders</h3>
@@ -232,7 +232,7 @@
                         <div class="card-value">5</div>
                     </div>
 
-                    <div class="card">
+                    <div class="card animatedtoup">
                         <div class="card-shine"></div>
                         <div class="card-header">
                             <h3 class="card-title">Cancelled Orders</h3>
@@ -248,11 +248,11 @@
             </div>
 
             <div class="orders-controls">
-                <div class="search-box">
+                <div class="search-box animatedtoup">
                     <i class="bi bi-search"></i>
                     <input type="text" placeholder="Search orders..." id="orderSearch">
                 </div>
-                <div class="filter-controls">
+                <div class="filter-controls animatedtoup">
                     <select id="statusFilter">
                         <option value="all">All Statuses</option>
                         <option value="pending">Pending</option>
@@ -261,8 +261,13 @@
                         <option value="completed">Completed</option>
                         <option value="cancelled">Cancelled</option>
                     </select>
+                    <button class="export-btn" id="exportBtn">
+                        <i class="bi bi-file-earmark-spreadsheet"></i> Export to Excel
+                    </button>
                 </div>
+
             </div>
+
             <div class="orders-table-container">
                 <table class="orders-table">
                     <thead>
@@ -280,7 +285,7 @@
                     </thead>
                     <tbody>
                         <!-- Pending Order -->
-                        <tr class="order-row" data-status="pending">
+                        <tr class="order-row" data-status="pending" data-id="OTIAjJYkpigIRshEPL">
                             <td><input type="checkbox" class="order-checkbox"></td>
                             <td>OTIAjJYkpigIRshEPL</td>
                             <td>amer molemed</td>
@@ -298,12 +303,38 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="order-details">
-                            <td colspan="9">1,402,684 E£</td>
+                        <tr class="order-details" id="details-OTIAjJYkpigIRshEPL">
+                            <td colspan="9">
+                                <div class="order-details-content">
+                                    <div class="order-items">
+                                        <div class="order-item">
+                                            <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/442cbdbfed544ea994b404c21abf9aeb_9366/JR3416_01_00_standard.jpg"
+                                                alt="Product Image">
+                                            <div class="item-details">
+                                                <div class="item-name">Adidas Shoes</div>
+                                                <div class="item-info">Brand: Adidas | Color: brown | Size: 40</div>
+                                                <div class="item-info">Price: 5,684 EGP | Qty: 2</div>
+                                            </div>
+                                            <div class="item-actions">
+                                                <div class="qty-control">
+                                                    <button class="qty-btn minus">-</button>
+                                                    <input type="text" class="qty-input" value="2">
+                                                    <button class="qty-btn plus">+</button>
+                                                </div>
+                                                <button class="delete-btn" title="Delete Item"><i
+                                                        class="bi bi-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-total">
+                                        <strong>Total: 5,744 E£</strong> (including 84 E£ cut)
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
 
                         <!-- Accepted Order -->
-                        <tr class="order-row" data-status="accepted">
+                        <tr class="order-row" data-status="accepted" data-id="OTI1234567890ABCDEF">
                             <td><input type="checkbox" class="order-checkbox"></td>
                             <td>OTI1234567890ABCDEF</td>
                             <td>John Smith</td>
@@ -321,12 +352,16 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="order-details">
-                            <td colspan="9">Order accepted and being prepared for shipment</td>
+                        <tr class="order-details" id="details-OTI1234567890ABCDEF">
+                            <td colspan="9">
+                                <div class="order-details-content">
+                                    Order accepted and being prepared for shipment
+                                </div>
+                            </td>
                         </tr>
 
                         <!-- Shipped Order -->
-                        <tr class="order-row" data-status="shipped">
+                        <tr class="order-row" data-status="shipped" data-id="OTI0987654321ZYXWVU">
                             <td><input type="checkbox" class="order-checkbox"></td>
                             <td>OTI0987654321ZYXWVU</td>
                             <td>Sarah Johnson</td>
@@ -340,16 +375,21 @@
                                     <button class="btn-view" title="View Details"><i class="bi bi-eye"></i></button>
                                     <button class="btn-complete" title="Mark as Completed"><i
                                             class="bi bi-check-circle"></i></button>
-                                    <button class="btn-track" title="Track Order"><i class="bi bi-geo-alt"></i></button>
+                                    <button class="btn-return" title="Mark as Returned"><i
+                                            class="bi bi-arrow-return-left"></i></button>
                                 </div>
                             </td>
                         </tr>
-                        <tr class="order-details">
-                            <td colspan="9">Shipped on Oct 15, 2023 - Tracking #: TRK789456123</td>
+                        <tr class="order-details" id="details-OTI0987654321ZYXWVU">
+                            <td colspan="9">
+                                <div class="order-details-content">
+                                    Shipped on Oct 15, 2023 - Tracking #: TRK789456123
+                                </div>
+                            </td>
                         </tr>
 
                         <!-- Completed Order -->
-                        <tr class="order-row" data-status="completed">
+                        <tr class="order-row" data-status="completed" data-id="OTI5555555555ABCDEF">
                             <td><input type="checkbox" class="order-checkbox"></td>
                             <td>OTI5555555555ABCDEF</td>
                             <td>Michael Brown</td>
@@ -366,20 +406,24 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="order-details">
-                            <td colspan="9">Delivered on Oct 12, 2023 - Customer confirmed receipt</td>
+                        <tr class="order-details" id="details-OTI5555555555ABCDEF">
+                            <td colspan="9">
+                                <div class="order-details-content">
+                                    Delivered on Oct 12, 2023 - Customer confirmed receipt
+                                </div>
+                            </td>
                         </tr>
 
-                        <!-- Cancelled Order -->
-                        <tr class="order-row" data-status="cancelled">
+                        <!-- Returned Order -->
+                        <tr class="order-row" data-status="returned" data-id="OTI7777888899990000">
                             <td><input type="checkbox" class="order-checkbox"></td>
-                            <td>OTI9998887776665554</td>
+                            <td>OTI7777888899990000</td>
                             <td>Emily Wilson</td>
                             <td>ewilson@example.com</td>
                             <td>Luxor</td>
                             <td>4,500 E£</td>
                             <td>65 E£</td>
-                            <td><span class="status-badge cancelled">Cancelled</span></td>
+                            <td><span class="status-badge returned">Returned</span></td>
                             <td>
                                 <div class="action-buttons">
                                     <button class="btn-view" title="View Details"><i class="bi bi-eye"></i></button>
@@ -388,13 +432,25 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="order-details">
-                            <td colspan="9">Cancelled by customer on Oct 10, 2023 - Refund processed</td>
+                        <tr class="order-details" id="details-OTI7777888899990000">
+                            <td colspan="9">
+                                <div class="order-details-content">
+                                    Returned on Oct 18, 2023 - Reason: Wrong size
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+
+
+
+
         </div>
+
+
+
 
         <!-- Products Content -->
         <div id="products" class="content-section">
@@ -408,7 +464,7 @@
 
                 <!-- Stats Cards -->
                 <div class="stats-container">
-                    <div class="card available">
+                    <div class="card available animatedtoup">
                         <div class="stat-card-header">
                             <div class="stat-card-title">Available Products</div>
                             <div class="stat-card-icon available">
@@ -425,7 +481,7 @@
                         </div>
                     </div>
 
-                    <div class="card uploaded">
+                    <div class="card uploaded animatedtoup">
                         <div class="stat-card-header">
                             <div class="stat-card-title">Uploaded Products</div>
                             <div class="stat-card-icon uploaded">
@@ -443,13 +499,13 @@
                     </div>
                 </div>
 
-                <div class="header-actions">
+                <div class="header-actions animatedtoup">
                     <div class="search-box">
                         <i class="bi bi-search"></i>
                         <input type="text" placeholder="Search Amoung Products..." id="productSearch">
                     </div>
                 </div>
-                <div class="btn-group-unique-container">
+                <div class="btn-group-unique-container animatedtoup">
                     <div class="btn-group-unique-wrapper">
                         <div class="btn-group-unique-buttons" style="transform: translateY(0px);">
                             <button class="btn-group-unique-btn btn-group-unique-primary">
@@ -476,7 +532,7 @@
             </div>
 
             <!-- Product Form -->
-            <div class="form-container">
+            <div class="form-container animatedtoup">
                 <div class="form-header">
                     <h4 class="form-title"><i class="bi bi-tag"></i> Product Information</h4>
                     <div class="form-actions">
@@ -537,7 +593,7 @@
             </div>
 
             <!-- Pricing Form -->
-            <div class="form-container">
+            <div class="form-container animatedtoup">
                 <div class="form-header">
                     <h4 class="form-title"><i class="bi bi-currency-exchange"></i> Pricing</h4>
                     <div class="form-actions">
@@ -597,7 +653,7 @@
             </div>
 
             <!-- Size & Quantity Form -->
-            <div class="form-container">
+            <div class="form-container animatedtoup">
                 <div class="form-header">
                     <h4 class="form-title"><i class="bi bi-rulers"></i> Size & Quantity</h4>
                     <div class="form-actions">
@@ -654,7 +710,7 @@
             </div>
 
             <!-- Images Form -->
-            <div class="form-container">
+            <div class="form-container animatedtoup">
                 <div class="form-header">
                     <h4 class="form-title"><i class="bi bi-images"></i> Images</h4>
                     <div class="form-actions">
@@ -756,7 +812,7 @@
                         <h2>Analytics Dashboard</h2>
                         <p>View your store performance and metrics</p>
                     </div>
-                    <div class="header-actions">
+                    <div class="header-actions animatedtoup">
                         <div class="date-filter">
                             <i class="bi bi-calendar"></i>
                             <select id="dateRange">
@@ -831,7 +887,7 @@
                     </div> -->
                 <div class="cards-grid">
                     <!-- Total Revenue Card -->
-                    <div class="card">
+                    <div class="card animatedtoup">
                         <div class="card-shine"></div>
                         <div class="card-header">
                             <h3 class="card-title">Total Revenue</h3>
@@ -846,7 +902,7 @@
                     </div>
 
                     <!-- Orders Card -->
-                    <div class="card">
+                    <div class="card animatedtoup">
                         <div class="card-shine"></div>
                         <div class="card-header">
                             <h3 class="card-title">Orders</h3>
@@ -861,7 +917,7 @@
                     </div>
 
                     <!-- Orders Card -->
-                    <div class="card">
+                    <div class="card animatedtoup">
                         <div class="card-shine"></div>
                         <div class="card-header">
                             <h3 class="card-title">Customers</h3>
@@ -874,7 +930,7 @@
                             <i class="bi bi-arrow-up"></i> 8.3% from last period
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card animatedtoup">
                         <div class="card-shine"></div>
                         <div class="card-header">
                             <h3 class="card-title">Conversion Rate</h3>
@@ -891,7 +947,7 @@
 
                 </div>
 
-                <div class="charts-container">
+                <div class="charts-container animatedtoup">
                     <div class="chart-card">
                         <div class="chart-header">
                             <div class="chart-title">Revenue Overview</div>
@@ -933,7 +989,8 @@
                         </div>
 
                         <div class="product-row">
-                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <img src="https://tse4.mm.bing.net/th/id/OIP.o5fa__csq4IXTair-Xv6QgHaJ4?rs=1&pid=ImgDetMain&o=7&rm=3"
+                                class="product-img" alt="Product">
                             <div class="product-info">
                                 <div class="product-name">Classic White T-Shirt</div>
                                 <div class="product-category">T-Shirts</div>
@@ -942,7 +999,8 @@
                         </div>
 
                         <div class="product-row">
-                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <img src="https://tse4.mm.bing.net/th/id/OIP.eC2q43oMf0alx9qIUyCowgHaJf?rs=1&pid=ImgDetMain&o=7&rm=3"
+                                class="product-img" alt="Product">
                             <div class="product-info">
                                 <div class="product-name">Slim Fit Jeans</div>
                                 <div class="product-category">Jeans</div>
@@ -951,7 +1009,8 @@
                         </div>
 
                         <div class="product-row">
-                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <img src="https://cdn.media.amplience.net/i/mrpricegroup/01_100810683_SI_00"
+                                class="product-img" alt="Product">
                             <div class="product-info">
                                 <div class="product-name">Sports Hoodie</div>
                                 <div class="product-category">Hoodies</div>
@@ -960,7 +1019,8 @@
                         </div>
 
                         <div class="product-row">
-                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <img src="https://tse1.mm.bing.net/th/id/OIP.pQfKljCkoI_6XqS-gqUk7gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+                                class="product-img" alt="Product">
                             <div class="product-info">
                                 <div class="product-name">Running Shoes</div>
                                 <div class="product-category">Footwear</div>
@@ -969,7 +1029,8 @@
                         </div>
 
                         <div class="product-row">
-                            <img src="https://via.placeholder.com/40" class="product-img" alt="Product">
+                            <img src="https://tse1.mm.bing.net/th/id/OIP.0_PYABBVvQXX-fKjl8Jp-gHaE6?rs=1&pid=ImgDetMain&o=7&rm=3"
+                                class="product-img" alt="Product">
                             <div class="product-info">
                                 <div class="product-name">Baseball Cap</div>
                                 <div class="product-category">Accessories</div>
@@ -1284,47 +1345,6 @@
                 });
             });
         </script>
-        <!-- <script>
-            // Set initial state for animation
-            function initializeCards() {
-                const cards = document.querySelectorAll('.card');
-                cards.forEach(card => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                });
-            }
-
-            // Animate cards function
-            function animateCards() {
-                const cards = document.querySelectorAll('.card');
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100 * index);
-                });
-            }
-
-            // Reset animation
-            function resetAnimation() {
-                const cards = document.querySelectorAll('.card');
-                cards.forEach(card => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                });
-
-                // Re-animate after reset
-                setTimeout(animateCards, 100);
-            }
-
-            // Initialize on page load
-            document.addEventListener('DOMContentLoaded', function () {
-                initializeCards();
-                // Start animation after a short delay
-                setTimeout(animateCards, 100);
-            });
-        </script> -->
 
         <script>
             // Set initial state for animation for specific section
@@ -1332,7 +1352,7 @@
                 const section = document.getElementById(sectionId);
                 if (!section) return;
 
-                const elementsToAnimate = section.querySelectorAll('.card, .image-card, .dashboard-right-header, .stats-container, .charts-container, .data-grid, .btn-group-unique-container, .search-box, .orders-controls, .orders-table-container, .form-container');
+                const elementsToAnimate = section.querySelectorAll('.dashboard-right-header, .stats-container, .charts-container, .data-grid, .search-box, .orders-controls, .orders-table-container, .form-container  ,.animatedtoup');
 
                 // Also get header and main-content if they exist (they're outside sections)
                 const header = document.querySelector('.header');
@@ -1362,7 +1382,7 @@
                 const section = document.getElementById(sectionId);
                 if (!section) return;
 
-                const elementsToAnimate = section.querySelectorAll('.card, .image-card, .dashboard-right-header, .stats-container, .charts-container, .data-grid, .btn-group-unique-container, .search-box, .orders-controls, .orders-table-container, .form-container');
+                const elementsToAnimate = section.querySelectorAll(' .dashboard-right-header, .stats-container, .charts-container, .data-grid, .search-box, .orders-controls, .orders-table-container, .form-container  ,.animatedtoup');
 
                 // Also get header and main-content if they exist
                 const header = document.querySelector('.header');
@@ -1393,7 +1413,7 @@
                 const section = document.getElementById(sectionId);
                 if (!section) return;
 
-                const elementsToAnimate = section.querySelectorAll('.card, .image-card, .dashboard-right-header, .stats-container, .charts-container, .data-grid, .btn-group-unique-container, .search-box, .orders-controls, .orders-table-container, .form-container');
+                const elementsToAnimate = section.querySelectorAll(' .dashboard-right-header, .stats-container, .charts-container, .data-grid, .search-box, .orders-controls, .orders-table-container, .form-container , .animatedtoup');
                 elementsToAnimate.forEach(element => {
                     element.style.opacity = '0';
                     element.style.transform = 'translateY(20px)';
