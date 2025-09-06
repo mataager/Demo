@@ -575,6 +575,7 @@
  }
 
  .orders-table td {
+     background: var(--card-bg);
      font-weight: 300;
      padding: 20px;
      border-bottom: 1px solid var(--border-color);
@@ -662,6 +663,7 @@
      padding: 20px;
      background-color: var(--hover-color);
      border-radius: 6px;
+     border: 1px solid var(--border-color);
  }
 
  .order-details-content h4 {
@@ -2128,6 +2130,10 @@
      margin-bottom: 40px;
  }
 
+ .animatedtoup {
+     transition: opacity 0.5s, transform 0.5s !important;
+ }
+
  /* Unified Card Style */
  .card {
      background: var(--card-bg);
@@ -2138,7 +2144,8 @@
      position: relative;
      overflow: hidden;
      opacity: 0;
-     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+     /* transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease; */
+
 
  }
 
@@ -2479,3 +2486,30 @@
          justify-content: space-between;
      }
  }
+
+ .export-btn {
+     background-color: #28a745;
+     color: white;
+     border: none;
+     padding: 10px 15px;
+     border-radius: 5px;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     gap: 5px;
+     font-weight: 600;
+     transition: all 0.2s ease;
+ }
+
+ .export-btn:hover {
+     background-color: #218838;
+ }
+
+ .filter-controls {
+     gap: 10px;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: flex-end;
+ }
+
+ /* sixth */
